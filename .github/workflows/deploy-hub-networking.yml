@@ -81,9 +81,10 @@ jobs:
       id: create_hub_network
       shell: bash
       run: |
-          az deployment group create --resource-group ${{ env.ResourceGroupName }} --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep --parameters @infra-as-code/bicep/hubNetworking/parameters/hubNetworking.parameters.all.json parLocation=${{ env.Location }} 
+          az account set --subscription ${{ env.connSubscriptionId }}
+          az group create --name ${{ env.connResourceGroup }} --location ${{ env.Location }}
+          az deployment group create --resource-group ${{ env.connResourceGroup }} --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep --parameters @infra-as-code/bicep/modules/hubNetworking/parameters/hubNetworking.parameters.all.json parLocation=${{ env.Location }} 
 
-          
     - name: Az CLI Deploy Spoke Networking for PR
       id: create_spoke_network
       shell: bash
@@ -91,4 +92,12 @@ jobs:
           az account set --subscription ${{ env.spokeSubscriptionId }}
           az group create --name ${{ env.spokeResourceGroup }} --location ${{ env.Location }}
           az deployment group create --resource-group ${{ env.spokeResourceGroup }} --template-file infra-as-code/bicep/modules/spokeNetworking/spokeNetworking.bicep
+
+    - name: Az CLI Delete Hub Networking for PR
+      id: delete_hub_network
+      shell: bash
+      run: |
+          az account set --subscription ${{ env.connSubscriptionId }}
+          az group delete --name ${{ env.connResourceGroup }} --yes
+
 
