@@ -1,5 +1,5 @@
 
-name: Cancel Azure Subscription on PR Close
+name: Deploy ALZ in HUB Networking configuration
 
 # only trigger on pull request closed events
 on:
@@ -8,9 +8,11 @@ on:
 permissions:
       id-token: write
       contents: read
-      
+
 env:
-  SubscriptionName: "sub-unit-test-pr-${{ github.event.number }}"
+  Location: "norwayeast"
+  ManagementGroupPrefix: "hubnw"
+
   
 jobs:
   close_job:
@@ -36,21 +38,13 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
       
-    - name: 'Run Azure CLI commands'
-      run: |
-          az account show
-          az group list
-          pwd 
-
-    # - name: Check if PR has an associated Azure Subscription
-    #   shell: pwsh
-    #   run: |
-    #     Install-Module -Name Az.Resources -Force
-    #     $subscription = Get-AzSubscription -SubscriptionName ${{ env.SubscriptionName }} -ErrorAction SilentlyContinue
-    #     If($subscription) {
-    #       echo "subscriptionId=$($subscription.Id)" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
-    #       Write-Information "==> Azure Subscription Found called: ${{ env.SubscriptionName }}" -InformationAction Continue
-    #     }
+    - task: Bash@3     
+      displayName: Az CLI Deploy Management Groups for PR
+      name: create_mgs
+      inputs:
+        targetType: 'inline'
+        script: |
+            az deployment tenant create --template-file infra-as-code/bicep/modules/managementGroups/managementGroups.bicep --parameters @infra-as-code/bicep/modules/managementGroups/parameters/managementGroups.parameters.all.json parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) --location $(Location) --name $(ManagementGroupPrefix)
 
     # - name: Remove existing Resource Groups in PR associated Azure Subscription
     #   if: ${{ env.subscriptionId != '' }}
