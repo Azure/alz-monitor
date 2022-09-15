@@ -5,6 +5,10 @@ name: Cancel Azure Subscription on PR Close
 on:
   workflow_dispatch: {}
 
+permissions:
+      id-token: write
+      contents: read
+      
 env:
   SubscriptionName: "sub-unit-test-pr-${{ github.event.number }}"
   
