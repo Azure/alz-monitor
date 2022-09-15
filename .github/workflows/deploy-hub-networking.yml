@@ -69,7 +69,7 @@ jobs:
       id: create_policy_assignment_dine
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) parLogAnalyticsWorkSpaceAndAutomationAccountLocation=${{ env.Location }} parLogAnalyticsWorkspaceResourceId="/subscriptions/${{ env.mgSubscriptionId }}/resourceGroups/${{ env.mgResourceGroup }}/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" parDdosProtectionPlanId="/subscriptions/${{ env.connSubscriptionId }}/resourceGroups/${{ env.connResourceGroup }}/providers/Microsoft.Network/ddosProtectionPlans/alz-ddos-plan" --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones" 
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parLogAnalyticsWorkSpaceAndAutomationAccountLocation=${{ env.Location }} parLogAnalyticsWorkspaceResourceId="/subscriptions/${{ env.mgSubscriptionId }}/resourceGroups/${{ env.mgResourceGroup }}/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" parDdosProtectionPlanId="/subscriptions/${{ env.connSubscriptionId }}/resourceGroups/${{ env.connResourceGroup }}/providers/Microsoft.Network/ddosProtectionPlans/alz-ddos-plan" --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones" 
           
     - name: Az CLI Subscription Placement for PR
       id: move_sub
@@ -83,9 +83,11 @@ jobs:
     # #   run: |
     # #       az deployment group create --resource-group ${{ env.ResourceGroupName }} --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep
           
-    # - name: Az CLI Deploy Spoke Networking for PR
-    #   id: create_spoke_network
-    #   shell: bash
-    #   run: |
-    #       az deployment group create --resource-group ${{ env.ResourceGroupName }} --template-file infra-as-code/bicep/modules/spokeNetworking/spokeNetworking.bicep
+    - name: Az CLI Deploy Spoke Networking for PR
+      id: create_spoke_network
+      shell: bash
+      run: |
+          az account set --subscription ${{ env.spokeSubscriptionId }}
+          az group create --name ${{ env.spokeResourceGroup }} --location ${{ env.Location }}
+          az deployment group create --resource-group ${{ env.spokeResourceGroup }} --template-file infra-as-code/bicep/modules/spokeNetworking/spokeNetworking.bicep
 
