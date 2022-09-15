@@ -12,7 +12,7 @@ permissions:
 env:
   Location: "norwayeast"
   ManagementGroupPrefix: "hubnw"
-
+  TopLevelManagementGroupDisplayName: "HUb Networking management group hierarchy"
   
 jobs:
   close_job:
@@ -24,12 +24,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    # - name: Azure Login
-    #   uses: azure/login@v1
-    #   with:
-    #     creds: ${{ secrets.ALZ_AZURE_SECRET_UNIT_TESTS }}
-    #     enable-AzPSSession: true
-
     - name: 'Az CLI login'
       uses: azure/login@v1
       with:
@@ -37,36 +31,9 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
-      
-    - task: Bash@3     
-      displayName: Az CLI Deploy Management Groups for PR
-      name: create_mgs
-      inputs:
-        targetType: 'inline'
-        script: |
-            az deployment tenant create --template-file infra-as-code/bicep/modules/managementGroups/managementGroups.bicep --parameters @infra-as-code/bicep/modules/managementGroups/parameters/managementGroups.parameters.all.json parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) --location $(Location) --name $(ManagementGroupPrefix)
 
-    # - name: Remove existing Resource Groups in PR associated Azure Subscription
-    #   if: ${{ env.subscriptionId != '' }}
-    #   shell: pwsh
-    #   run: |
-    #     Select-AzSubscription -SubscriptionId ${{ env.subscriptionId }} 
-    #     $resourceGroups = @()
-    #     $resourceGroups += Get-AzResourceGroup
-    #     $resourceGroups | Select-Object -Property ResourceGroupName
-    #     If ($resourceGroups.Count -gt 0) {
-    #         $resourceGroups | ForEach-Object -Parallel {
-    #             Write-Information "==>Deleting resource group $($PSItem.ResourceGroupName)"
-    #             Remove-AzResourceGroup -Name $PSItem.ResourceGroupName -Force
-    #         }
-    #     }
-
-    # - name: Cancel PR associated Azure Subscription
-    #   if: ${{ env.subscriptionId != '' }}
-    #   shell: pwsh
-    #   run: |
-    #     Install-Module -Name Az.Subscription -Force
-    #     Write-Information "==> PR #${{ github.event.number }} has been merged" -InformationAction Continue
-    #     Write-Information "==> ${{ env.SubscriptionName }} to be deleted" -InformationAction Continue
-    #     Update-AzSubscription -SubscriptionId ${{ env.subscriptionId }} -Action 'Cancel' -Debug -Confirm:$false
-
+    - name: Az CLI Deploy Management Groups for PR
+      id: create_mgs
+      shell: bash
+      run: |
+        az deployment tenant create --template-file infra-as-code/bicep/modules/managementGroups/managementGroups.bicep --parameters parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parTopLevelManagementGroupDisplayName="${{ env.TopLevelManagementGroupDisplayName }}" --location ${{ env.Location }}
