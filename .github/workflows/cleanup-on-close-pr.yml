@@ -3,10 +3,7 @@ name: Cancel Azure Subscription on PR Close
 
 # only trigger on pull request closed events
 on:
-  pull_request:
-    branches:
-      - main
-    types: [ closed ]
+  workflow_dispatch: {}
 
 env:
   SubscriptionName: "sub-unit-test-pr-${{ github.event.number }}"
