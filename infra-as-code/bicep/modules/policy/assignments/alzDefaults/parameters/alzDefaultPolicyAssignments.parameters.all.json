@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "parTopLevelManagementGroupPrefix": {
+            "value": "aes"
+        },
+        "parLogAnalyticsWorkSpaceAndAutomationAccountLocation": {
+            "value": "eastus"
+        },
+        "parLogAnalyticsWorkspaceResourceId": {
+            "value": "/subscriptions/dfecb180-01a5-421a-af05-6b70a7e3241b/resourcegroups/aes-logging/providers/microsoft.operationalinsights/workspaces/aes-log-analytics"
+        },
+        "parLogAnalyticsWorkspaceLogRetentionInDays": {
+            "value": "365"
+        },
+        "parAutomationAccountName": {
+            "value": "aes-automation-account"
+        },
+        "parMsDefenderForCloudEmailSecurityContact": {
+            "value": "security_contact@replace_me.com"
+        },
+        "parDdosProtectionPlanId": {
+            "value": "/subscriptions/40b80d23-582b-450f-9bfd-15027ea7aed0/resourceGroups/Hub_Networking_POC/providers/Microsoft.Network/ddosProtectionPlans/aes-ddos-plan"
+        },
+        "parTelemetryOptOut": {
+            "value": false
+        }
+    }
+}
