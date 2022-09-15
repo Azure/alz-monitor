@@ -52,7 +52,7 @@ jobs:
       id: create_policy_defs
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/custom-policy-definitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/custom-policy-definitions.parameters.all.json parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/customPolicyDefinitions.parameters.all.json parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
     
     - name: Az CLI Deploy Logging for PR
       id: create_logging
