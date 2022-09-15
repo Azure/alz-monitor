@@ -11,7 +11,13 @@ Module deploys the following resources:
 - Spoke to hub peering - if resource id of hub virtual network object is specified in parHubVirtualNetworkID
 - Spoke to virtual WAN peering - if resource id of virtual WAN hub object is specified in parHubVirtualNetworkID
 
-Note that only one peering type can be created with this module, so either traditional Hub & Spoke OR Azure virtual WAN.
+Note that only one peering type can be created with this module, so either traditional Hub & Spoke **OR** Azure virtual WAN.
+
+<!-- markdownlint-disable -->
+> You can use this module to enable Landing Zones (aka Subscriptions) with platform resources, as defined above, and also place them into the correct location in the hierarchy to meet governance requirements. For example, you can also use this module to deploy the Identity Landing Zone Subscription's vNet and peer it back to the hub vNet.
+> 
+> You could also use it in a [loop](https://docs.microsoft.com/azure/azure-resource-manager/bicep/loops) to enable multiple Landing Zone Subscriptions at a time in a single deployment.
+<!-- markdownlint-restore -->
 
 ## Parameters
 
@@ -57,10 +63,6 @@ In this example, the spoke resources will be deployed to the resource group spec
 ### Azure CLI
 ```bash
 # For Azure global regions
-# Set Azure Corp Landing zone subscription ID as the the current subscription 
-LandingZoneSubscriptionId="[your landing zone subscription ID]"
-az account set --subscription $LandingZoneSubscriptionId
-
 az deployment mg create \
     --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep \
     --parameters @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.all.json \
@@ -70,10 +72,6 @@ az deployment mg create \
 OR
 ```bash
 # For Azure China regions
-# Set Azure Corp Landing zone subscription ID as the the current subscription
-LandingZoneSubscriptionId="[your landing zone subscription ID]"
-az account set --subscription $LandingZoneSubscriptionId
-
 az deployment mg create \
     --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep \
     --parameters @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.all.json \
@@ -85,10 +83,6 @@ az deployment mg create \
 
 ```powershell
 # For Azure global regions
-# Set Azure Corp Landing zone subscription ID as the the current subscription 
-$LandingZoneSubscriptionId="[your landing zone subscription ID]"
-Select-AzSubscription -SubscriptionId $LandingZoneSubscriptionId
-  
 New-AzManagementGroupDeployment `
   -TemplateFile infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep `
   -TemplateParameterFile infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.all.json `
@@ -98,12 +92,6 @@ New-AzManagementGroupDeployment `
 OR
 ```powershell
 # For Azure China regions
-# Set Platform connectivity subscription ID as the the current subscription 
-$LandingZoneSubscriptionId="[your landing zone subscription ID]"
-$TopLevelManagemetGroupID="alz"
-
-Select-AzSubscription -SubscriptionId $LandingZoneSubscriptionId
-  
 New-AzManagementGroupDeployment `
   -TemplateFile infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep `
   -TemplateParameterFile infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.all.json `

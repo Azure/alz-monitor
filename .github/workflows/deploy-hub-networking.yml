@@ -12,10 +12,13 @@ permissions:
 env:
   Location: "norwayeast"
   ManagementGroupPrefix: "hubnw"
-  TopLevelManagementGroupDisplayName: "HUb Networking management group hierarchy"
+  TopLevelManagementGroupDisplayName: "Hub Networking management group hierarchy"
   mgSubscriptionId: "6628bab6-9526-4636-a37a-182052d9671c"
   mgResourceGroup: "hubnw-mgmt"
-  #connSubscriptionId:
+  connSubscriptionId: "cef889d1-be0e-48d3-ab41-6a15291a2d95"
+  connResourceGroup: "hubnw-connectivity"
+  spokeSubscriptionId: "3b6e398c-8e14-47b5-952b-f201880f9746"
+  spokeResourceGroup: "spoke-connectivity"
 
   
 jobs:
@@ -61,4 +64,29 @@ jobs:
           az account set --subscription ${{ env.mgsubscriptionId }}
           az group create --name ${{ env.mgResourceGroup }} --location ${{ env.Location }}
           az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
+
+    # - name: Az CLI Policy Assignment DINE for PR
+    #   id: create_policy_assignment_dine
+    #   shell: bash
+    #   run: |
+    #       az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.parameters.example-dine.json --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones"
+    #       az deployment mg create --template-file infra-as-code/bicep/modules/roleAssignments/roleAssignmentManagementGroup.bicep --parameters @infra-as-code/bicep/modules/roleAssignments/roleAssignmentManagementGroup.parameters.service-principal.example.json --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-platform"
+
+    - name: Az CLI Subscription Placement for PR
+      id: move_sub
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters @infra-as-code/bicep/orchestration/subPlacementAll/parameters/ parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+
+    # # - name: Az CLI Deploy Hub Networking for PR
+    # #   id: create_hub_network
+    # #   shell: bash
+    # #   run: |
+    # #       az deployment group create --resource-group ${{ env.ResourceGroupName }} --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep
+          
+    # - name: Az CLI Deploy Spoke Networking for PR
+    #   id: create_spoke_network
+    #   shell: bash
+    #   run: |
+    #       az deployment group create --resource-group ${{ env.ResourceGroupName }} --template-file infra-as-code/bicep/modules/spokeNetworking/spokeNetworking.bicep
 

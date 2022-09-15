@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "parLogAnalyticsWorkspaceName": {
-      "value": "aes-log-analytics"
+      "value": "alz-log-analytics"
     },
     "parLogAnalyticsWorkspaceLocation": {
       "value": "eastus"
@@ -31,7 +31,7 @@
       ]
     },
     "parAutomationAccountName": {
-      "value": "aes-automation-account"
+      "value": "alz-automation-account"
     },
     "parAutomationAccountLocation": {
       "value": "eastus2"
