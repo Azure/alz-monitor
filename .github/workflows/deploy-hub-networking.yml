@@ -1,0 +1,64 @@
+
+name: Deploy ALZ in HUB Networking configuration
+
+# only trigger on pull request closed events
+on:
+  workflow_dispatch: {}
+
+permissions:
+      id-token: write
+      contents: read
+
+env:
+  Location: "norwayeast"
+  ManagementGroupPrefix: "hubnw"
+  TopLevelManagementGroupDisplayName: "HUb Networking management group hierarchy"
+  mgSubscriptionId: "6628bab6-9526-4636-a37a-182052d9671c"
+  mgResourceGroup: "hubnw-mgmt"
+  #connSubscriptionId:
+
+  
+jobs:
+  deploy_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+    - name: Az CLI Deploy Management Groups for PR
+      id: create_mgs
+      shell: bash
+      run: |
+        az deployment tenant create --template-file infra-as-code/bicep/modules/managementGroups/managementGroups.bicep --parameters parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parTopLevelManagementGroupDisplayName="${{ env.TopLevelManagementGroupDisplayName }}" --location ${{ env.Location }}
+
+    - name: Az CLI Deploy Custom Role Definitions for PR
+      id: create_rbac_roles
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep --parameters @infra-as-code/bicep/modules/customRoleDefinitions/parameters/customRoleDefinitions.parameters.all.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+
+    - name: Az CLI Deploy Custom Policy Definitions for PR
+      id: create_policy_defs
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/custom-policy-definitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/custom-policy-definitions.parameters.all.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    
+    - name: Az CLI Deploy Logging for PR
+      id: create_logging
+      shell: bash
+      run: |
+          az account set --subscription ${{ env.mgsubscriptionId }}
+          az group create --name ${{ env.mgResourceGroup }} --location ${{ env.Location }}
+          az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
+
