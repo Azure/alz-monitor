@@ -1,5 +1,5 @@
 
-name: Deploy ALZ in HUB Networking configuration
+name: Delete all hub/vwan networking components
 
 # only trigger on pull request closed events
 on:
