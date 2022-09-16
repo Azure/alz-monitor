@@ -24,7 +24,7 @@ env:
 
   
 jobs:
-  deploy_job:
+  delete_hub_job:
     runs-on: ubuntu-latest
 
     steps:
@@ -57,6 +57,23 @@ jobs:
           az group delete --name ${{ env.hubSpokeResourceGroup }} --yes
       continue-on-error: true
 
+  delete_vwan_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
     - name: Az CLI Delete vWAN Network
       id: delete_vwan_network
       shell: bash
@@ -72,4 +89,3 @@ jobs:
           az account set --subscription ${{ env.vwanSpokeSubscriptionId }}
           az group delete --name ${{ env.vwanSpokeResourceGroup }} --yes
       continue-on-error: true
-
