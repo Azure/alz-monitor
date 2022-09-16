@@ -1,0 +1,104 @@
+
+name: Deploy ALZ in vwan Networking configuration
+
+# only trigger on pull request closed events
+on:
+  workflow_dispatch: {}
+
+permissions:
+      id-token: write
+      contents: read
+
+env:
+  Location: "norwayeast"
+  ManagementGroupPrefix: "vwan"
+  TopLevelManagementGroupDisplayName: "VWAN Networking management group hierarchy"
+  mgSubscriptionId: "512307ea-3f76-4a8d-8f4f-0df465351158"
+  mgResourceGroup: "vwan-mgmt"
+  connSubscriptionId: "b520e36b-23a2-4c14-a04f-854dc0c24ee1"
+  connResourceGroup: "vwan-connectivity"
+  spokeSubscriptionId: "328c153d-e17a-43f1-85fa-26295930711d"
+  spokeResourceGroup: "spoke-connectivity"
+
+  
+jobs:
+  deploy_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+    - name: Az CLI Deploy Management Groups
+      id: create_mgs
+      shell: bash
+      run: |
+        az deployment tenant create --template-file infra-as-code/bicep/modules/managementGroups/managementGroups.bicep --parameters parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parTopLevelManagementGroupDisplayName="${{ env.TopLevelManagementGroupDisplayName }}" --location ${{ env.Location }}
+
+    - name: Az CLI Deploy Custom Role Definitions
+      id: create_rbac_roles
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep --parameters @infra-as-code/bicep/modules/customRoleDefinitions/parameters/customRoleDefinitions.parameters.all.json parAssignableScopeManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+
+    - name: Az CLI Deploy Custom Policy Definitions for PR
+      id: create_policy_defs
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/customPolicyDefinitions.parameters.all.json parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    
+    - name: Az CLI Deploy Logging for PR
+      id: create_logging
+      shell: bash
+      run: |
+          az account set --subscription ${{ env.mgSubscriptionId }}
+          az group create --name ${{ env.mgResourceGroup }} --location ${{ env.Location }}
+          az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
+
+    - name: Az CLI Default ALZ Policy assignments
+      id: create_policy_assignment_dine
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parLogAnalyticsWorkSpaceAndAutomationAccountLocation=${{ env.Location }} parLogAnalyticsWorkspaceResourceId="/subscriptions/${{ env.mgSubscriptionId }}/resourceGroups/${{ env.mgResourceGroup }}/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones" 
+          
+    - name: Az CLI Subscription Placement for PR
+      id: move_sub
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters @infra-as-code/bicep/orchestration/subPlacementAll/parameters/subPlacementAll.parameters.vwan.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+
+    - name: Az CLI Deploy VWAN Networking for PR
+      id: create_hub_network
+      shell: bash
+      run: |
+          az account set --subscription ${{ env.connSubscriptionId }}
+          az group create --name ${{ env.connResourceGroup }} --location ${{ env.Location }}
+          az deployment group create --resource-group ${{ env.connResourceGroup }} --template-file infra-as-code/bicep/modules/vwanConnectivity/vwanConnectivity.bicep --parameters @infra-as-code/bicep/modules/vwanConnectivity/parameters/vwanConnectivity.parameters.all.json parLocation=${{ env.Location }} 
+    
+    # #Replace with spoke orchestration
+    # - name: Az CLI Deploy Spoke Networking for PR
+    #   id: create_spoke_network
+    #   shell: bash
+    #   run: |
+    #       az account set --subscription ${{ env.spokeSubscriptionId }}
+    #       az group create --name ${{ env.spokeResourceGroup }} --location ${{ env.Location }}
+    #       az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.vwan.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+
+    # - name: Az CLI Delete vwan Networking for PR
+    #   id: delete_hub_network
+    #   shell: bash
+    #   run: |
+    #       az account set --subscription ${{ env.connSubscriptionId }}
+    #       az group delete --name ${{ env.connResourceGroup }} --yes
+
+

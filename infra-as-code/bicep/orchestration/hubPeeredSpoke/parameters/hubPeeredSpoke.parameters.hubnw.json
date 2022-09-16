@@ -6,13 +6,13 @@
         "value": "norwayeast"
       },
       "parTopLevelManagementGroupPrefix": {
-        "value": "hubnw"
+        "value": "vwan"
       },
       "parPeeredVnetSubscriptionId": {
-        "value": "3b6e398c-8e14-47b5-952b-f201880f9746"
+        "value": "328c153d-e17a-43f1-85fa-26295930711d"
       },
       "parPeeredVnetSubscriptionMgPlacement": {
-        "value": "hubnw-landingzones-corp"
+        "value": "vwan-landingzones-corp"
       },
       "parDdosProtectionPlanId": {
         "value": ""
