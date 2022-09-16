@@ -1,0 +1,56 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "parLocation": {
+        "value": "norwayeast"
+      },
+      "parTopLevelManagementGroupPrefix": {
+        "value": "vwan"
+      },
+      "parPeeredVnetSubscriptionId": {
+        "value": "328c153d-e17a-43f1-85fa-26295930711d"
+      },
+      "parPeeredVnetSubscriptionMgPlacement": {
+        "value": "vwan-landingzones-corp"
+      },
+      "parDdosProtectionPlanId": {
+        "value": ""
+      },
+      "parSpokeNetworkName": {
+        "value": "vnet-spoke"
+      },
+      "parSpokeNetworkAddressPrefix": {
+        "value": "10.202.0.0/24"
+      },
+      "parDnsServerIps": {
+        "value": []
+      },
+      "parNextHopIpAddress": {
+        "value": "10.20.255.4"
+      },
+      "parDisableBgpRoutePropagation": {
+        "value": false
+      },      
+      "parSpoketoHubRouteTableName": {
+        "value": "rtb-spoke-to-hub"
+      },
+      "parHubVirtualNetworkId": {
+        "value": "/subscriptions/b520e36b-23a2-4c14-a04f-854dc0c24ee1/resourceGroups/vwan-connectivity/providers/Microsoft.Network/virtualHubs/alz-vhub-eastus"
+      },
+      "parAllowSpokeForwardedTraffic": {
+        "value": false
+      },
+      "parAllowHubVPNGatewayTransit": {
+        "value": true
+      },
+      "parTags": {
+        "value": {
+          "Environment": "POC"
+        }
+      },
+      "parTelemetryOptOut": {
+        "value": false
+      }
+    }
+  }

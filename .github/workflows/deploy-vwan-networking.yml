@@ -85,14 +85,14 @@ jobs:
           az group create --name ${{ env.connResourceGroup }} --location ${{ env.Location }}
           az deployment group create --resource-group ${{ env.connResourceGroup }} --template-file infra-as-code/bicep/modules/vwanConnectivity/vwanConnectivity.bicep --parameters @infra-as-code/bicep/modules/vwanConnectivity/parameters/vwanConnectivity.parameters.all.json parLocation=${{ env.Location }} 
     
-    # #Replace with spoke orchestration
-    # - name: Az CLI Deploy Spoke Networking for PR
-    #   id: create_spoke_network
-    #   shell: bash
-    #   run: |
-    #       az account set --subscription ${{ env.spokeSubscriptionId }}
-    #       az group create --name ${{ env.spokeResourceGroup }} --location ${{ env.Location }}
-    #       az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.vwan.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    #Replace with spoke orchestration
+    - name: Az CLI Deploy Spoke Networking for PR
+      id: create_spoke_network
+      shell: bash
+      run: |
+          az account set --subscription ${{ env.spokeSubscriptionId }}
+          az group create --name ${{ env.spokeResourceGroup }} --location ${{ env.Location }}
+          az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.vwan.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     # - name: Az CLI Delete vwan Networking for PR
     #   id: delete_hub_network
