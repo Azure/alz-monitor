@@ -90,8 +90,6 @@ jobs:
       id: create_spoke_network
       shell: bash
       run: |
-          az account set --subscription ${{ env.spokeSubscriptionId }}
-          az group create --name ${{ env.spokeResourceGroup }} --location ${{ env.Location }}
           az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.vwan.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     # - name: Az CLI Delete vwan Networking for PR

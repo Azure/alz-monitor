@@ -122,7 +122,7 @@
       ]
     },
     "parVirtualNetworkIdToLink": {
-      "value": "/subscriptions/b520e36b-23a2-4c14-a04f-854dc0c24ee1/resourceGroups/vwan-connectivity/providers/Microsoft.Network/virtualNetworks/alz-hub-eastus"
+      "value": ""
     },
     "parTags": {
       "value": {

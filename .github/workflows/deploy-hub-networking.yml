@@ -89,8 +89,6 @@ jobs:
       id: create_spoke_network
       shell: bash
       run: |
-          az account set --subscription ${{ env.spokeSubscriptionId }}
-          az group create --name ${{ env.spokeResourceGroup }} --location ${{ env.Location }}
           az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     # - name: Az CLI Delete Hub Networking for PR
