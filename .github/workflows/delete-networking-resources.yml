@@ -3,6 +3,8 @@ name: Delete all hub/vwan networking components
 
 # only trigger on pull request closed events
 on:
+  schedule: 
+    - cron: '* 00 * * *'
   workflow_dispatch: {}
 
 permissions:
