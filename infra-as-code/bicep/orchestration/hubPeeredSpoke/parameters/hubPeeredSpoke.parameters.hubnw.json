@@ -6,19 +6,19 @@
         "value": "norwayeast"
       },
       "parTopLevelManagementGroupPrefix": {
-        "value": "vwan"
+        "value": "hubnw"
       },
       "parPeeredVnetSubscriptionId": {
-        "value": "328c153d-e17a-43f1-85fa-26295930711d"
+        "value": "3b6e398c-8e14-47b5-952b-f201880f9746"
       },
       "parPeeredVnetSubscriptionMgPlacement": {
-        "value": "vwan-landingzones-corp"
+        "value": "hubnw-landingzones-corp"
       },
       "parDdosProtectionPlanId": {
         "value": ""
       },
       "parSpokeNetworkName": {
-        "value": "vnet-spoke2"
+        "value": "vnet-spoke"
       },
       "parSpokeNetworkAddressPrefix": {
         "value": "10.202.0.0/24"
