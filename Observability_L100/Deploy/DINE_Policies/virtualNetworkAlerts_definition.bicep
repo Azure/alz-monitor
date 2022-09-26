@@ -1,12 +1,14 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param deploymentRoleDefinitionIds array = ['/subscriptions/c7a405fc-3d07-4fac-b4ab-8254c690fad1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c']
+param deploymentRoleDefinitionIds array = [
+    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+]
 
-module PingAvgRoundtripAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module PingAvgRoundtripAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnparta-policyDefinitions'
     params: {
-        name: 'policy-vnet-${environment()}-${policyLocation}-001'
+        name: 'Deploy_VNET_PingAvgRoundtrip_Alert'
         displayName: '[DINE] Deploy VNet Ping Avg Roundtrip Alert'
         description: 'DINE policy to audit/deploy Virtual Network Ping Average Roundtrip Alert'
         location: policyLocation
@@ -63,34 +65,38 @@ module PingAvgRoundtripAlert '../../arm/Microsoft.Authorization/policyDefinition
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-AverageRoundtripAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VNet ping Average Roundtrip Time'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'PingMeshAverageRoundtripMs'
-                                                    metricNamespace: 'Microsoft.Network/virtualNetworks'
-                                                    metricName: 'PingMeshAverageRoundtripMs'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 300
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-AverageRoundtripAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VNet ping Average Roundtrip Time'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'PingMeshAverageRoundtripMs'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworks'
+                                                        metricName: 'PingMeshAverageRoundtripMs'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 300
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
                                     }
-                                }]
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -108,10 +114,10 @@ module PingAvgRoundtripAlert '../../arm/Microsoft.Authorization/policyDefinition
     }
 }
 
-module ProbeFailedAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module ProbeFailedAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetpfa-policyDefinitions'
     params: {
-        name: 'policy-vnet-${environment()}-${policyLocation}-002'
+        name: 'Deploy_VNET_ProbeFailed_Alert'
         displayName: '[DINE] Deploy VNet Probe Failed Alert'
         description: 'DINE policy to audit/deploy Virtual Network Probe Failed Alert'
         location: policyLocation
@@ -168,35 +174,39 @@ module ProbeFailedAlert '../../arm/Microsoft.Authorization/policyDefinitions/sub
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-ProbeFailedAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VNet ping mesh probe failed percentage'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'PingMeshProbesFailedPercent'
-                                                    metricNamespace: 'Microsoft.Network/virtualNetworks'
-                                                    metricName: 'PingMeshProbesFailedPercent'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 90
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-ProbeFailedAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VNet ping mesh probe failed percentage'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'PingMeshProbesFailedPercent'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworks'
+                                                        metricName: 'PingMeshProbesFailedPercent'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 90
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -214,10 +224,10 @@ module ProbeFailedAlert '../../arm/Microsoft.Authorization/policyDefinitions/sub
     }
 }
 
-module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetddosaa-policyDefinitions'
     params: {
-        name: 'policy-vnet-${environment()}-${policyLocation}-003'
+        name: 'Deploy_VNET_DDoSAttack_Alert'
         displayName: '[DINE] Deploy VNet DDoS Attack Alert'
         description: 'DINE policy to audit/deploy Virtual Network DDoS Attack Alert'
         location: policyLocation
@@ -274,35 +284,39 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions//sub
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-DDOSAttackAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VNet DDOS Attack'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'ifunderddosattack'
-                                                    metricNamespace: 'Microsoft.Network/virtualNetworks'
-                                                    metricName: 'ifunderddosattack'
-                                                    operator: 'GreaterThanOrEqual'
-                                                    threshold: 1
-                                                    timeAggregation: 'Maximum'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-DDOSAttackAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VNet DDOS Attack'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'ifunderddosattack'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworks'
+                                                        metricName: 'ifunderddosattack'
+                                                        operator: 'GreaterThanOrEqual'
+                                                        threshold: 1
+                                                        timeAggregation: 'Maximum'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {

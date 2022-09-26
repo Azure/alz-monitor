@@ -1,12 +1,14 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param deploymentRoleDefinitionIds array = ['/subscriptions/c7a405fc-3d07-4fac-b4ab-8254c690fad1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c']
+param deploymentRoleDefinitionIds array = [
+    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+]
 
-module ExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module ExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vngergcpuua-policyDefinitions'
     params: {
-        name: 'policy-vnetg-${environment()}-${policyLocation}-001'
+        name: 'Deploy_VnetGw_ExpressRouteCpuUtil_Alert'
         displayName: '[DINE] Deploy VNetG ExpressRoute CPU Utilization Alert'
         description: 'DINE policy to audit/deploy Virtual Network Gateway Express Route CPU Utilization Alert'
         location: policyLocation
@@ -63,34 +65,38 @@ module ExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policy
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-GatewayERCPUAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VNet Gateway Express Route CPU Utilization'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'ExpressRouteGatewayCpuUtilization'
-                                                    metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                    metricName: 'ExpressRouteGatewayCpuUtilization'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 90
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-GatewayERCPUAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VNet Gateway Express Route CPU Utilization'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'ExpressRouteGatewayCpuUtilization'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
+                                                        metricName: 'ExpressRouteGatewayCpuUtilization'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 90
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
                                     }
-                                }]
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -108,10 +114,10 @@ module ExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policy
     }
 }
 
-module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgtaba-policyDefinitions'
     params: {
-        name: 'policy-vnetg-${environment()}-${policyLocation}-002'
+        name: 'Deploy_VnetGw_TunnelBandwidth_Alert'
         displayName: '[DINE] Deploy VNetG Tunnel Bandwidth Alert'
         description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Bandwidth Alert'
         location: policyLocation
@@ -168,35 +174,39 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-TunnelBandwidthAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VNet Gateway Tunnel Avg Bandwidth'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'TunnelAverageBandwidth'
-                                                    metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                    metricName: 'TunnelAverageBandwidth'
-                                                    operator: 'LessThan'
-                                                    threshold: 1
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelBandwidthAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VNet Gateway Tunnel Avg Bandwidth'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'TunnelAverageBandwidth'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
+                                                        metricName: 'TunnelAverageBandwidth'
+                                                        operator: 'LessThan'
+                                                        threshold: 1
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -214,10 +224,10 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
     }
 }
 
-module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgteba-policyDefinitions'
     params: {
-        name: 'policy-vnetg-${environment()}-${policyLocation}-003'
+        name: 'Deploy_VnetGw_TunnelEgress_Alert'
         displayName: '[DINE] Deploy VNetG Tunnel Egress Alert'
         description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Egress Alert'
         location: policyLocation
@@ -274,35 +284,39 @@ module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions//s
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VNet Gateway Tunnel Egress Bytes'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'TunnelEgressBytes'
-                                                    metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                    metricName: 'TunnelEgressBytes'
-                                                    operator: 'LessThanOrEqual'
-                                                    threshold: 1
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VNet Gateway Tunnel Egress Bytes'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'TunnelEgressBytes'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
+                                                        metricName: 'TunnelEgressBytes'
+                                                        operator: 'LessThanOrEqual'
+                                                        threshold: 1
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -320,10 +334,10 @@ module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions//s
     }
 }
 
-module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgtiba-policyDefinitions'
     params: {
-        name: 'policy-vnetg-${environment()}-${policyLocation}-004'
+        name: 'Deploy_VnetGw_TunnelIngress_Alert'
         displayName: '[DINE] Deploy VNetG Tunnel Ingress Alert'
         description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Ingress Alert'
         location: policyLocation
@@ -380,35 +394,39 @@ module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions//
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VNet Gateway Tunnel ingress Bytes'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'TunnelIngressBytes'
-                                                    metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                    metricName: 'TunnelIngressBytes'
-                                                    operator: 'LessThanOrEqual'
-                                                    threshold: 1
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VNet Gateway Tunnel ingress Bytes'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'TunnelIngressBytes'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
+                                                        metricName: 'TunnelIngressBytes'
+                                                        operator: 'LessThanOrEqual'
+                                                        threshold: 1
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {

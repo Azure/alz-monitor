@@ -1,12 +1,14 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param deploymentRoleDefinitionIds array = ['/subscriptions/c7a405fc-3d07-4fac-b4ab-8254c690fad1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c']
+param deploymentRoleDefinitionIds array = [
+    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+]
 
-module BandwidthUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module BandwidthUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngbua-policyDefinitions'
     params: {
-        name: 'policy-vpng-${environment()}-${policyLocation}-001'
+        name: 'Deploy_VPNGw_BandwidthUtil_Alert'
         displayName: '[DINE] Deploy VPNG  Bandwidth Utilization Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Bandwidth Utilization Alert'
         location: policyLocation
@@ -63,34 +65,38 @@ module BandwidthUtilizationAlert '../../arm/Microsoft.Authorization/policyDefini
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-GatewayBandwidthAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VPN Gateway Bandwidth Utilization'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'tunnelaveragebandwidth'
-                                                    metricNamespace: 'microsoft.network/vpngateways'
-                                                    metricName: 'tunnelaveragebandwidth'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 1000000000
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-GatewayBandwidthAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VPN Gateway Bandwidth Utilization'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'tunnelaveragebandwidth'
+                                                        metricNamespace: 'microsoft.network/vpngateways'
+                                                        metricName: 'tunnelaveragebandwidth'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 1000000000
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
                                     }
-                                }]
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -108,10 +114,10 @@ module BandwidthUtilizationAlert '../../arm/Microsoft.Authorization/policyDefini
     }
 }
 
-module BGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module BGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngbgppsa-policyDefinitions'
     params: {
-        name: 'policy-vpng-${environment()}-${policyLocation}-002'
+        name: 'Deploy_VPNGw_BGPPeerStatus_Alert'
         displayName: '[DINE] Deploy VPNG  BGP Peer Status Alert'
         description: 'DINE policy to audit/deploy VPN Gateway BGP Peer Status Alert'
         location: policyLocation
@@ -168,35 +174,39 @@ module BGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/s
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-BGPPeerStatusAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VPN Gateway BGP peer status'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'bgppeerstatus'
-                                                    metricNamespace: 'microsoft.network/vpngateways'
-                                                    metricName: 'bgppeerstatus'
-                                                    operator: 'LessThan'
-                                                    threshold: 1
-                                                    timeAggregation: 'Total'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-BGPPeerStatusAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VPN Gateway BGP peer status'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'bgppeerstatus'
+                                                        metricNamespace: 'microsoft.network/vpngateways'
+                                                        metricName: 'bgppeerstatus'
+                                                        operator: 'LessThan'
+                                                        threshold: 1
+                                                        timeAggregation: 'Total'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -214,10 +224,10 @@ module BGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/s
     }
 }
 
-module IngressAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module IngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngtia-policyDefinitions'
     params: {
-        name: 'policy-vpng-${environment()}-${policyLocation}-003'
+        name: 'Deploy_VPNGw_Ingress_Alert'
         displayName: '[DINE] Deploy VPNG Ingress Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Ingress Alert'
         location: policyLocation
@@ -274,35 +284,39 @@ module IngressAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscr
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VPN Gateway tunnel ingress bytes'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'tunnelingressbytes'
-                                                    metricNamespace: 'microsoft.network/vpngateways'
-                                                    metricName: 'tunnelingressbytes'
-                                                    operator: 'LessThanOrEqual'
-                                                    threshold: 0
-                                                    timeAggregation: 'Total'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VPN Gateway tunnel ingress bytes'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'tunnelingressbytes'
+                                                        metricNamespace: 'microsoft.network/vpngateways'
+                                                        metricName: 'tunnelingressbytes'
+                                                        operator: 'LessThanOrEqual'
+                                                        threshold: 0
+                                                        timeAggregation: 'Total'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -320,10 +334,10 @@ module IngressAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscr
     }
 }
 
-module EgressAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module EgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngtea-policyDefinitions'
     params: {
-        name: 'policy-vpng-${environment()}-${policyLocation}-004'
+        name: 'Deploy_VPNGw_Egress_Alert'
         displayName: '[DINE] Deploy VPNG Egress Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Egress Alert'
         location: policyLocation
@@ -380,35 +394,39 @@ module EgressAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscri
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for VPN Gateway tunnel egress bytes'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'tunnelegressbytes'
-                                                    metricNamespace: 'microsoft.network/vpngateways'
-                                                    metricName: 'tunnelegressbytes'
-                                                    operator: 'LessThanOrEqual'
-                                                    threshold: 0
-                                                    timeAggregation: 'Total'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for VPN Gateway tunnel egress bytes'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'tunnelegressbytes'
+                                                        metricNamespace: 'microsoft.network/vpngateways'
+                                                        metricName: 'tunnelegressbytes'
+                                                        operator: 'LessThanOrEqual'
+                                                        threshold: 0
+                                                        timeAggregation: 'Total'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {

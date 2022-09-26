@@ -1,12 +1,14 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param deploymentRoleDefinitionIds array = ['/subscriptions/c7a405fc-3d07-4fac-b4ab-8254c690fad1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c']
+param deploymentRoleDefinitionIds array = [
+    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+]
 
-module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kva-policyDefinitions'
     params: {
-        name: 'policy-kv-${environment().name}-${policyLocation}-001'
+        name: 'Deploy_KeyVault_QueryVolume_Alert'
         displayName: '[DINE] Deploy KeyVault Query Volume Alert'
         description: 'DINE policy to audit/deploy KeyVault Query Volume Alert'
         location: policyLocation
@@ -63,34 +65,38 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/sub
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-Availability\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for KeyVault Availability'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'Availability'
-                                                    metricNamespace: 'microsoft.keyvault/vaults'
-                                                    metricName: 'Availability'
-                                                    operator: 'LessThan'
-                                                    threshold: 100
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-Availability\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for KeyVault Availability'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'Availability'
+                                                        metricNamespace: 'microsoft.keyvault/vaults'
+                                                        metricName: 'Availability'
+                                                        operator: 'LessThan'
+                                                        threshold: 100
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
                                     }
-                                }]
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -108,10 +114,10 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/sub
     }
 }
 
-module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kvca-policyDefinitions'
     params: {
-        name: 'policy-kv-${environment().name}-${policyLocation}-002'
+        name: 'Deploy_KeyVault_Capacity_Alert'
         displayName: '[DINE] Deploy KeyVault Capacity Alert'
         description: 'DINE policy to audit/deploy KeyVault Capacity Alert'
         location: policyLocation
@@ -168,35 +174,39 @@ module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscr
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-CapacityAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for KeyVault Capacity'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'SaturationShoebox'
-                                                    metricNamespace: 'microsoft.keyvault/vaults'
-                                                    metricName: 'SaturationShoebox'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 75
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-CapacityAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for KeyVault Capacity'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'SaturationShoebox'
+                                                        metricNamespace: 'microsoft.keyvault/vaults'
+                                                        metricName: 'SaturationShoebox'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 75
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -214,10 +224,10 @@ module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscr
     }
 }
 
-module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kvla-policyDefinitions'
     params: {
-        name: 'policy-kv-${environment().name}-${policyLocation}-003'
+        name: 'Deploy_KeyVault_Latency_Alert'
         displayName: '[DINE] Deploy KeyVault Latency Alert'
         description: 'DINE policy to audit/deploy KeyVault Latency Alert'
         location: policyLocation
@@ -274,35 +284,39 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscr
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-LatencyAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for KeyVault Latency'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'ServiceApiLatency'
-                                                    metricNamespace: 'microsoft.keyvault/vaults'
-                                                    metricName: 'ServiceApiLatency'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 75
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-LatencyAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for KeyVault Latency'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'ServiceApiLatency'
+                                                        metricNamespace: 'microsoft.keyvault/vaults'
+                                                        metricName: 'ServiceApiLatency'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 75
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -320,10 +334,10 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscr
     }
 }
 
-module RequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module RequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kvra-policyDefinitions'
     params: {
-        name: 'policy-kv-${environment().name}-${policyLocation}-004'
+        name: 'Deploy_KeyVault_Requests_Alert'
         displayName: '[DINE] Deploy KeyVault Requests Alert'
         description: 'DINE policy to audit/deploy KeyVault Requests Alert'
         location: policyLocation
@@ -380,35 +394,39 @@ module RequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions//subsc
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-RequestsAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for KeyVault Requests'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'ServiceApiResult'
-                                                    metricNamespace: 'microsoft.keyvault/vaults'
-                                                    metricName: 'ServiceApiResult'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 0
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-RequestsAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for KeyVault Requests'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'ServiceApiResult'
+                                                        metricNamespace: 'microsoft.keyvault/vaults'
+                                                        metricName: 'ServiceApiResult'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 0
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {

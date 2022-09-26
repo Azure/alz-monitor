@@ -1,12 +1,14 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param deploymentRoleDefinitionIds array = ['/subscriptions/c7a405fc-3d07-4fac-b4ab-8254c690fad1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c']
+param deploymentRoleDefinitionIds array = [
+    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+]
 
-module DDOSAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module DDOSAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pipddosa-policyDefinitions'
     params: {
-        name: 'policy-pip-${environment()}-${policyLocation}-001'
+        name: 'Deploy_PublicIp_DDoSAttack_Alert'
         displayName: '[DINE] Deploy PIP DDoS Attack Alert'
         description: 'DINE policy to audit/deploy PIP DDoS Attack Alert'
         location: policyLocation
@@ -63,34 +65,38 @@ module DDOSAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/subs
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-DDOS_Attack\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for Public IP Address Under Attack'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'ifunderddosattack'
-                                                    metricNamespace: 'Microsoft.Network/publicIPAddresses'
-                                                    metricName: 'ifunderddosattack'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 1
-                                                    timeAggregation: 'Maximum'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-DDOS_Attack\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for Public IP Address Under Attack'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'ifunderddosattack'
+                                                        metricNamespace: 'Microsoft.Network/publicIPAddresses'
+                                                        metricName: 'ifunderddosattack'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 1
+                                                        timeAggregation: 'Maximum'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
                                     }
-                                }]
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -108,10 +114,10 @@ module DDOSAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/subs
     }
 }
 
-module BytesInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module BytesInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pipbiddos-policyDefinitions'
     params: {
-        name: 'policy-pip-${environment()}-${policyLocation}-002'
+        name: 'Deploy_PublicIp_BytesInDDoSAttack_Alert'
         displayName: '[DINE] Deploy PIP Bytes in DDoS Attack Alert'
         description: 'DINE policy to audit/deploy PIP Bytes in DDoS Attack Alert'
         location: policyLocation
@@ -168,35 +174,39 @@ module BytesInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/sub
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-BytesInDDOSAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for Public IP Address Bytes IN DDOS'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'bytesinddos'
-                                                    metricNamespace: 'Microsoft.Network/publicIPAddresses'
-                                                    metricName: 'bytesinddos'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 8000000
-                                                    timeAggregation: 'Maximum'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-BytesInDDOSAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for Public IP Address Bytes IN DDOS'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'bytesinddos'
+                                                        metricNamespace: 'Microsoft.Network/publicIPAddresses'
+                                                        metricName: 'bytesinddos'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 8000000
+                                                        timeAggregation: 'Maximum'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -214,10 +224,10 @@ module BytesInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/sub
     }
 }
 
-module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pippiddos-policyDefinitions'
     params: {
-        name: 'policy-pip-${environment()}-${policyLocation}-003'
+        name: 'Deploy_PublicIp_PacketsInDDoSAttack_Alert'
         displayName: '[DINE] Deploy PIP Packets in DDoS Attack Alert'
         description: 'DINE policy to audit/deploy PIP Packets in DDoS Attack Alert'
         location: policyLocation
@@ -274,35 +284,39 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions//
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-QueryVolumeAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for Public IP Address Packets IN DDOS'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'PacketsInDDoS'
-                                                    metricNamespace: 'Microsoft.Network/publicIPAddresses'
-                                                    metricName: 'PacketsInDDoS'
-                                                    operator: 'GreaterThanEqualTo'
-                                                    threshold: 40000
-                                                    timeAggregation: 'Total'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-QueryVolumeAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for Public IP Address Packets IN DDOS'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'PacketsInDDoS'
+                                                        metricNamespace: 'Microsoft.Network/publicIPAddresses'
+                                                        metricName: 'PacketsInDDoS'
+                                                        operator: 'GreaterThanEqualTo'
+                                                        threshold: 40000
+                                                        timeAggregation: 'Total'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -320,10 +334,10 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions//
     }
 }
 
-module VIPAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module VIPAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pipvipaa-policyDefinitions'
     params: {
-        name: 'policy-pip-${environment()}-${policyLocation}-004'
+        name: 'Deploy_PublicIp_VIPAvailability_Alert'
         displayName: '[DINE] Deploy PIP VIP Availability Alert'
         description: 'DINE policy to audit/deploy PIP VIP Availability Alert'
         location: policyLocation
@@ -380,35 +394,39 @@ module VIPAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-VIPAvailabityAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for Public IP Address VIP Availability'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'VipAvailability'
-                                                    metricNamespace: 'Microsoft.Network/publicIPAddresses'
-                                                    metricName: 'VipAvailability'
-                                                    operator: 'LessThan'
-                                                    threshold: 1
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-VIPAvailabityAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for Public IP Address VIP Availability'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'VipAvailability'
+                                                        metricNamespace: 'Microsoft.Network/publicIPAddresses'
+                                                        metricName: 'VipAvailability'
+                                                        operator: 'LessThan'
+                                                        threshold: 1
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
