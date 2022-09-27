@@ -12,6 +12,11 @@ module PingAvgRoundtripAlert '../../arm/Microsoft.Authorization/policyDefinition
         displayName: '[DINE] Deploy VNet Ping Avg Roundtrip Alert'
         description: 'DINE policy to audit/deploy Virtual Network Ping Average Roundtrip Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -121,6 +126,11 @@ module ProbeFailedAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
         displayName: '[DINE] Deploy VNet Probe Failed Alert'
         description: 'DINE policy to audit/deploy Virtual Network Probe Failed Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -231,6 +241,11 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
         displayName: '[DINE] Deploy VNet DDoS Attack Alert'
         description: 'DINE policy to audit/deploy Virtual Network DDoS Attack Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

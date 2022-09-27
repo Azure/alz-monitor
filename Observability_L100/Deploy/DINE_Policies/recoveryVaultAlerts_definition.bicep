@@ -12,6 +12,11 @@ module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
         displayName: '[DINE] Deploy RV Backup Health Alert'
         description: 'DINE policy to audit/deploy Recovery Vault Backup Health Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Site Recovery'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

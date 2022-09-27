@@ -12,6 +12,11 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
         displayName: '[DINE] Deploy DNSZ Query Volume Alert'
         description: 'DINE policy to audit/deploy DNS Zone Query Volume Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -122,6 +127,11 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
         displayName: ''
         description: 'DINE policy to audit/deploy DNS Zone Record Set Count Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -232,6 +242,11 @@ module RecordSetCapacityUtilizationAlert '../../arm/Microsoft.Authorization/poli
         displayName: ''
         description: 'DINE policy to audit/deploy DNS Zone Record Set Capacity Utilization Alert'
         location: policyLocation
+                metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

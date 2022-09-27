@@ -12,6 +12,11 @@ module BandwidthUtilizationAlert '../../arm/Microsoft.Authorization/policyDefini
         displayName: '[DINE] Deploy VPNG  Bandwidth Utilization Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Bandwidth Utilization Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -121,6 +126,11 @@ module BGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
         displayName: '[DINE] Deploy VPNG  BGP Peer Status Alert'
         description: 'DINE policy to audit/deploy VPN Gateway BGP Peer Status Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -231,6 +241,11 @@ module IngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
         displayName: '[DINE] Deploy VPNG Ingress Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Ingress Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -341,6 +356,11 @@ module EgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/manageme
         displayName: '[DINE] Deploy VPNG Egress Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Egress Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

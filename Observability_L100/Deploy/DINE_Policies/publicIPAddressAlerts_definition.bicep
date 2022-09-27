@@ -12,6 +12,11 @@ module DDOSAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
         displayName: '[DINE] Deploy PIP DDoS Attack Alert'
         description: 'DINE policy to audit/deploy PIP DDoS Attack Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -121,6 +126,11 @@ module BytesInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
         displayName: '[DINE] Deploy PIP Bytes in DDoS Attack Alert'
         description: 'DINE policy to audit/deploy PIP Bytes in DDoS Attack Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -231,6 +241,11 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
         displayName: '[DINE] Deploy PIP Packets in DDoS Attack Alert'
         description: 'DINE policy to audit/deploy PIP Packets in DDoS Attack Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -341,6 +356,11 @@ module VIPAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions
         displayName: '[DINE] Deploy PIP VIP Availability Alert'
         description: 'DINE policy to audit/deploy PIP VIP Availability Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

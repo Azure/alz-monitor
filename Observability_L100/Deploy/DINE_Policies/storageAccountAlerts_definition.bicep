@@ -12,6 +12,11 @@ module TransactionsAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
         displayName: '[DINE] Deploy SA Transaction Alert'
         description: 'DINE policy to audit/deploy SA Transaction Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Storage'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -121,6 +126,11 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
         displayName: '[DINE] Deploy SA Latency Alert'
         description: 'DINE policy to audit/deploy SA Latency Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Storage'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -231,6 +241,11 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
         displayName: '[DINE] Deploy SA Availability Alert'
         description: 'DINE policy to audit/deploy SA Availability Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Storage'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -341,6 +356,11 @@ module E2ELatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
         displayName: '[DINE] Deploy SA E2E Latency Alert'
         description: 'DINE policy to audit/deploy SA E2E Latency Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Storage'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

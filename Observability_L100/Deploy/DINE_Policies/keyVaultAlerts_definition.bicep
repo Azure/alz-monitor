@@ -12,6 +12,11 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
         displayName: '[DINE] Deploy KeyVault Query Volume Alert'
         description: 'DINE policy to audit/deploy KeyVault Query Volume Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Key Vault'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -121,6 +126,11 @@ module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
         displayName: '[DINE] Deploy KeyVault Capacity Alert'
         description: 'DINE policy to audit/deploy KeyVault Capacity Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Key Vault'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -231,6 +241,11 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
         displayName: '[DINE] Deploy KeyVault Latency Alert'
         description: 'DINE policy to audit/deploy KeyVault Latency Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Key Vault'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -341,6 +356,11 @@ module RequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
         displayName: '[DINE] Deploy KeyVault Requests Alert'
         description: 'DINE policy to audit/deploy KeyVault Requests Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Key Vault'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

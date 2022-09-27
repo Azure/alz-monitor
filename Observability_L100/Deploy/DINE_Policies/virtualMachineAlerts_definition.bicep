@@ -12,6 +12,11 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
         displayName: '[DINE] Deploy VM Available Memory Alert'
         description: 'DINE policy to audit/deploy VM Available Memory Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Compute'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

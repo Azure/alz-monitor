@@ -12,6 +12,11 @@ module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitio
         displayName: '[DINE] Deploy PDNSZ Record Set Capacity Alert'
         description: 'DINE policy to audit/deploy Private DNS Zone Record Set Capacity Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -121,6 +126,11 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
         displayName: '[DINE] Deploy PDNSZ Capacity Utilization Alert'
         description: 'DINE policy to audit/deploy Private DNS Zone Capacity Utilization Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -231,6 +241,11 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
         displayName: '[DINE] Deploy PDNSZ Query Volume Alert'
         description: 'DINE policy to audit/deploy Private DNS Zone Query Volume Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -341,6 +356,11 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
         displayName: '[DINE] Deploy PDNSZ Registration Capacity Utilization Alert'
         description: 'DINE policy to audit/deploy Private DNS Zone Registration Capacity Utilization Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [

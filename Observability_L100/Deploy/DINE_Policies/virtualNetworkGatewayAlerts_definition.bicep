@@ -12,6 +12,11 @@ module ExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policy
         displayName: '[DINE] Deploy VNetG ExpressRoute CPU Utilization Alert'
         description: 'DINE policy to audit/deploy Virtual Network Gateway Express Route CPU Utilization Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -121,6 +126,11 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
         displayName: '[DINE] Deploy VNetG Tunnel Bandwidth Alert'
         description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Bandwidth Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -231,6 +241,11 @@ module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
         displayName: '[DINE] Deploy VNetG Tunnel Egress Alert'
         description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Egress Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -341,6 +356,11 @@ module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
         displayName: '[DINE] Deploy VNetG Tunnel Ingress Alert'
         description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Ingress Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
