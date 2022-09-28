@@ -76,7 +76,7 @@ jobs:
       uses: azure/powershell@v1
       with:
         inlineScript: |
-          Get-AzPolicyDefinition -ManagementGroupName hubnw | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
+          Get-AzPolicyDefinition -ManagementGroupName ${{ env.hubManagementGroup }} | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
         azPSVersion: "latest"
 
   delete_vwan_job:
@@ -111,3 +111,23 @@ jobs:
           az account set --subscription ${{ env.vwanSpokeSubscriptionId }}
           az group delete --name ${{ env.vwanSpokeResourceGroup }} --yes
       continue-on-error: true
+    
+    - name: Delete Hub/spoke monitor policy assignments
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          $excludelist = @('Deploy-ASC-Monitoring',
+          'Deploy-AzActivity-Log',
+          'Deploy-MDFC-Config',
+          'Deploy-Resource-Diag',
+          'Deploy-VM-Monitoring',
+          'Deploy-VMSS-Monitoring')
+          Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/${{ env.vwanManagementGroup }} | where {$psitem.name -notin $excludelist} | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+        azPSVersion: "latest"
+
+    - name: Delete Hub/spoke monitor policy definitions
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          Get-AzPolicyDefinition -ManagementGroupName ${{ env.vwanManagementGroup }} | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
+        azPSVersion: "latest"
