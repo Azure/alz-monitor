@@ -112,7 +112,7 @@ jobs:
           az group delete --name ${{ env.vwanSpokeResourceGroup }} --yes
       continue-on-error: true
     
-    - name: Delete Hub/spoke monitor policy assignments
+    - name: Delete VWAN monitor policy assignments
       uses: azure/powershell@v1
       with:
         inlineScript: |
@@ -125,7 +125,7 @@ jobs:
           Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/${{ env.vwanManagementGroup }} | where {$psitem.name -notin $excludelist} | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
         azPSVersion: "latest"
 
-    - name: Delete Hub/spoke monitor policy definitions
+    - name: Delete VWAN monitor policy definitions
       uses: azure/powershell@v1
       with:
         inlineScript: |
