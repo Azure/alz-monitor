@@ -1,15 +1,22 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param deploymentRoleDefinitionIds array = ['/subscriptions/c7a405fc-3d07-4fac-b4ab-8254c690fad1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c']
+param deploymentRoleDefinitionIds array = [
+'/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+]
 
-module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pdnsrsc-policyDefinitions'
     params: {
-        name: 'policy-pdnsz-${environment()}-${policyLocation}-001'
+        name: 'Deploy_PDNSZ_RecordSetCapacity_Alert'
         displayName: '[DINE] Deploy PDNSZ Record Set Capacity Alert'
         description: 'DINE policy to audit/deploy Private DNS Zone Record Set Capacity Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -63,7 +70,8 @@ module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                     }
                                 }
                                 variables: {}
-                                resources: [{
+                                resources: [
+                                {
                                     type: 'Microsoft.Insights/metricAlerts'
                                     apiVersion: '2018-03-01'
                                     name: '[concat(parameters(\'resourceName\'), \'-RecordSet_Capacity_Utilization\')]'
@@ -72,7 +80,9 @@ module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                         description: 'Metric Alert for Private DNS Zone Record Set Capacity Utilization'
                                         severity: 3
                                         enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
+                                        scopes: [
+                                        '[parameters(\'resourceId\')]'
+                                        ]
                                         evaluationFrequency: 'PT5M'
                                         windowSize: 'PT5M'
                                         criteria: {
@@ -90,7 +100,8 @@ module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                             'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                         }
                                     }
-                                }]
+                                }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -108,13 +119,18 @@ module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitio
     }
 }
 
-module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pdnsvnlcu-policyDefinitions'
     params: {
-        name: 'policy-pdnsz-${environment()}-${policyLocation}-002'
+        name: 'Deploy_PDNSZ_CapacityUtil_Alert'
         displayName: '[DINE] Deploy PDNSZ Capacity Utilization Alert'
         description: 'DINE policy to audit/deploy Private DNS Zone Capacity Utilization Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -168,7 +184,8 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
                                     }
                                 }
                                 variables: {}
-                                resources: [{
+                                resources: [
+                                {
                                     type: 'Microsoft.Insights/metricAlerts'
                                     apiVersion: '2018-03-01'
                                     name: '[concat(parameters(\'resourceName\'), \'-CapacityUtilizationAlert\')]'
@@ -177,7 +194,9 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
                                         description: 'Metric Alert for Private DNS Zone Virtual Network Link Capacity Utilization'
                                         severity: 3
                                         enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
+                                        scopes: [
+                                        '[parameters(\'resourceId\')]'
+                                        ]
                                         evaluationFrequency: 'PT5M'
                                         windowSize: 'PT5M'
                                         criteria: {
@@ -196,7 +215,8 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
                                         }
                                     }
 
-                                }]
+                                }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -214,13 +234,18 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
     }
 }
 
-module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pdnszqv-policyDefinitions'
     params: {
-        name: 'policy-pdnsz-${environment()}-${policyLocation}-003'
+        name: 'Deploy_PDNSZ_QueryVolume_Alert'
         displayName: '[DINE] Deploy PDNSZ Query Volume Alert'
         description: 'DINE policy to audit/deploy Private DNS Zone Query Volume Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -274,7 +299,8 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions//su
                                     }
                                 }
                                 variables: {}
-                                resources: [{
+                                resources: [
+                                {
                                     type: 'Microsoft.Insights/metricAlerts'
                                     apiVersion: '2018-03-01'
                                     name: '[concat(parameters(\'resourceName\'), \'-QueryVolumeAlert\')]'
@@ -283,7 +309,9 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions//su
                                         description: 'Metric Alert for Private DNS Query Volume'
                                         severity: 3
                                         enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
+                                        scopes: [
+                                        '[parameters(\'resourceId\')]'
+                                        ]
                                         evaluationFrequency: 'PT5M'
                                         windowSize: 'PT5M'
                                         criteria: {
@@ -302,7 +330,8 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions//su
                                         }
                                     }
 
-                                }]
+                                }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -320,13 +349,18 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions//su
     }
 }
 
-module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pdnszvnrcu-policyDefinitions'
     params: {
-        name: 'policy-pdnsz-${environment()}-${policyLocation}-004'
+        name: 'Deploy_DNSZ_RegistrationCapacityUtil_Alert'
         displayName: '[DINE] Deploy PDNSZ Registration Capacity Utilization Alert'
         description: 'DINE policy to audit/deploy Private DNS Zone Registration Capacity Utilization Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -380,7 +414,8 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                     }
                                 }
                                 variables: {}
-                                resources: [{
+                                resources: [
+                                {
                                     type: 'Microsoft.Insights/metricAlerts'
                                     apiVersion: '2018-03-01'
                                     name: '[concat(parameters(\'resourceName\'), \'-RequestsAlert\')]'
@@ -389,7 +424,9 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                         description: 'Metric Alert for KeyVault Requests'
                                         severity: 3
                                         enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
+                                        scopes: [
+                                        '[parameters(\'resourceId\')]'
+                                        ]
                                         evaluationFrequency: 'PT5M'
                                         windowSize: 'PT5M'
                                         criteria: {
@@ -408,7 +445,8 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                         }
                                     }
 
-                                }]
+                                }
+                                ]
                             }
                             parameters: {
                                 resourceName: {

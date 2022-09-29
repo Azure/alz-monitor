@@ -1,15 +1,22 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param deploymentRoleDefinitionIds array = ['/subscriptions/c7a405fc-3d07-4fac-b4ab-8254c690fad1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c']
+param deploymentRoleDefinitionIds array = [
+    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+]
 
-module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-qva-policyDefinitions'
     params: {
-        name: 'policy-dnsz-${environment()}-${policyLocation}-001'
+        name: 'Deploy_DNSZ_QueryVolume_Alert'
         displayName: '[DINE] Deploy DNSZ Query Volume Alert'
         description: 'DINE policy to audit/deploy DNS Zone Query Volume Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -63,35 +70,39 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/sub
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-QueryVolume\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for DNS Zone Query Volume'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'QueryVolume'
-                                                    metricNamespace: 'Microsoft.Network/dnsZones'
-                                                    metricName: 'QueryVolume'
-                                                    operator: 'GreaterThanEqualTo'
-                                                    threshold: 90
-                                                    timeAggregation: 'Average'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [ 
+                                {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-QueryVolume\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for DNS Zone Query Volume'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'QueryVolume'
+                                                        metricNamespace: 'Microsoft.Network/dnsZones'
+                                                        metricName: 'QueryVolume'
+                                                        operator: 'GreaterThanEqualTo'
+                                                        threshold: 90
+                                                        timeAggregation: 'Average'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -109,13 +120,18 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/sub
     }
 }
 
-module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-rsca-policyDefinitions'
     params: {
-        name: 'policy-dnsz-${environment()}-${policyLocation}-002'
+        name: 'Deploy_DNSZ_RecordSetCount_Alert'
         displayName: ''
         description: 'DINE policy to audit/deploy DNS Zone Record Set Count Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -169,35 +185,39 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-RecordSetCount\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for DNS Zone Record Set Count'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'RecordSetCount'
-                                                    metricNamespace: 'Microsoft.Network/dnsZones'
-                                                    metricName: 'RecordSetCount'
-                                                    operator: 'GreaterThanEqualTo'
-                                                    threshold: 2000
-                                                    timeAggregation: 'Maximum'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-RecordSetCount\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for DNS Zone Record Set Count'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'RecordSetCount'
+                                                        metricNamespace: 'Microsoft.Network/dnsZones'
+                                                        metricName: 'RecordSetCount'
+                                                        operator: 'GreaterThanEqualTo'
+                                                        threshold: 2000
+                                                        timeAggregation: 'Maximum'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {
@@ -215,13 +235,18 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
     }
 }
 
-module RecordSetCapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions//subscription/deploy.bicep' = {
+module RecordSetCapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-rscua-policyDefinitions'
     params: {
-        name: 'policy-dnsz-${environment()}-${policyLocation}-003'
+        name: 'Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert'
         displayName: ''
         description: 'DINE policy to audit/deploy DNS Zone Record Set Capacity Utilization Alert'
         location: policyLocation
+                metadata: {
+            version: '1.0.0'
+            Category: 'Networking'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -275,35 +300,39 @@ module RecordSetCapacityUtilizationAlert '../../arm/Microsoft.Authorization/poli
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-RecordSetCapacityUtilization\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for DNS Zone Record Set Count'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'RecordSetCapacityUtilization'
-                                                    metricNamespace: 'Microsoft.Network/dnsZones'
-                                                    metricName: 'RecordSetCapacityUtilization'
-                                                    operator: 'GreaterThanEqualTo'
-                                                    threshold: 2000
-                                                    timeAggregation: 'Maximum'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-RecordSetCapacityUtilization\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for DNS Zone Record Set Count'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'RecordSetCapacityUtilization'
+                                                        metricNamespace: 'Microsoft.Network/dnsZones'
+                                                        metricName: 'RecordSetCapacityUtilization'
+                                                        operator: 'GreaterThanEqualTo'
+                                                        threshold: 2000
+                                                        timeAggregation: 'Maximum'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
-                                    }
 
-                                }]
+                                    }
+                                ]
                             }
                             parameters: {
                                 resourceName: {

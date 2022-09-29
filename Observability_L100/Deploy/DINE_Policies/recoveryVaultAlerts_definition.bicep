@@ -1,15 +1,22 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param deploymentRoleDefinitionIds array = ['/subscriptions/c7a405fc-3d07-4fac-b4ab-8254c690fad1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c']
+param deploymentRoleDefinitionIds array = [
+    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+]
 
-module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/subscription/deploy.bicep' = {
+module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-rvbuha-policyDefinitions'
     params: {
-        name: 'policy-rv-${environment()}-${policyLocation}-001'
+        name: 'Deploy_RecoveryVault_BackupHealth_Alert'
         displayName: '[DINE] Deploy RV Backup Health Alert'
         description: 'DINE policy to audit/deploy Recovery Vault Backup Health Alert'
         location: policyLocation
+        metadata: {
+            version: '1.0.0'
+            Category: 'Site Recovery'
+            source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -63,34 +70,38 @@ module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/su
                                     }
                                 }
                                 variables: {}
-                                resources: [{
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-BackupHealth\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for Recovery Vault Backup Health Events'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: ['[parameters(\'resourceId\')]']
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'backuphealthevent'
-                                                    metricNamespace: 'Microsoft.RecoveryServices/Vaults'
-                                                    metricName: 'backuphealthevent'
-                                                    operator: 'GreaterThan'
-                                                    threshold: 0
-                                                    timeAggregation: 'Count'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-BackupHealth\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for Recovery Vault Backup Health Events'
+                                            severity: 3
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: 'PT5M'
+                                            windowSize: 'PT5M'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'backuphealthevent'
+                                                        metricNamespace: 'Microsoft.RecoveryServices/Vaults'
+                                                        metricName: 'backuphealthevent'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 0
+                                                        timeAggregation: 'Count'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
                                         }
                                     }
-                                }]
+                                ]
                             }
                             parameters: {
                                 resourceName: {

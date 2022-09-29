@@ -17,10 +17,12 @@ env:
   hubResourceGroup: "hubnw-connectivity"
   hubSpokeSubscriptionId: "3b6e398c-8e14-47b5-952b-f201880f9746"
   hubSpokeResourceGroup: "hubnw-norwayeast-spoke-networking"
+  hubManagementGroup: "hubnw"
   vwanSubscriptionId: "b520e36b-23a2-4c14-a04f-854dc0c24ee1"
   vwanResourceGroup: "vwan-connectivity"
   vwanSpokeSubscriptionId: "328c153d-e17a-43f1-85fa-26295930711d"
   vwanSpokeResourceGroup: "vwan-norwayeast-spoke-networking"
+  vwanManagementGroup: "vwan"
 
   
 jobs:
@@ -57,6 +59,26 @@ jobs:
           az group delete --name ${{ env.hubSpokeResourceGroup }} --yes
       continue-on-error: true
 
+    - name: Delete Hub/spoke monitor policy assignments
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          $excludelist = @('Deploy-ASC-Monitoring',
+          'Deploy-AzActivity-Log',
+          'Deploy-MDFC-Config',
+          'Deploy-Resource-Diag',
+          'Deploy-VM-Monitoring',
+          'Deploy-VMSS-Monitoring')
+          Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/${{ env.hubManagementGroup }} | where {$psitem.name -notin $excludelist} | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+        azPSVersion: "latest"
+
+    - name: Delete Hub/spoke monitor policy definitions
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          Get-AzPolicyDefinition -ManagementGroupName ${{ env.hubManagementGroup }} | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
+        azPSVersion: "latest"
+
   delete_vwan_job:
     runs-on: ubuntu-latest
 
@@ -89,3 +111,23 @@ jobs:
           az account set --subscription ${{ env.vwanSpokeSubscriptionId }}
           az group delete --name ${{ env.vwanSpokeResourceGroup }} --yes
       continue-on-error: true
+    
+    - name: Delete VWAN monitor policy assignments
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          $excludelist = @('Deploy-ASC-Monitoring',
+          'Deploy-AzActivity-Log',
+          'Deploy-MDFC-Config',
+          'Deploy-Resource-Diag',
+          'Deploy-VM-Monitoring',
+          'Deploy-VMSS-Monitoring')
+          Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/${{ env.vwanManagementGroup }} | where {$psitem.name -notin $excludelist} | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+        azPSVersion: "latest"
+
+    - name: Delete VWAN monitor policy definitions
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          Get-AzPolicyDefinition -ManagementGroupName ${{ env.vwanManagementGroup }} | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
+        azPSVersion: "latest"
