@@ -84,7 +84,7 @@ module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                         '[parameters(\'resourceId\')]'
                                         ]
                                         evaluationFrequency: 'PT1H'
-                                        windowSize: 'PT5M'
+                                        windowSize: 'PT1H'
                                         criteria: {
                                             allOf: [
                                                 {
@@ -312,8 +312,8 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         scopes: [
                                         '[parameters(\'resourceId\')]'
                                         ]
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
+                                        evaluationFrequency: 'PT1H'
+                                        windowSize: 'PT1H'
                                         criteria: {
                                             allOf: [
                                                 {
@@ -427,8 +427,8 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                         scopes: [
                                         '[parameters(\'resourceId\')]'
                                         ]
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
+                                        evaluationFrequency: 'PT1H'
+                                        windowSize: 'PT1H'
                                         criteria: {
                                             allOf: [
                                                 {
