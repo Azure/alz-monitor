@@ -320,7 +320,7 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                     name: 'QueryVolume'
                                                     metricNamespace: 'Microsoft.Network/privateDnsZones'
                                                     metricName: 'QueryVolume'
-                                                    operator: 'GreaterThanEqualTo'
+                                                    operator: 'GreaterThanOrEqual'
                                                     threshold: 500
                                                     timeAggregation: 'Total'
                                                     criterionType: 'StaticThresholdCriterion'
@@ -421,7 +421,7 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                     name: '[concat(parameters(\'resourceName\'), \'-RequestsAlert\')]'
                                     location: 'global'
                                     properties: {
-                                        description: 'Metric Alert for KeyVault Requests'
+                                        description: 'Metric Alert for Private DNS Zone Registration Capacity Utilization'
                                         severity: 3
                                         enabled: true
                                         scopes: [
