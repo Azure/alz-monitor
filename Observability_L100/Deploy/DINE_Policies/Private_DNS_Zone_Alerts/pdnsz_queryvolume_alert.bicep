@@ -2,19 +2,19 @@ targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
-    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+'/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
+module QueryVolumeAlert '../../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-pdnszqv-policyDefinitions'
     params: {
-        name: 'Deploy_VM_AvailableMemory_Alert'
-        displayName: '[DINE] Deploy VM Available Memory Alert'
-        description: 'DINE policy to audit/deploy VM Available Memory Alert'
+        name: 'Deploy_PDNSZ_QueryVolume_Alert'
+        displayName: '[DINE] Deploy PDNSZ Query Volume Alert'
+        description: 'DINE policy to audit/deploy Private DNS Zone Query Volume Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Compute'
+            Category: 'Networking'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
         policyRule: {
@@ -22,7 +22,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Compute/virtualMachines'
+                        equals: 'Microsoft.Network/privateDnsZones'
                     }
                 ]
             }
@@ -35,15 +35,15 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.Compute/virtualMachines'
+                                equals: 'Microsoft.Network/privateDnsZones'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'tunnelaveragebandwidth'
+                                equals: 'QueryVolume'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Compute/virtualMachines/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/privateDnsZones/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -71,36 +71,37 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 }
                                 variables: {}
                                 resources: [
-                                    {
-                                        type: 'Microsoft.Insights/metricAlerts'
-                                        apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-AvailableMemoryAlert\')]'
-                                        location: 'global'
-                                        properties: {
-                                            description: 'Metric Alert for Virtual Machine Available Memory (MBytes)'
-                                            severity: 3
-                                            enabled: true
-                                            scopes: [
-                                                '[parameters(\'resourceId\')]'
+                                {
+                                    type: 'Microsoft.Insights/metricAlerts'
+                                    apiVersion: '2018-03-01'
+                                    name: '[concat(parameters(\'resourceName\'), \'-QueryVolumeAlert\')]'
+                                    location: 'global'
+                                    properties: {
+                                        description: 'Metric Alert for Private DNS Query Volume'
+                                        severity: 3
+                                        enabled: true
+                                        scopes: [
+                                        '[parameters(\'resourceId\')]'
+                                        ]
+                                        evaluationFrequency: 'PT5M'
+                                        windowSize: 'PT5M'
+                                        criteria: {
+                                            allOf: [
+                                                {
+                                                    name: 'QueryVolume'
+                                                    metricNamespace: 'Microsoft.Network/privateDnsZones'
+                                                    metricName: 'QueryVolume'
+                                                    operator: 'GreaterThanEqualTo'
+                                                    threshold: 500
+                                                    timeAggregation: 'Total'
+                                                    criterionType: 'StaticThresholdCriterion'
+                                                }
                                             ]
-                                            evaluationFrequency: 'PT5M'
-                                            windowSize: 'PT5M'
-                                            criteria: {
-                                                allOf: [
-                                                    {
-                                                        name: 'Average_AvailableMBytes'
-                                                        metricNamespace: 'Microsoft.Compute/virtualMachines'
-                                                        metricName: 'Average_Available MBytes'
-                                                        operator: 'LessThan'
-                                                        threshold: 95
-                                                        timeAggregation: 'Average'
-                                                        criterionType: 'StaticThresholdCriterion'
-                                                    }
-                                                ]
-                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
-                                            }
+                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                         }
                                     }
+
+                                }
                                 ]
                             }
                             parameters: {

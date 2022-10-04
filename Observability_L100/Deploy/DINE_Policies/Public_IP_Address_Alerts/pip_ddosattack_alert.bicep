@@ -5,16 +5,16 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-rvbuha-policyDefinitions'
+module DDOSAttackAlert '../../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-pipddosa-policyDefinitions'
     params: {
-        name: 'Deploy_RecoveryVault_BackupHealth_Alert'
-        displayName: '[DINE] Deploy RV Backup Health Alert'
-        description: 'DINE policy to audit/deploy Recovery Vault Backup Health Alert'
+        name: 'Deploy_PublicIp_DDoSAttack_Alert'
+        displayName: '[DINE] Deploy PIP DDoS Attack Alert'
+        description: 'DINE policy to audit/deploy PIP DDoS Attack Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Site Recovery'
+            Category: 'Networking'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
         policyRule: {
@@ -22,7 +22,7 @@ module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.RecoveryServices/Vaults'
+                        equals: 'Microsoft.Network/publicIPAddresses'
                     }
                 ]
             }
@@ -35,15 +35,15 @@ module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.RecoveryServices/Vaults'
+                                equals: 'Microsoft.Network/publicIPAddresses'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'backuphealthevent'
+                                equals: 'ifunderddosattack'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.RecoveryServices/Vaults/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/publicIPAddresses/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -74,10 +74,10 @@ module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-BackupHealth\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-DDOS_Attack\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for Recovery Vault Backup Health Events'
+                                            description: 'Metric Alert for Public IP Address Under Attack'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -88,12 +88,12 @@ module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'backuphealthevent'
-                                                        metricNamespace: 'Microsoft.RecoveryServices/Vaults'
-                                                        metricName: 'backuphealthevent'
+                                                        name: 'ifunderddosattack'
+                                                        metricNamespace: 'Microsoft.Network/publicIPAddresses'
+                                                        metricName: 'ifunderddosattack'
                                                         operator: 'GreaterThan'
-                                                        threshold: 0
-                                                        timeAggregation: 'Count'
+                                                        threshold: 1
+                                                        timeAggregation: 'Maximum'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
                                                 ]
