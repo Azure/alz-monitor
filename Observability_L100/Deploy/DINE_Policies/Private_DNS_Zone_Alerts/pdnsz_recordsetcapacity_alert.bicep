@@ -83,7 +83,7 @@ module RecordSetCapacityAlert '../../../arm/Microsoft.Authorization/policyDefini
                                         scopes: [
                                         '[parameters(\'resourceId\')]'
                                         ]
-                                        evaluationFrequency: 'PT5M'
+                                        evaluationFrequency: 'PT1H'
                                         windowSize: 'PT5M'
                                         criteria: {
                                             allOf: [
