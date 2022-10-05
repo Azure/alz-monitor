@@ -83,8 +83,8 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
                                         scopes: [
                                         '[parameters(\'resourceId\')]'
                                         ]
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
+                                        evaluationFrequency: 'PT1H'
+                                        windowSize: 'PT1H'
                                         criteria: {
                                             allOf: [
                                                 {

@@ -83,15 +83,15 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         scopes: [
                                         '[parameters(\'resourceId\')]'
                                         ]
-                                        evaluationFrequency: 'PT5M'
-                                        windowSize: 'PT5M'
+                                        evaluationFrequency: 'PT1H'
+                                        windowSize: 'PT1H'
                                         criteria: {
                                             allOf: [
                                                 {
                                                     name: 'QueryVolume'
                                                     metricNamespace: 'Microsoft.Network/privateDnsZones'
                                                     metricName: 'QueryVolume'
-                                                    operator: 'GreaterThanEqualTo'
+                                                    operator: 'GreaterThanOrEqual'
                                                     threshold: 500
                                                     timeAggregation: 'Total'
                                                     criterionType: 'StaticThresholdCriterion'
