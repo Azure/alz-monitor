@@ -77,7 +77,7 @@ module RegistrationCapacityUtilizationAlert '../../../arm/Microsoft.Authorizatio
                                     name: '[concat(parameters(\'resourceName\'), \'-RequestsAlert\')]'
                                     location: 'global'
                                     properties: {
-                                        description: 'Metric Alert for KeyVault Requests'
+                                        description: 'Metric Alert for Private DNS Zone Registration Capacity Utilization'
                                         severity: 3
                                         enabled: true
                                         scopes: [
