@@ -83,7 +83,7 @@ module RegistrationCapacityUtilizationAlert '../../../arm/Microsoft.Authorizatio
                                         scopes: [
                                         '[parameters(\'resourceId\')]'
                                         ]
-                                        evaluationFrequency: 'PT5M'
+                                        evaluationFrequency: 'PT1H'
                                         windowSize: 'PT5M'
                                         criteria: {
                                             allOf: [
