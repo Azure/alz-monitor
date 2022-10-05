@@ -91,7 +91,7 @@ module QueryVolumeAlert '../../../arm/Microsoft.Authorization/policyDefinitions/
                                                     name: 'QueryVolume'
                                                     metricNamespace: 'Microsoft.Network/privateDnsZones'
                                                     metricName: 'QueryVolume'
-                                                    operator: 'GreaterThanEqualTo'
+                                                    operator: 'GreaterThanOrEqual'
                                                     threshold: 500
                                                     timeAggregation: 'Total'
                                                     criterionType: 'StaticThresholdCriterion'
