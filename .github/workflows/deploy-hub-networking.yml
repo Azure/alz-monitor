@@ -61,7 +61,7 @@ jobs:
       id: create_monitor_policy_defs
       shell: bash
       run: |
-          az deployment mg create --template-file Observability_L100/Deploy/policyDeploy.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file Observability_L100/Deploy/deploy_dine_policies.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
     
     - name: Az CLI Deploy Logging for PR
       id: create_logging
