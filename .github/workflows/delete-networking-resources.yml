@@ -47,7 +47,7 @@ jobs:
       uses: azure/powershell@v1
       with:
         inlineScript: |
-          Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.hubnw }} | Remove-AzManagementGroupDeployment -AsJob
+          Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.hubManagementGroup }} | Remove-AzManagementGroupDeployment -AsJob
         azPSVersion: "latest"
 
     - name: Az CLI Delete Hub Network
