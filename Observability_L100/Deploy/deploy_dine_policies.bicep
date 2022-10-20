@@ -27,8 +27,8 @@ module dnsz_recordSetCount_policy 'policyDefinitions/deploy-dnsz_recordsetcount_
   }
 }
 
-module dnsz_recordSetCapacityUtilization_policy 'policyDefinitions/deploy-dnsz_recordsetcount_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-rsca-policyDefinitions-deploy'
+module dnsz_recordSetCapacityUtilization_policy 'policyDefinitions/deploy-dnsz_recordsetcapacityutilization_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-rscua-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation

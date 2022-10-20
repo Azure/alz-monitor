@@ -9,7 +9,7 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
   name: '${uniqueString(deployment().name)}-rsca-policyDefinitions'
   params: {
       name: 'Deploy_DNSZ_RecordSetCount_Alert'
-      displayName: ''
+      displayName: '[DINE] Deploy DNSZ Record Set Count Alert'
       description: 'DINE policy to audit/deploy DNS Zone Record Set Count Alert'
       location: policyLocation
       metadata: {

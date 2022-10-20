@@ -9,7 +9,7 @@ module RecordSetCapacityUtilizationAlert '../../arm/Microsoft.Authorization/poli
   name: '${uniqueString(deployment().name)}-rscua-policyDefinitions'
   params: {
       name: 'Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert'
-      displayName: ''
+      displayName: '[DINE] Deploy DNSZ Record Set Capacity Utlization Alert'
       description: 'DINE policy to audit/deploy DNS Zone Record Set Capacity Utilization Alert'
       location: policyLocation
               metadata: {
