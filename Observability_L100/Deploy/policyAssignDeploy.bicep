@@ -20,7 +20,7 @@ module Deploy_DNSZ_RecordSetCount_Alert '../../infra-as-code/bicep/modules/polic
         name: '${uniqueString(deployment().name)}-Deploy_DNSZ_RecordSetCount_Alert'
           params: {
             parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_RecordSetCount_Alert'
-            parPolicyAssignmentDisplayName: ''
+            parPolicyAssignmentDisplayName: '[DINE] Deploy DNSZ Record Set Count Alert'
             parPolicyAssignmentName: 'Deploy_DNSZ_RecordSetCo'
             parPolicyAssignmentDescription: 'DINE policy to audit/deploy DNS Zone Record Set Count Alert'
             parPolicyAssignmentIdentityType: 'SystemAssigned'
@@ -33,7 +33,7 @@ module Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert '../../infra-as-code/bicep/mo
         name: '${uniqueString(deployment().name)}-Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert'
           params: {
             parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert'
-            parPolicyAssignmentDisplayName: ''
+            parPolicyAssignmentDisplayName: '[DINE] Deploy DNSZ Record Set Capacity Utilization Alert'
             parPolicyAssignmentName: 'Deploy_DNSZ_ZoneRecordS'
             parPolicyAssignmentDescription: 'DINE policy to audit/deploy DNS Zone Record Set Capacity Utilization Alert'
             parPolicyAssignmentIdentityType: 'SystemAssigned'
