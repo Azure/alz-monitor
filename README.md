@@ -31,8 +31,10 @@ The workflow is set for manual runs only, i.e. you need to run it from [here](ht
 
 ## .github/workflows/delete-networking resources.yml
 This pipeline can be started manually, but also runs at 7 PM EST every day to delete the following:
+- ARM deployments to hubnw management group hierarchy
 - Resource group containing HUB vNet, Azure Firewall, private DNS zones, ER Gateway, VPN gateway and Bastion etc. in connectivity subscription
 - Resource group containing spoke vnet peered to hub vnet and UDR i landing zone subscription
+- ARM deployments to vwan management group hierarchy
 - Resource group containing vWan hub, Azure Firewall, private DNS zones, ER Gateway, VPN gateway etc in connectivity subscription
 - Resource group containing Spoke vnet connected to vWan hub and UDR in landing zone subscription
 The workflow is set to run every day at 12:00 AM UTC (should be 7pm EST), but can also be run manually from [here](https://github.com/Azure/alz-monitor/actions/workflows/delete-networking-resources.yml)
