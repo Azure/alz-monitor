@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 targetScope = 'subscription'
 
 param build_iteration string = '007'

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 targetScope = 'subscription'
 
 param targetResources array
@@ -15,7 +18,7 @@ resource erg_alert_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   location: resourceGroupLocation
 }
 
-module erg_cpu_util_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
+module erg_cpu_util_alert '../../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
   name: '${uniqueString(deployment().name)}-ExpressRouteGatewayAlerts'
   scope: erg_alert_rg
   params: {
@@ -42,7 +45,7 @@ module erg_cpu_util_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bicep' 
   }
 }
 
-module erg_bps_out_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
+module erg_bps_out_alert '../../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
   name: '${uniqueString(deployment().name)}-ExpressRouteGatewayAlerts'
   scope: erg_alert_rg
   params: {
@@ -69,7 +72,7 @@ module erg_bps_out_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bicep' =
   }
 }
 
-module erg_bps_in_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
+module erg_bps_in_alert '../../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
   name: '${uniqueString(deployment().name)}-ExpressRouteGatewayAlerts'
   scope: erg_alert_rg
   params: {
@@ -96,7 +99,7 @@ module erg_bps_in_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = 
   }
 }
 
-module erg_peer_routes_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
+module erg_peer_routes_alert '../../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
   name: '${uniqueString(deployment().name)}-ExpressRouteGatewayAlerts'
   scope: erg_alert_rg
   params: {
@@ -123,7 +126,7 @@ module erg_peer_routes_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bice
   }
 }
 
-module erg_route_change_alert '../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
+module erg_route_change_alert '../../arm/Microsoft.Insights/metricAlerts/deploy.bicep' = {
   name: '${uniqueString(deployment().name)}-ExpressRouteGatewayAlerts'
   scope: erg_alert_rg
   params: {
