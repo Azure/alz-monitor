@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 targetScope = 'managementGroup'
 
 @description('The management group scope to which the policy definitions are to be created at. DEFAULT VALUE = "alz"')
