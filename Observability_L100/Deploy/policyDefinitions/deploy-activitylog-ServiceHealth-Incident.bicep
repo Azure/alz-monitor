@@ -8,7 +8,7 @@ param deploymentRoleDefinitionIds array = [
 module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
-        name: 'deploy-activitylog-ServiceHealth-Incident'
+        name: 'Deploy_activitylog_ServiceHealth_Incident'
         displayName: '[DINE] Deploy Service Health Incident Alert'
         description: 'DINE policy to Deploy Service Health Incident Alert'
         location: policyLocation
@@ -58,11 +58,11 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                   {
                                     allOf: [
                                       {
-                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field'
+                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].field'
                                         equals: 'properties.incidentType'
                                       }
                                       {
-                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals'
+                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].equals'
                                         equals: 'Incident'
                                       }
                                     ]
