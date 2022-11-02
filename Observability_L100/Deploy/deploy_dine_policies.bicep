@@ -320,3 +320,17 @@ module vpng_ingress_policy 'policyDefinitions/deploy-vpng_ingress_alert.bicep' =
    policyLocation: policyLocation
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Service Health Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module service_health_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep' = {
+  name: '${uniqueString(deployment().name)}-svchlth-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}

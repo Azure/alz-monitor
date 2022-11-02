@@ -419,3 +419,18 @@ module Deploy_VPNGw_Egress_Alert '../../infra-as-code/bicep/modules/policy/assig
             ]
           }
         }
+
+
+module Deploy_svcHlth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+        name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Alert'
+          params: {
+            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident'
+            parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Incident Alert'
+            parPolicyAssignmentName: 'Deploy_svcHlth_Ale'
+            parPolicyAssignmentDescription: 'DINE policy to Deploy Service Health Incident Alert'
+            parPolicyAssignmentIdentityType: 'SystemAssigned'
+            parPolicyAssignmentIdentityRoleDefinitionIds: [
+                'b24988ac-6180-42a0-ab88-20f7382dd24c'
+            ]
+          }
+        }

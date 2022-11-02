@@ -31,6 +31,8 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
+                    // should be replaced with parameter value
+                    resourceGroupName: 'networkWatcherRG'
                     existenceCondition: {
                         allOf: [
   
@@ -80,19 +82,20 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
-  
                                 variables: {}
                                 resources: [ 
+                                //should deploy resource group as well
                                 {
                                         type: 'microsoft.insights/activityLogAlerts'
                                         apiVersion: '2020-10-01'
-                                        name: '[concat(subscription().name, \'-ServiceHealthIncident\')]'
+                                        //name: '[concat(subscription().subscriptionId, \'-ServiceHealthIncident\')]'
+                                        name: 'ServiceHealthIncident'
                                         location: 'global'
                                         properties: {
-                                            description: ' Service Health Incident Alert'
+                                            description: 'Service Health Incident Alert'
                                             enabled: true
                                             scopes: [
-                                                '[concat(\'/subscriptions/\',subscription().id )]'
+                                                '[subscription().id]'
                                             ]
                                             condition: {
                                             allOf: [
