@@ -424,7 +424,7 @@ module Deploy_VPNGw_Egress_Alert '../../infra-as-code/bicep/modules/policy/assig
 module Deploy_svcHlth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
         name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Alert'
           params: {
-            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident'
+            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident'
             parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Incident Alert'
             parPolicyAssignmentName: 'Deploy_svcHlth_Ale'
             parPolicyAssignmentDescription: 'DINE policy to Deploy Service Health Incident Alert'
