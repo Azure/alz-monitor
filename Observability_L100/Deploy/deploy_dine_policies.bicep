@@ -327,8 +327,46 @@ module vpng_ingress_policy 'policyDefinitions/deploy-vpng_ingress_alert.bicep' =
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-module service_health_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep' = {
-  name: '${uniqueString(deployment().name)}-svchlth-policyDefinitions-deploy'
+module service_health_incident_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep' = {
+  name: '${uniqueString(deployment().name)}-svchlthInc-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module service_health_health_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHlthhlth-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module service_health_security_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHlthsec-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module service_health_maintenance_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHlthmain-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Resource Health Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module resource_health_unhealthy_policy 'policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-resHlthunhlth-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation

@@ -434,3 +434,59 @@ module Deploy_svcHlth_Alert '../../infra-as-code/bicep/modules/policy/assignment
             ]
           }
         }
+
+module Deploy_svcHlth_Hlth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+        name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Hlth_Alert'
+          params: {
+            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory'
+            parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Health Advisory Alert'
+            parPolicyAssignmentName: 'Deploy_svcHlth_Hlth'
+            parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Health Advisory Alert'
+            parPolicyAssignmentIdentityType: 'SystemAssigned'
+            parPolicyAssignmentIdentityRoleDefinitionIds: [
+                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
+              ]
+            }
+          }
+
+module Deploy_svcHlth_Main_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+        name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Main_Alert'
+          params: {
+            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance'
+            parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Planned Maintenance Alert'
+                parPolicyAssignmentName: 'Deploy_svcHlth_main'
+                parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Planned Maintenance Alert'
+                parPolicyAssignmentIdentityType: 'SystemAssigned'
+                parPolicyAssignmentIdentityRoleDefinitionIds: [
+                      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                  ]
+                }
+              }
+
+module Deploy_svcHlth_Sec_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+         name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Sec_Alert'
+                  params: {
+                    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory'
+                    parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Security Advisory Alert'
+                        parPolicyAssignmentName: 'Deploy_svcHlth_sec'
+                        parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Security Advisory Alert'
+                        parPolicyAssignmentIdentityType: 'SystemAssigned'
+                        parPolicyAssignmentIdentityRoleDefinitionIds: [
+                              'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                          ]
+                        }
+                      }
+                      
+module Deploy_ResHlth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+                        name: '${uniqueString(deployment().name)}-Deploy_resHlth_Unhlth_Alert'
+                                 params: {
+                                   parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert'
+                                   parPolicyAssignmentDisplayName: '[DINE] Deploy Resource Health Unhealthy Alert'
+                                       parPolicyAssignmentName: 'Deploy_resHlth_unhealth'
+                                       parPolicyAssignmentDescription: 'DINE policy to deploy Resource Health Unhealthy Alert'
+                                       parPolicyAssignmentIdentityType: 'SystemAssigned'
+                                       parPolicyAssignmentIdentityRoleDefinitionIds: [
+                                             'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                                         ]
+                                       }
+                                     }
