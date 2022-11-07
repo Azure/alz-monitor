@@ -8,16 +8,16 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-kvla-policyDefinitions'
+module TunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-vpngingresspacketdropcount-policyDefinitions'
     params: {
-        name: 'Deploy_KeyVault_Latency_Alert'
-        displayName: '[DINE] Deploy KeyVault Latency Alert'
-        description: 'DINE policy to audit/deploy KeyVault Latency Alert'
+        name: 'Deploy_VPNGw_TunnelIngressPacketDropCount_Alert'
+        displayName: '[DINE] Deploy VPNG Ingress Packet Drop Count Alert'
+        description: 'DINE policy to audit/deploy VPN Gateway Ingress Packet Drop Count Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Key Vault'
+            Category: 'Networking'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
         policyRule: {
@@ -25,7 +25,7 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'microsoft.keyvault/vaults'
+                        equals: 'microsoft.network/vpngateways'
                     }
                 ]
             }
@@ -38,15 +38,15 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'microsoft.keyvault/vaults'
+                                equals: 'microsoft.network/vpngateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'ServiceApiLatency'
+                                equals: 'TunnelIngressPacketDropCount'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.keyvault/vaults/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/vpngateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -77,10 +77,10 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-LatencyAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressPacketDropCountAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for KeyVault Latency'
+                                            description: 'Metric Alert for VPN Gateway tunnel TunnelIngressPacketDropCount'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,11 +91,11 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'ServiceApiLatency'
-                                                        metricNamespace: 'microsoft.keyvault/vaults'
-                                                        metricName: 'ServiceApiLatency'
+                                                        name: 'TunnelIngressPacketDropCount'
+                                                        metricNamespace: 'microsoft.network/vpngateways'
+                                                        metricName: 'TunnelIngressPacketDropCount'
                                                         operator: 'GreaterThan'
-                                                        threshold: 1000
+                                                        threshold: 100
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
