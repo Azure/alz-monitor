@@ -8,7 +8,7 @@ param deploymentRoleDefinitionIds array = [
 module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
-        name: 'Deploy_activitylog_LAWorkspace_Delete'
+        name: 'Deploy_activitylog_LAWorkspace_KeyRegen'
         displayName: '[DINE] Deploy Activity Log LA Workspace Regenerate Key Alert'
         description: 'DINE policy to Deploy Activity Log LA Workspace Regenerate Key Alert'
         location: policyLocation
