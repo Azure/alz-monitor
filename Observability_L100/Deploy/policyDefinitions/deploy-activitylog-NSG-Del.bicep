@@ -5,12 +5,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module ActivityLogKeyVaultDeleteAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
-        name: 'Deploy_activitylog_KeyVault_Delete'
-        displayName: '[DINE] Deploy Activity Log Key Vault Delete Alert'
-        description: 'DINE policy to Deploy Activity Log Key Vault Delete Alert'
+        name: 'Deploy_activitylog_NSG_Delete'
+        displayName: '[DINE] Deploy Activity Log NSG Delete Alert'
+        description: 'DINE policy to Deploy Activity Log NSG Delete Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -65,7 +65,7 @@ module ActivityLogKeyVaultDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                       }
                                       {
                                         field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
-                                        equals: 'Microsoft.KeyVault/vaults/delete'
+                                        equals: 'Microsoft.Network/networkSecurityGroups/delete'
                                       }
                                     ]
                                   }
@@ -88,11 +88,11 @@ module ActivityLogKeyVaultDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                 {
                                         type: 'microsoft.insights/activityLogAlerts'
                                         apiVersion: '2020-10-01'
-                                        //name: '[concat(subscription().subscriptionId, \'-ActivityKeyVaultDelete\')]'
-                                        name: 'ActivityKeyVaultDelete'
+                                        //name: '[concat(subscription().subscriptionId, \'-ActivityNSGDelete\')]'
+                                        name: 'ActivityNSGDelete'
                                         location: 'global'
                                         properties: {
-                                            description: 'Activity Log Key Vault Delete'
+                                            description: 'Activity Log VPN Gateway Delete'
                                             enabled: true
                                             scopes: [
                                                 '[subscription().id]'
@@ -105,7 +105,7 @@ module ActivityLogKeyVaultDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                                 }
                                                 {
                                                   field: 'operationName'
-                                                  equals: 'Microsoft.KeyVault/vaults/delete'
+                                                  equals: 'Microsoft.Network/networkSecurityGroups/delete'
                                                 }
                                                 {
                                                   field: 'status'
