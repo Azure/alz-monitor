@@ -24,6 +24,10 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                         field: 'type'
                         equals: 'Microsoft.Resources/subscriptions'
                     }
+                    {
+                      field: 'type'
+                      equals: 'Microsoft.Network/azureFirewalls'
+                    }
                 ]
             }
             then: {
