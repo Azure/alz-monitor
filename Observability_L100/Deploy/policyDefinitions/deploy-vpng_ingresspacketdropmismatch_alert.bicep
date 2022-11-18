@@ -8,10 +8,10 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module TunnelIngressPacketDropTSMismatchAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module TunnelIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngingresspacketdropmismatch-policyDefinitions'
     params: {
-        name: 'Deploy_VPNGw_TunnelIngressPacketDropTSMismatch_Alert'
+        name: 'Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert'
         displayName: '[DINE] Deploy VPNG Ingress Packet Drop Mismatch Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Ingress Packet Drop Mismatch Alert'
         location: policyLocation
