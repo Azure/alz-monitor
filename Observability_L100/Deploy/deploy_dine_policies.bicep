@@ -332,7 +332,7 @@ module vpng_ingress_policy 'policyDefinitions/deploy-vpng_ingress_alert.bicep' =
 }
 
 module vpng_egresspacketdropcount_policy 'policyDefinitions/deploy-vpng_egresspacketdropcount_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vpngegresspacketdropcount-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vpngegrpacketdropcount-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -340,7 +340,7 @@ module vpng_egresspacketdropcount_policy 'policyDefinitions/deploy-vpng_egresspa
 }
 
 module vpng_egresspacketdropmismatch_policy 'policyDefinitions/deploy-vpng_egresspacketdropmismatch_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vpngegresspacketdropmismatch-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vpngegrpacketdropmmatch-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -348,7 +348,7 @@ module vpng_egresspacketdropmismatch_policy 'policyDefinitions/deploy-vpng_egres
 }
 
 module vpng_ingresspacketdropcount_policy 'policyDefinitions/deploy-vpng_ingresspacketdropcount_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vpngingresspacketdropcount-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vpngingrpacketdropcount-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -356,7 +356,7 @@ module vpng_ingresspacketdropcount_policy 'policyDefinitions/deploy-vpng_ingress
 }
 
 module vpng_ingresspacketdropmismatch_policy 'policyDefinitions/deploy-vpng_ingresspacketdropmismatch_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vpngingresspacketdropmismatch-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vpngingrpacketdropmmtch-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
