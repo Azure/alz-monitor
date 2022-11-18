@@ -421,7 +421,7 @@ module aa_totaljobs_policy 'policyDefinitions/deploy-aa_totaljob_alert.bicep' = 
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-module afw_firewallhealth_policy 'policyDefinitions/deploy-aa_totaljob_alert.bicep' = {
+module afw_firewallhealth_policy 'policyDefinitions/deploy-afw_firewallhealth_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-afwfirewallhealth-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
@@ -429,7 +429,7 @@ module afw_firewallhealth_policy 'policyDefinitions/deploy-aa_totaljob_alert.bic
   }
 }
 
-module afw_snatportutilization_policy 'policyDefinitions/deploy-aa_totaljob_alert.bicep' = {
+module afw_snatportutilization_policy 'policyDefinitions/deploy-afw_snatportutilization_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-afwsnatportutilization-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
