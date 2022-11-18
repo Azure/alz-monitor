@@ -557,7 +557,7 @@ module Deploy_AFW_FirewallHealth_Alert '../../infra-as-code/bicep/modules/policy
   params: {
     parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_FirewallHealth_Alert'
     parPolicyAssignmentDisplayName: '[DINE] Deploy AFW FirewallHealth Alert'
-    parPolicyAssignmentName: 'Deploy_AFW_FirewallHealth_Aler'
+    parPolicyAssignmentName: 'Deploy_AFW_FWHealth_Ale'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy Azure Firewall FirewallHealth Alert'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
     parPolicyAssignmentIdentityRoleDefinitionIds: [
@@ -570,7 +570,7 @@ module Deploy_AFW_SNATPortUtilization_Alert '../../infra-as-code/bicep/modules/p
   params: {
     parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_SNATPortUtilization_Alert'
     parPolicyAssignmentDisplayName: '[DINE] Deploy AFW SNATPortUtilization'
-    parPolicyAssignmentName: 'Deploy_AFW_SNATPortUtilization'
+    parPolicyAssignmentName: 'Deploy_AFW_SNATPortUtil'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy Azure Firewall SNAtPortUtilization Alert'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
     parPolicyAssignmentIdentityRoleDefinitionIds: [
