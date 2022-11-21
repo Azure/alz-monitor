@@ -25,7 +25,7 @@ module EgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/manageme
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'microsoft.network/vpngateways'
+                        equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
                 ]
             }
@@ -38,7 +38,7 @@ module EgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/manageme
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'microsoft.network/vpngateways'
+                                equals: 'Microsoft.Network/virtualNetworkGateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
@@ -46,7 +46,7 @@ module EgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/manageme
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/vpngateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -92,7 +92,7 @@ module EgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/manageme
                                                 allOf: [
                                                     {
                                                         name: 'tunnelegressbytes'
-                                                        metricNamespace: 'microsoft.network/vpngateways'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
                                                         metricName: 'tunnelegressbytes'
                                                         operator: 'LessThanOrEqual'
                                                         threshold: 0

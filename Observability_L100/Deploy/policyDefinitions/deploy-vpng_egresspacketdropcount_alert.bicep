@@ -25,7 +25,7 @@ module TunnelEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'microsoft.network/vpngateways'
+                        equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
                 ]
             }
@@ -38,7 +38,7 @@ module TunnelEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'microsoft.network/vpngateways'
+                                equals: 'Microsoft.Network/virtualNetworkGateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
@@ -46,7 +46,7 @@ module TunnelEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/vpngateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -92,7 +92,7 @@ module TunnelEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                                                 allOf: [
                                                     {
                                                         name: 'TunnelEgressPacketDropCount'
-                                                        metricNamespace: 'microsoft.network/vpngateways'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
                                                         metricName: 'TunnelEgressPacketDropCount'
                                                         operator: 'GreaterThan'
                                                         threshold: 100
