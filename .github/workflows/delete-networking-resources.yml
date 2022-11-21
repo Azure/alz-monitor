@@ -44,6 +44,13 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
 
+    - name: Delete hubnw management group deployments
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.hubManagementGroup }} | Remove-AzManagementGroupDeployment -AsJob
+        azPSVersion: "latest"
+
     - name: Az CLI Delete Hub Network
       id: delete_hub_network
       shell: bash
@@ -97,6 +104,13 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
+
+    - name: Delete VWAN management group deployments
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.vwanManagementGroup }} | Remove-AzManagementGroupDeployment -AsJob
+        azPSVersion: "latest"
 
     - name: Az CLI Delete vWAN Network
       id: delete_vwan_network
