@@ -8,10 +8,10 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kva-policyDefinitions'
     params: {
-        name: 'Deploy_KeyVault_QueryVolume_Alert'
+        name: 'Deploy_KeyVault_Availability_Alert'
         displayName: '[DINE] Deploy KeyVault Query Volume Alert'
         description: 'DINE policy to audit/deploy KeyVault Query Volume Alert'
         location: policyLocation

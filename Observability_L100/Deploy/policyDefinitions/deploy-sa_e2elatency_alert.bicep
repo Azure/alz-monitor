@@ -94,7 +94,7 @@ module E2ELatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                                         name: 'AverageE2ELatency'
                                                         metricNamespace: 'Microsoft.Storage/storageAccounts'
                                                         metricName: 'AverageE2ELatency'
-                                                        operator: 'LessThan'
+                                                        operator: 'GreaterThan'
                                                         threshold: 5000
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'

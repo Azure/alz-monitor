@@ -8,16 +8,16 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-kvla-policyDefinitions'
+module VnetgBgpPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-vnpgbgppeerstatus-policyDefinitions'
     params: {
-        name: 'Deploy_KeyVault_Latency_Alert'
-        displayName: '[DINE] Deploy KeyVault Latency Alert'
-        description: 'DINE policy to audit/deploy KeyVault Latency Alert'
+        name: 'Deploy_VnetGw_BgpPeerStatus_Alert'
+        displayName: '[DINE] Deploy VNetG BgpPeerStatus Alert'
+        description: 'DINE policy to audit/deploy Virtual Network Gateway BgpPeerStatus Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Key Vault'
+            Category: 'Networking'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
         policyRule: {
@@ -25,7 +25,7 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'microsoft.keyvault/vaults'
+                        equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
                 ]
             }
@@ -38,15 +38,15 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'microsoft.keyvault/vaults'
+                                equals: 'Microsoft.Network/virtualNetworkGateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'ServiceApiLatency'
+                                equals: 'BgpPeerStatus'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.keyvault/vaults/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -77,10 +77,10 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-LatencyAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-VnetGBgpPeerStatus\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for KeyVault Latency'
+                                            description: 'Metric Alert for VNet Gateway BgpPeerStatus'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,19 +91,18 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'ServiceApiLatency'
-                                                        metricNamespace: 'microsoft.keyvault/vaults'
-                                                        metricName: 'ServiceApiLatency'
-                                                        operator: 'GreaterThan'
-                                                        threshold: 1000
-                                                        timeAggregation: 'Average'
+                                                        name: 'BgpPeerStatus'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
+                                                        metricName: 'BgpPeerStatus'
+                                                        operator: 'LessThan'
+                                                        threshold: 1
+                                                        timeAggregation: 'Total'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
                                         }
-
                                     }
                                 ]
                             }
