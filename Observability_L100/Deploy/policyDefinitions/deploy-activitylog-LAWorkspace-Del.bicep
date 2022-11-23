@@ -1,6 +1,7 @@
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
+param resourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -24,6 +25,10 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                         field: 'type'
                         equals: 'Microsoft.Resources/subscriptions'
                     }
+                    {
+                      field: 'type'
+                      equals: 'Microsoft.OperationalInsights/workspaces'
+                    }
                 ]
             }
             then: {
@@ -32,7 +37,7 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
                     // should be replaced with parameter value
-                    resourceGroupName: 'networkWatcherRG'
+                    resourceGroupName: resourceGroupName
                     existenceCondition: {
                         allOf: [
   
@@ -84,6 +89,14 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                                 contentVersion: '1.0.0.0'
                                 variables: {}
                                 resources: [ 
+
+                                  {
+                                    type: 'Microsoft.Resources/resourceGroups'
+                                    apiVersion: '2020-10-01'
+                                    name: resourceGroupName
+                                    location: policyLocation
+                                    properties: {}
+                                    }
                                 //should deploy resource group as well
                                 {
                                         type: 'microsoft.insights/activityLogAlerts'
