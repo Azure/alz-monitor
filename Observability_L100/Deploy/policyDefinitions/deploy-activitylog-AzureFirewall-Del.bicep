@@ -1,5 +1,6 @@
 targetScope = 'managementGroup'
 
+param resourceGroupName string = 'AlzMonitoring-rg'
 param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
@@ -36,7 +37,7 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
                     // should be replaced with parameter value
-                    resourceGroupName: 'networkWatcherRG'
+                    resourceGroupName: resourceGroupName
                     existenceCondition: {
                         allOf: [
   
@@ -86,10 +87,18 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
-                                variables: {}
+                                  variables: {}
                                 resources: [ 
                                 //should deploy resource group as well
                                 {
+                                  type: 'Microsoft.Resources/resourceGroups'
+                                  apiVersion: '2020-10-01'
+                                  name: resourceGroupName
+                                  location: policyLocation
+                                  properties: {}
+                                  }
+                               
+                                {                               
                                         type: 'microsoft.insights/activityLogAlerts'
                                         apiVersion: '2020-10-01'
                                         //name: '[concat(subscription().subscriptionId, \'-ActivityVPNGatewayDelete\')]'
