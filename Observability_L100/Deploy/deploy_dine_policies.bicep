@@ -372,3 +372,63 @@ module resource_health_unhealthy_policy 'policyDefinitions/deploy-activitylog-Re
    policyLocation: policyLocation
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Activity Log Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module activity_KeyVault_Del_policy 'policyDefinitions/deploy-activitylog-KeyVault-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-alkeyvaildelal-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+
+module activity_azurefirewall_Del_policy 'policyDefinitions/deploy-activitylog-AzureFirewall-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-alazfirewdelal-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+
+
+module activity_LogAnaly_Del_policy 'policyDefinitions/deploy-activitylog-LAWorkspace-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-alLogAanldelal-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+
+module activity_LogAnaly_regen_policy 'policyDefinitions/deploy-activitylog-LAWorkspace-ReGen.bicep' = {
+  name: '${uniqueString(deployment().name)}-alLogAnlregenal-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module activity_NSG_del_policy 'policyDefinitions/deploy-activitylog-NSG-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-alNSGDelalert-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module activity_VPNGateway_del_policy 'policyDefinitions/deploy-activitylog-VPNGate-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-alVPNGatDelalert-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+

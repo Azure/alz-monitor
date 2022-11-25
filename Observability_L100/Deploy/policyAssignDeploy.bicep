@@ -490,3 +490,90 @@ module Deploy_ResHlth_Alert '../../infra-as-code/bicep/modules/policy/assignment
                                          ]
                                        }
                                      }
+
+module Deploy_ActLog_Firewall_Del_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+           name: '${uniqueString(deployment().name)}-Deploy_activity_firewalldel_Alert'
+                  params: {
+                         parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete'
+                         parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log Azure FireWall Delete Alert'
+                         parPolicyAssignmentName: 'Deploy_firewall_delete'
+                         parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log Azure Firewall Delete Alert'
+                         parPolicyAssignmentIdentityType: 'SystemAssigned'
+                         parPolicyAssignmentIdentityRoleDefinitionIds: [
+                           'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                                     ]
+                                    }
+          }
+
+module Deploy_ActLog_KeyVault_Del_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+           name: '${uniqueString(deployment().name)}-Deploy_activity_keyvaultdel_Alert'
+                  params: {
+                         parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete'
+                         parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log Key Vault Delete Alert'
+                         parPolicyAssignmentName: 'Deploy_keyvault_delete'
+                         parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log Key Vault Delete Alert'
+                         parPolicyAssignmentIdentityType: 'SystemAssigned'
+                         parPolicyAssignmentIdentityRoleDefinitionIds: [
+                           'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                                     ]
+                                    }
+}
+
+module Deploy_ActLog_LogAnal_Del_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+  name: '${uniqueString(deployment().name)}-Deploy_activity_loganaldel_Alert'
+         params: {
+                parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete'
+                parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log LA Workspace Delete Alert'
+                parPolicyAssignmentName: 'Deploy_loganal_delete'
+                parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log LA Workspace Delete Alert'
+                parPolicyAssignmentIdentityType: 'SystemAssigned'
+                parPolicyAssignmentIdentityRoleDefinitionIds: [
+                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                            ]
+                           }
+}
+
+module Deploy_ActLog_LogAnal_regen_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+  name: '${uniqueString(deployment().name)}-Deploy_activity_loganalregen_Alert'
+         params: {
+                parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen'
+                parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log LA Workspace Regenerate Key Alert'
+                parPolicyAssignmentName: 'Deploy_loganal_ReGenk'
+                parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log LA Workspace Regenerate Key Alert'
+                parPolicyAssignmentIdentityType: 'SystemAssigned'
+                parPolicyAssignmentIdentityRoleDefinitionIds: [
+                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                            ]
+                           }
+}
+
+module Deploy_ActLog_NSG_delete_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+  name: '${uniqueString(deployment().name)}-Deploy_activity_nsgdel_Alert'
+         params: {
+                parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete'
+                parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log NSG Delete Alert'
+                parPolicyAssignmentName: 'Deploy_ActNSG_Del'
+                parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log NSG Delete Alert'
+                parPolicyAssignmentIdentityType: 'SystemAssigned'
+                parPolicyAssignmentIdentityRoleDefinitionIds: [
+                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                            ]
+                           }
+}
+
+module Deploy_ActLog_VPNGateway_delete_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+  name: '${uniqueString(deployment().name)}-Deploy_activity_vpngatedel_Alert'
+         params: {
+                parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete'
+                parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log VPN Gateway Delete Alert'
+                parPolicyAssignmentName: 'Deploy_ActVPNGate_Del'
+                parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log VPN Gateway Delete Alert'
+                parPolicyAssignmentIdentityType: 'SystemAssigned'
+                parPolicyAssignmentIdentityRoleDefinitionIds: [
+                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
+                            ]
+                           }
+}
+
+
+    
