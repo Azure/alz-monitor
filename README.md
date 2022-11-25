@@ -1,59 +1,71 @@
-# Rules of engagement
-Please remember to create all contributions as branches and create a pull request when you are ready to merge with main. 
-
-There are three pipelines as follows:
-## .github/workflows/deploy-hub-networking.yml
-This pipeline is started manually only and deploys the following:
-- Management group structure hubnw with four subscriptions. Three for the various platform areas and one for the landing zones area (corp)
-- Log analytics workspace and automation account in the management subscription
-- HUB vNet, Azure Firewall, private DNS zones, ER Gateway, VPN gateway and Bastion etc. in connectivity subscription. Note that DDoS is not enabled (cost reasons)
-- Spoke vnet peered to hub vnet and UDR i landing zone subscription
-- Default ALZ custom role definitions (no assignments)
-- ALZ custom policy/initiative definitions
-- ALZ Custom Monitor policy definitions (from ./Observability_L100/Deploy/policyDefinitions), actual deployment happens through ./Observability_L100/Deploy/deploy_dine_policies.bicep.
-- Default ALZ policy assignments except for DDoS (cost reasons)
-- ALZ Custom Monitor policy assignments, deployment happens through ./Observability_L100/Deploy/policyAssignDeploy.bicep
-The workflow is set for manual runs only, i.e. you need to run it from [here](https://github.com/Azure/alz-monitor/actions/workflows/deploy-hub-networking.yml)
-
-
-## .github/workflows/deploy-vwan-networking.yml
-This pipeline is started manually only and  deploys the following:
-- Management group structure vwan with four subscriptions. Three for the various platform areas and one for the landing zones area (corp)
-- Log analytics workspace and automation account in the management subscription
-- vWan hub, Azure Firewall, private DNS zones, ER Gateway, VPN gateway etc in connectivity subscription. Note that DDoS is not enabled (cost reasons)
-- Spoke vnet connected to vWan hub and UDR in landing zone subscription
-- Default ALZ custom role definitions (no assignments)
-- ALZ custom policy/initiative definitions
-- ALZ Custom Monitor policy definitions (from ./Observability_L100/Deploy/policyDefinitions), actual deployment happens through ./Observability_L100/Deploy/deploy_dine_policies.bicep.
-- Default ALZ policy assignments except for DDoS (cost reasons)
-- ALZ Custom Monitor policy assignments, deployment happens through ./Observability_L100/Deploy/policyAssignDeploy.bicep
-The workflow is set for manual runs only, i.e. you need to run it from [here](https://github.com/Azure/alz-monitor/actions/workflows/deploy-vwan-networking.yml)
-
-## .github/workflows/delete-networking resources.yml
-This pipeline can be started manually, but also runs at 7 PM EST every day to delete the following:
-- ARM deployments to hubnw management group hierarchy
-- Resource group containing HUB vNet, Azure Firewall, private DNS zones, ER Gateway, VPN gateway and Bastion etc. in connectivity subscription
-- Resource group containing spoke vnet peered to hub vnet and UDR i landing zone subscription
-- ARM deployments to vwan management group hierarchy
-- Resource group containing vWan hub, Azure Firewall, private DNS zones, ER Gateway, VPN gateway etc in connectivity subscription
-- Resource group containing Spoke vnet connected to vWan hub and UDR in landing zone subscription
-The workflow is set to run every day at 12:00 AM UTC (should be 7pm EST), but can also be run manually from [here](https://github.com/Azure/alz-monitor/actions/workflows/delete-networking-resources.yml)
-
-
-
 # Alerts for Azure Landing Zone
 
 <!-- vscode-markdown-toc -->
-- [Dependencies](#Dependencies)
-- [Roadmap](#Roadmap)
-- [Prerequisites](#Prerequisites)
-- [Metric Alert Policy Deployment Steps](#MetricAlertPolicyDeploymentSteps)
+* [Rules of engagement](#Rulesofengagement)
+  * [.github/workflows/deploy-hub-networking.yml](#githubworkflowsdeploy-hub-networking.yml)
+  * [.github/workflows/deploy-vwan-networking.yml](#githubworkflowsdeploy-vwan-networking.yml)
+  * [.github/workflows/delete-networking resources.yml](#githubworkflowsdelete-networkingresources.yml)
+* [Summary](#Summary)
+* [Dependencies](#Dependencies)
+* [Roadmap](#Roadmap)
+* [Prerequisites](#Prerequisites)
+* [Metric Alert Policy Deployment Steps](#MetricAlertPolicyDeploymentSteps)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+## <a name='Rulesofengagement'></a>Rules of engagement
+
+Please remember to create all contributions as branches and create a pull request when you are ready to merge with main.
+
+There are three pipelines as follows:
+
+### <a name='githubworkflowsdeploy-hub-networking.yml'></a>.github/workflows/deploy-hub-networking.yml
+
+This pipeline is started manually only and deploys the following:
+
+* Management group structure hubnw with four subscriptions. Three for the various platform areas and one for the landing zones area (corp)
+* Log analytics workspace and automation account in the management subscription
+* HUB vNet, Azure Firewall, private DNS zones, ER Gateway, VPN gateway and Bastion etc. in connectivity subscription. Note that DDoS is not enabled (cost reasons)
+* Spoke vnet peered to hub vnet and UDR i landing zone subscription
+* Default ALZ custom role definitions (no assignments)
+* ALZ custom policy/initiative definitions
+* ALZ Custom Monitor policy definitions (from ./Observability_L100/Deploy/policyDefinitions), actual deployment happens through ./Observability_L100/Deploy/deploy_dine_policies.bicep.
+* Default ALZ policy assignments except for DDoS (cost reasons)
+* ALZ Custom Monitor policy assignments, deployment happens through ./Observability_L100/Deploy/policyAssignDeploy.bicep
+The workflow is set for manual runs only, i.e. you need to run it from [here](https://github.com/Azure/alz-monitor/actions/workflows/deploy-hub-networking.yml)
+
+### <a name='githubworkflowsdeploy-vwan-networking.yml'></a>.github/workflows/deploy-vwan-networking.yml
+
+This pipeline is started manually only and  deploys the following:
+
+* Management group structure vwan with four subscriptions. Three for the various platform areas and one for the landing zones area (corp)
+* Log analytics workspace and automation account in the management subscription
+* vWan hub, Azure Firewall, private DNS zones, ER Gateway, VPN gateway etc in connectivity subscription. Note that DDoS is not enabled (cost reasons)
+* Spoke vnet connected to vWan hub and UDR in landing zone subscription
+* Default ALZ custom role definitions (no assignments)
+* ALZ custom policy/initiative definitions
+* ALZ Custom Monitor policy definitions (from ./Observability_L100/Deploy/policyDefinitions), actual deployment happens through ./Observability_L100/Deploy/deploy_dine_policies.bicep.
+* Default ALZ policy assignments except for DDoS (cost reasons)
+* ALZ Custom Monitor policy assignments, deployment happens through ./Observability_L100/Deploy/policyAssignDeploy.bicep
+The workflow is set for manual runs only, i.e. you need to run it from [here](https://github.com/Azure/alz-monitor/actions/workflows/deploy-vwan-networking.yml)
+
+### <a name='githubworkflowsdelete-networkingresources.yml'></a>.github/workflows/delete-networking resources.yml
+
+This pipeline can be started manually, but also runs at 7 PM EST every day to delete the following:
+
+* ARM deployments to hubnw management group hierarchy
+* Resource group containing HUB vNet, Azure Firewall, private DNS zones, ER Gateway, VPN gateway and Bastion etc. in connectivity subscription
+* Resource group containing spoke vnet peered to hub vnet and UDR i landing zone subscription
+* ARM deployments to vwan management group hierarchy
+* Resource group containing vWan hub, Azure Firewall, private DNS zones, ER Gateway, VPN gateway etc in connectivity subscription
+* Resource group containing Spoke vnet connected to vWan hub and UDR in landing zone subscription
+The workflow is set to run every day at 12:00 AM UTC (should be 7pm EST), but can also be run manually from [here](https://github.com/Azure/alz-monitor/actions/workflows/delete-networking-resources.yml)
+
+## <a name='Summary'></a>Summary
 
 One of the most common questions we've faced in working with Customers is, "What should we monitor in Azure?" and "What thresholds should we configure our alerts for?"
 
@@ -120,19 +132,19 @@ Next we're going to tackle Service Health alerts, knowing when there's an outage
 
 The final area we're going to tackle is log alerts and as stated earlier the data is collected in a Log Analytics Workspace and some sort of logic operation is performed on the data which means there's charge for using these types of alerts.
 
-- Where possible we're going to focus on queries which use the [ScheduledQueryRules API](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-log-api-switch) and [Metric alerts for Logs](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-metric-logs).
+* Where possible we're going to focus on queries which use the [ScheduledQueryRules API](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-log-api-switch) and [Metric alerts for Logs](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-metric-logs).
 
-- ActivityLog alerts we may create additional alerts based on data found in the ActivityLog Alerts that are not Service Health related.
+* ActivityLog alerts we may create additional alerts based on data found in the ActivityLog Alerts that are not Service Health related.
 
 ## <a name='Prerequisites'></a>Prerequisites
 
-- VSCode
-- Bicep Extension
-- Azure subscriptions where you want to apply alerts.
-- Management Groups that manage the Azure subscriptions
-- Must have [permission](https://learn.microsoft.com/en-us/azure/governance/policy/overview#azure-rbac-permissions-in-azure-policy) to assign policy initiatives/defintions to management groups
-- Azure CLI
-- Azure PowerShell (optional if you want to use it to deploy the code.)
+* VSCode
+* Bicep Extension
+* Azure subscriptions where you want to apply alerts.
+* Management Groups that manage the Azure subscriptions
+* Must have [permission](https://learn.microsoft.com/en-us/azure/governance/policy/overview#azure-rbac-permissions-in-azure-policy) to assign policy initiatives/defintions to management groups
+* Azure CLI
+* Azure PowerShell (optional if you want to use it to deploy the code.)
 
 ## <a name='MetricAlertPolicyDeploymentSteps'></a>Metric Alert Policy Deployment Steps
 
@@ -147,7 +159,7 @@ The intention of the policies is to provide a common set of metrics and threshol
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+the rights to use your contribution. For details, visit <https://cla.opensource.microsoft.com>.
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
@@ -159,8 +171,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
