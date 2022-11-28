@@ -1,7 +1,7 @@
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param resourceGroupName string = 'AlzMonitoring-rg'
+param parResourceGroupName string = 'ALZ-ServiceHealth-Alerts'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -23,11 +23,7 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Resources/subscriptions'
-                    }
-                    {
-                      field: 'type'
-                      equals: 'Microsoft.OperationalInsights/workspaces'
+                        equals: 'Microsoft.OperationalInsights/workspaces'
                     }
                 ]
             }
@@ -36,108 +32,137 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
+                    name: 'ActivityLAWorkspaceDelete'
+                    existenceScope: 'resourcegroup'
                     // should be replaced with parameter value
-                    resourceGroupName: resourceGroupName
+                    resourceGroupName: parResourceGroupName
+                    deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
-  
-                          {
-                            field: 'Microsoft.Insights/ActivityLogAlerts/enabled'
-                            equals: 'true'
-                          }
-                          {
-                            count: {
-                              field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*]'
-                              where: {
-                                anyOf: [
-                                  {
-                                    allOf: [
-                                      {
-                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field'
-                                        equals: 'category'
-                                      }
-                                      {
-                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals'
-                                        equals: 'Administrative'
-                                      }
-                                    ]
-                                  }
-                                  {
-                                    allOf: [
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].field'
-                                        equals: 'operationName'
-                                      }
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
-                                        equals: 'Microsoft.OperationalInsights/workspaces/delete'
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
+
+                            {
+                                field: 'Microsoft.Insights/ActivityLogAlerts/enabled'
+                                equals: 'true'
                             }
-                            equals: 2
-                          }
+                            {
+                                count: {
+                                    field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*]'
+                                    where: {
+                                        anyOf: [
+                                            {
+                                                allOf: [
+                                                    {
+                                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field'
+                                                        equals: 'category'
+                                                    }
+                                                    {
+                                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals'
+                                                        equals: 'Administrative'
+                                                    }
+                                                ]
+                                            }
+                                            {
+                                                allOf: [
+                                                    {
+                                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].field'
+                                                        equals: 'operationName'
+                                                    }
+                                                    {
+                                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
+                                                        equals: 'Microsoft.OperationalInsights/workspaces/delete'
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                                equals: 2
+                            }
                         ]
                     }
                     deployment: {
+                        location: policyLocation
                         properties: {
                             mode: 'incremental'
                             template: {
-                                '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
+                                '$schema': 'https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
-                                variables: {}
-                                resources: [ 
-
-                                  {
-                                    type: 'Microsoft.Resources/resourceGroups'
-                                    apiVersion: '2020-10-01'
-                                    name: resourceGroupName
-                                    location: policyLocation
-                                    properties: {}
+                                parameters: {
+                                    parResourceGroupName: {
+                                        type: 'string'
+                                        defaultValue: parResourceGroupName
                                     }
-                                //should deploy resource group as well
-                                {
-                                        type: 'microsoft.insights/activityLogAlerts'
-                                        apiVersion: '2020-10-01'
-                                        //name: '[concat(subscription().subscriptionId, \'-ActivityVPNGatewayDelete\')]'
+                                    policyLocation: {
+                                        type: 'string'
+                                        defaultValue: policyLocation
+                                    }
+                                }
+                                variables: {}
+                                resources: [
+                                    {
+                                        type: 'Microsoft.Resources/resourceGroups'
+                                        apiVersion: '2021-04-01'
+                                        name: parResourceGroupName
+                                        location: policyLocation
+                                    }
+                                    {
+                                        type: 'Microsoft.Resources/deployments'
+                                        apiVersion: '2019-10-01'
                                         name: 'ActivityLAWorkspaceDelete'
-                                        location: 'global'
+                                        resourceGroup: parResourceGroupName
+                                        dependsOn: [
+                                            'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                        ]
                                         properties: {
-                                            description: 'Activity Log LA Workspace Delete'
-                                            enabled: true
-                                            scopes: [
-                                                '[subscription().id]'
-                                            ]
-                                            condition: {
-                                            allOf: [
-                                                {
-                                                  field:'category'
-                                                  equals: 'Administrative'
-                                                }
-                                                {
-                                                  field: 'operationName'
-                                                  equals: 'Microsoft.OperationalInsights/workspaces/delete'
-                                                }
-                                                {
-                                                  field: 'status'
-                                                  containsAny: ['succeeded']
-                                                }
-                                              
-                                              ]
+                                            mode: 'Incremental'
+                                            template: {
+                                                '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
+                                                contentVersion: '1.0.0.0'
+                                                parameters: {}
+                                                variables: {}
+                                                resources: [
+                                                    {
+                                                        type: 'microsoft.insights/activityLogAlerts'
+                                                        apiVersion: '2020-10-01'
+                                                        name: 'ActivityLAWorkspaceDelete'
+                                                        location: 'global'
+                                                        properties: {
+                                                            description: 'Activity Log LA Workspace Delete'
+                                                            enabled: true
+                                                            scopes: [
+                                                                '[subscription().id]'
+                                                            ]
+                                                            condition: {
+                                                                allOf: [
+                                                                    {
+                                                                        field: 'category'
+                                                                        equals: 'Administrative'
+                                                                    }
+                                                                    {
+                                                                        field: 'operationName'
+                                                                        equals: 'Microsoft.OperationalInsights/workspaces/delete'
+                                                                    }
+                                                                    {
+                                                                        field: 'status'
+                                                                        containsAny: [ 'succeeded' ]
+                                                                    }
+
+                                                                ]
+                                                            }
+                                                        }
+
+                                                    }
+                                                ]
                                             }
                                         }
-  
                                     }
                                 ]
                             }
-                           
+
                         }
                     }
                 }
             }
         }
     }
-  }
-  
+}
