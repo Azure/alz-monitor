@@ -1,6 +1,7 @@
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
+param parResourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -31,8 +32,10 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
+                    existenceScope: 'resourcegroup'
                     // should be replaced with parameter value
-                    resourceGroupName: 'networkWatcherRG'
+                    resourceGroupName: parResourceGroupName
+                    deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
   
@@ -102,66 +105,105 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                         ]
                     }
                     deployment: {
-                        properties: {
-                            mode: 'incremental'
-                            template: {
-                                '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
-                                contentVersion: '1.0.0.0'
-                                variables: {}
-                                resources: [ 
-                                //should deploy resource group as well
-                                {
-                                        type: 'microsoft.insights/activityLogAlerts'
-                                        apiVersion: '2020-10-01'
-                                        //name: '[concat(subscription().subscriptionId, \'-ResourceHealthAlert\')]'
-                                        name: 'ResourceHealthUnhealthyAlert'
-                                        location: 'global'
-                                        properties: {
-                                            description: 'Resource Health Unhealthy Alert'
-                                            enabled: true
-                                            scopes: [
-                                                '[subscription().id]'
-                                            ]
-                                            condition: {
-                                            allOf: [
-                                                {
-                                                  field:'category'
-                                                  equals: 'ResourceHealth'
-                                                }
-                                                {
-                                                  anyOf: [
-                                                      {
-                                                          field: 'properties.cause'
-                                                          equals: 'PlatformInitiated'
-                                                      }
-                                                      {
-                                                          field: 'properties.cause'
-                                                          equals: 'UserInitiated'
-                                                      }
-                                                  ]
+                      location: policyLocation
+                      properties: {
+                          mode: 'incremental'
+                          template: {
+                              '$schema': 'https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#'
+                              contentVersion: '1.0.0.0'
+                              parameters: {
+                                  parResourceGroupName: {
+                                      type: 'string'
+                                      defaultValue: parResourceGroupName
+                                  }
+                                  policyLocation: {
+                                      type: 'string'
+                                      defaultValue: policyLocation
+                                  }
+                              }
+                              variables: {}
+                              resources: [ 
+                              {
+                                      type: 'Microsoft.Resources/resourceGroups'
+                                      apiVersion: '2021-04-01'
+                                      name: parResourceGroupName
+                                      location: policyLocation
+                                  }
+                                  {
+                                      type: 'Microsoft.Resources/deployments'
+                                      apiVersion: '2019-10-01'
+                                      //change name
+                                      name: 'ResourceHealtAlert'
+                                      resourceGroup: parResourceGroupName
+                                      dependsOn: [
+                                          'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                      ]
+                                      properties: {
+                                          mode: 'Incremental'
+                                          template: {
+                                              '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
+                                              contentVersion: '1.0.0.0'
+                                              parameters: {}
+                                              variables: {}
+                                              resources: [
+                              {
+                                      type: 'microsoft.insights/activityLogAlerts'
+                                      apiVersion: '2020-10-01'
+                                      //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
+                                      name: 'ResourceHealthUnhealthyAlert'
+                                      location: 'global'
+                                      properties: {
+                                          description: 'Resource Health Unhealthy Alert'
+                                          enabled: true
+                                          scopes: [
+                                              '[subscription().id]'
+                                          ]
+                                          condition: {
+                                          allOf: [
+                                              {
+                                                field:'category'
+                                                equals: 'Administrative'
                                               }
                                               {
                                                 anyOf: [
                                                     {
-                                                        field: 'properties.currentHealthStatus'
-                                                        equals: 'Degraded'
+                                                        field: 'properties.cause'
+                                                        equals: 'PlatformInitiated'
                                                     }
                                                     {
-                                                        field: 'properties.currentHealthStatus'
-                                                        equals: 'Unavailable'
+                                                        field: 'properties.cause'
+                                                        equals: 'UserInitiated'
                                                     }
                                                 ]
                                             }
+                                            {
+                                              anyOf: [
+                                                  {
+                                                      field: 'properties.currentHealthStatus'
+                                                      equals: 'Degraded'
+                                                  }
+                                                  {
+                                                      field: 'properties.currentHealthStatus'
+                                                      equals: 'Unavailable'
+                                                  }
                                               ]
-                                            }
-                                        }
-  
-                                    }
-                                ]
-                            }
-                           
-                        }
-                    }
+                                          }
+                                            
+                                            
+                                            ]
+                                          }
+                                      }
+
+                                  }
+                              ] 
+                              }
+                              }
+                              }
+                              ]
+                          }
+                         
+                      }
+                  }
                 }
             }
         }
