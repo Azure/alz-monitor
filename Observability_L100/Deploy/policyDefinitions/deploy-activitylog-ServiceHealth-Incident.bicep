@@ -37,6 +37,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                     // should be replaced with parameter value
                     resourceGroupName: parResourceGroupName
                     deploymentScope: 'subscription'
+                    location:policyLocation
                     existenceCondition: {
                         allOf: [
   
