@@ -1,6 +1,7 @@
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
+param parResourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -32,7 +33,10 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
                     // should be replaced with parameter value
-                    resourceGroupName: 'networkWatcherRG'
+                    existenceScope: 'resourcegroup'
+                    // should be replaced with parameter value
+                    resourceGroupName: parResourceGroupName
+                    deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
   
@@ -83,16 +87,49 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 variables: {}
-                                resources: [ 
-                                //should deploy resource group as well
+                                parameters: {
+                                  parResourceGroupName: {
+                                      type: 'string'
+                                      defaultValue: parResourceGroupName
+                                  }
+                                  policyLocation: {
+                                      type: 'string'
+                                      defaultValue: policyLocation
+                                  }
+                              }
+
+                              resources: [ 
+                                {
+                                        type: 'Microsoft.Resources/resourceGroups'
+                                        apiVersion: '2021-04-01'
+                                        name: parResourceGroupName
+                                        location: policyLocation
+                                    }
+                                    {
+                                        type: 'Microsoft.Resources/deployments'
+                                        apiVersion: '2019-10-01'
+                                        //change name
+                                        name: 'ServiceHealthIncident'
+                                        resourceGroup: parResourceGroupName
+                                        dependsOn: [
+                                            'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                        ]
+                                        properties: {
+                                            mode: 'Incremental'
+                                            template: {
+                                                '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
+                                                contentVersion: '1.0.0.0'
+                                                parameters: {}
+                                                variables: {}
+                                                resources: [
                                 {
                                         type: 'microsoft.insights/activityLogAlerts'
                                         apiVersion: '2020-10-01'
-                                        //name: '[concat(subscription().subscriptionId, \'-ServiceHealthIncident\')]'
-                                        name: 'ServiceHealthIncident'
+                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
+                                        name: 'ServieHealthIncident'
                                         location: 'global'
                                         properties: {
-                                            description: 'Service Health Incident Alert'
+                                            description: 'ServiceHealthIncidentAlert'
                                             enabled: true
                                             scopes: [
                                                 '[subscription().id]'
@@ -107,11 +144,17 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                   field: 'properties.incidentType'
                                                   equals: 'Incident'
                                                 }
+                                               
+                                              
                                               ]
                                             }
                                         }
   
                                     }
+                                ] 
+                                }
+                                }
+                                }
                                 ]
                             }
                            
