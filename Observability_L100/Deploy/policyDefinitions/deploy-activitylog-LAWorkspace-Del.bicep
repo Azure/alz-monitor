@@ -1,7 +1,7 @@
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param parResourceGroupName string = 'ALZ-ServiceHealth-Alerts'
+param parResourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -98,8 +98,8 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                                     }
                                 }
                                 variables: {}
-                                resources: [
-                                    {
+                                resources: [ 
+                                {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
                                         name: parResourceGroupName
@@ -108,6 +108,7 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
+                                        //change name
                                         name: 'ActivityLAWorkspaceDelete'
                                         resourceGroup: parResourceGroupName
                                         dependsOn: [
@@ -121,44 +122,45 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                                                 parameters: {}
                                                 variables: {}
                                                 resources: [
-                                                    {
-                                                        type: 'microsoft.insights/activityLogAlerts'
-                                                        apiVersion: '2020-10-01'
-                                                        name: 'ActivityLAWorkspaceDelete'
-                                                        location: 'global'
-                                                        properties: {
-                                                            description: 'Activity Log LA Workspace Delete'
-                                                            enabled: true
-                                                            scopes: [
-                                                                '[subscription().id]'
-                                                            ]
-                                                            condition: {
-                                                                allOf: [
-                                                                    {
-                                                                        field: 'category'
-                                                                        equals: 'Administrative'
-                                                                    }
-                                                                    {
-                                                                        field: 'operationName'
-                                                                        equals: 'Microsoft.OperationalInsights/workspaces/delete'
-                                                                    }
-                                                                    {
-                                                                        field: 'status'
-                                                                        containsAny: [ 'succeeded' ]
-                                                                    }
-
-                                                                ]
-                                                            }
-                                                        }
-
-                                                    }
-                                                ]
+                                {
+                                        type: 'microsoft.insights/activityLogAlerts'
+                                        apiVersion: '2020-10-01'
+                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
+                                        name: 'ActivityLAWorkspaceDelete'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Activity Log LA Workspace Delete'
+                                            enabled: true
+                                            scopes: [
+                                                '[subscription().id]'
+                                            ]
+                                            condition: {
+                                            allOf: [
+                                                {
+                                                  field:'category'
+                                                  equals: 'Administrative'
+                                                }
+                                                {
+                                                  field: 'operationName'
+                                                  equals: 'Microsoft.OperationalInsights/workspaces/delete'
+                                                }
+                                                {
+                                                  field: 'status'
+                                                  containsAny: ['succeeded']
+                                                }
+                                              
+                                              ]
                                             }
                                         }
+  
                                     }
+                                ] 
+                                }
+                                }
+                                }
                                 ]
                             }
-
+                           
                         }
                     }
                 }
