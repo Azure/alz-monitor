@@ -82,6 +82,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                         ]
                     }
                     deployment: {
+                      location: policyLocation 
                         properties: {
                             mode: 'incremental'
                             template: {
