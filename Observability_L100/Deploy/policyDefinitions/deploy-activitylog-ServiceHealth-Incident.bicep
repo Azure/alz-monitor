@@ -37,7 +37,6 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                     // should be replaced with parameter value
                     resourceGroupName: parResourceGroupName
                     deploymentScope: 'subscription'
-                    location:policyLocation
                     existenceCondition: {
                         allOf: [
   
@@ -88,8 +87,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
-                                variables: {}
-                                parameters: {
+                                  parameters: {
                                   parResourceGroupName: {
                                       type: 'string'
                                       defaultValue: parResourceGroupName
@@ -99,7 +97,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                       defaultValue: policyLocation
                                   }
                               }
-
+                               variables: {}
                               resources: [ 
                                 {
                                         type: 'Microsoft.Resources/resourceGroups'
