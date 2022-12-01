@@ -4,14 +4,14 @@ param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
   '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
-param parResourceGroupName string = 'ALZ-ServiceHealth-Alerts'
+param parResourceGroupName string = 'AlzMonitoring-rg'
 
 module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
   name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
   params: {
-    name: 'deploy-activitylog-ServiceHealth-Incident'
-    displayName: '[DINE] Deploy Service Health Incident Alert'
-    description: 'DINE policy to Deploy Service Health Incident Alert'
+    name: 'Deploy_activitylog_ServiceHealth_HealthAdvisory'
+    displayName: '[DINE] Deploy Service Health Advisory Alert'
+    description: 'DINE policy to Deploy Service Health Advisory Alert'
     location: policyLocation
     metadata: {
       version: '1.0.0'
@@ -69,7 +69,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                           }
                           {
                             field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals'
-                            equals: 'Incident'
+                            equals: 'ActionRequired'
                           }
                         ]
                       }
@@ -113,7 +113,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                   {
                     type: 'Microsoft.Resources/deployments'
                     apiVersion: '2019-10-01'
-                    name: 'ALZ-SvcHealth'
+                    name: 'ALZ-SvcHealth-Health'
                     resourceGroup: parResourceGroupName
                     dependsOn: [
                       'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
@@ -130,9 +130,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                             type: 'microsoft.insights/activityLogAlerts'
                             apiVersion: '2020-10-01'
                             location: 'global'
-                            name: 'ALZ-SvcHealth'
+                            name: 'ALZ-SvcHealth-Health'
                             properties: {
-                              description: 'Service Health Incident Alert'
+                              description: 'Service Health Advisory Alert'
                               enabled: true
                               scopes: [
                                 '[subscription().id]'
@@ -145,7 +145,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                   }
                                   {
                                     field: 'properties.incidentType'
-                                    equals: 'Incident'
+                                    equals: 'ActionRequired'
                                   }
                                 ]
                               }
