@@ -1,5 +1,6 @@
 targetScope = 'managementGroup'
 
+param parResourceGroupName string = 'AlzMonitoring-rg'
 param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
@@ -22,7 +23,7 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Resources/subscriptions'
+                        equals: 'Microsoft.Network/networkSecurityGroups'
                     }
                 ]
             }
@@ -31,8 +32,11 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
+                    name: 'ActivityNSGDelete'
                     // should be replaced with parameter value
-                    resourceGroupName: 'networkWatcherRG'
+                    existenceScope: 'resourcegroup'
+                    resourceGroupName: parResourceGroupName
+                    deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
   
@@ -77,46 +81,85 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                         ]
                     }
                     deployment: {
+                      location: policyLocation
                         properties: {
                             mode: 'incremental'
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
+                                parameters: {
+                                  parResourceGroupName: {
+                                      type: 'string'
+                                      defaultValue: parResourceGroupName
+                                  }
+                                  policyLocation: {
+                                      type: 'string'
+                                      defaultValue: policyLocation
+                                  }
+                              }
                                 variables: {}
                                 resources: [ 
+
+                                  {
+                                    type: 'Microsoft.Resources/resourceGroups'
+                                    apiVersion: '2021-04-01'
+                                    name: parResourceGroupName
+                                    location: policyLocation
+                                }  
                                 //should deploy resource group as well
                                 {
-                                        type: 'microsoft.insights/activityLogAlerts'
-                                        apiVersion: '2020-10-01'
-                                        //name: '[concat(subscription().subscriptionId, \'-ActivityNSGDelete\')]'
-                                        name: 'ActivityNSGDelete'
-                                        location: 'global'
-                                        properties: {
-                                            description: 'Activity Log VPN Gateway Delete'
-                                            enabled: true
-                                            scopes: [
-                                                '[subscription().id]'
-                                            ]
-                                            condition: {
-                                            allOf: [
-                                                {
-                                                  field:'category'
-                                                  equals: 'Administrative'
-                                                }
-                                                {
-                                                  field: 'operationName'
-                                                  equals: 'Microsoft.Network/networkSecurityGroups/delete'
-                                                }
-                                                {
-                                                  field: 'status'
-                                                  containsAny: ['succeeded']
-                                                }
-                                              
-                                              ]
-                                            }
-                                        }
-  
-                                    }
+                                  type: 'Microsoft.Resources/deployments'
+                                  apiVersion: '2019-10-01'
+                                  //change name
+                                  name: 'ActivityLAWorkspaceDelete'
+                                  resourceGroup: parResourceGroupName
+                                  dependsOn: [
+                                      'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                  ]
+                                  properties: {
+                                      mode: 'Incremental'
+                                      template: {
+                                          '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
+                                          contentVersion: '1.0.0.0'
+                                          parameters: {}
+                                          variables: {}
+                                          resources: [
+                          {
+                                  type: 'microsoft.insights/activityLogAlerts'
+                                  apiVersion: '2020-10-01'
+                                  //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
+                                  name: 'ActivityNSGDelete'
+                                  location: 'global'
+                                  properties: {
+                                      description: 'Activity Log NSG Delete'
+                                      enabled: true
+                                      scopes: [
+                                          '[subscription().id]'
+                                      ]
+                                      condition: {
+                                      allOf: [
+                                          {
+                                            field:'category'
+                                            equals: 'Administrative'
+                                          }
+                                          {
+                                            field: 'operationName'
+                                            equals: 'Microsoft.Network/networkSecurityGroups/delete'
+                                          }
+                                          {
+                                            field: 'status'
+                                            containsAny: ['succeeded']
+                                          }
+                                        
+                                        ]
+                                      }
+                                  }
+
+                              }
+                          ] 
+                          }
+                          }
+                          }
                                 ]
                             }
                            

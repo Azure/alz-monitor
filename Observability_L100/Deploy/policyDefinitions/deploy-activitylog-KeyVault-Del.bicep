@@ -34,7 +34,6 @@ module ActivityLogKeyVaultDeleteAlert '../../arm/Microsoft.Authorization/policyD
                     type: 'Microsoft.Insights/activityLogAlerts'
                     name: 'ActivityKeyVaultDelete'
                     existenceScope: 'resourcegroup'
-                    // should be replaced with parameter value
                     resourceGroupName: parResourceGroupName
                     deploymentScope: 'subscription'
                      existenceCondition: {
@@ -99,7 +98,7 @@ module ActivityLogKeyVaultDeleteAlert '../../arm/Microsoft.Authorization/policyD
                               }
                                 variables: {}
                                 resources: [ 
-                                //should deploy resource group as well
+                             
                                 {
                                   type: 'Microsoft.Resources/resourceGroups'
                                   apiVersion: '2021-04-01'
@@ -143,7 +142,7 @@ module ActivityLogKeyVaultDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                         }
                                         {
                                           field: 'operationName'
-                                          equals: 'Microsoft.OperationalInsights/workspaces/delete'
+                                          equals: 'Microsoft.KeyVault/vaults/delete'
                                         }
                                         {
                                           field: 'status'

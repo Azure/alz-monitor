@@ -1,6 +1,6 @@
 targetScope = 'managementGroup'
 
-param resourceGroupName string = 'AlzMonitoring-rg'
+param parResourceGroupName string = 'AlzMonitoring-rg'
 param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
@@ -37,7 +37,7 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
                     // should be replaced with parameter value
-                    resourceGroupName: resourceGroupName
+                    resourceGroupName: parResourceGroupName
                     existenceCondition: {
                         allOf: [
   
@@ -93,43 +93,68 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                 {
                                   type: 'Microsoft.Resources/resourceGroups'
                                   apiVersion: '2020-10-01'
-                                  name: resourceGroupName
+                                  name: parResourceGroupName
                                   location: policyLocation
                                   properties: {}
                                   }
-                               
-                                {                               
-                                        type: 'microsoft.insights/activityLogAlerts'
-                                        apiVersion: '2020-10-01'
-                                        //name: '[concat(subscription().subscriptionId, \'-ActivityVPNGatewayDelete\')]'
-                                        name: 'ActivityAzureFirewallDelete'
-                                        location: 'global'
-                                        properties: {
-                                            description: 'Activity Log Azure Firewall Delete'
-                                            enabled: true
-                                            scopes: [
-                                                '[subscription().id]'
-                                            ]
-                                            condition: {
-                                            allOf: [
-                                                {
-                                                  field:'category'
-                                                  equals: 'Administrative'
-                                                }
-                                                {
-                                                  field: 'operationName'
-                                                  equals: 'Microsoft.Network/azurefirewalls/delete'
-                                                }
-                                                {
-                                                  field: 'status'
-                                                  containsAny: ['succeeded']
-                                                }
-                                              
-                                              ]
+
+                                  {
+                                    type: 'Microsoft.Resources/deployments'
+                                    apiVersion: '2019-10-01'
+                                    //change name
+                                    name: 'ActivityLAWorkspaceDelete'
+                                    resourceGroup: parResourceGroupName
+                                    dependsOn: [
+                                        'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                    ]
+                                    properties: {
+                                        mode: 'Incremental'
+                                        template: {
+                                            '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
+                                            contentVersion: '1.0.0.0'
+                                            parameters: {}
+                                            variables: {}
+                                            resources: [
+                            {
+                                    type: 'microsoft.insights/activityLogAlerts'
+                                    apiVersion: '2020-10-01'
+                                    //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
+                                    name: 'ActivityAzureFirewallDelete'
+                                    location: 'global'
+                                    properties: {
+                                        description: 'Activity Log Firewall Delete'
+                                        enabled: true
+                                        scopes: [
+                                            '[subscription().id]'
+                                        ]
+                                        condition: {
+                                        allOf: [
+                                            {
+                                              field:'category'
+                                              equals: 'Administrative'
                                             }
+                                            {
+                                              field: 'operationName'
+                                              equals: 'Microsoft.Network/azurefirewalls/delete'
+                                            }
+                                            {
+                                              field: 'status'
+                                              containsAny: ['succeeded']
+                                            }
+                                          
+                                          ]
                                         }
-  
                                     }
+
+                                }
+                            ] 
+                            }
+                            }
+                            }                
+                                  
+
+                               
+
                                 ]
                             }
                            
