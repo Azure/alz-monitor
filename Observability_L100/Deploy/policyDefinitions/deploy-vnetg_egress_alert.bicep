@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vnetgtaba-policyDefinitions'
+module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-vnetgteba-policyDefinitions'
     params: {
-        name: 'Deploy_VnetGw_TunnelBandwidth_Alert'
-        displayName: '[DINE] Deploy VNetG Tunnel Bandwidth Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Bandwidth Alert'
+        name: 'Deploy_VnetGw_TunnelEgress_Alert'
+        displayName: '[DINE] Deploy VNetG Tunnel Egress Alert'
+        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Egress Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -42,7 +42,7 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'TunnelAverageBandwidth'
+                                equals: 'TunnelEgressBytes'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
@@ -77,10 +77,10 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelBandwidthAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VNet Gateway Tunnel Avg Bandwidth'
+                                            description: 'Metric Alert for VNet Gateway Tunnel Egress Bytes'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,10 +91,10 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'TunnelAverageBandwidth'
+                                                        name: 'TunnelEgressBytes'
                                                         metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                        metricName: 'TunnelAverageBandwidth'
-                                                        operator: 'LessThan'
+                                                        metricName: 'TunnelEgressBytes'
+                                                        operator: 'LessThanOrEqual'
                                                         threshold: 1
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'

@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vngergcpuua-policyDefinitions'
+module ErgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-ergergcpuua-policyDefinitions'
     params: {
-        name: 'Deploy_VnetGw_ExpressRouteCpuUtil_Alert'
-        displayName: '[DINE] Deploy VNetG ExpressRoute CPU Utilization Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Express Route CPU Utilization Alert'
+        name: 'Deploy_ERGw_ExpressRouteCpuUtil_Alert'
+        displayName: '[DINE] Deploy ERG ExpressRoute CPU Utilization Alert'
+        description: 'DINE policy to audit/deploy ER Gateway Express Route CPU Utilization Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -25,7 +25,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Network/virtualNetworkGateways'
+                        equals: 'Microsoft.Network/expressroutegateways'
                     }
                 ]
             }
@@ -38,7 +38,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.Network/virtualNetworkGateways'
+                                equals: 'Microsoft.Network/expressroutegateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
@@ -46,7 +46,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/expressroutegateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -80,7 +80,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                                         name: '[concat(parameters(\'resourceName\'), \'-GatewayERCPUAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VNet Gateway Express Route CPU Utilization'
+                                            description: 'Metric Alert for ER Gateway Express Route CPU Utilization'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -92,7 +92,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                                                 allOf: [
                                                     {
                                                         name: 'ExpressRouteGatewayCpuUtilization'
-                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
+                                                        metricNamespace: 'Microsoft.Network/expressroutegateways'
                                                         metricName: 'ExpressRouteGatewayCpuUtilization'
                                                         operator: 'GreaterThan'
                                                         threshold: 90

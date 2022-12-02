@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vngergcpuua-policyDefinitions'
+module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-vnetgegresspacketdropcount-policyDefinitions'
     params: {
-        name: 'Deploy_VnetGw_ExpressRouteCpuUtil_Alert'
-        displayName: '[DINE] Deploy VNetG ExpressRoute CPU Utilization Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Express Route CPU Utilization Alert'
+        name: 'Deploy_VnetGw_TunnelEgressPacketDropCount_Alert'
+        displayName: '[DINE] Deploy VnetGw Egress Packet Drop Count Alert'
+        description: 'DINE policy to audit/deploy Vnet Gateway Egress Packet Drop Count Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -25,7 +25,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Network/virtualNetworkGateways'
+                        equals: 'microsoft.network/virtualNetworkGateways'
                     }
                 ]
             }
@@ -38,15 +38,15 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.Network/virtualNetworkGateways'
+                                equals: 'microsoft.network/virtualNetworkGateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'ExpressRouteGatewayCpuUtilization'
+                                equals: 'TunnelEgressPacketDropCount'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -77,10 +77,10 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-GatewayERCPUAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressPacketDropCountAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VNet Gateway Express Route CPU Utilization'
+                                            description: 'Metric Alert for Vnet Gateway tunnel TunnelEgressPacketDropCount'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,11 +91,11 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'ExpressRouteGatewayCpuUtilization'
-                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                        metricName: 'ExpressRouteGatewayCpuUtilization'
+                                                        name: 'TunnelEgressPacketDropCount'
+                                                        metricNamespace: 'microsoft.network/virtualNetworkGateways'
+                                                        metricName: 'TunnelEgressPacketDropCount'
                                                         operator: 'GreaterThan'
-                                                        threshold: 90
+                                                        threshold: 100
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
@@ -103,6 +103,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
                                         }
+
                                     }
                                 ]
                             }

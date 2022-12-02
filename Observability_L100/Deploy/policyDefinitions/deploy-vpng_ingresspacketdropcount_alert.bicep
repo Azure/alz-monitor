@@ -8,7 +8,7 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module TunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VpngTunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngingresspacketdropcount-policyDefinitions'
     params: {
         name: 'Deploy_VPNGw_TunnelIngressPacketDropCount_Alert'

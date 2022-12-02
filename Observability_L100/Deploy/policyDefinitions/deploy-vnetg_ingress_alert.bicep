@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vngergcpuua-policyDefinitions'
+module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-vnetgtiba-policyDefinitions'
     params: {
-        name: 'Deploy_VnetGw_ExpressRouteCpuUtil_Alert'
-        displayName: '[DINE] Deploy VNetG ExpressRoute CPU Utilization Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Express Route CPU Utilization Alert'
+        name: 'Deploy_VnetGw_TunnelIngress_Alert'
+        displayName: '[DINE] Deploy VNetG Tunnel Ingress Alert'
+        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Ingress Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -42,7 +42,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'ExpressRouteGatewayCpuUtilization'
+                                equals: 'TunnelIngressBytes'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
@@ -77,10 +77,10 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-GatewayERCPUAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VNet Gateway Express Route CPU Utilization'
+                                            description: 'Metric Alert for VNet Gateway Tunnel ingress Bytes'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,11 +91,11 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'ExpressRouteGatewayCpuUtilization'
+                                                        name: 'TunnelIngressBytes'
                                                         metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                        metricName: 'ExpressRouteGatewayCpuUtilization'
-                                                        operator: 'GreaterThan'
-                                                        threshold: 90
+                                                        metricName: 'TunnelIngressBytes'
+                                                        operator: 'LessThanOrEqual'
+                                                        threshold: 1
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
@@ -103,6 +103,7 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
                                         }
+
                                     }
                                 ]
                             }
