@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
@@ -92,7 +95,7 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                                         metricNamespace: 'microsoft.keyvault/vaults'
                                                         metricName: 'ServiceApiLatency'
                                                         operator: 'GreaterThan'
-                                                        threshold: 75
+                                                        threshold: 1000
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }

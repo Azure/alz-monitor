@@ -8,14 +8,14 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-  name: '${uniqueString(deployment().name)}-rsca-policyDefinitions'
+module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+  name: '${uniqueString(deployment().name)}-erqosdropsout-policyDefinitions'
   params: {
-      name: 'Deploy_DNSZ_RecordSetCount_Alert'
-      displayName: '[DINE] Deploy DNSZ Record Set Count Alert'
-      description: 'DINE policy to audit/deploy DNS Zone Record Set Count Alert'
+      name: 'Deploy_ERCIR_QosDropBitsOutPerSecond_Alert'
+      displayName: '[DINE] Deploy ExpressRoute Circuits QosDropBitsOutPerSecond Alert'
+      description: 'DINE policy to audit/deploy ExpressRoute Circuits QosDropBitsOutPerSecond Alert'
       location: policyLocation
-      metadata: {
+              metadata: {
           version: '1.0.0'
           Category: 'Networking'
           source: 'https://github.com/Azure/ALZ-Monitor/'
@@ -25,7 +25,7 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
               allOf: [
                   {
                       field: 'type'
-                      equals: 'Microsoft.Network/dnsZones'
+                      equals: 'Microsoft.Network/expressRouteCircuits'
                   }
               ]
           }
@@ -38,15 +38,15 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                       allOf: [
                           {
                               field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                              equals: 'Microsoft.Network/dnsZones'
+                              equals: 'Microsoft.Network/expressRouteCircuits'
                           }
                           {
                               field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                              equals: 'RecordSetCount'
+                              equals: 'QosDropBitsOutPerSecond'
                           }
                           {
                               field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                              equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/dnsZones/\', field(\'fullName\'))]'
+                              equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/expressRouteCircuits/\', field(\'fullName\'))]'
                           }
                       ]
                   }
@@ -77,26 +77,26 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                   {
                                       type: 'Microsoft.Insights/metricAlerts'
                                       apiVersion: '2018-03-01'
-                                      name: '[concat(parameters(\'resourceName\'), \'-RecordSetCount\')]'
+                                      name: '[concat(parameters(\'resourceName\'), \'-QosDropBitsOutPerSecond\')]'
                                       location: 'global'
                                       properties: {
-                                          description: 'Metric Alert for DNS Zone Record Set Count'
+                                          description: 'Metric Alert for ExpressRoute Circuit QosDropBitsOutPerSecond'
                                           severity: 3
                                           enabled: true
                                           scopes: [
                                               '[parameters(\'resourceId\')]'
                                           ]
-                                          evaluationFrequency: 'PT5M'
+                                          evaluationFrequency: 'PT1M'
                                           windowSize: 'PT5M'
                                           criteria: {
                                               allOf: [
                                                   {
-                                                      name: 'RecordSetCount'
-                                                      metricNamespace: 'Microsoft.Network/dnsZones'
-                                                      metricName: 'RecordSetCount'
-                                                      operator: 'GreaterThanEqualTo'
-                                                      threshold: 2000
-                                                      timeAggregation: 'Maximum'
+                                                      name: 'QosDropBitsOutPerSecond'
+                                                      metricNamespace: 'Microsoft.Network/expressRouteCircuits'
+                                                      metricName: 'QosDropBitsOutPerSecond'
+                                                      operator: 'GreaterThan'
+                                                      threshold: 100
+                                                      timeAggregation: 'Average'
                                                       criterionType: 'StaticThresholdCriterion'
                                                   }
                                               ]

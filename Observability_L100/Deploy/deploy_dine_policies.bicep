@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
@@ -57,7 +60,7 @@ module kv_latency_policy 'policyDefinitions/deploy-kv_latency_alert.bicep' = {
   }
 }
 
-module kv_queryvolume_policy 'policyDefinitions/deploy-kv_queryvolume_alert.bicep' = {
+module kv_queryvolume_policy 'policyDefinitions/deploy-kv_availability_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-kvqva-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
@@ -283,6 +286,13 @@ module vnetg_tunnelingress_policy 'policyDefinitions/deploy-vnetg_tunnelingress_
   }
 }
 
+module vnetg_bgppeerstatus_policy 'policyDefinitions/deploy-vnetg_bgppeerstatus_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnpgbgppeerstatus-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // VPN Gateway Alerts
@@ -321,52 +331,32 @@ module vpng_ingress_policy 'policyDefinitions/deploy-vpng_ingress_alert.bicep' =
   }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Service Health Alerts
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-module service_health_incident_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep' = {
-  name: '${uniqueString(deployment().name)}-svchlthInc-policyDefinitions-deploy'
+module vpng_egresspacketdropcount_policy 'policyDefinitions/deploy-vpng_egresspacketdropcount_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vpngegrpacketdropcount-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-module service_health_health_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep' = {
-  name: '${uniqueString(deployment().name)}-svcHlthhlth-policyDefinitions-deploy'
+module vpng_egresspacketdropmismatch_policy 'policyDefinitions/deploy-vpng_egresspacketdropmismatch_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vpngegrpacketdropmmatch-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-module service_health_security_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep' = {
-  name: '${uniqueString(deployment().name)}-svcHlthsec-policyDefinitions-deploy'
+module vpng_ingresspacketdropcount_policy 'policyDefinitions/deploy-vpng_ingresspacketdropcount_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vpngingrpacketdropcount-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-module service_health_maintenance_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep' = {
-  name: '${uniqueString(deployment().name)}-svcHlthmain-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Resource Health Alerts
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-module resource_health_unhealthy_policy 'policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-resHlthunhlth-policyDefinitions-deploy'
+module vpng_ingresspacketdropmismatch_policy 'policyDefinitions/deploy-vpng_ingresspacketdropmismatch_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vpngingrpacketdropmmtch-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -375,60 +365,74 @@ module resource_health_unhealthy_policy 'policyDefinitions/deploy-activitylog-Re
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// Activity Log Alerts
+// ExpressRoute Circuit Alerts
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-module activity_KeyVault_Del_policy 'policyDefinitions/deploy-activitylog-KeyVault-Del.bicep' = {
-  name: '${uniqueString(deployment().name)}-alkeyvaildelal-policyDefinitions-deploy'
+module ercir_arpavailbility_policy 'policyDefinitions/deploy-ercir_arpavailability_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ercirarpav-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-
-module activity_azurefirewall_Del_policy 'policyDefinitions/deploy-activitylog-AzureFirewall-Del.bicep' = {
-  name: '${uniqueString(deployment().name)}-alazfirewdelal-policyDefinitions-deploy'
+module ercir_bgpavailbility_policy 'policyDefinitions/deploy-ercir_bgpavailability_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ercirbgpav-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-
-
-module activity_LogAnaly_Del_policy 'policyDefinitions/deploy-activitylog-LAWorkspace-Del.bicep' = {
-  name: '${uniqueString(deployment().name)}-alLogAanldelal-policyDefinitions-deploy'
+module ercir_qosdropbitsinpersecond_policy 'policyDefinitions/deploy-ercir_qosdropsbitsin_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ercirqosdropsin-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-
-module activity_LogAnaly_regen_policy 'policyDefinitions/deploy-activitylog-LAWorkspace-ReGen.bicep' = {
-  name: '${uniqueString(deployment().name)}-alLogAnlregenal-policyDefinitions-deploy'
+module ercir_qosdropbitsoutpersecond_policy 'policyDefinitions/deploy-ercir_qosdropsbitsout_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ercirqosdropsout-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-module activity_NSG_del_policy 'policyDefinitions/deploy-activitylog-NSG-Del.bicep' = {
-  name: '${uniqueString(deployment().name)}-alNSGDelalert-policyDefinitions-deploy'
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Automation Account Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module aa_totaljobs_policy 'policyDefinitions/deploy-aa_totaljob_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-aatotaljob-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-module activity_VPNGateway_del_policy 'policyDefinitions/deploy-activitylog-VPNGate-Del.bicep' = {
-  name: '${uniqueString(deployment().name)}-alVPNGatDelalert-policyDefinitions-deploy'
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Azure Firewall Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module afw_firewallhealth_policy 'policyDefinitions/deploy-afw_firewallhealth_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-afwfirewallhealth-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
 
-
+module afw_snatportutilization_policy 'policyDefinitions/deploy-afw_snatportutilization_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-afwsnatportutilization-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}

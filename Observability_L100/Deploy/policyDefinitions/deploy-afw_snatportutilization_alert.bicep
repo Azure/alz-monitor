@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-  name: '${uniqueString(deployment().name)}-rsca-policyDefinitions'
+module SNATPortUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+  name: '${uniqueString(deployment().name)}-afwsnatportutilization-policyDefinitions'
   params: {
-      name: 'Deploy_DNSZ_RecordSetCount_Alert'
-      displayName: '[DINE] Deploy DNSZ Record Set Count Alert'
-      description: 'DINE policy to audit/deploy DNS Zone Record Set Count Alert'
+      name: 'Deploy_AFW_SNATPortUtilization_Alert'
+      displayName: '[DINE] Deploy AFW SNATPortUtilization Alert'
+      description: 'DINE policy to audit/deploy Azure Firewall SNATPortUtilization Alert'
       location: policyLocation
       metadata: {
           version: '1.0.0'
@@ -25,7 +25,7 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
               allOf: [
                   {
                       field: 'type'
-                      equals: 'Microsoft.Network/dnsZones'
+                      equals: 'Microsoft.Network/azureFirewalls'
                   }
               ]
           }
@@ -38,15 +38,15 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                       allOf: [
                           {
                               field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                              equals: 'Microsoft.Network/dnsZones'
+                              equals: 'Microsoft.Network/azureFirewalls'
                           }
                           {
                               field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                              equals: 'RecordSetCount'
+                              equals: 'SNATPortUtilization'
                           }
                           {
                               field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                              equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/dnsZones/\', field(\'fullName\'))]'
+                              equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/azureFirewalls/\', field(\'fullName\'))]'
                           }
                       ]
                   }
@@ -73,14 +73,14 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                   }
                               }
                               variables: {}
-                              resources: [
-                                  {
+                              resources: [ 
+                              {
                                       type: 'Microsoft.Insights/metricAlerts'
                                       apiVersion: '2018-03-01'
-                                      name: '[concat(parameters(\'resourceName\'), \'-RecordSetCount\')]'
+                                      name: '[concat(parameters(\'resourceName\'), \'-SNATPortUtilization\')]'
                                       location: 'global'
                                       properties: {
-                                          description: 'Metric Alert for DNS Zone Record Set Count'
+                                          description: 'Metric Alert for AFW SNATPortUtilization'
                                           severity: 3
                                           enabled: true
                                           scopes: [
@@ -91,12 +91,12 @@ module RecordSetCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                           criteria: {
                                               allOf: [
                                                   {
-                                                      name: 'RecordSetCount'
-                                                      metricNamespace: 'Microsoft.Network/dnsZones'
-                                                      metricName: 'RecordSetCount'
-                                                      operator: 'GreaterThanEqualTo'
-                                                      threshold: 2000
-                                                      timeAggregation: 'Maximum'
+                                                      name: 'SNATPortUtilization'
+                                                      metricNamespace: 'Microsoft.Network/azureFirewalls'
+                                                      metricName: 'SNATPortUtilization'
+                                                      operator: 'GreaterThan'
+                                                      threshold: 80
+                                                      timeAggregation: 'Average'
                                                       criterionType: 'StaticThresholdCriterion'
                                                   }
                                               ]
