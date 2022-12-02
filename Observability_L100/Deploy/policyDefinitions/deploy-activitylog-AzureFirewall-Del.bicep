@@ -21,10 +21,7 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
         policyRule: {
             if: {
                 allOf: [
-                    {
-                        field: 'type'
-                        equals: 'Microsoft.Resources/subscriptions'
-                    }
+              
                     {
                       field: 'type'
                       equals: 'Microsoft.Network/azureFirewalls'
