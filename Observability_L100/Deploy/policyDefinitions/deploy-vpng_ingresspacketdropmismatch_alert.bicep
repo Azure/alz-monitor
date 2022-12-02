@@ -25,7 +25,7 @@ module TunnelIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/p
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Network/virtualNetworkGateways'
+                        equals: 'microsoft.network/vpngateways'
                     }
                 ]
             }
@@ -38,7 +38,7 @@ module TunnelIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/p
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.Network/virtualNetworkGateways'
+                                equals: 'microsoft.network/vpngateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
@@ -46,7 +46,7 @@ module TunnelIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/p
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/vpngateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -92,7 +92,7 @@ module TunnelIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/p
                                                 allOf: [
                                                     {
                                                         name: 'TunnelIngressPacketDropTSMismatch'
-                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
+                                                        metricNamespace: 'microsoft.network/vpngateways'
                                                         metricName: 'TunnelIngressPacketDropTSMismatch'
                                                         operator: 'GreaterThan'
                                                         threshold: 100
