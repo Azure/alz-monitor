@@ -410,7 +410,6 @@ module Deploy_VPNGw_Ingress_Alert '../../infra-as-code/bicep/modules/policy/assi
   }
 }
 module Deploy_VPNGw_Egress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-<<<<<<< HEAD
         name: '${uniqueString(deployment().name)}-Deploy_VPNGw_Egress_Alert'
           params: {
             parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Egress_Alert'
@@ -579,21 +578,6 @@ module Deploy_ActLog_VPNGateway_delete_Alert '../../infra-as-code/bicep/modules/
                            }
 }
 
-
-    
-=======
-  name: '${uniqueString(deployment().name)}-Deploy_VPNGw_Egress_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Egress_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy VPNG Egress Alert'
-    parPolicyAssignmentName: 'Deploy_VPNGw_Egress_Ale'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy VPN Gateway Egress Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
 module Deploy_ERCIR_ArpAvailability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_ERCIR_ArpAvailability_Alert'
   params: {
@@ -750,4 +734,3 @@ module Deploy_AFW_SNATPortUtilization_Alert '../../infra-as-code/bicep/modules/p
     ]
   }
 }
->>>>>>> main
