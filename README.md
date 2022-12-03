@@ -81,13 +81,13 @@ Let's reduce the list of what we should monitor to something a bit more manageab
 
  Example:
 
-  -Storage Accounts
-  -ASR Vaults
-  -VNETs and subnets
-  -Log Analytics workspace/s
-  -DNS
-  -Azure Firewall or 3rd Party NVA (Note: we won't be providing guidance on 3rd Party NVA monitoring, NVA vendors are in the best position to provide you that)
-  -Key Vaults
+  - Storage Accounts
+  - ASR Vaults
+  - VNETs and subnets
+  - Log Analytics workspace/s
+  - DNS
+  - Azure Firewall or 3rd Party NVA (Note: we won't be providing guidance on 3rd Party NVA monitoring, NVA vendors are in the best position to provide you that)
+  - Key Vaults
 
  As for what thresholds should be set we should set?
 
@@ -100,7 +100,7 @@ Identify platform metrics we think you should care about.
 Next, what Service Health Alerts for resources that are important to us.
 After that, what log alerts should be used.
 
-![Monitoring Layers](.github\media\Layers.png)
+![Monitoring Layers](media\Layers.png)
 
 The next challenge we've faced is how do you do this at scale in a repeatable way? To be honest there weren't a lot of examples available on how to do this, even if you used Infrastructure-as-Code, each person had their own way of doing things, let's develop a common deployment method that if someone is just starting out and don't have the experience they can get up and running with a scaleable method to deploy Azure Monitor alerts.
 
