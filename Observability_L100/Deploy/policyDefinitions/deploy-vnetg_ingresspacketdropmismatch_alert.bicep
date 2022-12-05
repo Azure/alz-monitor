@@ -12,7 +12,7 @@ module VnetgIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/po
     name: '${uniqueString(deployment().name)}-vnetgingresspacketdropmismatch-policyDefinitions'
     params: {
         name: 'Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert'
-        displayName: '[DINE] Deploy VnetGw Ingress Packet Drop Mismatch Alert'
+        displayName: '[DINE] Deploy VNetG Ingress Packet Drop Mismatch Alert'
         description: 'DINE policy to audit/deploy Vnet Gateway Ingress Packet Drop Mismatch Alert'
         location: policyLocation
         metadata: {

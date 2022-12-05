@@ -618,7 +618,7 @@ module Deploy_ERGw_ExpressRouteBitsOut_Alert '../../infra-as-code/bicep/modules/
   }
 }
 module Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_VnetGw_ExpressRouteBps_Alert'
+  name: '${uniqueString(deployment().name)}-Deploy_VNetG_ExpressRouteBps_Alert'
   params: {
     parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert'
     parPolicyAssignmentDisplayName: '[DINE] Deploy VNetG ExpressRoute Bits Per Second Alert'
@@ -631,10 +631,10 @@ module Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert '../../infra-as-code/bicep/
   }
 }
 module Deploy_VnetGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_VnetGw_TunnelEgressPacketDc_Alert'
+  name: '${uniqueString(deployment().name)}-Deploy_VNetG_TunnelEgressPacketDc_Alert'
   params: {
     parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgressPacketDropCount_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy VnetGw Egress Packet Drop Count Alert'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy VNetG Egress Packet Drop Count Alert'
     parPolicyAssignmentName: 'Deploy_VnetGw_EgrPDC_A'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy Vnet Gateway Egress Packet Drop Count Alert'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
@@ -644,10 +644,10 @@ module Deploy_VnetGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bice
   }
 }
 module Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_VnetGw_TunnelEgressPacketDropMm_Alert'
+  name: '${uniqueString(deployment().name)}-Deploy_VNetG_TunnelEgressPacketDropMm_Alert'
   params: {
     parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy VnetG Egress Packet Drop Mismatch Alert'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy VNetG Egress Packet Drop Mismatch Alert'
     parPolicyAssignmentName: 'Deploy_VnetGw_EgrPDM_A'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy Vnet Gateway Egress Packet Drop Mismatch Alert'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
@@ -657,10 +657,10 @@ module Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert '../../infra-as-code/b
   }
 }
 module Deploy_VnetGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_VnetGw_TunnelIngressPacketDc_Alert'
+  name: '${uniqueString(deployment().name)}-Deploy_VNetG_TunnelIngressPacketDc_Alert'
   params: {
     parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngressPacketDropCount_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy VnetGw Ingress Packet Drop Count Alert'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy VNetG Ingress Packet Drop Count Alert'
     parPolicyAssignmentName: 'Deploy_VnetGw_IgrPDC_A'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy Vnet Gateway Ingress Packet Drop Count Alert'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
@@ -670,10 +670,10 @@ module Deploy_VnetGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bic
   }
 }
 module Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_VnetGw_TunnelIngressPacketDropMm_Alert'
+  name: '${uniqueString(deployment().name)}-Deploy_VNetG_TunnelIngressPacketDropMm_Alert'
   params: {
     parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy VnetGw Ingress Packet Drop Mismatch Alert'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy VNetG Ingress Packet Drop Mismatch Alert'
     parPolicyAssignmentName: 'Deploy_VnetGw_IgrPDM_A'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy Vnet Gateway Ingress Packet Drop Mismatch Alert'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
