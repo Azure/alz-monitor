@@ -37,11 +37,11 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                   existenceCondition: {
                       allOf: [
                           {
-                              field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                              field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                               equals: 'Microsoft.Automation/automationAccounts'
                           }
                           {
-                              field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                              field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
                               equals: 'TotalJob'
                           }
                           {
@@ -103,7 +103,7 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                                             ]
                                                         }
                                                     ]
-                                                      operator: 'GreaterThanEqualTo'
+                                                      operator: 'GreaterThanOrEqual'
                                                       threshold: 90
                                                       timeAggregation: 'Average'
                                                       criterionType: 'StaticThresholdCriterion'

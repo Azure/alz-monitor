@@ -27,6 +27,10 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                         field: 'type'
                         equals: 'microsoft.network/virtualNetworkGateways'
                     }
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'VPN'
+                    }
                 ]
             }
             then: {
@@ -37,11 +41,11 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'microsoft.network/virtualNetworkGateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'TunnelIngressPacketDropCount'
                             }
                             {

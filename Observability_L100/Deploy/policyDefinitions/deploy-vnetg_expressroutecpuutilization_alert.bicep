@@ -27,6 +27,10 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                         field: 'type'
                         equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'ExpressRoute'
+                    }
                 ]
             }
             then: {
@@ -37,11 +41,11 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Network/virtualNetworkGateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'ExpressRouteGatewayCpuUtilization'
                             }
                             {

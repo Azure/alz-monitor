@@ -27,6 +27,10 @@ module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                         field: 'type'
                         equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'VPN'
+                    }
                 ]
             }
             then: {

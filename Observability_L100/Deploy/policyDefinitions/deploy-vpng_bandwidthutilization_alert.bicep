@@ -12,7 +12,7 @@ module VpngBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
     name: '${uniqueString(deployment().name)}-vpngbua-policyDefinitions'
     params: {
         name: 'Deploy_VPNGw_BandwidthUtil_Alert'
-        displayName: '[DINE] Deploy VPNG  Bandwidth Utilization Alert'
+        displayName: '[DINE] Deploy VPNG Bandwidth Utilization Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Bandwidth Utilization Alert'
         location: policyLocation
         metadata: {
@@ -27,6 +27,10 @@ module VpngBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                         field: 'type'
                         equals: 'microsoft.network/vpngateways'
                     }
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'VPN'
+                    }
                 ]
             }
             then: {
@@ -37,11 +41,11 @@ module VpngBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'microsoft.network/vpngateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'tunnelaveragebandwidth'
                             }
                             {
