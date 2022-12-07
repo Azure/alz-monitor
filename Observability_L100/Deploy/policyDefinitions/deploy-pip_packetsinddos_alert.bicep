@@ -36,13 +36,15 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                     type: 'Microsoft.Insights/metricAlerts'
                     existenceCondition: {
                         allOf: [
+
+                        // need to add alert name pulled from resource name
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Network/publicIPAddresses'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'QueryVolume'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                equals: 'PacketsInDDoS'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
@@ -77,7 +79,7 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-QueryVolumeAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-PacketsInDDosAlert\')]'
                                         location: 'global'
                                         properties: {
                                             description: 'Metric Alert for Public IP Address Packets IN DDOS'
@@ -94,7 +96,7 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                         name: 'PacketsInDDoS'
                                                         metricNamespace: 'Microsoft.Network/publicIPAddresses'
                                                         metricName: 'PacketsInDDoS'
-                                                        operator: 'GreaterThanEqualTo'
+                                                        operator: 'GreaterThanOrEqual'
                                                         threshold: 40000
                                                         timeAggregation: 'Total'
                                                         criterionType: 'StaticThresholdCriterion'
