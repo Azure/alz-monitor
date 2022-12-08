@@ -507,3 +507,104 @@ module afw_snatportutilization_policy 'policyDefinitions/deploy-afw_snatportutil
    policyLocation: policyLocation
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Service Health Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module svcHealth_Health_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHealthHealth-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module svcHealth_Incident_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHealthIncident-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module svcHealth_Maintenance_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHealthMaintenance-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module svcHealth_Security_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHealthSecurity-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Activity Log Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module aLog_AfwDelete_policy 'policyDefinitions/deploy-activitylog-AzureFirewall-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogAfwDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_KvDelete_policy 'policyDefinitions/deploy-activitylog-KeyVault-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogaKvDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_LawDelete_policy 'policyDefinitions/deploy-activitylog-LAWorkspace-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogLawDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_LawRegen_policy 'policyDefinitions/deploy-activitylog-LAWorkspace-ReGen.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogLawRegen-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_NsgDelete_policy 'policyDefinitions/deploy-activitylog-NSG-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogNsgDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_ResHealth_Unhealthy_policy 'policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogResHealthUnhealthy-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_VpnGwDelete_policy 'policyDefinitions/deploy-activitylog-VPNGate-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogVpnGwDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
