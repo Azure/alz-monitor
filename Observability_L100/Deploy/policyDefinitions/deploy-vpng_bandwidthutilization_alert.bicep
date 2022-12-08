@@ -27,10 +27,6 @@ module VpngBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                         field: 'type'
                         equals: 'microsoft.network/vpngateways'
                     }
-                    {
-                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
-                        equals: 'VPN'
-                    }
                 ]
             }
             then: {
