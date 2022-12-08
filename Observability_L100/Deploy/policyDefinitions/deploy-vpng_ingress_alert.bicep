@@ -27,10 +27,6 @@ module VpngIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                         field: 'type'
                         equals: 'microsoft.network/vpngateways'
                     }
-                    {
-                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
-                        equals: 'VPN'
-                    }
                 ]
             }
             then: {
