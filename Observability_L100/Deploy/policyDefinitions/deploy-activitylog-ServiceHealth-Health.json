@@ -1,0 +1,350 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.4.1272.37030",
+      "templateHash": "4584112943047092347"
+    }
+  },
+  "parameters": {
+    "policyLocation": {
+      "type": "string",
+      "defaultValue": "centralus"
+    },
+    "deploymentRoleDefinitionIds": {
+      "type": "array",
+      "defaultValue": [
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "parResourceGroupName": {
+      "type": "string",
+      "defaultValue": "AlzMonitoring-rg"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[format('{0}-shi-policyDefinitions', uniqueString(deployment().name))]",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "name": {
+            "value": "Deploy_activitylog_ServiceHealth_HealthAdvisory"
+          },
+          "displayName": {
+            "value": "[DINE] Deploy Service Health Advisory Alert"
+          },
+          "description": {
+            "value": "DINE policy to Deploy Service Health Advisory Alert"
+          },
+          "location": {
+            "value": "[parameters('policyLocation')]"
+          },
+          "metadata": {
+            "value": {
+              "version": "1.0.0",
+              "Category": "ServiceHealth",
+              "source": "https://github.com/Azure/ALZ-Monitor/"
+            }
+          },
+          "policyRule": {
+            "value": {
+              "if": {
+                "allOf": [
+                  {
+                    "field": "type",
+                    "equals": "Microsoft.Resources/subscriptions"
+                  }
+                ]
+              },
+              "then": {
+                "effect": "deployIfNotExists",
+                "details": {
+                  "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
+                  "type": "Microsoft.Insights/activityLogAlerts",
+                  "name": "ALZ-SvcHealth",
+                  "existenceScope": "resourcegroup",
+                  "resourceGroupName": "[parameters('parResourceGroupName')]",
+                  "deploymentScope": "subscription",
+                  "existenceCondition": {
+                    "allOf": [
+                      {
+                        "field": "Microsoft.Insights/ActivityLogAlerts/enabled",
+                        "equals": "true"
+                      },
+                      {
+                        "count": {
+                          "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*]",
+                          "where": {
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field",
+                                    "equals": "category"
+                                  },
+                                  {
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals",
+                                    "equals": "ServiceHealth"
+                                  }
+                                ]
+                              },
+                              {
+                                "allOf": [
+                                  {
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field",
+                                    "equals": "properties.incidentType"
+                                  },
+                                  {
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals",
+                                    "equals": "ActionRequired"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "equals": 2
+                      }
+                    ]
+                  },
+                  "deployment": {
+                    "location": "[parameters('policyLocation')]",
+                    "properties": {
+                      "mode": "incremental",
+                      "template": {
+                        "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                        "contentVersion": "1.0.0.0",
+                        "parameters": {
+                          "parResourceGroupName": {
+                            "type": "string",
+                            "defaultValue": "[parameters('parResourceGroupName')]"
+                          },
+                          "policyLocation": {
+                            "type": "string",
+                            "defaultValue": "[parameters('policyLocation')]"
+                          },
+                          "deploymentRoleDefinitionIds": {
+                            "type": "array",
+                            "defaultValue": "[parameters('deploymentRoleDefinitionIds')]"
+                          }
+                        },
+                        "variables": {},
+                        "resources": [
+                          {
+                            "type": "Microsoft.Resources/resourceGroups",
+                            "apiVersion": "2021-04-01",
+                            "name": "[parameters('parResourceGroupName')]",
+                            "location": "[parameters('policyLocation')]"
+                          },
+                          {
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2019-10-01",
+                            "name": "ALZ-SvcHealth-Health",
+                            "resourceGroup": "[parameters('parResourceGroupName')]",
+                            "dependsOn": [
+                              "[format('Microsoft.Resources/resourceGroups/{0}', parameters('parResourceGroupName'))]"
+                            ],
+                            "properties": {
+                              "mode": "Incremental",
+                              "template": {
+                                "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                "contentVersion": "1.0.0.0",
+                                "parameters": {},
+                                "variables": {},
+                                "resources": [
+                                  {
+                                    "type": "microsoft.insights/activityLogAlerts",
+                                    "apiVersion": "2020-10-01",
+                                    "location": "global",
+                                    "name": "ALZ-SvcHealth-Health",
+                                    "properties": {
+                                      "description": "Service Health Advisory Alert",
+                                      "enabled": true,
+                                      "scopes": [
+                                        "[[subscription().id]"
+                                      ],
+                                      "condition": {
+                                        "allOf": [
+                                          {
+                                            "field": "category",
+                                            "equals": "ServiceHealth"
+                                          },
+                                          {
+                                            "field": "properties.incidentType",
+                                            "equals": "ActionRequired"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "parameters": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.1272.37030",
+              "templateHash": "4253137932837702667"
+            }
+          },
+          "parameters": {
+            "name": {
+              "type": "string",
+              "maxLength": 64,
+              "metadata": {
+                "description": "Required. Specifies the name of the policy definition. Maximum length is 64 characters."
+              }
+            },
+            "displayName": {
+              "type": "string",
+              "defaultValue": "",
+              "maxLength": 128,
+              "metadata": {
+                "description": "Optional. The display name of the policy definition. Maximum length is 128 characters."
+              }
+            },
+            "description": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Optional. The policy definition description."
+              }
+            },
+            "mode": {
+              "type": "string",
+              "defaultValue": "All",
+              "allowedValues": [
+                "All",
+                "Indexed",
+                "Microsoft.KeyVault.Data",
+                "Microsoft.ContainerService.Data",
+                "Microsoft.Kubernetes.Data"
+              ],
+              "metadata": {
+                "description": "Optional. The policy definition mode. Default is All, Some examples are All, Indexed, Microsoft.KeyVault.Data."
+              }
+            },
+            "metadata": {
+              "type": "object",
+              "defaultValue": {},
+              "metadata": {
+                "description": "Optional. The policy Definition metadata. Metadata is an open ended object and is typically a collection of key-value pairs."
+              }
+            },
+            "parameters": {
+              "type": "object",
+              "defaultValue": {},
+              "metadata": {
+                "description": "Optional. The policy definition parameters that can be used in policy definition references."
+              }
+            },
+            "policyRule": {
+              "type": "object",
+              "metadata": {
+                "description": "Required. The Policy Rule details for the Policy Definition."
+              }
+            },
+            "managementGroupId": {
+              "type": "string",
+              "defaultValue": "[managementGroup().name]",
+              "metadata": {
+                "description": "Optional. The group ID of the Management Group. If not provided, will use the current scope for deployment."
+              }
+            },
+            "location": {
+              "type": "string",
+              "defaultValue": "[deployment().location]",
+              "metadata": {
+                "description": "Optional. Location deployment metadata."
+              }
+            },
+            "enableDefaultTelemetry": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Optional. Enable telemetry via the Customer Usage Attribution ID (GUID)."
+              }
+            }
+          },
+          "resources": [
+            {
+              "condition": "[parameters('enableDefaultTelemetry')]",
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2021-04-01",
+              "name": "[format('pid-47ed15a6-730a-4827-bcb4-0fd963ffbd82-{0}', uniqueString(deployment().name, parameters('location')))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "mode": "Incremental",
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "resources": []
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Authorization/policyDefinitions",
+              "apiVersion": "2021-06-01",
+              "name": "[parameters('name')]",
+              "properties": {
+                "policyType": "Custom",
+                "mode": "[parameters('mode')]",
+                "displayName": "[if(not(empty(parameters('displayName'))), parameters('displayName'), null())]",
+                "description": "[if(not(empty(parameters('description'))), parameters('description'), null())]",
+                "metadata": "[if(not(empty(parameters('metadata'))), parameters('metadata'), null())]",
+                "parameters": "[if(not(empty(parameters('parameters'))), parameters('parameters'), null())]",
+                "policyRule": "[parameters('policyRule')]"
+              }
+            }
+          ],
+          "outputs": {
+            "name": {
+              "type": "string",
+              "value": "[parameters('name')]",
+              "metadata": {
+                "description": "Policy Definition Name."
+              }
+            },
+            "resourceId": {
+              "type": "string",
+              "value": "[extensionResourceId(tenantResourceId('Microsoft.Management/managementGroups', parameters('managementGroupId')), 'Microsoft.Authorization/policyDefinitions', parameters('name'))]",
+              "metadata": {
+                "description": "Policy Definition resource ID."
+              }
+            },
+            "roleDefinitionIds": {
+              "type": "array",
+              "value": "[if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then, 'details'), if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then.details, 'roleDefinitionIds'), reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then.details.roleDefinitionIds, createArray()), createArray())]",
+              "metadata": {
+                "description": "Policy Definition Role Definition IDs."
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
