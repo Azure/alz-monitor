@@ -262,7 +262,7 @@ module vnetg_expressroutecpuutilization_policy 'policyDefinitions/deploy-vnetg_e
   }
 }
 
-module vnetg_tunnelbandwidth_policy 'policyDefinitions/deploy-vnetg_tunnelbandwidth_alert.bicep' = {
+module vnetg_tunnelbandwidth_policy 'policyDefinitions/deploy-vnetg_bandwidthutilization_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vnetgtaba-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
@@ -270,7 +270,7 @@ module vnetg_tunnelbandwidth_policy 'policyDefinitions/deploy-vnetg_tunnelbandwi
   }
 }
 
-module vnetg_tunnelegress_policy 'policyDefinitions/deploy-vnetg_tunnelegress_alert.bicep' = {
+module vnetg_tunnelegress_policy 'policyDefinitions/deploy-vnetg_egress_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vnetgteba-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
@@ -278,7 +278,7 @@ module vnetg_tunnelegress_policy 'policyDefinitions/deploy-vnetg_tunnelegress_al
   }
 }
 
-module vnetg_tunnelingress_policy 'policyDefinitions/deploy-vnetg_tunnelingress_alert.bicep' = {
+module vnetg_tunnelingress_policy 'policyDefinitions/deploy-vnetg_ingress_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vnetgtiba-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
@@ -293,6 +293,47 @@ module vnetg_bgppeerstatus_policy 'policyDefinitions/deploy-vnetg_bgppeerstatus_
    policyLocation: policyLocation
   }
 }
+
+module vnetg_expressroutebits_policy 'policyDefinitions/deploy-vnetg_expressroutebitspersecond_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vngergbitsa-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vnetg_egresspacketdropcount_policy 'policyDefinitions/deploy-vnetg_egresspacketdropcount_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnetgegrpacketdropcnt-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vnetg_egresspacketdropmismatch_policy 'policyDefinitions/deploy-vnetg_egresspacketdropmismatch_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnetgegrpacketdrpmmtch-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vnetg_ingresspacketdropcount_policy 'policyDefinitions/deploy-vnetg_ingresspacketdropcount_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnetgingrpacketdropcnt-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vnetg_ingresspacketdropmismatch_policy 'policyDefinitions/deploy-vnetg_ingresspacketdropmismatch_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnetgingrpacketdrpmmtch-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // VPN Gateway Alerts
@@ -395,6 +436,36 @@ module ercir_qosdropbitsinpersecond_policy 'policyDefinitions/deploy-ercir_qosdr
 
 module ercir_qosdropbitsoutpersecond_policy 'policyDefinitions/deploy-ercir_qosdropsbitsout_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-ercirqosdropsout-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// ExpressRoute Gateway Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module erg_ergcpuutilization_policy 'policyDefinitions/deploy-erg_expressroutecpuutilization_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ergergcpuua-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module erg_ergbitsinpersecond_policy 'policyDefinitions/deploy-erg_bitsinpersecond_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ergergbin-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module erg_ergbitsoutpersecond_policy 'policyDefinitions/deploy-erg_bitsoutpersecond_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ergergbout-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation

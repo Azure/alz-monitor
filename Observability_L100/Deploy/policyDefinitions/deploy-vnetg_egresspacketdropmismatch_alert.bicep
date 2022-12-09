@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vnetgtaba-policyDefinitions'
+module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-vnetgegresspacketdropmismatch-policyDefinitions'
     params: {
-        name: 'Deploy_VnetGw_TunnelBandwidth_Alert'
-        displayName: '[DINE] Deploy VNetG Tunnel Bandwidth Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Bandwidth Alert'
+        name: 'Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert'
+        displayName: '[DINE] Deploy VNetG Egress Packet Drop Mismatch Alert'
+        description: 'DINE policy to audit/deploy Vnet Gateway Egress Packet Drop Mismatch Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -25,7 +25,11 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Network/virtualNetworkGateways'
+                        equals: 'microsoft.network/virtualNetworkGateways'
+                    }                    
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'VPN'
                     }
                 ]
             }
@@ -37,16 +41,16 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.Network/virtualNetworkGateways'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                equals: 'microsoft.network/virtualNetworkGateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'TunnelAverageBandwidth'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                equals: 'TunnelEgressPacketDropTSMismatch'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -77,10 +81,10 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelBandwidthAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressPacketDropTSMismatchAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VNet Gateway Tunnel Avg Bandwidth'
+                                            description: 'Metric Alert for Vnet Gateway tunnel TunnelEgressPacketDropTSMismatch'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,11 +95,11 @@ module TunnelBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'TunnelAverageBandwidth'
-                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                        metricName: 'TunnelAverageBandwidth'
-                                                        operator: 'LessThan'
-                                                        threshold: 1
+                                                        name: 'TunnelEgressPacketDropTSMismatch'
+                                                        metricNamespace: 'microsoft.network/virtualNetworkGateways'
+                                                        metricName: 'TunnelEgressPacketDropTSMismatch'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 100
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }

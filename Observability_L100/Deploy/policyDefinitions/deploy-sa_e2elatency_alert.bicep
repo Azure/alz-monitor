@@ -37,12 +37,12 @@ module E2ELatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Storage/storageAccounts'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'AverageE2ELatency'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                equals: 'SuccessE2ELatency'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
@@ -93,7 +93,7 @@ module E2ELatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                                     {
                                                         name: 'AverageE2ELatency'
                                                         metricNamespace: 'Microsoft.Storage/storageAccounts'
-                                                        metricName: 'AverageE2ELatency'
+                                                        metricName: 'SuccessE2ELatency'
                                                         operator: 'GreaterThan'
                                                         threshold: 5000
                                                         timeAggregation: 'Average'

@@ -8,7 +8,7 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module ExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vngergcpuua-policyDefinitions'
     params: {
         name: 'Deploy_VnetGw_ExpressRouteCpuUtil_Alert'
@@ -27,6 +27,10 @@ module ExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policy
                         field: 'type'
                         equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'ExpressRoute'
+                    }
                 ]
             }
             then: {
@@ -37,11 +41,11 @@ module ExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policy
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Network/virtualNetworkGateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'ExpressRouteGatewayCpuUtilization'
                             }
                             {

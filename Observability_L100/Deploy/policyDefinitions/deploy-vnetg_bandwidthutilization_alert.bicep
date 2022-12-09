@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vnetgtiba-policyDefinitions'
+module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-vnetgtaba-policyDefinitions'
     params: {
-        name: 'Deploy_VnetGw_TunnelIngress_Alert'
-        displayName: '[DINE] Deploy VNetG Tunnel Ingress Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Ingress Alert'
+        name: 'Deploy_VnetGw_TunnelBandwidth_Alert'
+        displayName: '[DINE] Deploy VNetG Tunnel Bandwidth Alert'
+        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Bandwidth Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -27,6 +27,10 @@ module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                         field: 'type'
                         equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'VPN'
+                    }
                 ]
             }
             then: {
@@ -37,12 +41,12 @@ module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Network/virtualNetworkGateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'TunnelIngressBytes'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                equals: 'TunnelAverageBandwidth'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
@@ -77,10 +81,10 @@ module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelBandwidthAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VNet Gateway Tunnel ingress Bytes'
+                                            description: 'Metric Alert for VNet Gateway Tunnel Avg Bandwidth'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,10 +95,10 @@ module TunnelIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'TunnelIngressBytes'
+                                                        name: 'TunnelAverageBandwidth'
                                                         metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                        metricName: 'TunnelIngressBytes'
-                                                        operator: 'LessThanOrEqual'
+                                                        metricName: 'TunnelAverageBandwidth'
+                                                        operator: 'LessThan'
                                                         threshold: 1
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'

@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vnetgteba-policyDefinitions'
+module ErgExpressRouteBitsOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-ergergbout-policyDefinitions'
     params: {
-        name: 'Deploy_VnetGw_TunnelEgress_Alert'
-        displayName: '[DINE] Deploy VNetG Tunnel Egress Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Egress Alert'
+        name: 'Deploy_ERGw_ExpressRouteBitsOut_Alert'
+        displayName: '[DINE] Deploy ERG ExpressRoute Bits Out Alert'
+        description: 'DINE policy to audit/deploy ER Gateway Connection BitsOutPerSecond Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -25,7 +25,7 @@ module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Network/virtualNetworkGateways'
+                        equals: 'Microsoft.Network/expressroutegateways'
                     }
                 ]
             }
@@ -38,15 +38,15 @@ module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.Network/virtualNetworkGateways'
+                                equals: 'Microsoft.Network/expressroutegateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'TunnelEgressBytes'
+                                equals: 'ERGatewayConnectionBitsOutPerSecond'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/expressroutegateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -77,10 +77,10 @@ module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-GatewayERBitsOutAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VNet Gateway Tunnel Egress Bytes'
+                                            description: 'Metric Alert for ER Gateway Connection BitsOutPerSecond'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,9 +91,9 @@ module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'TunnelEgressBytes'
-                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
-                                                        metricName: 'TunnelEgressBytes'
+                                                        name: 'ERGatewayConnectionBitsOutPerSecond'
+                                                        metricNamespace: 'Microsoft.Network/expressroutegateways'
+                                                        metricName: 'ERGatewayConnectionBitsOutPerSecond'
                                                         operator: 'LessThanOrEqual'
                                                         threshold: 1
                                                         timeAggregation: 'Average'
@@ -103,7 +103,6 @@ module TunnelEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
                                         }
-
                                     }
                                 ]
                             }

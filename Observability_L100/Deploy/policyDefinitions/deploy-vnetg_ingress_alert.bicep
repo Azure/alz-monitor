@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vpngbgppsa-policyDefinitions'
+module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-vnetgtiba-policyDefinitions'
     params: {
-        name: 'Deploy_VPNGw_BGPPeerStatus_Alert'
-        displayName: '[DINE] Deploy VPNG  BGP Peer Status Alert'
-        description: 'DINE policy to audit/deploy VPN Gateway BGP Peer Status Alert'
+        name: 'Deploy_VnetGw_TunnelIngress_Alert'
+        displayName: '[DINE] Deploy VNetG Tunnel Ingress Alert'
+        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Ingress Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -25,7 +25,11 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'microsoft.network/vpngateways'
+                        equals: 'Microsoft.Network/virtualNetworkGateways'
+                    }                    
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'VPN'
                     }
                 ]
             }
@@ -38,15 +42,15 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'microsoft.network/vpngateways'
+                                equals: 'Microsoft.Network/virtualNetworkGateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'bgppeerstatus'
+                                equals: 'TunnelIngressBytes'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/vpngateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -77,10 +81,10 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-BGPPeerStatusAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VPN Gateway BGP peer status'
+                                            description: 'Metric Alert for VNet Gateway Tunnel ingress Bytes'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,12 +95,12 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'bgppeerstatus'
-                                                        metricNamespace: 'microsoft.network/vpngateways'
-                                                        metricName: 'bgppeerstatus'
-                                                        operator: 'LessThan'
+                                                        name: 'TunnelIngressBytes'
+                                                        metricNamespace: 'Microsoft.Network/virtualNetworkGateways'
+                                                        metricName: 'TunnelIngressBytes'
+                                                        operator: 'LessThanOrEqual'
                                                         threshold: 1
-                                                        timeAggregation: 'Total'
+                                                        timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
                                                 ]

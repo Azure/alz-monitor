@@ -8,11 +8,11 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module BandwidthUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VpngBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngbua-policyDefinitions'
     params: {
         name: 'Deploy_VPNGw_BandwidthUtil_Alert'
-        displayName: '[DINE] Deploy VPNG  Bandwidth Utilization Alert'
+        displayName: '[DINE] Deploy VPNG Bandwidth Utilization Alert'
         description: 'DINE policy to audit/deploy VPN Gateway Bandwidth Utilization Alert'
         location: policyLocation
         metadata: {
@@ -37,11 +37,11 @@ module BandwidthUtilizationAlert '../../arm/Microsoft.Authorization/policyDefini
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'microsoft.network/vpngateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'tunnelaveragebandwidth'
                             }
                             {
