@@ -5,13 +5,17 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "11279821071192788884"
+      "templateHash": "12412501093440201143"
     }
   },
   "parameters": {
     "policyLocation": {
       "type": "string",
       "defaultValue": "centralus"
+    },
+    "parResourceGroupName": {
+      "type": "string",
+      "defaultValue": "AlzMonitoring-rg"
     },
     "deploymentRoleDefinitionIds": {
       "type": "array",
@@ -24,7 +28,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
-      "name": "[format('{0}-vpngtia-policyDefinitions', uniqueString(deployment().name))]",
+      "name": "[format('{0}-shi-policyDefinitions', uniqueString(deployment().name))]",
       "location": "[deployment().location]",
       "properties": {
         "expressionEvaluationOptions": {
@@ -33,13 +37,13 @@
         "mode": "Incremental",
         "parameters": {
           "name": {
-            "value": "Deploy_VPNGw_Ingress_Alert"
+            "value": "Deploy_activitylog_VPNGateway_Delete"
           },
           "displayName": {
-            "value": "[DINE] Deploy VPNG Ingress Alert"
+            "value": "[DINE] Deploy Activity Log VPN Gateway Delete Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VPN Gateway Ingress Alert"
+            "value": "DINE policy to Deploy Activity Log VPN Gateway Delete Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -47,7 +51,7 @@
           "metadata": {
             "value": {
               "version": "1.0.0",
-              "Category": "Networking",
+              "Category": "ActivityLog",
               "source": "https://github.com/Azure/ALZ-Monitor/"
             }
           },
@@ -57,7 +61,7 @@
                 "allOf": [
                   {
                     "field": "type",
-                    "equals": "microsoft.network/vpngateways"
+                    "equals": "Microsoft.Network/vpnGateways"
                   }
                 ]
               },
@@ -65,86 +69,129 @@
                 "effect": "deployIfNotExists",
                 "details": {
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
-                  "type": "Microsoft.Insights/metricAlerts",
+                  "type": "Microsoft.Insights/activityLogAlerts",
+                  "existenceScope": "resourcegroup",
+                  "resourceGroupName": "[parameters('parResourceGroupName')]",
+                  "deploymentScope": "subscription",
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
-                        "equals": "microsoft.network/vpngateways"
+                        "field": "Microsoft.Insights/ActivityLogAlerts/enabled",
+                        "equals": "true"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
-                        "equals": "tunnelingressbytes"
-                      },
-                      {
-                        "field": "Microsoft.Insights/metricalerts/scopes[*]",
-                        "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/microsoft.network/vpngateways/', field('fullName'))]"
+                        "count": {
+                          "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*]",
+                          "where": {
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field",
+                                    "equals": "category"
+                                  },
+                                  {
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals",
+                                    "equals": "Administrative"
+                                  }
+                                ]
+                              },
+                              {
+                                "allOf": [
+                                  {
+                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].field",
+                                    "equals": "operationName"
+                                  },
+                                  {
+                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].equals",
+                                    "equals": "Microsoft.Network/vpnGateways/delete"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "equals": 2
                       }
                     ]
                   },
                   "deployment": {
+                    "location": "[parameters('policyLocation')]",
                     "properties": {
                       "mode": "incremental",
                       "template": {
                         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                         "contentVersion": "1.0.0.0",
                         "parameters": {
-                          "resourceName": {
-                            "type": "String",
-                            "metadata": {
-                              "displayName": "resourceName",
-                              "description": "Name of the resource"
-                            }
+                          "parResourceGroupName": {
+                            "type": "string",
+                            "defaultValue": "[parameters('parResourceGroupName')]"
                           },
-                          "resourceId": {
-                            "type": "String",
-                            "metadata": {
-                              "displayName": "resourceId",
-                              "description": "Resource ID of the resource emitting the metric that will be used for the comparison"
-                            }
+                          "policyLocation": {
+                            "type": "string",
+                            "defaultValue": "[parameters('policyLocation')]"
                           }
                         },
                         "variables": {},
                         "resources": [
                           {
-                            "type": "Microsoft.Insights/metricAlerts",
-                            "apiVersion": "2018-03-01",
-                            "name": "[[concat(parameters('resourceName'), '-TunnelIngressAlert')]",
-                            "location": "global",
+                            "type": "Microsoft.Resources/resourceGroups",
+                            "apiVersion": "2021-04-01",
+                            "name": "[parameters('parResourceGroupName')]",
+                            "location": "[parameters('policyLocation')]"
+                          },
+                          {
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2019-10-01",
+                            "name": "ActivityVPNGatewayDelete",
+                            "resourceGroup": "[parameters('parResourceGroupName')]",
+                            "dependsOn": [
+                              "[format('Microsoft.Resources/resourceGroups/{0}', parameters('parResourceGroupName'))]"
+                            ],
                             "properties": {
-                              "description": "Metric Alert for VPN Gateway tunnel ingress bytes",
-                              "severity": 3,
-                              "enabled": true,
-                              "scopes": [
-                                "[[parameters('resourceId')]"
-                              ],
-                              "evaluationFrequency": "PT5M",
-                              "windowSize": "PT5M",
-                              "criteria": {
-                                "allOf": [
+                              "mode": "Incremental",
+                              "template": {
+                                "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                "contentVersion": "1.0.0.0",
+                                "parameters": {},
+                                "variables": {},
+                                "resources": [
                                   {
-                                    "name": "tunnelingressbytes",
-                                    "metricNamespace": "microsoft.network/vpngateways",
-                                    "metricName": "tunnelingressbytes",
-                                    "operator": "LessThanOrEqual",
-                                    "threshold": 0,
-                                    "timeAggregation": "Total",
-                                    "criterionType": "StaticThresholdCriterion"
+                                    "type": "microsoft.insights/activityLogAlerts",
+                                    "apiVersion": "2020-10-01",
+                                    "name": "ActivityVPNGatewayDelete",
+                                    "location": "global",
+                                    "properties": {
+                                      "description": "Activity Log VPN Gateway Delete",
+                                      "enabled": true,
+                                      "scopes": [
+                                        "[[subscription().id]"
+                                      ],
+                                      "condition": {
+                                        "allOf": [
+                                          {
+                                            "field": "category",
+                                            "equals": "Administrative"
+                                          },
+                                          {
+                                            "field": "operationName",
+                                            "equals": "Microsoft.Network/vpnGateways/delete"
+                                          },
+                                          {
+                                            "field": "status",
+                                            "containsAny": [
+                                              "succeeded"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
-                                ],
-                                "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                                ]
                               }
                             }
                           }
                         ]
-                      },
-                      "parameters": {
-                        "resourceName": {
-                          "value": "[[field('name')]"
-                        },
-                        "resourceId": {
-                          "value": "[[field('id')]"
-                        }
                       }
                     }
                   }

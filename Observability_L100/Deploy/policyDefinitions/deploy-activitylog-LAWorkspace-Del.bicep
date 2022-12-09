@@ -98,8 +98,8 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                                     }
                                 }
                                 variables: {}
-                                resources: [ 
-                                {
+                                resources: [
+                                    {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
                                         name: parResourceGroupName
@@ -122,45 +122,47 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                                                 parameters: {}
                                                 variables: {}
                                                 resources: [
-                                {
-                                        type: 'microsoft.insights/activityLogAlerts'
-                                        apiVersion: '2020-10-01'
-                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
-                                        name: 'ActivityLAWorkspaceDelete'
-                                        location: 'global'
-                                        properties: {
-                                            description: 'Activity Log LA Workspace Delete'
-                                            enabled: true
-                                            scopes: [
-                                                '[subscription().id]'
-                                            ]
-                                            condition: {
-                                            allOf: [
-                                                {
-                                                  field:'category'
-                                                  equals: 'Administrative'
-                                                }
-                                                {
-                                                  field: 'operationName'
-                                                  equals: 'Microsoft.OperationalInsights/workspaces/delete'
-                                                }
-                                                {
-                                                  field: 'status'
-                                                  containsAny: ['succeeded']
-                                                }
-                                              
-                                              ]
+                                                    {
+                                                        type: 'microsoft.insights/activityLogAlerts'
+                                                        apiVersion: '2020-10-01'
+                                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
+                                                        name: 'ActivityLAWorkspaceDelete'
+                                                        location: 'global'
+                                                        properties: {
+                                                            description: 'Activity Log LA Workspace Delete'
+                                                            enabled: true
+                                                            scopes: [
+                                                                '[subscription().id]'
+                                                            ]
+                                                            condition: {
+                                                                allOf: [
+                                                                    {
+                                                                        field: 'category'
+                                                                        equals: 'Administrative'
+                                                                    }
+                                                                    {
+                                                                        field: 'operationName'
+                                                                        equals: 'Microsoft.OperationalInsights/workspaces/delete'
+                                                                    }
+                                                                    {
+                                                                        field: 'status'
+                                                                        containsAny: [
+                                                                            'succeeded'
+                                                                        ]
+                                                                    }
+
+                                                                ]
+                                                            }
+                                                        }
+
+                                                    }
+                                                ]
                                             }
                                         }
-  
                                     }
-                                ] 
-                                }
-                                }
-                                }
                                 ]
                             }
-                           
+
                         }
                     }
                 }

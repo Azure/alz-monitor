@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "2540293136748031680"
+      "templateHash": "14894189852316431172"
     }
   },
   "parameters": {
@@ -69,11 +69,11 @@
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
                         "equals": "Microsoft.Automation/automationAccounts"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
                         "equals": "TotalJob"
                       },
                       {
@@ -135,7 +135,7 @@
                                         ]
                                       }
                                     ],
-                                    "operator": "GreaterThanEqualTo",
+                                    "operator": "GreaterThanOrEqual",
                                     "threshold": 90,
                                     "timeAggregation": "Average",
                                     "criterionType": "StaticThresholdCriterion"

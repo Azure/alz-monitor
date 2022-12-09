@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "7646485937699833695"
+      "templateHash": "2533428638695460798"
     }
   },
   "parameters": {
@@ -24,7 +24,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
-      "name": "[format('{0}-vnetgtaba-policyDefinitions', uniqueString(deployment().name))]",
+      "name": "[format('{0}-vnetgingresspacketdropmismatch-policyDefinitions', uniqueString(deployment().name))]",
       "location": "[deployment().location]",
       "properties": {
         "expressionEvaluationOptions": {
@@ -33,13 +33,13 @@
         "mode": "Incremental",
         "parameters": {
           "name": {
-            "value": "Deploy_VnetGw_TunnelBandwidth_Alert"
+            "value": "Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VNetG Tunnel Bandwidth Alert"
+            "value": "[DINE] Deploy VNetG Ingress Packet Drop Mismatch Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy Virtual Network Gateway Tunnel Bandwidth Alert"
+            "value": "DINE policy to audit/deploy Vnet Gateway Ingress Packet Drop Mismatch Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -57,7 +57,11 @@
                 "allOf": [
                   {
                     "field": "type",
-                    "equals": "Microsoft.Network/virtualNetworkGateways"
+                    "equals": "microsoft.network/virtualNetworkGateways"
+                  },
+                  {
+                    "field": "Microsoft.Network/virtualNetworkGateways/gatewayType",
+                    "equals": "VPN"
                   }
                 ]
               },
@@ -69,16 +73,16 @@
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
-                        "equals": "Microsoft.Network/virtualNetworkGateways"
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
+                        "equals": "microsoft.network/virtualNetworkGateways"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName",
-                        "equals": "TunnelAverageBandwidth"
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
+                        "equals": "TunnelIngressPacketDropTSMismatch"
                       },
                       {
                         "field": "Microsoft.Insights/metricalerts/scopes[*]",
-                        "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworkGateways/', field('fullName'))]"
+                        "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/microsoft.network/virtualNetworkGateways/', field('fullName'))]"
                       }
                     ]
                   },
@@ -109,10 +113,10 @@
                           {
                             "type": "Microsoft.Insights/metricAlerts",
                             "apiVersion": "2018-03-01",
-                            "name": "[[concat(parameters('resourceName'), '-TunnelBandwidthAlert')]",
+                            "name": "[[concat(parameters('resourceName'), '-TunnelIngressPacketDropTSMismatchAlert')]",
                             "location": "global",
                             "properties": {
-                              "description": "Metric Alert for VNet Gateway Tunnel Avg Bandwidth",
+                              "description": "Metric Alert for Vnet Gateway tunnel TunnelIngressPacketDropTSMismatch",
                               "severity": 3,
                               "enabled": true,
                               "scopes": [
@@ -123,11 +127,11 @@
                               "criteria": {
                                 "allOf": [
                                   {
-                                    "name": "TunnelAverageBandwidth",
-                                    "metricNamespace": "Microsoft.Network/virtualNetworkGateways",
-                                    "metricName": "TunnelAverageBandwidth",
-                                    "operator": "LessThan",
-                                    "threshold": 1,
+                                    "name": "TunnelIngressPacketDropTSMismatch",
+                                    "metricNamespace": "microsoft.network/virtualNetworkGateways",
+                                    "metricName": "TunnelIngressPacketDropTSMismatch",
+                                    "operator": "GreaterThan",
+                                    "threshold": 100,
                                     "timeAggregation": "Average",
                                     "criterionType": "StaticThresholdCriterion"
                                   }

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "11279821071192788884"
+      "templateHash": "650759701353764770"
     }
   },
   "parameters": {
@@ -24,7 +24,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
-      "name": "[format('{0}-vpngtia-policyDefinitions', uniqueString(deployment().name))]",
+      "name": "[format('{0}-ergergbin-policyDefinitions', uniqueString(deployment().name))]",
       "location": "[deployment().location]",
       "properties": {
         "expressionEvaluationOptions": {
@@ -33,13 +33,13 @@
         "mode": "Incremental",
         "parameters": {
           "name": {
-            "value": "Deploy_VPNGw_Ingress_Alert"
+            "value": "Deploy_ERGw_ExpressRouteBitsIn_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VPNG Ingress Alert"
+            "value": "[DINE] Deploy ERG ExpressRoute Bits In Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VPN Gateway Ingress Alert"
+            "value": "DINE policy to audit/deploy ER Gateway Connection BitsInPerSecond Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -57,7 +57,7 @@
                 "allOf": [
                   {
                     "field": "type",
-                    "equals": "microsoft.network/vpngateways"
+                    "equals": "Microsoft.Network/expressroutegateways"
                   }
                 ]
               },
@@ -69,16 +69,16 @@
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
-                        "equals": "microsoft.network/vpngateways"
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
+                        "equals": "Microsoft.Network/expressroutegateways"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
-                        "equals": "tunnelingressbytes"
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName",
+                        "equals": "ERGatewayConnectionBitsInPerSecond"
                       },
                       {
                         "field": "Microsoft.Insights/metricalerts/scopes[*]",
-                        "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/microsoft.network/vpngateways/', field('fullName'))]"
+                        "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/expressroutegateways/', field('fullName'))]"
                       }
                     ]
                   },
@@ -109,10 +109,10 @@
                           {
                             "type": "Microsoft.Insights/metricAlerts",
                             "apiVersion": "2018-03-01",
-                            "name": "[[concat(parameters('resourceName'), '-TunnelIngressAlert')]",
+                            "name": "[[concat(parameters('resourceName'), '-GatewayERBitsInAlert')]",
                             "location": "global",
                             "properties": {
-                              "description": "Metric Alert for VPN Gateway tunnel ingress bytes",
+                              "description": "Metric Alert for ER Gateway Connection BitsInPerSecond",
                               "severity": 3,
                               "enabled": true,
                               "scopes": [
@@ -123,12 +123,12 @@
                               "criteria": {
                                 "allOf": [
                                   {
-                                    "name": "tunnelingressbytes",
-                                    "metricNamespace": "microsoft.network/vpngateways",
-                                    "metricName": "tunnelingressbytes",
+                                    "name": "ERGatewayConnectionBitsInPerSecond",
+                                    "metricNamespace": "Microsoft.Network/expressroutegateways",
+                                    "metricName": "ERGatewayConnectionBitsInPerSecond",
                                     "operator": "LessThanOrEqual",
-                                    "threshold": 0,
-                                    "timeAggregation": "Total",
+                                    "threshold": 1,
+                                    "timeAggregation": "Average",
                                     "criterionType": "StaticThresholdCriterion"
                                   }
                                 ],
