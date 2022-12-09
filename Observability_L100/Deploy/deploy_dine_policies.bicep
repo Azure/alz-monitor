@@ -262,7 +262,7 @@ module vnetg_expressroutecpuutilization_policy 'policyDefinitions/deploy-vnetg_e
   }
 }
 
-module vnetg_tunnelbandwidth_policy 'policyDefinitions/deploy-vnetg_tunnelbandwidth_alert.bicep' = {
+module vnetg_tunnelbandwidth_policy 'policyDefinitions/deploy-vnetg_bandwidthutilization_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vnetgtaba-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
@@ -270,7 +270,7 @@ module vnetg_tunnelbandwidth_policy 'policyDefinitions/deploy-vnetg_tunnelbandwi
   }
 }
 
-module vnetg_tunnelegress_policy 'policyDefinitions/deploy-vnetg_tunnelegress_alert.bicep' = {
+module vnetg_tunnelegress_policy 'policyDefinitions/deploy-vnetg_egress_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vnetgteba-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
@@ -278,7 +278,7 @@ module vnetg_tunnelegress_policy 'policyDefinitions/deploy-vnetg_tunnelegress_al
   }
 }
 
-module vnetg_tunnelingress_policy 'policyDefinitions/deploy-vnetg_tunnelingress_alert.bicep' = {
+module vnetg_tunnelingress_policy 'policyDefinitions/deploy-vnetg_ingress_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vnetgtiba-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
@@ -293,6 +293,47 @@ module vnetg_bgppeerstatus_policy 'policyDefinitions/deploy-vnetg_bgppeerstatus_
    policyLocation: policyLocation
   }
 }
+
+module vnetg_expressroutebits_policy 'policyDefinitions/deploy-vnetg_expressroutebitspersecond_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vngergbitsa-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vnetg_egresspacketdropcount_policy 'policyDefinitions/deploy-vnetg_egresspacketdropcount_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnetgegrpacketdropcnt-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vnetg_egresspacketdropmismatch_policy 'policyDefinitions/deploy-vnetg_egresspacketdropmismatch_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnetgegrpacketdrpmmtch-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vnetg_ingresspacketdropcount_policy 'policyDefinitions/deploy-vnetg_ingresspacketdropcount_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnetgingrpacketdropcnt-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vnetg_ingresspacketdropmismatch_policy 'policyDefinitions/deploy-vnetg_ingresspacketdropmismatch_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vnetgingrpacketdrpmmtch-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // VPN Gateway Alerts
@@ -403,6 +444,36 @@ module ercir_qosdropbitsoutpersecond_policy 'policyDefinitions/deploy-ercir_qosd
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
+// ExpressRoute Gateway Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module erg_ergcpuutilization_policy 'policyDefinitions/deploy-erg_expressroutecpuutilization_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ergergcpuua-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module erg_ergbitsinpersecond_policy 'policyDefinitions/deploy-erg_bitsinpersecond_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ergergbin-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module erg_ergbitsoutpersecond_policy 'policyDefinitions/deploy-erg_bitsoutpersecond_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-ergergbout-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // Automation Account Alerts
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -436,3 +507,104 @@ module afw_snatportutilization_policy 'policyDefinitions/deploy-afw_snatportutil
    policyLocation: policyLocation
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Service Health Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module svcHealth_Health_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHealthHealth-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module svcHealth_Incident_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHealthIncident-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module svcHealth_Maintenance_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHealthMaintenance-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module svcHealth_Security_policy 'policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep' = {
+  name: '${uniqueString(deployment().name)}-svcHealthSecurity-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Activity Log Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module aLog_AfwDelete_policy 'policyDefinitions/deploy-activitylog-AzureFirewall-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogAfwDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_KvDelete_policy 'policyDefinitions/deploy-activitylog-KeyVault-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogaKvDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_LawDelete_policy 'policyDefinitions/deploy-activitylog-LAWorkspace-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogLawDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_LawRegen_policy 'policyDefinitions/deploy-activitylog-LAWorkspace-ReGen.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogLawRegen-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_NsgDelete_policy 'policyDefinitions/deploy-activitylog-NSG-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogNsgDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_ResHealth_Unhealthy_policy 'policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogResHealthUnhealthy-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_VpnGwDelete_policy 'policyDefinitions/deploy-activitylog-VPNGate-Del.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogVpnGwDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+

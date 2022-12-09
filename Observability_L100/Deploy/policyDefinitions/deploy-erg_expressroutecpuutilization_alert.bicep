@@ -8,12 +8,12 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-vpngbgppsa-policyDefinitions'
+module ErgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-ergergcpuua-policyDefinitions'
     params: {
-        name: 'Deploy_VPNGw_BGPPeerStatus_Alert'
-        displayName: '[DINE] Deploy VPNG  BGP Peer Status Alert'
-        description: 'DINE policy to audit/deploy VPN Gateway BGP Peer Status Alert'
+        name: 'Deploy_ERGw_ExpressRouteCpuUtil_Alert'
+        displayName: '[DINE] Deploy ERG ExpressRoute CPU Utilization Alert'
+        description: 'DINE policy to audit/deploy ER Gateway Express Route CPU Utilization Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -25,7 +25,7 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'microsoft.network/vpngateways'
+                        equals: 'Microsoft.Network/expressroutegateways'
                     }
                 ]
             }
@@ -37,16 +37,16 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'microsoft.network/vpngateways'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                equals: 'Microsoft.Network/expressroutegateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'bgppeerstatus'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                equals: 'ExpressRouteGatewayCpuUtilization'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/vpngateways/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/expressroutegateways/\', field(\'fullName\'))]'
                             }
                         ]
                     }
@@ -77,10 +77,10 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-BGPPeerStatusAlert\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-GatewayERCPUAlert\')]'
                                         location: 'global'
                                         properties: {
-                                            description: 'Metric Alert for VPN Gateway BGP peer status'
+                                            description: 'Metric Alert for ER Gateway Express Route CPU Utilization'
                                             severity: 3
                                             enabled: true
                                             scopes: [
@@ -91,19 +91,18 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'bgppeerstatus'
-                                                        metricNamespace: 'microsoft.network/vpngateways'
-                                                        metricName: 'bgppeerstatus'
-                                                        operator: 'LessThan'
-                                                        threshold: 1
-                                                        timeAggregation: 'Total'
+                                                        name: 'ExpressRouteGatewayCpuUtilization'
+                                                        metricNamespace: 'Microsoft.Network/expressroutegateways'
+                                                        metricName: 'ExpressRouteGatewayCpuUtilization'
+                                                        operator: 'GreaterThan'
+                                                        threshold: 90
+                                                        timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
                                         }
-
                                     }
                                 ]
                             }
