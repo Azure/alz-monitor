@@ -2,7 +2,6 @@ targetScope = 'managementGroup'
 
 param parResourceGroupName string = 'AlzMonitoring-rg'
 param parActionGroupEmail string = 'action@mail.com'
-param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
   '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -11,7 +10,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
   name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
   params: {
     name: 'Deploy_AlertProcessing_Rule'
-    displayName: '[DINE] Deploy Alert Processing Rule'
+    displayName: '[DINE] Deploy Alert Processing Rulet'
     description: 'DINE policy to Deploy Deploy Alert Processing Rule with Action Group'
     location: policyLocation
     metadata: {
@@ -75,7 +74,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                     type: 'Microsoft.Resources/deployments'
                     apiVersion: '2019-10-01'
                     //change name
-                    name: 'Action Group Deployment'
+                    name: 'ActivityLAWorkspaceDelete'
                     resourceGroup: parResourceGroupName
                     dependsOn: [
                       'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
@@ -88,6 +87,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                         parameters: {}
                         variables: {}
                         resources: [
+
                           {
                             type: 'microsoft.insights/actionGroups'
                             apiVersion: '2020-10-01'
@@ -108,62 +108,50 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
 
                             }
                           }
+
+                        ]
+                      }
+                    }
+                  }
+                  {
+                    type: 'Microsoft.Resources/deployments'
+                    apiVersion: '2019-10-01'
+                    //change name
+                    name: 'ActivityLAWorkspaceDelete'
+                    resourceGroup: parResourceGroupName
+                    dependsOn: [
+                      'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                    ]
+                    properties: {
+                      mode: 'Incremental'
+                      template: {
+                        '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
+                        contentVersion: '1.0.0.0'
+                        parameters: {}
+                        variables: {}
+                        resources: [
+
                           {
-                            type: 'Microsoft.Resources/deployments'
-                            apiVersion: '2019-10-01'
-                            //change name
-                            name: 'Alert Processing Rule Deployment'
-                            resourceGroup: parResourceGroupName
-                            dependsOn: [
-                              'Microsoft.Resources/resourceGroups/${parResourceGroupName}/providers/microsoft.insights/actiongroups/AlzActionGrp'
-                            ]
-                            properties:{
-                              mode: 'Incremental'
-                              template: {
-                                '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
-                                contentVersion: '1.0.0.0'
-                                parameters: {}
-                                variables: {}
-                                resources: [
-                                 {
-                                  type:'Microsoft.AlertsManagement/actionRules'
-                                  apiVersion: '2021-08-08'
-                                  name: 'Alz Alert Processing Rule'
-                                  location: 'global'
-                                  properties: {
-                                    scopes:   [
-                                      '[subscription().Id]'
+                            type: 'microsoft.insights/actionGroups'
+                            apiVersion: '2020-10-01'
+                            //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
+                            name: 'AlzActionGrp'
+                            location: 'global'
+                            properties: {
+                              groupShortName: 'AlzActionGrp'
+                              enabled: true
+                              emailReceivers: [
+                               {
+                                name: 'AlzMail'
+                                emailAddress: parActionGroupEmail
+                                useCommonAlertSchema: true
 
-                                    ]
-                                    enabled: true
-                                    actions:[
-                                      {
-                                        actiongroupIds:[
-                                          'Microsoft.Resources/resourceGroups/${parResourceGroupName}/providers/microsoft.insights/actiongroups/AlzActionGrp'
-
-                                        ]
-                                        actionType: 'AddActionGroups'
-
-
-                                      }
-
-
-                                    ]
-
-
-
-                                  }
-
-
-
-                                 } 
-
-                                ]  
-
-                            }
+                               }
+                              ]
 
                             }
                           }
+
                         ]
                       }
                     }
@@ -176,5 +164,4 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
       }
     }
   }
-
 }
