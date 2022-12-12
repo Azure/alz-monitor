@@ -838,3 +838,17 @@ module Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/
     ]
   }
 }
+
+module Deploy_ActGrp_AlertPpocessingRule '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+  name: '${uniqueString(deployment().name)}-Deploy_ActGrp_AlertPpocessingRule'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_AlertProcessing_Rule'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy_AlertProcessing_Rule'
+    parPolicyAssignmentName: 'Deploy_AlPro_ActGrp_A'
+    parPolicyAssignmentDescription: 'DINE Deploy Alert Processing Rule'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+  }
+}
