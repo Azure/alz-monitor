@@ -64,11 +64,11 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                   {
                                     allOf: [
                                       {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].field'
+                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].field'
                                         equals: 'properties.incidentType'
                                       }
                                       {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].equals'
+                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
                                         equals: 'Incident'
                                       }
                                     ]
