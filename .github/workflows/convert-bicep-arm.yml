@@ -22,7 +22,7 @@ jobs:
       with:
         files: 'Observability_L100/Deploy/policyDefinitions/*.bicep'
     - name: Commit & Push
-      uses: Andro999b/push@v1.3
+      uses: actions-js/push@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: main
