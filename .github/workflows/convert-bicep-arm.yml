@@ -1,0 +1,30 @@
+name: Convert Policy Definitions from BICEP to ARM
+permissions: write-all
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+    - name: Run Bicep build
+      uses: aliencube/bicep-build-actions@v0.3
+      with:
+        files: 'Observability_L100/Deploy/policyDefinitions/*.bicep'
+    - name: Commit & Push
+      uses: Andro999b/push@v1.3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
+        force: true
+        message: 'BICEP to ARM automatic conversion by Github Actions - update-${{ steps.date.outputs.date }}'
