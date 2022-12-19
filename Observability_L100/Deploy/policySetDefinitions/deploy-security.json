@@ -37,6 +37,34 @@
       {
         "parameters": {},
         "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_DDoSAttack_Alert')]"
+      },
+      {
+        "parameters": {},
+        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete')]"
+      },
+      {
+        "parameters": {},
+        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete')]"
+      },
+      {
+        "parameters": {},
+        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete')]"
+      },
+      {
+        "parameters": {},
+        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen')]"
+      },
+      {
+        "parameters": {},
+        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
+      },
+      {
+        "parameters": {},
+        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
+      },
+      {
+        "parameters": {},
+        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete')]"
       }
     ],
     "policyType": "Custom"
