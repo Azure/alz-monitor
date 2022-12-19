@@ -2,12 +2,12 @@ targetScope = 'managementGroup'
 
 param parResourceGroupName string = 'AlzMonitoring-rg'
 param parActionGroupEmail string = 'action@mail.com'
-param policyLocation string = 'centralus'
+param policyLocation string = 'uksouth'
 param deploymentRoleDefinitionIds array = [
   '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module AlertProcessingRule  '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep'  = {
   name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
   params: {
     name: 'Deploy_AlertProcessing_Rule'
@@ -34,27 +34,22 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
         details: {
           roleDefinitionIds: deploymentRoleDefinitionIds
           type: 'Microsoft.AlertsManagement/actionRules'
-          // should be replaced with parameter value
-          resourceGroupName: parResourceGroupName
+              existenceScope: 'resourcegroup'
+               // should be replaced with parameter value
+              resourceGroupName: parResourceGroupName
+              deploymentScope: 'subscription'
           existenceCondition: {
             allOf: [
 
               {
-                field: 'Microsoft.AlertsManagement/actionRules/type'
-                equals: 'AddActionGroups'
-              }
-              {
                 field: 'Microsoft.AlertsManagement/actionRules/status'
                 equals: 'enabled'
               }
-             {
-                field: 'Microsoft.AlertsManagement/actionRules/scope.values[*]'
-                equals: '[subscription().subscriptionId]'
-
-             }
+          
             ]
           }
           deployment: {
+            location: policyLocation
             properties: {
               mode: 'incremental'
               template: {
@@ -75,7 +70,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                     type: 'Microsoft.Resources/deployments'
                     apiVersion: '2019-10-01'
                     //change name
-                    name: 'Action Group Deployment'
+                    name: 'ActionGroupDeployment'
                     resourceGroup: parResourceGroupName
                     dependsOn: [
                       'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
@@ -89,8 +84,8 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                         variables: {}
                         resources: [
                           {
-                            type: 'microsoft.insights/actionGroups'
-                            apiVersion: '2020-10-01'
+                            type: 'Microsoft.Insights/actionGroups'
+                            apiVersion: '2022-04-01'
                             //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
                             name: 'AlzActionGrp'
                             location: 'global'
@@ -108,14 +103,19 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
 
                             }
                           }
-                          {
+
+                        ]
+                      }
+                    }
+                  }
+                 {
                             type: 'Microsoft.Resources/deployments'
                             apiVersion: '2019-10-01'
                             //change name
-                            name: 'Alert Processing Rule Deployment'
+                            name: 'AlertProcessingRuleDeployment'
                             resourceGroup: parResourceGroupName
                             dependsOn: [
-                              'Microsoft.Resources/resourceGroups/${parResourceGroupName}/providers/microsoft.insights/actiongroups/AlzActionGrp'
+                              'ActionGroupDeployment'
                             ]
                             properties:{
                               mode: 'Incremental'
@@ -139,7 +139,9 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                                     actions:[
                                       {
                                         actiongroupIds:[
-                                          'Microsoft.Resources/resourceGroups/${parResourceGroupName}/providers/microsoft.insights/actiongroups/AlzActionGrp'
+
+                    '''[resourceId('Microsoft.Insights/actionGroups','AlzActionGrp')]'''
+                                         
 
                                         ]
                                         actionType: 'AddActionGroups'
@@ -163,10 +165,6 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                             }
 
                             }
-                          }
-                        ]
-                      }
-                    }
                   }
                 ]
               }
