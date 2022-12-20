@@ -87,6 +87,7 @@ module modPolicyIdentityRoleAssignmentMgsMany '../../roleAssignments/roleAssignm
     parAssigneeObjectId: resPolicyAssignment.identity.principalId
     parAssigneePrincipalType: 'ServicePrincipal'
     parRoleDefinitionId: roles
+    parTelemetryOptOut: true
   }
 }]
 
@@ -98,6 +99,7 @@ module modPolicyIdentityRoleAssignmentSubsMany '../../roleAssignments/roleAssign
     parAssigneeObjectId: resPolicyAssignment.identity.principalId
     parAssigneePrincipalType: 'ServicePrincipal'
     parRoleDefinitionId: roles
+    parTelemetryOptOut: true
   }
 }]
 
