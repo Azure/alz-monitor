@@ -43,6 +43,8 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                             field: 'Microsoft.Insights/ActivityLogAlerts/enabled'
                             equals: 'true'
                           }
+
+                        
                           {
                             count: {
                               field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*]'
@@ -60,48 +62,15 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                                       }
                                     ]
                                   }
-                                  {
-                                    allOf: [
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].field'
-                                        equals: 'properties.cause'
-                                      }
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].equals'
-                                        equals: 'PlatformInitiated'
-                                      }
-                                    ]
-                                  }
-                                  {
-                                    allOf: [
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].field'
-                                        equals: 'properties.currentHealthStatus'
-                                      }
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].equals'
-                                        equals: 'Degraded'
-                                      }
-                                    ]
-                                  }
-                                  {
-                                    allOf: [
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].field'
-                                        equals: 'properties.currentHealthStatus'
-                                      }
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].equals'
-                                        equals: 'Unavailable'
-                                      }
-                                    ]
-                                  }
+                             
+                               
                                   
                                 ]
                               }
                             }
-                            equals: 4
+                            equals: 1
                           }
+                      
                         ]
                     }
                     deployment: {
