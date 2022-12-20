@@ -16,13 +16,18 @@ env:
   hubSubscriptionId: "cef889d1-be0e-48d3-ab41-6a15291a2d95"
   hubResourceGroup: "hubnw-connectivity"
   hubSpokeSubscriptionId: "3b6e398c-8e14-47b5-952b-f201880f9746"
+  hubIdentitySubscriptionId: "ae21a664-c202-4a8f-823e-6392547ea177"
+  hubManagementSubscriptionId: "6628bab6-9526-4636-a37a-182052d9671c"
   hubSpokeResourceGroup: "hubnw-norwayeast-spoke-networking"
   hubManagementGroup: "hubnw"
   vwanSubscriptionId: "b520e36b-23a2-4c14-a04f-854dc0c24ee1"
   vwanResourceGroup: "vwan-connectivity"
   vwanSpokeSubscriptionId: "328c153d-e17a-43f1-85fa-26295930711d"
+  vwanIdentitySubscriptionId: "e4b91f3c-5148-46fd-a8c9-e28aa77ddb46"
+  vwanManagementSubscriptionId: "512307ea-3f76-4a8d-8f4f-0df465351158"
   vwanSpokeResourceGroup: "vwan-norwayeast-spoke-networking"
   vwanManagementGroup: "vwan"
+  monitorResourceGroup: "AlzMonitoring-rg"
 
   
 jobs:
@@ -49,6 +54,7 @@ jobs:
       with:
         inlineScript: |
           Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.hubManagementGroup }} | Remove-AzManagementGroupDeployment -AsJob
+          start-sleep 300
         azPSVersion: "latest"
 
     - name: Az CLI Delete Hub Network
@@ -57,6 +63,7 @@ jobs:
       run: |
           az account set --subscription ${{ env.hubSubscriptionId }}
           az group delete --name ${{ env.hubResourceGroup }} --yes
+          az group delete --name ${{ env.monitorResourceGroup }} --yes
       continue-on-error: true
     
     - name: Az CLI Delete Hub spoke Network
@@ -65,6 +72,17 @@ jobs:
       run: |
           az account set --subscription ${{ env.hubSpokeSubscriptionId }}
           az group delete --name ${{ env.hubSpokeResourceGroup }} --yes
+          az group delete --name ${{ env.monitorResourceGroup }} --yes
+      continue-on-error: true
+
+    - name: Az CLI Delete Service Health alerts
+      id: delete_hs_svc_health_alerts
+      shell: bash
+      run: |
+          az account set --subscription ${{ env.hubIdentitySubscriptionId }}
+          az group delete --name ${{ env.monitorResourceGroup }} --yes
+          az account set --subscription ${{ env.hubManagementSubscriptionId }}
+          az group delete --name ${{ env.monitorResourceGroup }} --yes
       continue-on-error: true
 
     - name: Delete Hub/spoke monitor policy assignments
@@ -110,6 +128,7 @@ jobs:
       with:
         inlineScript: |
           Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.vwanManagementGroup }} | Remove-AzManagementGroupDeployment -AsJob
+          start-sleep 300
         azPSVersion: "latest"
 
     - name: Az CLI Delete vWAN Network
