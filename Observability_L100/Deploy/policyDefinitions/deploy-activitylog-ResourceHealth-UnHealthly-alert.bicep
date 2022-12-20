@@ -162,7 +162,7 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                                           allOf: [
                                               {
                                                 field:'category'
-                                                equals: 'Administrative'
+                                                equals: 'ResourceHealth'
                                               }
                                               {
                                                 anyOf: [
