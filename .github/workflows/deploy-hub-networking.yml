@@ -50,13 +50,13 @@ jobs:
       id: create_rbac_roles
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep --parameters @infra-as-code/bicep/modules/customRoleDefinitions/parameters/customRoleDefinitions.parameters.all.json parAssignableScopeManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep --parameters @infra-as-code/bicep/modules/customRoleDefinitions/parameters/customRoleDefinitions.parameters.all.json parAssignableScopeManagementGroupId=${{ env.ManagementGroupPrefix }} parTelemetryOptOut=true --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     - name: Az CLI Deploy Custom Policy Definitions for PR
       id: create_policy_defs
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/customPolicyDefinitions.parameters.all.json parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/customPolicyDefinitions.parameters.all.json parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} parTelemetryOptOut=true --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     - name: Az CLI Deploy Monitor Policy Definitions
       id: create_monitor_policy_defs
@@ -70,13 +70,13 @@ jobs:
       run: |
           az account set --subscription ${{ env.mgSubscriptionId }}
           az group create --name ${{ env.mgResourceGroup }} --location ${{ env.Location }}
-          az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
+          az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json parTelemetryOptOut=true
 
     - name: Az CLI Default ALZ Policy assignments
       id: create_policy_assignment_dine
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parLogAnalyticsWorkSpaceAndAutomationAccountLocation=${{ env.Location }} parLogAnalyticsWorkspaceResourceId="/subscriptions/${{ env.mgSubscriptionId }}/resourceGroups/${{ env.mgResourceGroup }}/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones" 
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parLogAnalyticsWorkSpaceAndAutomationAccountLocation=${{ env.Location }} parLogAnalyticsWorkspaceResourceId="/subscriptions/${{ env.mgSubscriptionId }}/resourceGroups/${{ env.mgResourceGroup }}/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" parTelemetryOptOut=true --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones" 
 
     - name: Az CLI Monitor Policy assignments
       id: create_monitor_policy_assignment_dine
@@ -88,7 +88,7 @@ jobs:
       id: move_sub
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters @infra-as-code/bicep/orchestration/subPlacementAll/parameters/subPlacementAll.parameters.hubnw.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters @infra-as-code/bicep/orchestration/subPlacementAll/parameters/subPlacementAll.parameters.hubnw.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parTelemetryOptOut=true --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     - name: Az CLI Deploy Hub Networking for PR
       id: create_hub_network
@@ -96,10 +96,10 @@ jobs:
       run: |
           az account set --subscription ${{ env.connSubscriptionId }}
           az group create --name ${{ env.connResourceGroup }} --location ${{ env.Location }}
-          az deployment group create --resource-group ${{ env.connResourceGroup }} --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep --parameters @infra-as-code/bicep/modules/hubNetworking/parameters/hubNetworking.parameters.all.json parLocation=${{ env.Location }} 
+          az deployment group create --resource-group ${{ env.connResourceGroup }} --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep --parameters @infra-as-code/bicep/modules/hubNetworking/parameters/hubNetworking.parameters.all.json parLocation=${{ env.Location }} parTelemetryOptOut=true
     
     - name: Az CLI Deploy Spoke Networking for PR
       id: create_spoke_network
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json parTelemetryOptOut=true --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
