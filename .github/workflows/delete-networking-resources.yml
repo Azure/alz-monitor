@@ -62,7 +62,7 @@ jobs:
       shell: bash
       run: |
           az account set --subscription ${{ env.hubSubscriptionId }}
-          az group delete --name ${{ env.hubResourceGroup }} --yes
+          az group delete --name ${{ env.hubResourceGroup }} --yes  || true
           az group delete --name ${{ env.monitorResourceGroup }} --yes
       continue-on-error: true
     
@@ -71,7 +71,7 @@ jobs:
       shell: bash
       run: |
           az account set --subscription ${{ env.hubSpokeSubscriptionId }}
-          az group delete --name ${{ env.hubSpokeResourceGroup }} --yes
+          az group delete --name ${{ env.hubSpokeResourceGroup }} --yes  || true
           az group delete --name ${{ env.monitorResourceGroup }} --yes
       continue-on-error: true
 
@@ -80,7 +80,7 @@ jobs:
       shell: bash
       run: |
           az account set --subscription ${{ env.hubIdentitySubscriptionId }}
-          az group delete --name ${{ env.monitorResourceGroup }} --yes
+          az group delete --name ${{ env.monitorResourceGroup }} --yes  || true
           az account set --subscription ${{ env.hubManagementSubscriptionId }}
           az group delete --name ${{ env.monitorResourceGroup }} --yes
       continue-on-error: true
@@ -136,7 +136,18 @@ jobs:
       shell: bash
       run: |
           az account set --subscription ${{ env.vwanSubscriptionId }}
-          az group delete --name ${{ env.vwanResourceGroup }} --yes
+          az group delete --name ${{ env.vwanResourceGroup }} --yes || true
+          az group delete --name ${{ env.monitorResourceGroup }} --yes
+      continue-on-error: true
+    
+    - name: Az CLI Delete Service Health alerts
+      id: delete_hs_svc_health_alerts
+      shell: bash
+      run: |
+          az account set --subscription ${{ env.vwanIdentitySubscriptionId }}
+          az group delete --name ${{ env.monitorResourceGroup }} --yes || true
+          az account set --subscription ${{ env.vwanManagementSubscriptionId }}
+          az group delete --name ${{ env.monitorResourceGroup }} --yes
       continue-on-error: true
 
     - name: Az CLI Delete vwan spoke Network
@@ -144,7 +155,8 @@ jobs:
       shell: bash
       run: |
           az account set --subscription ${{ env.vwanSpokeSubscriptionId }}
-          az group delete --name ${{ env.vwanSpokeResourceGroup }} --yes
+          az group delete --name ${{ env.vwanSpokeResourceGroup }} --yes || true
+          az group delete --name ${{ env.monitorResourceGroup }} --yes
       continue-on-error: true
     
     - name: Delete VWAN monitor policy assignments
