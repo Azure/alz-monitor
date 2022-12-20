@@ -608,3 +608,17 @@ module aLog_VpnGwDelete_policy 'policyDefinitions/deploy-activitylog-VPNGate-Del
   }
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Alert Procesing Rules
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module actGrp_AlertProcessing_policy 'policyDefinitions/deploy-alertprocessingrule-deploy.bicep' = {
+  name: '${uniqueString(deployment().name)}-actGrp_AlertProcessing_policy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
