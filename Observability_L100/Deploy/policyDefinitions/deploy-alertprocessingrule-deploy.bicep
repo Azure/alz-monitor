@@ -2,7 +2,7 @@ targetScope = 'managementGroup'
 
 param parResourceGroupName string = 'AlzMonitoring-rg'
 param parActionGroupEmail string = 'action@mail.com'
-param policyLocation string = 'uksouth'
+param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
   '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -42,8 +42,8 @@ module AlertProcessingRule  '../../arm/Microsoft.Authorization/policyDefinitions
             allOf: [
 
               {
-                field: 'Microsoft.AlertsManagement/actionRules/status'
-                equals: 'enabled'
+                field: 'Microsoft.AlertsManagement/actionRules/description'
+                equals: 'Alz Alert Processing Rule for Subscription'
               }
           
             ]
@@ -135,6 +135,7 @@ module AlertProcessingRule  '../../arm/Microsoft.Authorization/policyDefinitions
                                       '[subscription().Id]'
 
                                     ]
+                                    description: 'Alz Alert Processing Rule for Subscription'
                                     enabled: true
                                     actions:[
                                       {
