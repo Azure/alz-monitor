@@ -27,6 +27,10 @@ module VnetgBgpPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefiniti
                         field: 'type'
                         equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'VPN'
+                    }
                 ]
             }
             then: {
@@ -37,11 +41,11 @@ module VnetgBgpPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefiniti
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Network/virtualNetworkGateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'BgpPeerStatus'
                             }
                             {
