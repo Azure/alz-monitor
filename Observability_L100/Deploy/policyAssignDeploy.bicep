@@ -633,7 +633,7 @@ module Deploy_ERCIR_QosDropBitsOutPerSecond_Alert '../../infra-as-code/bicep/mod
 module Deploy_VNETG_BgpPeerStatus_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_VNETG_BgpPeerStatus_Alert'
   params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_QosDropBitsOutPerSecond_Alert'
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_BGPPeerStatus_Alert'
     parPolicyAssignmentDisplayName: '[DINE] Deploy Virtual Network Gateway BgpPeerStatus Alert'
     parPolicyAssignmentName: 'Deploy_VNETG_BgpPeerSta'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy Virtual Network Gateway BgpPeerStatus Alert'
