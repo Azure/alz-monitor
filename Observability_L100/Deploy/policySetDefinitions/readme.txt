@@ -45,7 +45,7 @@ Networking initiative comprises of
     -deploy-ercir_qosdropsbitsout_alert
     -deploy-vnetg_bgppeerstatus_alert
     -deploy-vnetg_expressroutecpuutilization_alert
-    -deploy-vnetg_bandwidthutilization_alert.bicep
+    -deploy-vnetg_bandwidthutilization_alert
     -deploy-vnetg_egress_alert
     -deploy-vnetg_ingress_alert
     -deploy-vpng_bandwidthutilization_alert
