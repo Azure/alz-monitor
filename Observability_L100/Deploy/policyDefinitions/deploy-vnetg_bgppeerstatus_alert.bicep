@@ -27,6 +27,10 @@ module VnetgBgpPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefiniti
                         field: 'type'
                         equals: 'Microsoft.Network/virtualNetworkGateways'
                     }
+                    {
+                        field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
+                        equals: 'VPN'
+                    }
                 ]
             }
             then: {
