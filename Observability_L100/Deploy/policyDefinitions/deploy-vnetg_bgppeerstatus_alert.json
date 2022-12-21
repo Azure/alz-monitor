@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.13.1.58284",
-      "templateHash": "9496547620034801553"
+      "templateHash": "9977489726587529387"
     }
   },
   "parameters": {
@@ -58,6 +58,10 @@
                   {
                     "field": "type",
                     "equals": "Microsoft.Network/virtualNetworkGateways"
+                  },
+                  {
+                    "field": "Microsoft.Network/virtualNetworkGateways/gatewayType",
+                    "equals": "VPN"
                   }
                 ]
               },
@@ -69,11 +73,11 @@
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
                         "equals": "Microsoft.Network/virtualNetworkGateways"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
                         "equals": "BgpPeerStatus"
                       },
                       {
