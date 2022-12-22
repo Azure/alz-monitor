@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.13.1.58284",
-      "templateHash": "5903937190934071373"
+      "templateHash": "10610590953021262980"
     }
   },
   "parameters": {
@@ -95,47 +95,11 @@
                                     "equals": "ResourceHealth"
                                   }
                                 ]
-                              },
-                              {
-                                "allOf": [
-                                  {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].field",
-                                    "equals": "properties.cause"
-                                  },
-                                  {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].equals",
-                                    "equals": "PlatformInitiated"
-                                  }
-                                ]
-                              },
-                              {
-                                "allOf": [
-                                  {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].field",
-                                    "equals": "properties.currentHealthStatus"
-                                  },
-                                  {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].equals",
-                                    "equals": "Degraded"
-                                  }
-                                ]
-                              },
-                              {
-                                "allOf": [
-                                  {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].field",
-                                    "equals": "properties.currentHealthStatus"
-                                  },
-                                  {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].anyOf[*].equals",
-                                    "equals": "Unavailable"
-                                  }
-                                ]
                               }
                             ]
                           }
                         },
-                        "equals": 4
+                        "equals": 1
                       }
                     ]
                   },
@@ -195,7 +159,7 @@
                                         "allOf": [
                                           {
                                             "field": "category",
-                                            "equals": "Administrative"
+                                            "equals": "ResourceHealth"
                                           },
                                           {
                                             "anyOf": [
