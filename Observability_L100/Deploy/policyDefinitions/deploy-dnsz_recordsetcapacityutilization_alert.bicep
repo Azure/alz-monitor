@@ -37,11 +37,11 @@ module RecordSetCapacityUtilizationAlert '../../arm/Microsoft.Authorization/poli
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Network/dnsZones'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'RecordSetCapacityUtilization'
                             }
                             {
@@ -94,7 +94,7 @@ module RecordSetCapacityUtilizationAlert '../../arm/Microsoft.Authorization/poli
                                                         name: 'RecordSetCapacityUtilization'
                                                         metricNamespace: 'Microsoft.Network/dnsZones'
                                                         metricName: 'RecordSetCapacityUtilization'
-                                                        operator: 'GreaterThan'
+                                                        operator: 'GreaterThanOrEqual'
                                                         threshold: 90
                                                         timeAggregation: 'Maximum'
                                                         criterionType: 'StaticThresholdCriterion'
