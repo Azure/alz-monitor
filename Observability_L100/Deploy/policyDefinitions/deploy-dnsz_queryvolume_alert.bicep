@@ -37,11 +37,11 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Network/dnsZones'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'QueryVolume'
                             }
                             {
@@ -99,7 +99,7 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                         name: 'QueryVolume'
                                                         metricNamespace: 'Microsoft.Network/dnsZones'
                                                         metricName: 'QueryVolume'
-                                                        operator: 'GreaterThanOrEqual'
+                                                        operator: 'GreaterOrLessThan'
                                                         timeAggregation: 'Total'
                                                         criterionType: 'DynamicThresholdCriterion'
                                                     }
