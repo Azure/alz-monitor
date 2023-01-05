@@ -37,12 +37,12 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'Microsoft.Compute/virtualMachines'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'tunnelaveragebandwidth'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                equals: 'Available Memory Bytes'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
@@ -93,7 +93,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                     {
                                                         name: 'Average_AvailableMBytes'
                                                         metricNamespace: 'Microsoft.Compute/virtualMachines'
-                                                        metricName: 'Average_Available MBytes'
+                                                        metricName: 'Available Memory Bytes'
                                                         operator: 'LessThan'
                                                         threshold: 95
                                                         timeAggregation: 'Average'
