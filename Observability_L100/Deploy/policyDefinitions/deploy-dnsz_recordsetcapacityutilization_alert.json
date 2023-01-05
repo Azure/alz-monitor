@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.13.1.58284",
-      "templateHash": "1577207658292225037"
+      "templateHash": "14962554169757049646"
     }
   },
   "parameters": {
@@ -69,11 +69,11 @@
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
                         "equals": "Microsoft.Network/dnsZones"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
                         "equals": "RecordSetCapacityUtilization"
                       },
                       {
@@ -118,16 +118,16 @@
                               "scopes": [
                                 "[[parameters('resourceId')]"
                               ],
-                              "evaluationFrequency": "PT5M",
-                              "windowSize": "PT5M",
+                              "evaluationFrequency": "PT1H",
+                              "windowSize": "PT1H",
                               "criteria": {
                                 "allOf": [
                                   {
                                     "name": "RecordSetCapacityUtilization",
                                     "metricNamespace": "Microsoft.Network/dnsZones",
                                     "metricName": "RecordSetCapacityUtilization",
-                                    "operator": "GreaterThanEqualTo",
-                                    "threshold": 2000,
+                                    "operator": "GreaterThan",
+                                    "threshold": 90,
                                     "timeAggregation": "Maximum",
                                     "criterionType": "StaticThresholdCriterion"
                                   }

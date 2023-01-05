@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.13.1.58284",
-      "templateHash": "9395008342012581134"
+      "templateHash": "15888373060220354224"
     }
   },
   "parameters": {
@@ -69,12 +69,12 @@
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
                         "equals": "Microsoft.Compute/virtualMachines"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName",
-                        "equals": "tunnelaveragebandwidth"
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
+                        "equals": "Available Memory Bytes"
                       },
                       {
                         "field": "Microsoft.Insights/metricalerts/scopes[*]",
@@ -125,7 +125,7 @@
                                   {
                                     "name": "Average_AvailableMBytes",
                                     "metricNamespace": "Microsoft.Compute/virtualMachines",
-                                    "metricName": "Average_Available MBytes",
+                                    "metricName": "Available Memory Bytes",
                                     "operator": "LessThan",
                                     "threshold": 95,
                                     "timeAggregation": "Average",
