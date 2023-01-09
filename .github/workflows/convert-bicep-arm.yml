@@ -26,11 +26,7 @@ jobs:
     - name: Run Bicep build
       uses: aliencube/bicep-build-actions@v0.3
       with:
-        files: 'src/bicep/*.bicep'
-    - name: Move JSON Files
-      run: |
-        # Move all files with the .json extension to the /destination/directory/
-        mv src/*.json src/resources/Microsoft.Authorization/policyDefinitions
+        files: 'Observability_L100/Deploy/policyDefinitions/*.bicep'
     - name: Commit & Push
       uses: actions-js/push@master
       with:
