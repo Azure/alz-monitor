@@ -17,8 +17,10 @@ Metric alerts are deployed with resources (same resource group). Platform alerts
 
 ## Decentralized
 
-The key distinction for a decentralized approach is that every subscription has a dedicated Action Group allowing for more granular control of how to direct alert notifications, for example, for connectivity/netorking alerts for the platform connectivity subscription, direct the alerts to the network operations team.
+The key distinction for a decentralized approach is that every subscription has a dedicated Action Group allowing for more granular control of how to direct alert notifications, for example, for connectivity/networking alerts for the platform connectivity subscription, direct the alerts to the network operations team.
 
 While enabling this for ALZ native created landing zones, there is considerable complexity in handling this for Landing Zones. Perhaps we should pin supporting workload landing zones to MVP2.
 
 Metric alerts are deployed with resources (in the same resource group). Platform alerts like Service Health / Activity are created in a dedicated resource group, typically in the management platform landing zone. Alert Action Groups are created in each landing zone subsccription, allowing each operational area and landing zone subscription to have different alerting email addresses (networking, identity, ops, workloads, etc.). Alert Processing Rules are created to enable filters and connect alerts to the Action Groups.
+
+
