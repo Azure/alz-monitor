@@ -48,7 +48,7 @@ jobs:
       uses: azure/powershell@v1
       with:
         inlineScript: |
-          Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.hubManagementGroup }} | Remove-AzManagementGroupDeployment
+          Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.hubManagementGroup }} | Remove-AzManagementGroupDeployment -AsJob
         azPSVersion: "latest"
 
     - name: Az CLI Delete Hub Network
@@ -109,7 +109,7 @@ jobs:
       uses: azure/powershell@v1
       with:
         inlineScript: |
-          Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.vwanManagementGroup }} | Remove-AzManagementGroupDeployment
+          Get-AzManagementGroupDeployment -ManagementGroupId ${{ env.vwanManagementGroup }} | Remove-AzManagementGroupDeployment -AsJob
         azPSVersion: "latest"
 
     - name: Az CLI Delete vWAN Network
