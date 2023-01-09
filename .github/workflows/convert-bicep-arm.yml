@@ -29,9 +29,9 @@ jobs:
       with:
         files: 'src/bicep/*.bicep'
     - name: Move JSON Files
-        run: |
-          # Move all files with the .json extension to the /destination/directory/
-          mv src/*.json src/resources/Microsoft.Authorization/policyDefinitions
+      run: |
+        # Move all files with the .json extension to the /destination/directory/
+        mv src/*.json src/resources/Microsoft.Authorization/policyDefinitions
     - name: Commit & Push
       uses: actions-js/push@master
       with:
