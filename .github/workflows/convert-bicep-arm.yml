@@ -1,11 +1,13 @@
 name: Convert Policy Definitions from BICEP to ARM
-permissions: write-all
+
 
 on:
   pull_request:
     branches: [ "main" ]
     types:
       - closed
+
+permissions: write-all
 
 jobs:
   build:
