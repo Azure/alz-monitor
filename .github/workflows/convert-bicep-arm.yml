@@ -6,6 +6,7 @@ on:
     branches: [ "main" ]
     types:
       - closed
+  workflow_dispatch: {}
 
 jobs:
   build:
@@ -26,7 +27,11 @@ jobs:
     - name: Run Bicep build
       uses: aliencube/bicep-build-actions@v0.3
       with:
-        files: 'src/resources/Microsoft.Authorization/policyDefinitions/*.bicep'
+        files: 'src/bicep/*.bicep'
+    - name: Move JSON Files
+        run: |
+          # Move all files with the .json extension to the /destination/directory/
+          mv src/*.json src/resources/Microsoft.Authorization/policyDefinitions
     - name: Commit & Push
       uses: actions-js/push@master
       with:
