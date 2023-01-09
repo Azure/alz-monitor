@@ -1,4 +1,0 @@
-az login -t <tenant_id>
-
-az deployment mg create --template-file Observability_L100/Deploy/policyDeploy.bicep --location centralus --management-group-id hubnw --name policyDeployment1
-az deployment mg create --template-file Observability_L100/Deploy/policyAssignDeploy.bicep --parameters parTargetManagementGroupId=hubnw --location centralus --management-group-id hubnw
