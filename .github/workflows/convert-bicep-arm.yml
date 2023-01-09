@@ -1,5 +1,5 @@
 name: Convert Policy Definitions from BICEP to ARM
-
+permissions: write-all
 
 on:
   pull_request:
@@ -7,7 +7,6 @@ on:
     types:
       - closed
 
-permissions: write-all
 
 jobs:
   build:
@@ -28,7 +27,7 @@ jobs:
     - name: Run Bicep build
       uses: aliencube/bicep-build-actions@v0.3
       with:
-        files: 'src/bicep/*.bicep'
+        files: 'src/resources/Microsoft.Authorization/policyDefinitions/*.bicep'
     - name: Commit & Push
       uses: actions-js/push@master
       with:
