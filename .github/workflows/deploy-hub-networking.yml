@@ -62,7 +62,7 @@ jobs:
       id: create_monitor_policy_defs
       shell: bash
       run: |
-          az deployment mg create --template-file Observability_L100/Deploy/deploy_dine_policies.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
     
     - name: Az CLI Deploy Logging for PR
       id: create_logging
@@ -82,7 +82,7 @@ jobs:
       id: create_monitor_policy_assignment_dine
       shell: bash
       run: |
-          az deployment mg create --template-file Observability_L100/Deploy/policyAssignDeploy.bicep --parameters parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/policyAssignDeploy.bicep --parameters parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     - name: Az CLI Subscription Placement for PR
       id: move_sub
