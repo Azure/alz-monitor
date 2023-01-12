@@ -7,6 +7,7 @@ on:
     types:
       - closed
 
+
 jobs:
   build:
     if: github.event.pull_request.merged == true
@@ -26,7 +27,7 @@ jobs:
     - name: Run Bicep build
       uses: aliencube/bicep-build-actions@v0.3
       with:
-        files: 'Observability_L100/Deploy/policyDefinitions/*.bicep'
+        files: 'src/resources/Microsoft.Authorization/policyDefinitions/*.bicep'
     - name: Commit & Push
       uses: actions-js/push@master
       with:
