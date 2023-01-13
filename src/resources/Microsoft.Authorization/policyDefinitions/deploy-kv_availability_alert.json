@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "5840919328458626402"
+      "templateHash": "17714445106573032013"
     }
   },
   "parameters": {
@@ -222,6 +222,18 @@
                               "displayName": "resourceId",
                               "description": "Resource ID of the resource emitting the metric that will be used for the comparison"
                             }
+                          },
+                          "severity": {
+                            "type": "String"
+                          },
+                          "windowSize": {
+                            "type": "String"
+                          },
+                          "evaluationFrequency": {
+                            "type": "String"
+                          },
+                          "threshold": {
+                            "type": "String"
                           }
                         },
                         "variables": {},

@@ -60,74 +60,74 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
         }
         parameters: {
             severity: {
-            type: 'String'
-            metadata: {
-                displayName: 'Severity'
-                description: 'Severity of the Alert'
-              }
-              allowedValues: [
-                '0'
-                '1'
-                '2'
-                '3'
-                '4'
-              ]
-              defaultValue: parAlertSeverity
+                type: 'String'
+                metadata: {
+                    displayName: 'Severity'
+                    description: 'Severity of the Alert'
+                }
+                allowedValues: [
+                    '0'
+                    '1'
+                    '2'
+                    '3'
+                    '4'
+                ]
+                defaultValue: parAlertSeverity
             }
             windowSize: {
-              type: 'String'
-              metadata: {
-                displayName: 'Window Size'
-                description: 'Window size for the alert'
-              }
-              allowedValues: [
-                'PT1M'
-                'PT5M'
-                'PT15M'
-                'PT30M'
-                'PT1H'
-                'PT6H'
-                'PT12H'
-                'P1D'
-              ]
-              defaultValue: parWindowSize
+                type: 'String'
+                metadata: {
+                    displayName: 'Window Size'
+                    description: 'Window size for the alert'
+                }
+                allowedValues: [
+                    'PT1M'
+                    'PT5M'
+                    'PT15M'
+                    'PT30M'
+                    'PT1H'
+                    'PT6H'
+                    'PT12H'
+                    'P1D'
+                ]
+                defaultValue: parWindowSize
             }
             evaluationFrequency: {
-              type: 'String'
-              metadata: {
-                displayName: 'Evaluation Frequency'
-                description: 'Evaluation frequency for the alert'
-              }
-              allowedValues: [
-                'PT1M'
-                'PT5M'
-                'PT15M'
-                'PT30M'
-                'PT1H'
-              ]
-              defaultValue: parEvaluationFrequency
+                type: 'String'
+                metadata: {
+                    displayName: 'Evaluation Frequency'
+                    description: 'Evaluation frequency for the alert'
+                }
+                allowedValues: [
+                    'PT1M'
+                    'PT5M'
+                    'PT15M'
+                    'PT30M'
+                    'PT1H'
+                ]
+                defaultValue: parEvaluationFrequency
             }
             threshold: {
-              type: 'String'
-              metadata: {
-                displayName: 'Threshold'
-                description: 'Threshold for the alert'
-              }
-              defaultValue: parThreshold
+                type: 'String'
+                metadata: {
+                    displayName: 'Threshold'
+                    description: 'Threshold for the alert'
+                }
+                defaultValue: parThreshold
             }
             effect: {
-              type: 'String'
-              metadata: {
-                displayName: 'Effect'
-                description: 'Effect of the policy'
-              }
-              allowedValues: [
-                'deployIfNotExists'
-                'disabled'
-              ]
-              defaultValue: parPolicyEffect
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Effect of the policy'
+                }
+                allowedValues: [
+                    'deployIfNotExists'
+                    'disabled'
+                ]
+                defaultValue: parPolicyEffect
             }
-          }
+        }
 
         policyRule: {
             if: {
@@ -179,6 +179,19 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                             displayName: 'resourceId'
                                             description: 'Resource ID of the resource emitting the metric that will be used for the comparison'
                                         }
+                                    }
+                                    severity: {
+                                        type: 'String'
+                                    }
+                                    windowSize: {
+                                        type: 'String'
+                                    }
+                                    evaluationFrequency: {
+                                        type: 'String'
+                                    }
+                                    threshold: {
+                                        type: 'String'
+
                                     }
                                 }
                                 variables: {}
