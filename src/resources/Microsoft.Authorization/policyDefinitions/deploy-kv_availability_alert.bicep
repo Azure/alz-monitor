@@ -8,6 +8,44 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
+@allowed([
+    '0'
+    '1'
+    '2'
+    '3'
+    '4'
+])
+param parAlertSeverity string = '1'
+
+@allowed([
+    'PT1M'
+    'PT5M'
+    'PT15M'
+    'PT30M'
+    'PT1H'
+    'PT6H'
+    'PT12H'
+    'P1D'
+])
+param parWindowSize string = 'PT5M'
+
+@allowed([
+    'PT1M'
+    'PT5M'
+    'PT15M'
+    'PT30M'
+    'PT1H'
+])
+param parEvaluationFrequency string = 'PT1M'
+
+@allowed([
+    'deployIfNotExists'
+    'disabled'
+])
+param parPolicyEffect string = 'disabled'
+
+param parThreshold string = '90'
+
 module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kva-policyDefinitions'
     params: {
@@ -30,7 +68,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 ]
             }
             then: {
-                effect: 'deployIfNotExists'
+                effect: parPolicyEffect
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/metricAlerts'
@@ -81,13 +119,13 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         location: 'global'
                                         properties: {
                                             description: 'Metric Alert for KeyVault Availability'
-                                            severity: 3
+                                            severity: parAlertSeverity
                                             enabled: true
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
-                                            evaluationFrequency: 'PT5M'
-                                            windowSize: 'PT5M'
+                                            evaluationFrequency: parEvaluationFrequency
+                                            windowSize: parWindowSize
                                             criteria: {
                                                 allOf: [
                                                     {
@@ -95,7 +133,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                         metricNamespace: 'microsoft.keyvault/vaults'
                                                         metricName: 'Availability'
                                                         operator: 'LessThan'
-                                                        threshold: 100
+                                                        threshold: parThreshold
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }

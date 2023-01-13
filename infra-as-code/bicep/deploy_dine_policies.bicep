@@ -60,11 +60,16 @@ module kv_latency_policy '../../src/resources/Microsoft.Authorization/policyDefi
   }
 }
 
-module kv_queryvolume_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-kv_availability_alert.bicep' = {
+module kv_availability_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-kv_availability_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-kvqva-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
+   parAlertSeverity: '1'
+   parWindowSize: 'PT5M'
+   parEvaluationFrequency: 'PT1M'
+   parPolicyEffect: 'disabled'
+   parThreshold: '90'
   }
 }
 
