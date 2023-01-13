@@ -50,8 +50,8 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
     name: '${uniqueString(deployment().name)}-kva-policyDefinitions'
     params: {
         name: 'Deploy_KeyVault_Availability_Alert'
-        displayName: '[DINE] Deploy KeyVault Query Volume Alert'
-        description: 'DINE policy to audit/deploy KeyVault Query Volume Alert'
+        displayName: '[DINE] Deploy KeyVault Availability Alert'
+        description: 'DINE policy to audit/deploy KeyVault Availability Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
