@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "6076602117233494080"
+      "templateHash": "13440377145326183409"
     }
   },
   "parameters": {
@@ -65,10 +65,7 @@
     },
     "parThreshold": {
       "type": "string",
-      "defaultValue": "90",
-      "allowedValues": [
-        "90"
-      ]
+      "defaultValue": "90"
     }
   },
   "resources": [
@@ -87,10 +84,10 @@
             "value": "Deploy_KeyVault_Availability_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy KeyVault Query Volume Alert"
+            "value": "[DINE] Deploy KeyVault Availability Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy KeyVault Query Volume Alert"
+            "value": "DINE policy to audit/deploy KeyVault Availability Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
