@@ -58,6 +58,77 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
             Category: 'Key Vault'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
+        parameters: {
+            severity: {
+            type: 'String'
+            metadata: {
+                displayName: 'Severity'
+                description: 'Severity of the Alert'
+              }
+              allowedValues: [
+                '0'
+                '1'
+                '2'
+                '3'
+                '4'
+              ]
+              defaultValue: parAlertSeverity
+            }
+            windowSize: {
+              type: 'String'
+              metadata: {
+                displayName: 'Window Size'
+                description: 'Window size for the alert'
+              }
+              allowedValues: [
+                'PT1M'
+                'PT5M'
+                'PT15M'
+                'PT30M'
+                'PT1H'
+                'PT6H'
+                'PT12H'
+                'P1D'
+              ]
+              defaultValue: parWindowSize
+            }
+            evaluationFrequency: {
+              type: 'String'
+              metadata: {
+                displayName: 'Evaluation Frequency'
+                description: 'Evaluation frequency for the alert'
+              }
+              allowedValues: [
+                'PT1M'
+                'PT5M'
+                'PT15M'
+                'PT30M'
+                'PT1H'
+              ]
+              defaultValue: parEvaluationFrequency
+            }
+            threshold: {
+              type: 'String'
+              metadata: {
+                displayName: 'Threshold'
+                description: 'Threshold for the alert'
+              }
+              defaultValue: parThreshold
+            }
+            effect: {
+              type: 'String'
+              metadata: {
+                displayName: 'Effect'
+                description: 'Effect of the policy'
+              }
+              allowedValues: [
+                'deployIfNotExists'
+                'disabled'
+              ]
+              defaultValue: parPolicyEffect
+            }
+          }
+
         policyRule: {
             if: {
                 allOf: [
@@ -68,7 +139,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 ]
             }
             then: {
-                effect: parPolicyEffect
+                effect: '[parameters(\'effect\')]'
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/metricAlerts'
@@ -119,13 +190,13 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         location: 'global'
                                         properties: {
                                             description: 'Metric Alert for KeyVault Availability'
-                                            severity: parAlertSeverity
+                                            severity: '[parameters(\'severity\')]'
                                             enabled: true
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
-                                            evaluationFrequency: parEvaluationFrequency
-                                            windowSize: parWindowSize
+                                            evaluationFrequency: '[parameters(\'evaluationFrequency\')]'
+                                            windowSize: '[parameters(\'windowsSize\')]'
                                             criteria: {
                                                 allOf: [
                                                     {
@@ -133,7 +204,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                         metricNamespace: 'microsoft.keyvault/vaults'
                                                         metricName: 'Availability'
                                                         operator: 'LessThan'
-                                                        threshold: parThreshold
+                                                        threshold: '[parameters(\'threshold\')]'
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
