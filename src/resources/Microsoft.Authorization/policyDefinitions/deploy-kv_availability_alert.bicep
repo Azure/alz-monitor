@@ -235,6 +235,18 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                 resourceId: {
                                     value: '[field(\'id\')]'
                                 }
+                                severity: {
+                                    value: '[parameters(\'severity\')]'
+                                }
+                                windowSize: {
+                                    value: '[parameters(\'windowSize\')]'
+                                }
+                                evaluationFrequency: {
+                                    value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                threshold: {
+                                    value: '[parameters(\'threshold\')]'
+                                }
                             }
                         }
                     }
