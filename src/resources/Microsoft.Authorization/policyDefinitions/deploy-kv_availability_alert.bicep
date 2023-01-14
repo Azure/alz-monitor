@@ -224,6 +224,20 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            parameters: {
+                                                severity: {
+                                                    value: '[parameters(\'severity\')]'
+                                                }
+                                                windowSize: {
+                                                    value: '[parameters(\'windowSize\')]'
+                                                }
+                                                evaluationFrequency: {
+                                                    value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                threshold: {
+                                                    value: '[parameters(\'threshold\')]'
+                                                }
+                                            } 
                                         }
                                     }
                                 ]
