@@ -1,63 +1,671 @@
-{"$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": {
-
-  },
-  "resources" : [
+  "resources": [
     {
-  "type": "Microsoft.Authorization/policySetDefinitions",
-  "apiVersion": "2021-06-01",
-  "name": "Alerting-Availability",
-  "properties": {
-    "metadata": {     
-              "version": "1.0.0",
-              "category": "Monitoring",
-              "source": "https://github.com/Azure/ALZ-Monitor/"     
-    },
-    "policyDefinitions": [
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_ArpAvailability_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_BgpAvailability_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Availability_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Availability_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VM_AvailableMemory_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Latency_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_E2ELatency_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Latency_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Capacity_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_SNATPortUtilization_Alert')]"
+      "type": "Microsoft.Authorization/policySetDefinitions",
+      "apiVersion": "2021-06-01",
+      "name": "Alerting-Availability",
+      "properties": {
+        "metadata": {
+          "version": "1.0.0",
+          "category": "Monitoring",
+          "source": "https://github.com/Azure/ALZ-Monitor/"
+        },
+        "parameters": {
+          "KvAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "KvAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "KvAvailabilityEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "KvAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "KVAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "20"
+          },
+          "ERCIRArpAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERCIRArpAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERCIRArpAvailabilityFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERCIRArpAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERCIRArpAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "90"
+          },
+          "ERCIRBgpAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERCIRBgpAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERCIRBgpAvailabilityFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERCIRBgpAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERCIRBgpAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "90"
+          },
+          "StorageAccountAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "StorageAccountAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "StorageAccountAvailabilityFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "StorageAccountAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "StorageAccountAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "90"
+          },
+          "VMAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VMAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VMAvailabilityEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VMAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VMAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "95"
+          },
+          "KvLatencyAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "KvLatencyAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "KvLatencyAvailabilityEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "KvLatencyAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "KvLatencyAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "1000"
+          },
+          "StorageAccountE2ELatencyAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "StorageAccountE2ELatencyWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "StorageAccountE2ELatencyEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "StorageAccountE2ELatencyPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "StorageAccountE2ELatencyThreshold": {
+            "type": "string",
+            "defaultValue": "1000"
+          },
+          "KVCapacityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "KVCapacityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "KVCapacityEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "KVCapacityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "KVCapacityThreshold": {
+            "type": "string",
+            "defaultValue": "75"
+          },
+          "AFWSNATPortUtilizationAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "AFWSNATPortUtilizationWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "AFWSNATPortUtilizationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "AFWSNATPortUtilizationPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "AFWSNATPortUtilizationThreshold": {
+            "type": "string",
+            "defaultValue": "80"
+          }
+        },
+
+
+
+
+
+
+
+        "policyDefinitions": [
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_ArpAvailability_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERCIRArpAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERCIRArpAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERCIRArpAvailabilityFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERCIRArpAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERCIRArpAvailabilityThreshold')]"
+              }
+            }
+          },
+          {
+
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_BgpAvailability_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERCIRBgpAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERCIRBgpAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERCIRBgpAvailabilityFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERCIRBgpAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERCIRBgpAvailabilityThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Availability_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('StorageAccountAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('StorageAccountAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('StorageAccountAvailabilityFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('StorageAccountAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('StorageAccountAvailabilityThreshold')]"
+              }
+
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Availability_Alert_Test_Arjen')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('KvAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('KvAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('KvAvailabilityEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('KvAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('KVAvailabilityThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VM_AvailableMemory_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VMAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VMAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VMAvailabilityEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VMAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VMAvailabilityThreshold')]"
+              }
+            }
+          },
+          {
+
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Latency_Alert')]",
+            "parameters": {
+
+              "severity": {
+                "value": "[[parameters('KvLatencyAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('KvLatencyAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('KvLatencyAvailabilityEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('KvLatencyAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('KvLatencyAvailabilityThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_E2ELatency_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('StorageAccountE2ELatencyAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('StorageAccountE2ELatencyWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('StorageAccountE2ELatencyEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('StorageAccountE2ELatencyPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('StorageAccountE2ELatencyThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Latency_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('StorageAccountLatencyAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('StorageAccountLatencyWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('StorageAccountLatencyEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('StorageAccountLatencyPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('StorageAccountLatencyThreshold')]"
+              }
+
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Capacity_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('KVCapacityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('KVCapacityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('KVCapacityEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('KVCapacityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('KVCapacityThreshold')]"
+              }
+
+            }
+          },
+          {
+
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_SNATPortUtilization_Alert')]",
+            "parameters": {
+
+              "severity": {
+                "value": "[[parameters('AFWSNATPortUtilizationAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('AFWSNATPortUtilizationWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('AFWSNATPortUtilizationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('AFWSNATPortUtilizationPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('AFWSNATPortUtilizationThreshold')]"
+              }
+
+            }
+          }
+        ],
+        "policyType": "Custom"
       }
-    ],
-    "policyType": "Custom"
-  }
-}
+    }
   ]
 }
