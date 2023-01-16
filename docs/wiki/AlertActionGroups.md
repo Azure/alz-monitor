@@ -37,4 +37,6 @@ Policy Scope: Management Group/Subscription
 
 The decision is to follow the decentralized approach and provision a single Action Group per subscription. This allows customers to configure discrete actions per subscription (different email addresses or other supported actions), although we will default to a single email address (distribution group) for all Action Groups as part of the initial Azure Landing Zone integration enabled through Azure Policy.
 
-As part of the ALZ deployment methodolgy, Alert Processing Rules will target the Action Group in the subscription where the alert originated.
+Alert Processing Rules will target the Action Group in the subscription where the alert originated.
+
+The initial configuration provided by ALZ will configure all Action Groups with the same email distribution group/address (through Policy). However, customers may choose to configure alternate email distribution groups depending on the subscription/service or workload owners/etc.
