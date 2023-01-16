@@ -209,7 +209,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                 '[parameters(\'resourceId\')]'
                                             ]
                                             evaluationFrequency: '[parameters(\'evaluationFrequency\')]'
-                                            windowSize: '[parameters(\'windowsSize\')]'
+                                            windowSize: '[parameters(\'windowSize\')]'
                                             criteria: {
                                                 allOf: [
                                                     {
