@@ -17,18 +17,6 @@
     "policyDefinitions": [
       {
         "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_QueryVolume_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_RecordSetCount_Alert')]"
-      },
-      {
-        "parameters": {},
         "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_QosDropBitsInPerSecond_Alert')]"
       },
       {

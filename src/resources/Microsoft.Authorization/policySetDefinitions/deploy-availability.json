@@ -205,54 +205,6 @@
             "type": "string",
             "defaultValue": "90"
           },
-          "VMAvailabilityAlertSeverity": {
-            "type": "String",
-            "defaultValue": "3",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "VMAvailabilityWindowSize": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "VMAvailabilityEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
-          "VMAvailabilityPolicyEffect": {
-            "type": "string",
-            "defaultValue": "deployIfNotExists",
-            "allowedValues": [
-              "deployIfNotExists",
-              "disabled"
-            ]
-          },
-          "VMAvailabilityThreshold": {
-            "type": "string",
-            "defaultValue": "95"
-          },
           "KvLatencyAvailabilityAlertSeverity": {
             "type": "String",
             "defaultValue": "3",
@@ -298,54 +250,6 @@
             ]
           },
           "KvLatencyAvailabilityThreshold": {
-            "type": "string",
-            "defaultValue": "1000"
-          },
-          "StorageAccountE2ELatencyAlertSeverity": {
-            "type": "String",
-            "defaultValue": "3",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "StorageAccountE2ELatencyWindowSize": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "StorageAccountE2ELatencyEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
-          "StorageAccountE2ELatencyPolicyEffect": {
-            "type": "string",
-            "defaultValue": "deployIfNotExists",
-            "allowedValues": [
-              "deployIfNotExists",
-              "disabled"
-            ]
-          },
-          "StorageAccountE2ELatencyThreshold": {
             "type": "string",
             "defaultValue": "1000"
           },
@@ -531,27 +435,6 @@
             }
           },
           {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VM_AvailableMemory_Alert')]",
-            "parameters": {
-              "severity": {
-                "value": "[[parameters('VMAvailabilityAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('VMAvailabilityWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('VMAvailabilityEvaluationFrequency')]"
-              },
-              "effect": {
-                "value": "[[parameters('VMAvailabilityPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('VMAvailabilityThreshold')]"
-              }
-            }
-          },
-          {
-
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Latency_Alert')]",
             "parameters": {
 
@@ -570,47 +453,6 @@
               "threshold": {
                 "value": "[[parameters('KvLatencyAvailabilityThreshold')]"
               }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_E2ELatency_Alert')]",
-            "parameters": {
-              "severity": {
-                "value": "[[parameters('StorageAccountE2ELatencyAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('StorageAccountE2ELatencyWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('StorageAccountE2ELatencyEvaluationFrequency')]"
-              },
-              "effect": {
-                "value": "[[parameters('StorageAccountE2ELatencyPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('StorageAccountE2ELatencyThreshold')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Latency_Alert')]",
-            "parameters": {
-              "severity": {
-                "value": "[[parameters('StorageAccountLatencyAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('StorageAccountLatencyWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('StorageAccountLatencyEvaluationFrequency')]"
-              },
-              "effect": {
-                "value": "[[parameters('StorageAccountLatencyPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('StorageAccountLatencyThreshold')]"
-              }
-
             }
           },
           {
