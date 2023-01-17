@@ -57,7 +57,7 @@
     -deploy-vpng_ingresspacketdropcount_alert
     -deploy-vpng_ingresspacketdropmismatch_alert
     ~~-deploy-vnet_pingavgroundtrip_alert~~-delete
-    -deploy-vnet_probefailed_alert
+    ~~-deploy-vnet_probefailed_alert~~-delete
     -deploy-pdnsz_capacityutilization_alert
     -deploy-pdnsz_queryvolume_alert
     -deploy-pdnsz_recordsetcapacity_alert
