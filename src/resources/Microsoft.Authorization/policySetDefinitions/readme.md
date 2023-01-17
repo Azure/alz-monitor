@@ -26,16 +26,17 @@ Management initiative comprises of
     -deploy-afw_firewallhealth_alert
 
 Availability initiative comprises of
-    -deploy-ercir_arpavailability_alert
-    -deploy-ercir_bgpavailability_alert
-    -deploy-sa_availability_alert
-    -deploy-kv_availability_alert
-    ~~-deploy-vm_availablememory_alert~~-delete
-    -deploy-kv_latency_alert
-    -deploy-sa_e2elatency_alert
-    ~~-deploy-sa_latency_alert~~-Delete
-    -deploy-kv_capacity_alert
-    -deploy-afw_snatportutilization_alert
+
+    *deploy-ercir_arpavailability_alert
+    *deploy-ercir_bgpavailability_alert
+    *deploy-sa_availability_alert
+    *deploy-kv_availability_alert
+    ~~*deploy-vm_availablememory_alert~~-delete
+    *deploy-kv_latency_alert
+    *deploy-sa_e2elatency_alert
+    *~~deploy-sa_latency_alert~~-Delete
+    *deploy-kv_capacity_alert
+    *deploy-afw_snatportutilization_alert
 
 Networking initiative comprises of
     ~~-deploy-dnsz_queryvolume_alert~~-delete
