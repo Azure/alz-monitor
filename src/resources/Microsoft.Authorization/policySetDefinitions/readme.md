@@ -25,7 +25,7 @@ Management initiative comprises of
     -deploy-rv_backuphealth_alert
     -deploy-afw_firewallhealth_alert
 
-Availability initiative comprises of
+#Availability initiative comprises of
 
     *deploy-ercir_arpavailability_alert
     *deploy-ercir_bgpavailability_alert
