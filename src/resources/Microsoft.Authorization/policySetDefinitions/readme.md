@@ -1,4 +1,4 @@
-Security initiative comprises of DDOS Alerts , Puplic IP Availability Alerting , Activity Logging
+## Security initiative comprises of DDOS Alerts , Puplic IP Availability Alerting , Activity Logging
 
     -deploy-pip_bytesinddosattack_alert
     -deploy-pip_ddosattack_alert
@@ -15,7 +15,7 @@ Security initiative comprises of DDOS Alerts , Puplic IP Availability Alerting ,
     -deploy-activitylog-ServiceHealth-Security
     -deploy-activitylog-VPNGate-Del
 
-Management initiative comprises of
+## Management initiative comprises of
 
     -deploy-activitylog-ResourceHealth-UnHealthly-alert
     -deploy-activitylog-ServiceHealth-Health
@@ -25,7 +25,7 @@ Management initiative comprises of
     -deploy-rv_backuphealth_alert
     -deploy-afw_firewallhealth_alert
 
-#Availability initiative comprises of
+## Availability initiative comprises of
 
     -deploy-ercir_arpavailability_alert
     -deploy-ercir_bgpavailability_alert
@@ -38,7 +38,7 @@ Management initiative comprises of
     -deploy-kv_capacity_alert
     -deploy-afw_snatportutilization_alert
 
-Networking initiative comprises of
+## Networking initiative comprises of
     ~~-deploy-dnsz_queryvolume_alert~~-delete
     ~~-deploy-dnsz_recordsetcapacityutilization_alert ~~-delete
     ~~-deploy-dnsz_recordsetcount_alert~~-delete
