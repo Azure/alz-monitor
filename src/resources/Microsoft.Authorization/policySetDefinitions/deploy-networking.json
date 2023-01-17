@@ -73,10 +73,6 @@
       },
       {
         "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_PingAvgRoundtrip_Alert')]"
-      },
-      {
-        "parameters": {},
         "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_ProbeFailed_Alert')]"
       },
       {
