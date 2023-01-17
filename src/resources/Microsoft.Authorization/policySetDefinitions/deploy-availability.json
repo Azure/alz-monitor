@@ -447,12 +447,6 @@
           }
         },
 
-
-
-
-
-
-
         "policyDefinitions": [
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_ArpAvailability_Alert')]",
@@ -517,7 +511,7 @@
             }
           },
           {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Availability_Alert_Test_Arjen')]",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Availability_Alert')]",
             "parameters": {
               "severity": {
                 "value": "[[parameters('KvAvailabilityAlertSeverity')]"
