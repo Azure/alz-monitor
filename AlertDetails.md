@@ -14,9 +14,12 @@ Policy Definition Name and GitHub Path for each alert policy definition
 
 ## Metric Alerts
 
-
-
-| Component | Metric | Aggregator | Operator | Threshold | WindowSize | Frequency | Dimensions | Mandatory | Documented |<div style="width:240px">References</div>|
+Add Severity column
+    Describe that higher severity would have shorter frequency value.
+Delete Mandatory columns
+Delete Dimension columns.
+Add a colum which points to the policy file in the Repo.
+| Component | Metric | Aggregator | Operator | Threshold | WindowSize | Frequency | Dimensions | Mandatory | Recommended |<div style="width:240px">References</div>|
 |:----------|:------:|:----------:|:--------:|:---------:|:----------:|:---------:|:----------:|:---------:|:----------:|:---------------------------------------|
 | microsoft.network/expressroutecircuits | BgpAvailability         | Average      | LessThan    | 90  | PT5M | PT1M |  Peering Type | No | Y | Common alert set by Customers, based on telemetry gathered by PG.<br/>[Monitor ExpressRoute Alerts](https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts)<br/>[ExpressRoute KQL Queries](https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries) |
 | microsoft.network/expressroutecircuits | ArpAvailability         | Average | LessThan    | 90  | PT5M | PT1M |  Peer | No | Y | Common alert set by Customers, based on telemetry gathered by PG.<br/>[Monitor ExpressRoute Alerts](https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts)<br/>[ExpressRoute KQL Queries](https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries) |
@@ -32,15 +35,15 @@ Policy Definition Name and GitHub Path for each alert policy definition
 
 ## Log Alerts
 
+
 | Component | Metric |<div style="width:300px">Query</div> | Aggregator | Operator | Threshold | WindowSize | Frequency | Dimensions | Mandatory | Documented |<div style="width:240px">References</div>|
 |:----------|:------:|:------|:----------:|:--------:|:---------:|:----------:|:---------:|:----------:|:---------:|:----------:|:---------------------------------------|
 | microsoft.network/expressroutecircuits | BgpAvailability         |`AzureMetrics`<br/>`| where MetricName == "BgpAvailability"`<br/> `| summarize by Average, bin(TimeGenerated, 5m), Resource` <br/> `| render timechart` |0       | LessThan    | 90  | PT5M | PT1M |  Peer | No | Y | [Monitor ExpressRoute Alerts](https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts)<br/>[ExpressRoute KQL Queries](https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries) |
 | microsoft.network/expressroutecircuits | ArpAvailability         |`AzureMetrics`<br/>`| where MetricName == "ArpAvailability"`<br/> `| summarize by Average, bin(TimeGenerated, 5m), Resource` <br/> `| render timechart` |Average | LessThan    | 90  | PT5M | PT1M |  Peer | No | Y | [Monitor ExpressRoute Alerts](https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts)<br/>[ExpressRoute KQL Queries](https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries) |
 | microsoft.network/expressroutecircuits | BitsInPerSecond  |`AzureMetrics`<br/> `| where MetricName == "BitsInPerSecond"` <br/> `| summarize by Average, bin(TimeGenerated, 1h), Resource` <br/> `| render timechart` |Average | GreaterThan | 100 | PT5M | PT1M | No    | No | N |                                                                                                                                                                                                                                                         |
-| microsoft.network/expressroutecircuits | BitsOutPerSecond |`AzureMetrics`<br/> `| where MetricName == "BitsInPerSecond"` <br/> `| summarize by Average, bin(TimeGenerated, 1h), Resource` <br/> `| render timechart`|Average | GreaterThan | 100 | PT5M | PT1M | No    | No | N |
-|                                                                |
-| microsoft.network/expressroutecircuits | QosDropBitsInPerSecond | insertQuery | Average | GreaterThan | 100 | PT5M | PT1M | No    | No | N |
-| microsoft.network/expressroutecircuits | QosDropBitsOutPerSecond | insertQuery | Average | GreaterThan | 100 | PT5M | PT1M | No    | No | N |
+| microsoft.network/expressroutecircuits | BitsOutPerSecond |```AzureMetrics | where MetricName == "BitsInPerSecond"| summarize by Average, bin(TimeGenerated, 1h), Resource| render timechart``` |Average | GreaterThan | 100 | PT5M | PT1M | No    | No | N |
+| microsoft.network/expressroutecircuits | QosDropBitsInPerSecond | `AzureMetrics| where MetricName == "QosDropBitsInPerSecond"` <br/> `| summarize by Average, bin(TimeGenerated, 1h), Resource` <br/> `| render timechart` | Average | GreaterThan | 100 | PT5M | PT1M | No    | No | N |
+| microsoft.network/expressroutecircuits | QosDropBitsOutPerSecond | ```AzureMetrics | where MetricName == "QosDropBitsInPerSecond" | summarize by Average, bin(TimeGenerated, 1h), Resource | render timechart```  | Average | GreaterThan | 100 | PT5M | PT1M | No    | No | N |
 
 
 
