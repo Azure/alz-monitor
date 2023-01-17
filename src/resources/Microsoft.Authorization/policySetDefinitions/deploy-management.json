@@ -1,51 +1,245 @@
-{"$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": {
-
-  },
-  "resources" : [
+  "resources": [
     {
-  "type": "Microsoft.Authorization/policySetDefinitions",
-  "apiVersion": "2021-06-01",
-  "name": "Alerting-Management",
-  "properties": {
-    "metadata": {     
-              "version": "1.0.0",
-              "category": "Monitoring",
-              "source": "https://github.com/Azure/ALZ-Monitor/"     
-    },
-    "policyDefinitions": [
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AA_TotalJob_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_RecoveryVault_BackupHealth_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_FirewallHealth_Alert')]"
+      "type": "Microsoft.Authorization/policySetDefinitions",
+      "apiVersion": "2021-06-01",
+      "name": "Alerting-Management",
+      "properties": {
+        "metadata": {
+          "version": "1.0.0",
+          "category": "Monitoring",
+          "source": "https://github.com/Azure/ALZ-Monitor/"
+        },
+        "parameters": {
+            "AATotalJobAlertSeverity": {
+            "type": "String",
+            "defaultValue": "2",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "AATotalJobAlertWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "AATotalJobAlertEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "AATotalJobAlertPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "AATotalJobAlertThreshold": {
+            "type": "string",
+            "defaultValue": "20"
+          },
+          "RVBackupHealthAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "RVBackupHealthWindowSize": {
+            "type": "string",
+            "defaultValue": "P1D",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "RVBackupHealthEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "RVBackupHealthPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "RVBackupHealthThreshold": {
+            "type": "string",
+            "defaultValue": "20"
+          },
+          "FirewallHealthAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "FirewallHealthWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "FirewallHealthEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "FirewallHealthPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "FirewallHealthThreshold": {
+            "type": "string",
+            "defaultValue": "90"
+          }
+        },
+        "policyDefinitions": [
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]",
+            "parameters": {
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]",
+            "parameters": {
+            }
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]"
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AA_TotalJob_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('AATotalJobAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('AATotalJobAlertWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('AATotalJobAlertEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('AATotalJobAlertPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('AATotalJobAlertThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_RecoveryVault_BackupHealth_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('RVBackupHealthAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('RVBackupHealthWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('RVBackupHealthEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('RVBackupHealthPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('RVBackupHealthThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_FirewallHealth_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('FirewallHealthAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('FirewallHealthWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('FirewallHealthEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('FirewallHealthPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('FirewallHealthThreshold')]"
+              }
+            }
+          }
+        ],
+        "policyType": "Custom"
       }
-    ],
-    "policyType": "Custom"
-  }
-}
+    }
   ]
 }
