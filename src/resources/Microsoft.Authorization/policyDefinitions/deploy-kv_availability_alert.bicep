@@ -128,7 +128,6 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 defaultValue: parPolicyEffect
             }
         }
-
         policyRule: {
             if: {
                 allOf: [
@@ -237,7 +236,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
                                                 }
-                                            } 
+                                            }
                                         }
                                     }
                                 ]
