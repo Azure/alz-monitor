@@ -190,7 +190,6 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                     }
                                     threshold: {
                                         type: 'String'
-
                                     }
                                 }
                                 variables: {}
