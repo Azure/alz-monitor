@@ -1,75 +1,461 @@
-{"$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": {
-
-  },
-  "resources" : [
+  "resources": [
     {
-  "type": "Microsoft.Authorization/policySetDefinitions",
-  "apiVersion": "2021-06-01",
-  "name": "Alerting-Security",
-  "properties": {
-    "metadata": {     
-              "version": "1.0.0",
-              "category": "Monitoring",
-              "source": "https://github.com/Azure/ALZ-Monitor/"     
-    },
-    "policyDefinitions": [
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_BytesInDDoSAttack_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_DDoSAttack_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_PacketsInDDoSAttack_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_VIPAvailability_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Requests_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_DDoSAttack_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete')]"
+      "type": "Microsoft.Authorization/policySetDefinitions",
+      "apiVersion": "2021-06-01",
+      "name": "Alerting-Security",
+      "properties": {
+        "metadata": {
+          "version": "1.0.0",
+          "category": "Monitoring",
+          "source": "https://github.com/Azure/ALZ-Monitor/"
+        },
+        "parameters": {
+
+          "PIPDDoSAttackAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "PIPDDoSAttackWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "PIPDDoSAttackEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "PIPDDoSAttackPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "PIPDDoSAttackThreshold": {
+            "type": "string",
+            "defaultValue": "0"
+          },
+          "PIPPacketsInDDoSAlertSeverity": {
+            "type": "String",
+            "defaultValue": "4",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "PIPPacketsInDDoSWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "PIPPacketsInDDoSEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "PIPPacketsInDDoSPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "PIPPacketsInDDoSThreshold": {
+            "type": "string",
+            "defaultValue": "40000"
+          },
+          "PIPVIPAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "PIPVIPAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "PIPVIPAvailabilityEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "PIPVIPAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "PIPVIPAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "KVRequestAlertSeverity": {
+            "type": "String",
+            "defaultValue": "2",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "KVRequestWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "KVRequestEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "KVRequestPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "KVRequestThreshold": {
+            "type": "string",
+            "defaultValue": "0"
+          },
+          "PIPBytesInDDoSAlertSeverity": {
+            "type": "String",
+            "defaultValue": "4",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "PIPBytesInDDoSWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "PIPBytesInDDoSEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "PIPBytesInDDoSPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "PIPBytesInDDoSThreshold": {
+            "type": "string",
+            "defaultValue": "8000000"
+          },
+          "VNETDDOSAttackAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VNETDDOSAttackWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VNETDDOSAttackEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VNETDDOSAttackPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VNETDDOSAttackThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          }
+        },
+        "policyDefinitions": [
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_BytesInDDoSAttack_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('PIPBytesInDDoSAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('PIPBytesInDDoSWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('PIPBytesInDDoSEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('PIPBytesInDDoSPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('PIPBytesInDDoSThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_DDoSAttack_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('PIPDDoSAttackAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('PIPDDoSAttackWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('PIPDDoSAttackEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('PIPDDoSAttackPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('PIPDDoSAttackThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_PacketsInDDoSAttack_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('PIPPacketsInDDoSAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('PIPPacketsInDDoSWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('PIPPacketsInDDoSEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('PIPPacketsInDDoSPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('PIPPacketsInDDoSThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_VIPAvailability_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('PIPVIPAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('PIPVIPAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('PIPVIPAvailabilityEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('PIPVIPAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('PIPVIPAvailabilityThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Requests_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('KVRequestAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('KVRequestWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('KVRequestEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('KVRequestPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('KVRequestThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_DDoSAttack_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VNETDDOSAttackAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VNETDDOSAttackWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VNETDDOSAttackEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VNETDDOSAttackPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VNETDDOSAttackThreshold')]"
+              }
+
+            }
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete')]"
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete')]"
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete')]"
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen')]"
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
+          },
+          {
+            "parameters": {},
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete')]"
+          }
+        ],
+        "policyType": "Custom"
       }
-    ],
-    "policyType": "Custom"
-  }
-}
+    }
   ]
 }
