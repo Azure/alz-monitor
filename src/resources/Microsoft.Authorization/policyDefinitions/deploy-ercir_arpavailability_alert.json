@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.13.1.58284",
-      "templateHash": "14907626368636095076"
+      "version": "0.4.1272.37030",
+      "templateHash": "12555824281063202181"
     }
   },
   "parameters": {
@@ -18,6 +18,54 @@
       "defaultValue": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
       ]
+    },
+    "parAlertSeverity": {
+      "type": "string",
+      "defaultValue": "0",
+      "allowedValues": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "parWindowSize": {
+      "type": "string",
+      "defaultValue": "PT5M",
+      "allowedValues": [
+        "PT1M",
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H",
+        "PT6H",
+        "PT12H",
+        "P1D"
+      ]
+    },
+    "parEvaluationFrequency": {
+      "type": "string",
+      "defaultValue": "PT1M",
+      "allowedValues": [
+        "PT1M",
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H"
+      ]
+    },
+    "parPolicyEffect": {
+      "type": "string",
+      "defaultValue": "deployIfNotExists",
+      "allowedValues": [
+        "deployIfNotExists",
+        "disabled"
+      ]
+    },
+    "parThreshold": {
+      "type": "string",
+      "defaultValue": "90"
     }
   },
   "resources": [
@@ -51,6 +99,78 @@
               "source": "https://github.com/Azure/ALZ-Monitor/"
             }
           },
+          "parameters": {
+            "value": {
+              "severity": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Severity",
+                  "description": "Severity of the Alert"
+                },
+                "allowedValues": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "defaultValue": "[parameters('parAlertSeverity')]"
+              },
+              "windowSize": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Window Size",
+                  "description": "Window size for the alert"
+                },
+                "allowedValues": [
+                  "PT1M",
+                  "PT5M",
+                  "PT15M",
+                  "PT30M",
+                  "PT1H",
+                  "PT6H",
+                  "PT12H",
+                  "P1D"
+                ],
+                "defaultValue": "[parameters('parWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Evaluation Frequency",
+                  "description": "Evaluation frequency for the alert"
+                },
+                "allowedValues": [
+                  "PT1M",
+                  "PT5M",
+                  "PT15M",
+                  "PT30M",
+                  "PT1H"
+                ],
+                "defaultValue": "[parameters('parEvaluationFrequency')]"
+              },
+              "threshold": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Threshold",
+                  "description": "Threshold for the alert"
+                },
+                "defaultValue": "[parameters('parThreshold')]"
+              },
+              "effect": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Effect",
+                  "description": "Effect of the policy"
+                },
+                "allowedValues": [
+                  "deployIfNotExists",
+                  "disabled"
+                ],
+                "defaultValue": "[parameters('parPolicyEffect')]"
+              }
+            }
+          },
           "policyRule": {
             "value": {
               "if": {
@@ -62,7 +182,7 @@
                 ]
               },
               "then": {
-                "effect": "deployIfNotExists",
+                "effect": "[[parameters('effect')]",
                 "details": {
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.Insights/metricAlerts",
@@ -102,6 +222,18 @@
                               "displayName": "resourceId",
                               "description": "Resource ID of the resource emitting the metric that will be used for the comparison"
                             }
+                          },
+                          "severity": {
+                            "type": "String"
+                          },
+                          "windowSize": {
+                            "type": "String"
+                          },
+                          "evaluationFrequency": {
+                            "type": "String"
+                          },
+                          "threshold": {
+                            "type": "String"
                           }
                         },
                         "variables": {},
@@ -113,13 +245,13 @@
                             "location": "global",
                             "properties": {
                               "description": "Metric Alert for ExpressRoute Circuit Arp Availability",
-                              "severity": 3,
+                              "severity": "[[parameters('severity')]",
                               "enabled": true,
                               "scopes": [
                                 "[[parameters('resourceId')]"
                               ],
-                              "evaluationFrequency": "PT1M",
-                              "windowSize": "PT5M",
+                              "evaluationFrequency": "[[parameters('evaluationFrequency')]",
+                              "windowSize": "[[parameters('windowSize')]",
                               "criteria": {
                                 "allOf": [
                                   {
@@ -127,12 +259,26 @@
                                     "metricNamespace": "Microsoft.Network/expressRouteCircuits",
                                     "metricName": "ArpAvailability",
                                     "operator": "LessThan",
-                                    "threshold": 90,
+                                    "threshold": "[[parameters('threshold')]",
                                     "timeAggregation": "Average",
                                     "criterionType": "StaticThresholdCriterion"
                                   }
                                 ],
                                 "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                              },
+                              "parameters": {
+                                "severity": {
+                                  "value": "[[parameters('severity')]"
+                                },
+                                "windowSize": {
+                                  "value": "[[parameters('windowSize')]"
+                                },
+                                "evaluationFrequency": {
+                                  "value": "[[parameters('evaluationFrequency')]"
+                                },
+                                "threshold": {
+                                  "value": "[[parameters('threshold')]"
+                                }
                               }
                             }
                           }
@@ -144,6 +290,18 @@
                         },
                         "resourceId": {
                           "value": "[[field('id')]"
+                        },
+                        "severity": {
+                          "value": "[[parameters('severity')]"
+                        },
+                        "windowSize": {
+                          "value": "[[parameters('windowSize')]"
+                        },
+                        "evaluationFrequency": {
+                          "value": "[[parameters('evaluationFrequency')]"
+                        },
+                        "threshold": {
+                          "value": "[[parameters('threshold')]"
                         }
                       }
                     }
@@ -159,8 +317,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.13.1.58284",
-              "templateHash": "14311601305764621350"
+              "version": "0.4.1272.37030",
+              "templateHash": "4253137932837702667"
             }
           },
           "parameters": {
@@ -290,7 +448,7 @@
             },
             "roleDefinitionIds": {
               "type": "array",
-              "value": "[if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then, 'details'), if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then.details, 'roleDefinitionIds'), reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then.details.roleDefinitionIds, createArray()), createArray())]",
+              "value": "[if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then, 'details'), if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then.details, 'roleDefinitionIds'), reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then.details.roleDefinitionIds, createArray()), createArray())]",
               "metadata": {
                 "description": "Policy Definition Role Definition IDs."
               }
