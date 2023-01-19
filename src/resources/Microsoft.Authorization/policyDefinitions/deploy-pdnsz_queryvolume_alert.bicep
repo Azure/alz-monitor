@@ -5,8 +5,46 @@ targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
-'/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
+    '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
+
+@allowed([
+    '0'
+    '1'
+    '2'
+    '3'
+    '4'
+])
+param parAlertSeverity string = '4'
+
+@allowed([
+    'PT1M'
+    'PT5M'
+    'PT15M'
+    'PT30M'
+    'PT1H'
+    'PT6H'
+    'PT12H'
+    'P1D'
+])
+param parWindowSize string = 'PT1H'
+
+@allowed([
+    'PT1M'
+    'PT5M'
+    'PT15M'
+    'PT30M'
+    'PT1H'
+])
+param parEvaluationFrequency string = 'PT1H'
+
+@allowed([
+    'deployIfNotExists'
+    'disabled'
+])
+param parPolicyEffect string = 'disabled'
+
+param parThreshold string = '500'
 
 module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pdnszqv-policyDefinitions'
@@ -20,6 +58,76 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
             Category: 'Networking'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
+        parameters: {
+            severity: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Severity'
+                    description: 'Severity of the Alert'
+                }
+                allowedValues: [
+                    '0'
+                    '1'
+                    '2'
+                    '3'
+                    '4'
+                ]
+                defaultValue: parAlertSeverity
+            }
+            windowSize: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Window Size'
+                    description: 'Window size for the alert'
+                }
+                allowedValues: [
+                    'PT1M'
+                    'PT5M'
+                    'PT15M'
+                    'PT30M'
+                    'PT1H'
+                    'PT6H'
+                    'PT12H'
+                    'P1D'
+                ]
+                defaultValue: parWindowSize
+            }
+            evaluationFrequency: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Evaluation Frequency'
+                    description: 'Evaluation frequency for the alert'
+                }
+                allowedValues: [
+                    'PT1M'
+                    'PT5M'
+                    'PT15M'
+                    'PT30M'
+                    'PT1H'
+                ]
+                defaultValue: parEvaluationFrequency
+            }
+            threshold: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Threshold'
+                    description: 'Threshold for the alert'
+                }
+                defaultValue: parThreshold
+            }
+            effect: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Effect of the policy'
+                }
+                allowedValues: [
+                    'deployIfNotExists'
+                    'disabled'
+                ]
+                defaultValue: parPolicyEffect
+            }
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -30,7 +138,7 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                 ]
             }
             then: {
-                effect: 'deployIfNotExists'
+                effect: '[parameters(\'effect\')]'
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/metricAlerts'
@@ -71,40 +179,65 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                             description: 'Resource ID of the resource emitting the metric that will be used for the comparison'
                                         }
                                     }
+                                    severity: {
+                                        type: 'String'
+                                    }
+                                    windowSize: {
+                                        type: 'String'
+                                    }
+                                    evaluationFrequency: {
+                                        type: 'String'
+                                    }
+                                    threshold: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
-                                {
-                                    type: 'Microsoft.Insights/metricAlerts'
-                                    apiVersion: '2018-03-01'
-                                    name: '[concat(parameters(\'resourceName\'), \'-QueryVolumeAlert\')]'
-                                    location: 'global'
-                                    properties: {
-                                        description: 'Metric Alert for Private DNS Query Volume'
-                                        severity: 3
-                                        enabled: true
-                                        scopes: [
-                                        '[parameters(\'resourceId\')]'
-                                        ]
-                                        evaluationFrequency: 'PT1H'
-                                        windowSize: 'PT1H'
-                                        criteria: {
-                                            allOf: [
-                                                {
-                                                    name: 'QueryVolume'
-                                                    metricNamespace: 'Microsoft.Network/privateDnsZones'
-                                                    metricName: 'QueryVolume'
-                                                    operator: 'GreaterThanOrEqual'
-                                                    threshold: 500
-                                                    timeAggregation: 'Total'
-                                                    criterionType: 'StaticThresholdCriterion'
-                                                }
+                                    {
+                                        type: 'Microsoft.Insights/metricAlerts'
+                                        apiVersion: '2018-03-01'
+                                        name: '[concat(parameters(\'resourceName\'), \'-QueryVolumeAlert\')]'
+                                        location: 'global'
+                                        properties: {
+                                            description: 'Metric Alert for Private DNS Query Volume'
+                                            severity: '[parameters(\'severity\')]'
+                                            enabled: true
+                                            scopes: [
+                                                '[parameters(\'resourceId\')]'
                                             ]
-                                            'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            evaluationFrequency: '[parameters(\'evaluationFrequency\')]'
+                                            windowSize: '[parameters(\'windowSize\')]'
+                                            criteria: {
+                                                allOf: [
+                                                    {
+                                                        name: 'QueryVolume'
+                                                        metricNamespace: 'Microsoft.Network/privateDnsZones'
+                                                        metricName: 'QueryVolume'
+                                                        operator: 'GreaterThanOrEqual'
+                                                        threshold: '[parameters(\'threshold\')]'
+                                                        timeAggregation: 'Total'
+                                                        criterionType: 'StaticThresholdCriterion'
+                                                    }
+                                                ]
+                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
+                                            parameters: {
+                                                severity: {
+                                                    value: '[parameters(\'severity\')]'
+                                                }
+                                                windowSize: {
+                                                    value: '[parameters(\'windowSize\')]'
+                                                }
+                                                evaluationFrequency: {
+                                                    value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                threshold: {
+                                                    value: '[parameters(\'threshold\')]'
+                                                }
+                                            }
                                         }
                                     }
-
-                                }
                                 ]
                             }
                             parameters: {
@@ -113,6 +246,18 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                 }
                                 resourceId: {
                                     value: '[field(\'id\')]'
+                                }
+                                severity: {
+                                    value: '[parameters(\'severity\')]'
+                                }
+                                windowSize: {
+                                    value: '[parameters(\'windowSize\')]'
+                                }
+                                evaluationFrequency: {
+                                    value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                threshold: {
+                                    value: '[parameters(\'threshold\')]'
                                 }
                             }
                         }
