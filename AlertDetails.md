@@ -84,42 +84,6 @@ The values shown for Aggregation, Operator, Threshold, WindowSize, Frequency and
 
 
 
-# Key Vault
 
-## Policy Details
-
-Policy Definition Name and GitHub Path for each alert policy definition
-
-## Alert Processing Rules
-
-<<TBD>>
-
-## Action Groups
-
-<<TBD>>
-
-## Metric Alerts
-
-
-
-| Component | Metric | Aggregator | Operator | Threshold | WindowSize | Frequency | Dimensions | Mandatory | Documented |<div style="width:240px">References</div>|
-|:----------|:------:|:----------:|:--------:|:---------:|:----------:|:---------:|:----------:|:---------:|:----------:|:---------------------------------------|
-| Microsoft.KeyVault/vaults | Availability | Average | LessThan | 90 | PT5M  | PT1M | No | Yes | Yes | - [General Key Vault Alerts](https://learn.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault#alerts)<br/>- [Configuring Key Vault Alerts](https://learn.microsoft.com/en-us/azure/key-vault/general/alert) <br/> - [Key Vault Monitoring Reference](https://docs.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault-reference)<br/>- [Monitoring Azure Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault)<br/>- [Key Vault Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/key-vault-insights-overview)|
-| Microsoft.KeyVault/vaults | SaturationShoebox | Average | GreaterThan | 75 | PT5M | PT1M | No | Yes | Yes | - [General Key Vault Alerts](https://learn.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault#alerts)<br/>- [Configuring Key Vault Alerts](https://learn.microsoft.com/en-us/azure/key-vault/general/alert)<br/> - [Key Vault Monitoring Reference](https://docs.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault-reference)<br/>- [Monitoring Azure Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault)<br/>- [Key Vault Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/key-vault-insights-overview) |
-| Microsoft.KeyVault/vaults | ServiceApiLatency | Average    | GreaterThan | 1000      | PT5M       | PT1M      | No              | Yes       | Y          | - [General Key Vault Alerts](https://learn.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault#alerts)<br/>- [Configuring Key Vault Alerts](https://learn.microsoft.com/en-us/azure/key-vault/general/alert)<br/>- [Key Vault Monitoring Reference](https://docs.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault-reference)<br/>- [Monitoring Azure Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/monitor-key-vault)<br/>- [Key Vault Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/key-vault-insights-overview) |
-| Microsoft.KeyVault/vaults | ServiceApiResult  | Average    | GreaterThan | dynamic   | PT5M       | PT1M      | StatusCodeClass | Yes       | N          |
-
-
-
-## Activity Log Alerts
-
-| Component | Metric | Aggregator | Operator | Threshold | WindowSize | Frequency | Dimensions | Mandatory | Documented |<div style="width:240px">Reference</div>|
-|:----------|:------:|:----------:|:--------:|:---------:|:----------:|:---------:|:----------:|:---------:|:----------:|:---------------------------------------|
-
-## Log Alerts
-
-| Component                 | Measure | Alert | Criteria | <div style="width:240px">Query </div> | Operational Dashboard | Mandatory | <div style="width:240px">References </div>                                                |
-|:--------------------------|:-------:|:-----:|:--------:|:--------------------------------------|:---------------------:|:---------:|:-------------------------------------------------------------------------------------|
-| Microsoft.KeyVault/vaults | Expiry  |  Yes  | Count>0  | --Add Query Here--                    |        Count>0        |    Yes    | Need to review but easier to set up than using eventgrid as already collecting logs. |
 
 
