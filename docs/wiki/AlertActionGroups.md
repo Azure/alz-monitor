@@ -14,7 +14,7 @@ Azure Policy : more consistent with overall ALZ approach and much simpler to mai
 
 Action Groups provide the action capability (what to do with the alert) when an alert is fired. For ALZ we will default to using a provided email address to send the alert details to.
 
-There are two patterns for consideration on how to deploy Action Groups in ALZ:
+There are two patterns for consideration on how to deploy Action Groups in ALZ as follows:
 
 #### Centralized Action Group
 
