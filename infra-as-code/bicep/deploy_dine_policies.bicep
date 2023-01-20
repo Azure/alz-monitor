@@ -10,36 +10,6 @@ param deploymentRoleDefinitionIds array = [
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// DNS Zone Alerts
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-module dnsz_queryVolume_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-dnsz_queryvolume_alert.bicep' = {
-   name: '${uniqueString(deployment().name)}-qva-policyDefinitions-deploy'
-   params: {
-    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-    policyLocation: policyLocation
-   }
-}
-
-module dnsz_recordSetCount_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-dnsz_recordsetcount_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-rsca-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-module dnsz_recordSetCapacityUtilization_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-dnsz_recordsetcapacityutilization_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-rscua-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
 // Key Vault Alerts
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,11 +35,6 @@ module kv_availability_policy '../../src/resources/Microsoft.Authorization/polic
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
-   parAlertSeverity: '1'
-   parWindowSize: 'PT5M'
-   parEvaluationFrequency: 'PT1M'
-   parPolicyEffect: 'disabled'
-   parThreshold: '90'
   }
 }
 
@@ -78,7 +43,7 @@ module kv_requests_policy '../../src/resources/Microsoft.Authorization/policyDef
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
-  }
+   }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,7 +110,6 @@ module pip_packetsinddos_policy '../../src/resources/Microsoft.Authorization/pol
   name: '${uniqueString(deployment().name)}-pippiddos-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
   }
 }
 
@@ -185,30 +149,6 @@ module sa_availability_policy '../../src/resources/Microsoft.Authorization/polic
   }
 }
 
-module sa_e2elatency_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-sa_e2elatency_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-sae2ela-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-module sa_latency_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-sa_latency_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-sassla-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-module sa_transactions_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-sa_transactions_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-sata-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Virtual Machine Alerts
@@ -231,22 +171,6 @@ module vm_availablememory_policy '../../src/resources/Microsoft.Authorization/po
 
 module vnet_ddosattack_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vnet_ddosattack_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vnetddosaa-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-module vnet_pingavgroundtrip_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vnet_pingavgroundtrip_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vnparta-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-module vnet_probefailed_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vnet_probefailed_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vnetpfa-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -285,14 +209,6 @@ module vnetg_tunnelegress_policy '../../src/resources/Microsoft.Authorization/po
 
 module vnetg_tunnelingress_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vnetg_ingress_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vnetgtiba-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-module vnetg_bgppeerstatus_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vnetg_bgppeerstatus_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vnpgbgppeerstatus-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -347,14 +263,6 @@ module vnetg_ingresspacketdropmismatch_policy '../../src/resources/Microsoft.Aut
 
 module vpng_bandwidthutilization_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vpng_bandwidthutilization_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vpngbua-policyDefinitions-deploy'
-  params: {
-   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
-   policyLocation: policyLocation
-  }
-}
-
-module vpng_bgppeerstatus_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vpng_bgppeerstatus_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vpngbgppsa-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -612,7 +520,6 @@ module aLog_VpnGwDelete_policy '../../src/resources/Microsoft.Authorization/poli
    policyLocation: policyLocation
   }
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
