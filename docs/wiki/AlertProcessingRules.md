@@ -2,6 +2,21 @@
 
 Alert Processing Rules enables the filtering of alerts and direct alerts to approriate action groups based on filter criteria.
 
-How we povision Alert Processing Rules will depend on the approach selected in [ALZ Monitor Alert Approach](https://github.com/Azure/alz-monitor/docs/wiki/alertapproach.md), as we need to know which Action Group to attach to per alert.
+For ALZ we will implement a single Action Group per subscription, and initially deploy a single Alert Processing Rule without filters to action alerts via the Action Group.
 
-TODO
+Suggest a review of minimum filters for the Alert Processing Rule for optimal alert processing.
+
+Available filters:
+- Alert condition
+- Alert context (payload)
+- Alert rule id
+- Alert name
+- Description
+- Monitor service
+- Resource
+- Resource group
+- Resource type
+- Severity
+- Signal type
+
+As an example suggest Severity (Critical, Error, Warning) only, filtering out (Informational, Verbose).
