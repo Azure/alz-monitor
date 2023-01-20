@@ -128,7 +128,7 @@ module RequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                 ]
             }
             then: {
-                effect: 'parameter(\'effect\')'
+                effect: '[parameters(\'effect\')]'
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/metricAlerts'

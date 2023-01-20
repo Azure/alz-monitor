@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "13294024816043309818"
+      "templateHash": "8670064448395907441"
     }
   },
   "parameters": {
@@ -170,7 +170,7 @@
                 ]
               },
               "then": {
-                "effect": "parameter('effect')",
+                "effect": "[[parameters('effect')]",
                 "details": {
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.Insights/metricAlerts",

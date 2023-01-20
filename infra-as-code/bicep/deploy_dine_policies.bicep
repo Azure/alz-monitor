@@ -269,6 +269,14 @@ module vpng_bandwidthutilization_policy '../../src/resources/Microsoft.Authoriza
   }
 }
 
+module vpng_bgppeerstatus_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vpng_bgppeerstatus_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vpngbgppsa-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
 module vpng_egress_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vpng_egress_alert.bicep' = {
   name: '${uniqueString(deployment().name)}-vpngtea-policyDefinitions-deploy'
   params: {
