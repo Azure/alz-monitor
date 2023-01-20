@@ -8,12 +8,7 @@ Alert Action Groups define the action to take when an alert is associated with i
 
 ### Mechanism
 
-Need to determine the best mechanism to deploy action groups in relation to ALZ.
-
-TODO: To be tested and validated, options:
-
-- Code -> ARM/Bicep/Terraform : will potentially be complicated and requires maintenance in multiple repos (RIs)
-- Policy : more consistent with overall ALZ approach and much simpler to maintain as it would be managed from the Enterprise-Scale repository (along with all the alert policies). Additionally, using policy enables the automatic creation of an Action Group when the subscription is created - however, need to determine how to specify the email  (distribution group) address.
+Azure Policy : more consistent with overall ALZ approach and much simpler to maintain as it would be managed from the Enterprise-Scale repository (along with all the alert policies). Additionally, using policy enables the automatic creation of an Action Group when the subscription is created.
 
 ## Action Groups
 
@@ -35,8 +30,8 @@ Policy Scope: Management Group/Subscription
 
 ### ALZ Decision
 
-The decision is to follow the decentralized approach and provision a single Action Group per subscription. This allows customers to configure discrete actions per subscription (different email addresses or other supported actions), although we will default to a single email address (distribution group) for all Action Groups as part of the initial Azure Landing Zone integration enabled through Azure Policy.
+The decision is to follow the decentralized approach and provision a single Action Group per subscription. This allows customers to configure discrete actions per subscription (different email addresses or other supported actions).
 
 Alert Processing Rules will target the Action Group in the subscription where the alert originated.
 
-The initial configuration provided by ALZ will configure all Action Groups with the same email distribution group/address (through Policy). However, customers may choose to configure alternate email distribution groups depending on the subscription/service or workload owners/etc.
+The initial configuration provided by ALZ will configure all Action Groups with the same email distribution group/address through Azure Policy. Customers may choose to configure alternate email distribution groups depending on the subscription/service or workload owners/etc.
