@@ -216,7 +216,7 @@ module VpngIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                         metricName: 'tunnelingressbytes'
                                                         operator: 'LessThan'
                                                         threshold: '[parameters(\'threshold\')]'
-                                                        timeAggregation: 'Total'
+                                                        timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
                                                 ]

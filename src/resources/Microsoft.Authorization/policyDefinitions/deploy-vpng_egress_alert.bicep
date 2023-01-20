@@ -216,7 +216,7 @@ module VpngEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                                         metricName: 'tunnelegressbytes'
                                                         operator: 'LessThan'
                                                         threshold: '[parameters(\'threshold\')]'
-                                                        timeAggregation: 'Total'
+                                                        timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
                                                 ]
