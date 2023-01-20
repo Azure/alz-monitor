@@ -1,0 +1,83 @@
+<!-- markdownlint-disable -->
+## How to consume the IP contained in this repo
+<!-- markdownlint-restore -->
+
+
+
+fixme need to fix/verify commands for deploying policies, initiatives and policy assignments
+fixme need to change subscription ids in workflows to be secret
+fixme need to create sample workflow
+fixme provide function to enable initiate remediation
+Fixme change deployments to optout by default
+Fixme include pid to policy file deployment, initiatives deployments and policy assignment deployment
+
+## Background
+
+This repo in its' present state contains ip for the following:
+- Policies to automatically create alerts, action groups and alert processing rules for different Azure resource types, centered around what is deployed in a greenfield ALZ deployment.
+- Initiatives grouping said policies into appropriate buckets for ease of policy assignment
+
+Note that the alerts, action groups and alert processing rules are created as follows:
+1. All metric alerts are created in the resource group where the resource that is being monitored exists. I.e. creating an ER circuit in a resource group covered by the policies will create the corresponding alerts in that same resource group.
+2. Activity log alerts are created in a specific resource group in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
+3. Resource health alerts are created in a specific resource group in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
+4. Action groups and alert processing rules are created in a specific resource group in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
+
+This guide describes how to get started with implementing these policies and initiatives in your environment for testing and validation. In the guide it is assumed that you will be using GitHub actions or manual deployment to implement policies, initiatives and policy assignments in your dev/test environment. 
+
+> Note that this is an experimental solution which should be deployed to dev/test environments initially to protect against possible failurs/unnecessary cost. 
+> Also note that this private repo is shared with different select Microsoft customers, as such you should never upload or otherwise divulge sensititve information to this repo.
+
+## Getting started
+
+- Fork this repo to your own GitHub organization, this should be done to allow all contributors to work completely independent of each other. Pull requests directly towards the repo will be rejected.
+- Clone the repo from your own GitHub organization to your developer workstation. 
+
+### Manual deployment - vanilla
+- Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
+- Run the following commands to deploy the policy definitions, initiatives and policy assignments as-is. Note that there can be some delay between policies getting created and actually being included in initiatives so allow for some delay between command fix and command fixme. Refer to fixme for more information on how customize the installation.
+
+
+```bash
+  location="Your Azure location of choice"
+  managementGroupId="The management group id where you want to deploy policies"
+  az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $location --management-group-id $managementGroupId
+  # Wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
+  Fixme check if this needs to be json
+  az deployment mg create --template-file infra-as-code/bicep/deploy_dine_initiatives.bicep --location $location --management-group-id $managementGroupId
+  # Wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating policy assignments
+  az deployment mg create --template-file infra-as-code/bicep/policyAssignDeploy.bicep --parameters parTargetManagementGroupId=$managementGroupId --location $location --management-group-id $managementGroupId
+```
+
+```powershell
+fixme powershell here
+```
+### Deploy through GitHub Actions - vanilla
+To deploy through GitHub actions, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following.
+- Configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
+- Modify the following values in sample-workflow.yml:
+  - Change _Location: "norwayeast"_, to your preferred Azure region
+  - Change _ManagementGroupPrefix: "contoso"_, to the management group where you wish to deploy the policies, initiatives and policy assignments.
+- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
+
+## Policy remediation
+The policies are all deploy-if-not-exists, by default, meaning that any new deployments will be influenced by them. Therefore if you are deploying in a greenfield scenario and will afterwards be deploying any of the covered resource types, including subscriptions, then the policies will take effect and the relevant alert rules, action groups and alert processing rules will be created. 
+If you are in a brown-field scenario on the other hand, policies will be reporting non-compliance for resources in scope, but to remediate non-compliant resources you will need to initiate remediation. This can be done either through the portal, on a policy-by-policy basis or you can run the script found in fixme to remediate all policies in scope as defined by management group pre-fix.
+
+## Customize the deployment
+fixme particularly for policy/initiative assignment, wait for input from @kausd1/Bryan
+
+## Customizing the `ALZ-Monitor` policies
+
+Whatever way you may choose to consume the policies we do expect, and want, customers and partners to customize the policies to suit their needs and requirements for their design in their local copies of the policies.
+
+For example, if you want to include more thresholds, metrics, activity log alerts or similar, outside of what the parameters allow you to change and customize, then by opening up the individual policy or initiative definitions you should be able to read, understand and customize the required lines to meet your requirements easily.
+
+This customized policy can then be deployed into your environment to deliver the desired functionality.
+
+<!-- markdownlint-disable -->
+> **IMPORTANT:** If you believe the changes you have made should be more easily available to be customized by a parameter etc. in the policies, then please raise an [issue](https://github.com/Azure/ALZ-Monitor/issues) for a 'Feature Request' on the repository 👍
+> 
+> If you wish to, also feel free to submit a pull request relating to the issue which we can review and work with you to potentially implement the suggestion/feature request 👍
+<!-- markdownlint-restore -->
+

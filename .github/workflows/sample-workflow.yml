@@ -1,0 +1,45 @@
+
+name: Deploy ALZ Monitor policies
+
+# only trigger on pull request closed events
+on:
+  workflow_dispatch: {}
+
+permissions:
+      id-token: write
+      contents: read
+
+env:
+  Location: "norwayeast"
+  ManagementGroupPrefix: "contoso"
+  
+jobs:
+  deploy_job:
+    runs-on: ubuntu-latest
+    environment: deploy
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+    - name: Az CLI Deploy Monitor Policy Definitions
+      id: create_monitor_policy_defs
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    
+    - name: Az CLI Monitor Policy assignments
+      id: create_monitor_policy_assignment_dine
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/policyAssignDeploy.bicep --parameters parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
