@@ -1,135 +1,1880 @@
-{"$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": {
-
-  },
-  "resources" : [
+  "resources": [
     {
-  "type": "Microsoft.Authorization/policySetDefinitions",
-  "apiVersion": "2021-06-01",
-  "name": "Alerting-Networking",
-  "properties": {
-    "metadata": {     
-              "version": "1.0.0",
-              "category": "Monitoring",
-              "source": "https://github.com/Azure/ALZ-Monitor/"     
-    },
-    "policyDefinitions": [
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_QosDropBitsInPerSecond_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_QosDropBitsOutPerSecond_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_BGPPeerStatus_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_ExpressRouteCpuUtil_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelBandwidth_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgress_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngress_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_BandwidthUtil_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Egress_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelEgressPacketDropCount_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelEgressPacketDropMismatch_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Ingress_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelIngressPacketDropCount_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_CapacityUtil_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_QueryVolume_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_RecordSetCapacity_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_RegistrationCapacityUtil_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsIn_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsOut_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteCpuUtil_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgressPacketDropCount_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngressPacketDropCount_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_BgpAvailability_Alert')]"
-      },
-      {
-        "parameters": {},
-        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_BgpPeerStatus_Alert')]"
+      "type": "Microsoft.Authorization/policySetDefinitions",
+      "apiVersion": "2021-06-01",
+      "name": "Alerting-Networking",
+      "properties": {
+        "metadata": {
+          "version": "1.0.0",
+          "category": "Monitoring",
+          "source": "https://github.com/Azure/ALZ-Monitor/"
+        },
+        "parameters": {
+          "ERCIRQoSDropBitsinPerSecAlertSeverity": {
+            "type": "String",
+            "defaultValue": "2",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERCIRQoSDropBitsinPerSecWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERCIRQoSDropBitsinPerSecEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERCIRQoSDropBitsinPerSecPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERCIRQoSDropBitsinPerSecThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "ERCIRQoSDropBitsoutPerSecAlertSeverity": {
+            "type": "String",
+            "defaultValue": "2",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERCIRQoSDropBitsoutPerSecWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERCIRQoSDropBitsoutPerSecEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERCIRQoSDropBitsoutPerSecPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERCIRQoSDropBitsoutPerSecThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "VPNGwBGPPeerStatusAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VPNGwBGPPeerStatusWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VPNGwBGPPeerStatusEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VPNGwBGPPeerStatusPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VPNGwBGPPeerStatusThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "VnetGwERCpuUtilAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwERCpuUtilWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwERCpuUtilEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwERCpuUtilPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwERCpuUtilThreshold": {
+            "type": "string",
+            "defaultValue": "80"
+          },
+          "VnetGwTunnelBWAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwTunnelBWWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwTunnelBWEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwTunnelBWPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwTunnelBWThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "VnetGwTunnelEgressAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwTunnelEgressWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwTunnelEgressEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwTunnelEgressPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwTunnelEgressThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "VnetGwTunnelIngressAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwTunnelIngressWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwTunnelIngressEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwTunnelIngressPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwTunnelIngressThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "VPNGWBandWidthUtilAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VPNGWBandWidthUtilWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VPNGWBandWidthUtilEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VPNGWBandWidthUtilPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VPNGWBandWidthUtilThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "VPNGWEgressAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VPNGWEgressWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VPNGWEgressEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VPNGWEgressPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VPNGWEgressThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "VPNGWTunnelEgressPacketDropCountAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VPNGWTunnelEgressPacketDropCountWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VPNGWTunnelEgressPacketDropCountFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VPNGWTunnelEgressPacketDropCountPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VPNGWTunnelEgressPacketDropCountThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "VPNGWTunnelEgressPacketDropMismatchAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VPNGWTunnelEgressPacketDropMismatchWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VPNGWTunnelEgressPacketDropMismatchFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VPNGWTunnelEgressPacketDropMismatchPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VPNGWTunnelEgressPacketDropMismatchThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "VPNGWTunnelIngressPacketDropCountAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VPNGWTunnelIngressPacketDropCountWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VPNGWTunnelIngressPacketDropCountFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VPNGWTunnelIngressPacketDropCountPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VPNGWTunnelIngressPacketDropCountThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "VPNGWTunnelIngressPacketDropMismatchAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VPNGWTunnelIngressPacketDropMismatchWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VPNGWTunnelIngressPacketDropMismatchFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VPNGWTunnelIngressPacketDropMismatchPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VPNGWTunnelIngressPacketDropMismatchThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "PDNSZCapacityUtilAlertSeveritySeverity": {
+            "type": "String",
+            "defaultValue": "2",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "PDNSZCapacityUtilWindowSize": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "PDNSZCapacityUtilEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "PDNSZCapacityUtilPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "PDNSZCapacityUtilThreshold": {
+            "type": "string",
+            "defaultValue": "80"
+          },
+          "PDNSZQueryVolumeAlertSeveritySeverity": {
+            "type": "String",
+            "defaultValue": "4",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "PDNSZQueryVolumeWindowSize": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "PDNSZQueryVolumeEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "PDNSZQueryVolumePolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "PDNSZQueryVolumeThreshold": {
+            "type": "string",
+            "defaultValue": "500"
+          },
+          "PDNSZRecordSetCapacityAlertSeveritySeverity": {
+            "type": "String",
+            "defaultValue": "2",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "PDNSZRecordSetCapacityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "PDNSZRecordSetCapacityEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "PDNSZRecordSetCapacityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "PDNSZRecordSetCapacityThreshold": {
+            "type": "string",
+            "defaultValue": "80"
+          },
+          "PDNSZRegistrationCapacityUtilAlertSeverity": {
+            "type": "String",
+            "defaultValue": "2",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "PDNSZRegistrationCapacityUtilWindowSize": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "PDNSZRegistrationCapacityUtilEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "PDNSZRegistrationCapacityUtilPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "PDNSZRegistrationCapacityUtilThreshold": {
+            "type": "string",
+            "defaultValue": "80"
+          },
+          "ERGwExpressRouteBitsInAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERGwExpressRouteBitsInWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERGwExpressRouteBitsInEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERGwExpressRouteBitsInPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERGwExpressRouteBitsInThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "ERGwExpressRouteBitsOutAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERGwExpressRouteBitsOutWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERGwExpressRouteBitsOutEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERGwExpressRouteBitsOutPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERGwExpressRouteBitsOutThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "ERGwExpressRouteCpuUtilAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERGwExpressRouteCpuUtilWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERGwExpressRouteCpuUtilEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERGwExpressRouteCpuUtilPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERGwExpressRouteCpuUtilThreshold": {
+            "type": "string",
+            "defaultValue": "80"
+          },
+          "VnetGwTunnelEgressPacketDropCountAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwTunnelEgressPacketDropCountWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwTunnelEgressPacketDropCountEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwTunnelEgressPacketDropCountPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwTunnelEgressPacketDropCountThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "VnetGwTunnelEgressPacketDropMismatchAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwTunnelEgressPacketDropMismatchWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwTunnelEgressPacketDropMismatchEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwTunnelEgressPacketDropMismatchPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwTunnelEgressPacketDropMismatchThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "VnetGwExpressRouteBitsPerSecondAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwExpressRouteBitsPerSecondWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwExpressRouteBitsPerSecondEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwExpressRouteBitsPerSecondPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwExpressRouteBitsPerSecondThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "VnetGwTunnelIngressPacketDropMismatchAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwTunnelIngressPacketDropMismatchWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwTunnelIngressPacketDropMismatchEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwTunnelIngressPacketDropMismatchPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwTunnelIngressPacketDropMismatchThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "VnetGwTunnelIngressPacketDropCountAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwTunnelIngressPacketDropCountWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwTunnelIngressPacketDropCountEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwTunnelIngressPacketDropCountPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwTunnelIngressPacketDropCountThreshold": {
+            "type": "string",
+            "defaultValue": "100"
+          },
+          "ERCIRBgpAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERCIRBgpAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERCIRBgpAvailabilityEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERCIRBgpAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERCIRBgpAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "90"
+          },
+          "VnetGwBGPPeerStatusAlertSeverity": {
+            "type": "String",
+            "defaultValue": "3",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VnetGwBGPPeerStatusWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VnetGwBGPPeerStatusEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VnetGwBGPPeerStatusPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VnetGwBGPPeerStatusThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          }
+        },
+        "policyDefinitions": [
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_QosDropBitsInPerSecond_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERCIRQoSDropBitsinPerSecAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERCIRQoSDropBitsinPerSecWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERCIRQoSDropBitsinPerSecEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERCIRQoSDropBitsinPerSecPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERCIRQoSDropBitsinPerSecThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_QosDropBitsOutPerSecond_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERCIRQoSDropBitsoutPerSecAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERCIRQoSDropBitsoutPerSecWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERCIRQoSDropBitsoutPerSecEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERCIRQoSDropBitsoutPerSecPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERCIRQoSDropBitsoutPerSecThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_BGPPeerStatus_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VPNGwBGPPeerStatusAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VPNGwBGPPeerStatusWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VPNGwBGPPeerStatusEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VPNGwBGPPeerStatusPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VPNGwBGPPeerStatusThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_ExpressRouteCpuUtil_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwERCpuUtilAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwERCpuUtilWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwERCpuUtilEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwERCpuUtilPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwERCpuUtilThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelBandwidth_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwTunnelBWAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwTunnelBWWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwTunnelBWEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwTunnelBWPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwTunnelBWThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgress_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwTunnelEgressAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwTunnelEgressWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwTunnelEgressEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwTunnelEgressPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwTunnelEgressThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngress_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwTunnelIngressAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwTunnelIngressWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwTunnelIngressEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwTunnelIngressPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwTunnelIngressThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_BandwidthUtil_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VPNGWBandWidthUtilAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VPNGWBandWidthUtilWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VPNGWBandWidthUtilEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VPNGWBandWidthUtilPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VPNGWBandWidthUtilThreshold')]"
+              }
+
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Egress_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VPNGWEgressAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VPNGWEgressWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VPNGWEgressEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VPNGWEgressPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VPNGWEgressThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelEgressPacketDropCount_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropCountAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropCountWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropCountFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropCountPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropCountThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelEgressPacketDropMismatch_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropMismatchAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropMismatchWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropMismatchFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropMismatchPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VPNGWTunnelEgressPacketDropMismatchThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Ingress_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VPNGWIngressAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VPNGWIngressWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VPNGWIngressEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VPNGWIngressPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VPNGWIngressThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelIngressPacketDropCount_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropCountAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropCountWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropCountFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropCountPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropCountThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropMismatchAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropMismatchWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropMismatchFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropMismatchPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VPNGWTunnelIngressPacketDropMismatchThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_CapacityUtil_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('PDNSZCapacityUtilAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('PDNSZCapacityUtilWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('PDNSZCapacityUtilEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('PDNSZCapacityUtilPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('PDNSZCapacityUtilThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_QueryVolume_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('PDNSZQueryVolumeAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('PDNSZQueryVolumeWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('PDNSZQueryVolumeEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('PDNSZQueryVolumePolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('PDNSZQueryVolumeThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_RecordSetCapacity_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('PDNSZRecordSetCapacityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('PDNSZRecordSetCapacityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('PDNSZRecordSetCapacityEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('PDNSZRecordSetCapacityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('PDNSZRecordSetCapacityThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_RegistrationCapacityUtil_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('PDNSZRegistrationCapacityUtilAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('PDNSZRegistrationCapacityUtilWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('PDNSZRegistrationCapacityUtilEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('PDNSZRegistrationCapacityUtilPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('PDNSZRegistrationCapacityUtilThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsIn_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERGwExpressRouteBitsInAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERGwExpressRouteBitsInWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERGwExpressRouteBitsInEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERGwExpressRouteBitsInPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERGwExpressRouteBitsInThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsOut_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERGwExpressRouteBitsOutAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERGwExpressRouteBitsOutWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERGwExpressRouteBitsOutEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERGwExpressRouteBitsOutPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERGwExpressRouteBitsOutThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteCpuUtil_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERGwExpressRouteCpuUtilAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERGwExpressRouteCpuUtilWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERGwExpressRouteCpuUtilEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERGwExpressRouteCpuUtilPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERGwExpressRouteCpuUtilThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgressPacketDropCount_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropCountAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropCountWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropCountEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropCountPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropCountThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropMismatchAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropMismatchWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropMismatchEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropMismatchPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwTunnelEgressPacketDropMismatchThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwExpressRouteBitsPerSecondAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwExpressRouteBitsPerSecondWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwExpressRouteBitsPerSecondEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwExpressRouteBitsPerSecondPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwExpressRouteBitsPerSecondThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropMismatchAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropMismatchWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropMismatchEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropMismatchPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropMismatchThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngressPacketDropCount_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropCountAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropCountWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropCountEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropCountPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwTunnelIngressPacketDropCountThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_BgpAvailability_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERCIRBgpAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERCIRBgpAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERCIRBgpAvailabilityEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERCIRBgpAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERCIRBgpAvailabilityThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_BgpPeerStatus_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('VnetGwBGPPeerStatusAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('VnetGwBGPPeerStatusWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('VnetGwBGPPeerStatusEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('VnetGwBGPPeerStatusPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('VnetGwBGPPeerStatusThreshold')]"
+              }
+            }
+          }
+        ],
+        "policyType": "Custom"
       }
-    ],
-    "policyType": "Custom"
-  }
-}
+    }
   ]
 }

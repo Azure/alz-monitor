@@ -39,8 +39,8 @@
     -deploy-afw_snatportutilization_alert
 
 ## Networking initiative comprises of
-    ~~-deploy-dnsz_queryvolume_alert~~-delete
-    ~~-deploy-dnsz_recordsetcapacityutilization_alert ~~-delete
+    ~~deploy-dnsz_queryvolume_alert~~-delete
+    ~~-deploy-dnsz_recordsetcapacityutilization_alert~~-delete
     ~~-deploy-dnsz_recordsetcount_alert~~-delete
     -deploy-ercir_qosdropsbitsin_alert
     -deploy-ercir_qosdropsbitsout_alert
@@ -58,7 +58,7 @@
     -deploy-vpng_ingresspacketdropmismatch_alert
     ~~-deploy-vnet_pingavgroundtrip_alert~~-delete
     ~~-deploy-vnet_probefailed_alert~~-delete
-    -deploy-pdnsz_capacityutilization_alert
+    -Deploy_DNSZ_RegistrationCapacityUtil_Alert(PDNSZ)
     -deploy-pdnsz_queryvolume_alert
     -deploy-pdnsz_recordsetcapacity_alert
     -deploy-pdnsz_registrationcapacityutilization_alert
