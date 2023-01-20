@@ -18,7 +18,7 @@ There are two patterns for consideration on how to deploy Action Groups in ALZ:
 
 #### Centralized Action Group
 
-A single centralized action group in the "AlzMonitoring-RG" resource group in the management platform landing zone. This is a simpler approach and only supports a single email (distribution group) address for all alert forwarding. This mayt be too restrictive for certain scenarios.
+A single centralized action group in the "AlzMonitoring-RG" resource group in the management platform landing zone. This is a simpler approach and only supports a single email (distribution group) address for all alert forwarding. This is perceived as being too limited for most scenarios.
 
 Policy Scope: Single subscription
 
