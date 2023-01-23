@@ -622,3 +622,17 @@ module actGrp_AlertProcessing_policy '../../src/resources/Microsoft.Authorizatio
    policyLocation: policyLocation
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Policy-Driven Governance
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module aLog_PolicyDINEFailed_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-PolicyDINE-Failed.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogPolicyDINEFailed-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}

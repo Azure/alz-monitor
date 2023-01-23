@@ -852,3 +852,17 @@ module Deploy_ActGrp_AlertPpocessingRule '../../infra-as-code/bicep/modules/poli
     ]
   }
 }
+
+module Deploy_PolicyDINE_Failed_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+  name: '${uniqueString(deployment().name)}-Deploy_PolicyDINE_Failed_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_PolicyDINE_failed'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log Policy DeployIfNotExists failed alert'
+    parPolicyAssignmentName: 'Deploy_PolicyDINEF_A'
+    parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log Policy DeployIfNotExists failed alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+  }
+}
