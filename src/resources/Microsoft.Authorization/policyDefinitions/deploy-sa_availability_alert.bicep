@@ -222,6 +222,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: true
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'

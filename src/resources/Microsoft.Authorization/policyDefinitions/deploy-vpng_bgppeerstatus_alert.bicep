@@ -222,6 +222,7 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: true
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'

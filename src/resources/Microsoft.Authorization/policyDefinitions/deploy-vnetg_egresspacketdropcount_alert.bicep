@@ -217,6 +217,7 @@ module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policy
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: true
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'

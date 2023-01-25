@@ -222,6 +222,7 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: true
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'

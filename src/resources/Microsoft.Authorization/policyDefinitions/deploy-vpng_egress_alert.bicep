@@ -222,6 +222,7 @@ module VpngEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: true
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'

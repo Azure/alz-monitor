@@ -217,6 +217,7 @@ module VnetgIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/po
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: true
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'

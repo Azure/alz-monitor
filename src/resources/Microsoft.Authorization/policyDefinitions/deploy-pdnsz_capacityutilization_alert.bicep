@@ -222,6 +222,7 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: true
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
