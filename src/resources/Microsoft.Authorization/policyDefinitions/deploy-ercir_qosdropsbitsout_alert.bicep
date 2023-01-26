@@ -44,6 +44,8 @@ param parEvaluationFrequency string = 'PT5M'
 ])
 param parPolicyEffect string = 'deployIfNotExists'
 
+param parAutoMitigate string = 'true'
+
 module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-erqosdropsout-policyDefinitions'
     params: {
@@ -104,6 +106,18 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                     'PT1H'
                 ]
                 defaultValue: parEvaluationFrequency
+            }
+            autoMitigate: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Auto Mitigate'
+                    description: 'Auto Mitigate for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAutoMitigate
             }
             effect: {
                 type: 'String'
@@ -178,6 +192,9 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    autoMitigate: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -213,7 +230,7 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
-                                            autoMitigate: true
+                                            autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
@@ -223,6 +240,9 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                                 }
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
                                             }
                                         }
@@ -244,6 +264,9 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                 }
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
                             }
                         }
