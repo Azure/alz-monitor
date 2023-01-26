@@ -13,11 +13,11 @@ env:
   Location: "norwayeast"
   ManagementGroupPrefix: "vwan"
   TopLevelManagementGroupDisplayName: "VWAN Networking management group hierarchy"
-  mgSubscriptionId: "VWAN_MGMT_SUBSCRIPTIONID"
+  mgSubscriptionId: ${{ secrets.VWAN_MGMT_SUBSCRIPTIONID }}
   mgResourceGroup: "vwan-mgmt"
-  connSubscriptionId: "VWAN_CONNECTIVITY_SUBSCRIPTIONID"
+  connSubscriptionId: ${{ secrets.VWAN_CONNECTIVITY_SUBSCRIPTIONID }}
   connResourceGroup: "vwan-connectivity"
-  spokeSubscriptionId: "VWAN_SPOKE_SUBSCRIPTIONID"
+  spokeSubscriptionId: ${{ secrets.VWAN_SPOKE_SUBSCRIPTIONID }}
   spokeResourceGroup: "spoke-connectivity"
 
   
@@ -68,7 +68,7 @@ jobs:
       id: create_logging
       shell: bash
       run: |
-          az account set --subscription ${{ env.mgSubscriptionId }}
+          az account set --subscription ${{ secrets.VWAN_MGMT_SUBSCRIPTIONID }}
           az group create --name ${{ env.mgResourceGroup }} --location ${{ env.Location }}
           az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
 
