@@ -8,17 +8,125 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
+@allowed([
+    '0'
+    '1'
+    '2'
+    '3'
+    '4'
+])
+param parAlertSeverity string = '1'
+
+@allowed([
+    'PT1M'
+    'PT5M'
+    'PT15M'
+    'PT30M'
+    'PT1H'
+    'PT6H'
+    'PT12H'
+    'P1D'
+])
+param parWindowSize string = 'PT5M'
+
+@allowed([
+    'PT1M'
+    'PT5M'
+    'PT15M'
+    'PT30M'
+    'PT1H'
+])
+param parEvaluationFrequency string = 'PT1M'
+
+@allowed([
+    'deployIfNotExists'
+    'disabled'
+])
+param parPolicyEffect string = 'disabled'
+
+param parThreshold string = '90'
+
 module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kva-policyDefinitions'
     params: {
         name: 'Deploy_KeyVault_Availability_Alert'
-        displayName: '[DINE] Deploy KeyVault Query Volume Alert'
-        description: 'DINE policy to audit/deploy KeyVault Query Volume Alert'
+        displayName: '[DINE] Deploy KeyVault Availability Alert'
+        description: 'DINE policy to audit/deploy KeyVault Availability Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
             Category: 'Key Vault'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
+        parameters: {
+            severity: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Severity'
+                    description: 'Severity of the Alert'
+                }
+                allowedValues: [
+                    '0'
+                    '1'
+                    '2'
+                    '3'
+                    '4'
+                ]
+                defaultValue: parAlertSeverity
+            }
+            windowSize: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Window Size'
+                    description: 'Window size for the alert'
+                }
+                allowedValues: [
+                    'PT1M'
+                    'PT5M'
+                    'PT15M'
+                    'PT30M'
+                    'PT1H'
+                    'PT6H'
+                    'PT12H'
+                    'P1D'
+                ]
+                defaultValue: parWindowSize
+            }
+            evaluationFrequency: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Evaluation Frequency'
+                    description: 'Evaluation frequency for the alert'
+                }
+                allowedValues: [
+                    'PT1M'
+                    'PT5M'
+                    'PT15M'
+                    'PT30M'
+                    'PT1H'
+                ]
+                defaultValue: parEvaluationFrequency
+            }
+            threshold: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Threshold'
+                    description: 'Threshold for the alert'
+                }
+                defaultValue: parThreshold
+            }
+            effect: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Effect of the policy'
+                }
+                allowedValues: [
+                    'deployIfNotExists'
+                    'disabled'
+                ]
+                defaultValue: parPolicyEffect
+            }
         }
         policyRule: {
             if: {
@@ -30,7 +138,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 ]
             }
             then: {
-                effect: 'deployIfNotExists'
+                effect: '[parameters(\'effect\')]'
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/metricAlerts'
@@ -71,6 +179,18 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                             description: 'Resource ID of the resource emitting the metric that will be used for the comparison'
                                         }
                                     }
+                                    severity: {
+                                        type: 'String'
+                                    }
+                                    windowSize: {
+                                        type: 'String'
+                                    }
+                                    evaluationFrequency: {
+                                        type: 'String'
+                                    }
+                                    threshold: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -81,13 +201,13 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         location: 'global'
                                         properties: {
                                             description: 'Metric Alert for KeyVault Availability'
-                                            severity: 3
+                                            severity: '[parameters(\'severity\')]'
                                             enabled: true
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
-                                            evaluationFrequency: 'PT5M'
-                                            windowSize: 'PT5M'
+                                            evaluationFrequency: '[parameters(\'evaluationFrequency\')]'
+                                            windowSize: '[parameters(\'windowSize\')]'
                                             criteria: {
                                                 allOf: [
                                                     {
@@ -95,12 +215,26 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                         metricNamespace: 'microsoft.keyvault/vaults'
                                                         metricName: 'Availability'
                                                         operator: 'LessThan'
-                                                        threshold: 100
+                                                        threshold: '[parameters(\'threshold\')]'
                                                         timeAggregation: 'Average'
                                                         criterionType: 'StaticThresholdCriterion'
                                                     }
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                            }
+                                            parameters: {
+                                                severity: {
+                                                    value: '[parameters(\'severity\')]'
+                                                }
+                                                windowSize: {
+                                                    value: '[parameters(\'windowSize\')]'
+                                                }
+                                                evaluationFrequency: {
+                                                    value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                threshold: {
+                                                    value: '[parameters(\'threshold\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -112,6 +246,18 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                 }
                                 resourceId: {
                                     value: '[field(\'id\')]'
+                                }
+                                severity: {
+                                    value: '[parameters(\'severity\')]'
+                                }
+                                windowSize: {
+                                    value: '[parameters(\'windowSize\')]'
+                                }
+                                evaluationFrequency: {
+                                    value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                threshold: {
+                                    value: '[parameters(\'threshold\')]'
                                 }
                             }
                         }

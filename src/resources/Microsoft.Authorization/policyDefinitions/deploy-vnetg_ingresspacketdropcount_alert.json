@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.13.1.58284",
-      "templateHash": "8237321890795341133"
+      "version": "0.4.1272.37030",
+      "templateHash": "9077406873960213896"
     }
   },
   "parameters": {
@@ -17,6 +17,50 @@
       "type": "array",
       "defaultValue": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ]
+    },
+    "parAlertSeverity": {
+      "type": "string",
+      "defaultValue": "3",
+      "allowedValues": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "parWindowSize": {
+      "type": "string",
+      "defaultValue": "PT5M",
+      "allowedValues": [
+        "PT1M",
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H",
+        "PT6H",
+        "PT12H",
+        "P1D"
+      ]
+    },
+    "parEvaluationFrequency": {
+      "type": "string",
+      "defaultValue": "PT5M",
+      "allowedValues": [
+        "PT1M",
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H"
+      ]
+    },
+    "parPolicyEffect": {
+      "type": "string",
+      "defaultValue": "deployIfNotExists",
+      "allowedValues": [
+        "deployIfNotExists",
+        "disabled"
       ]
     }
   },
@@ -51,6 +95,70 @@
               "source": "https://github.com/Azure/ALZ-Monitor/"
             }
           },
+          "parameters": {
+            "value": {
+              "severity": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Severity",
+                  "description": "Severity of the Alert"
+                },
+                "allowedValues": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "defaultValue": "[parameters('parAlertSeverity')]"
+              },
+              "windowSize": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Window Size",
+                  "description": "Window size for the alert"
+                },
+                "allowedValues": [
+                  "PT1M",
+                  "PT5M",
+                  "PT15M",
+                  "PT30M",
+                  "PT1H",
+                  "PT6H",
+                  "PT12H",
+                  "P1D"
+                ],
+                "defaultValue": "[parameters('parWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Evaluation Frequency",
+                  "description": "Evaluation frequency for the alert"
+                },
+                "allowedValues": [
+                  "PT1M",
+                  "PT5M",
+                  "PT15M",
+                  "PT30M",
+                  "PT1H"
+                ],
+                "defaultValue": "[parameters('parEvaluationFrequency')]"
+              },
+              "effect": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Effect",
+                  "description": "Effect of the policy"
+                },
+                "allowedValues": [
+                  "deployIfNotExists",
+                  "disabled"
+                ],
+                "defaultValue": "[parameters('parPolicyEffect')]"
+              }
+            }
+          },
           "policyRule": {
             "value": {
               "if": {
@@ -66,7 +174,7 @@
                 ]
               },
               "then": {
-                "effect": "deployIfNotExists",
+                "effect": "[[parameters('effect')]",
                 "details": {
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.Insights/metricAlerts",
@@ -106,6 +214,15 @@
                               "displayName": "resourceId",
                               "description": "Resource ID of the resource emitting the metric that will be used for the comparison"
                             }
+                          },
+                          "severity": {
+                            "type": "String"
+                          },
+                          "windowSize": {
+                            "type": "String"
+                          },
+                          "evaluationFrequency": {
+                            "type": "String"
                           }
                         },
                         "variables": {},
@@ -117,26 +234,41 @@
                             "location": "global",
                             "properties": {
                               "description": "Metric Alert for Vnet Gateway tunnel TunnelIngressPacketDropCount",
-                              "severity": 3,
+                              "severity": "[[parameters('severity')]",
                               "enabled": true,
                               "scopes": [
                                 "[[parameters('resourceId')]"
                               ],
-                              "evaluationFrequency": "PT5M",
-                              "windowSize": "PT5M",
+                              "evaluationFrequency": "[[parameters('evaluationFrequency')]",
+                              "windowSize": "[[parameters('windowSize')]",
                               "criteria": {
                                 "allOf": [
                                   {
+                                    "alertSensitivity": "Medium",
+                                    "failingPeriods": {
+                                      "numberOfEvaluationPeriods": 4,
+                                      "minFailingPeriodsToAlert": 4
+                                    },
                                     "name": "TunnelIngressPacketDropCount",
                                     "metricNamespace": "microsoft.network/virtualNetworkGateways",
                                     "metricName": "TunnelIngressPacketDropCount",
                                     "operator": "GreaterThan",
-                                    "threshold": 100,
                                     "timeAggregation": "Average",
-                                    "criterionType": "StaticThresholdCriterion"
+                                    "criterionType": "DynamicThresholdCriterion"
                                   }
                                 ],
                                 "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                              },
+                              "parameters": {
+                                "severity": {
+                                  "value": "[[parameters('severity')]"
+                                },
+                                "windowSize": {
+                                  "value": "[[parameters('windowSize')]"
+                                },
+                                "evaluationFrequency": {
+                                  "value": "[[parameters('evaluationFrequency')]"
+                                }
                               }
                             }
                           }
@@ -148,6 +280,15 @@
                         },
                         "resourceId": {
                           "value": "[[field('id')]"
+                        },
+                        "severity": {
+                          "value": "[[parameters('severity')]"
+                        },
+                        "windowSize": {
+                          "value": "[[parameters('windowSize')]"
+                        },
+                        "evaluationFrequency": {
+                          "value": "[[parameters('evaluationFrequency')]"
                         }
                       }
                     }
@@ -163,8 +304,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.13.1.58284",
-              "templateHash": "14311601305764621350"
+              "version": "0.4.1272.37030",
+              "templateHash": "4253137932837702667"
             }
           },
           "parameters": {
@@ -294,7 +435,7 @@
             },
             "roleDefinitionIds": {
               "type": "array",
-              "value": "[if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then, 'details'), if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then.details, 'roleDefinitionIds'), reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then.details.roleDefinitionIds, createArray()), createArray())]",
+              "value": "[if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then, 'details'), if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then.details, 'roleDefinitionIds'), reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name'))).policyRule.then.details.roleDefinitionIds, createArray()), createArray())]",
               "metadata": {
                 "description": "Policy Definition Role Definition IDs."
               }
