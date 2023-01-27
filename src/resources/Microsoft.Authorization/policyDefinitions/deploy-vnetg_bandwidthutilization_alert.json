@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.13.1.58284",
-      "templateHash": "2515248615825317935"
+      "templateHash": "6466196892294097687"
     }
   },
   "parameters": {
@@ -62,6 +62,10 @@
         "deployIfNotExists",
         "disabled"
       ]
+    },
+    "parAutoMitigate": {
+      "type": "string",
+      "defaultValue": "true"
     },
     "parThreshold": {
       "type": "string",
@@ -148,6 +152,18 @@
                   "PT1H"
                 ],
                 "defaultValue": "[parameters('parEvaluationFrequency')]"
+              },
+              "autoMitigate": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Auto Mitigate",
+                  "description": "Auto Mitigate for the alert"
+                },
+                "allowedValues": [
+                  "true",
+                  "false"
+                ],
+                "defaultValue": "[parameters('parAutoMitigate')]"
               },
               "threshold": {
                 "type": "String",
@@ -236,6 +252,9 @@
                           "evaluationFrequency": {
                             "type": "String"
                           },
+                          "autoMitigate": {
+                            "type": "String"
+                          },
                           "threshold": {
                             "type": "String"
                           }
@@ -270,6 +289,7 @@
                                 ],
                                 "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
                               },
+                              "autoMitigate": "[[parameters('autoMitigate')]",
                               "parameters": {
                                 "severity": {
                                   "value": "[[parameters('severity')]"
@@ -279,6 +299,9 @@
                                 },
                                 "evaluationFrequency": {
                                   "value": "[[parameters('evaluationFrequency')]"
+                                },
+                                "autoMitigate": {
+                                  "value": "[[parameters('autoMitigate')]"
                                 },
                                 "threshold": {
                                   "value": "[[parameters('threshold')]"
@@ -303,6 +326,9 @@
                         },
                         "evaluationFrequency": {
                           "value": "[[parameters('evaluationFrequency')]"
+                        },
+                        "autoMitigate": {
+                          "value": "[[parameters('autoMitigate')]"
                         },
                         "threshold": {
                           "value": "[[parameters('threshold')]"
