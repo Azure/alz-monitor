@@ -44,6 +44,8 @@ param parEvaluationFrequency string = 'PT5M'
 ])
 param parPolicyEffect string = 'deployIfNotExists'
 
+param parAutoMitigate string = 'true'
+
 module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngegresspacketdropmismatch-policyDefinitions'
     params: {
@@ -104,6 +106,18 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                     'PT1H'
                 ]
                 defaultValue: parEvaluationFrequency
+            }
+            autoMitigate: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Auto Mitigate'
+                    description: 'Auto Mitigate for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAutoMitigate
             }
             effect: {
                 type: 'String'
@@ -178,6 +192,9 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    autoMitigate: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -213,6 +230,7 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
@@ -222,6 +240,9 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                                                 }
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
                                             }
                                         }
@@ -243,6 +264,9 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                                 }
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
                             }
                         }

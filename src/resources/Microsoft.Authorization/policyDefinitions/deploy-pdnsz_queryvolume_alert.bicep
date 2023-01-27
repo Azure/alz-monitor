@@ -44,6 +44,8 @@ param parEvaluationFrequency string = 'PT1H'
 ])
 param parPolicyEffect string = 'disabled'
 
+param parAutoMitigate string = 'true'
+
 param parThreshold string = '500'
 
 module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -106,6 +108,18 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                     'PT1H'
                 ]
                 defaultValue: parEvaluationFrequency
+            }
+            autoMitigate: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Auto Mitigate'
+                    description: 'Auto Mitigate for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAutoMitigate
             }
             threshold: {
                 type: 'String'
@@ -188,6 +202,9 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    autoMitigate: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -222,6 +239,7 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
@@ -231,6 +249,9 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                 }
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
@@ -255,6 +276,9 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                 }
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

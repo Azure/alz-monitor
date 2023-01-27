@@ -44,6 +44,8 @@ param parEvaluationFrequency string = 'PT5M'
 ])
 param parPolicyEffect string = 'disabled'
 
+param parAutoMitigate string = 'true'
+
 param parThreshold string = '1'
 
 module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -106,6 +108,18 @@ module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                     'PT1H'
                 ]
                 defaultValue: parEvaluationFrequency
+            }
+            autoMitigate: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Auto Mitigate'
+                    description: 'Auto Mitigate for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAutoMitigate
             }
             threshold: {
                 type: 'String'
@@ -192,6 +206,9 @@ module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    autoMitigate: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -226,6 +243,7 @@ module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
@@ -235,6 +253,9 @@ module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                 }
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
@@ -259,6 +280,9 @@ module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                 }
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

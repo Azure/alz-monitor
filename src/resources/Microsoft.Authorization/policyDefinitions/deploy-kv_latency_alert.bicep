@@ -44,6 +44,8 @@ param parEvaluationFrequency string = 'PT5M'
 ])
 param parPolicyEffect string = 'disabled'
 
+param parAutoMitigate string = 'true'
+
 param parThreshold string = '1000'
 
 module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -106,6 +108,18 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                     'PT1H'
                 ]
                 defaultValue: parEvaluationFrequency
+            }
+            autoMitigate: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Auto Mitigate'
+                    description: 'Auto Mitigate for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAutoMitigate
             }
             threshold: {
                 type: 'String'
@@ -188,6 +202,9 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    autoMitigate: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -222,6 +239,7 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
@@ -231,6 +249,9 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                                 }
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
@@ -255,6 +276,9 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                 }
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

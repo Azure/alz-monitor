@@ -44,6 +44,8 @@ param parEvaluationFrequency string = 'PT1M'
 ])
 param parPolicyEffect string = 'deployIfNotExists'
 
+param parAutoMitigate string = 'true'
+
 param parThreshold string = '1'
 
 module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -106,6 +108,18 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                     'PT1H'
                 ]
                 defaultValue: parEvaluationFrequency
+            }
+            autoMitigate: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Auto Mitigate'
+                    description: 'Auto Mitigate for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAutoMitigate
             }
             threshold: {
                 type: 'String'
@@ -188,6 +202,9 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    autoMitigate: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -222,6 +239,7 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
@@ -231,6 +249,9 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                                 }
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
@@ -255,6 +276,9 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                 }
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

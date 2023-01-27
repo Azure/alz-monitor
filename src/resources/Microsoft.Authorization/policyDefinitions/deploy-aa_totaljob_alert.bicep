@@ -44,6 +44,8 @@ param parEvaluationFrequency string = 'PT1M'
 ])
 param parPolicyEffect string = 'deployIfNotExists'
 
+param parAutoMitigate string = 'true'
+
 param parThreshold string = '0'
 
 module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -106,6 +108,18 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                     'PT1H'
                 ]
                 defaultValue: parEvaluationFrequency
+            }
+            autoMitigate: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Auto Mitigate'
+                    description: 'Auto Mitigate for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAutoMitigate
             }
             threshold: {
                 type: 'String'
@@ -188,6 +202,9 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    autoMitigate: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
 
@@ -232,6 +249,7 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
@@ -241,6 +259,9 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                                 }
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
@@ -265,6 +286,9 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                 }
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

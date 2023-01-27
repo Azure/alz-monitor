@@ -44,6 +44,8 @@ param parEvaluationFrequency string = 'PT5M'
 ])
 param parPolicyEffect string = 'deployIfNotExists'
 
+param parAutoMitigate string = 'true'
+
 module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgegresspacketdropmismatch-policyDefinitions'
     params: {
@@ -104,6 +106,18 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                     'PT1H'
                 ]
                 defaultValue: parEvaluationFrequency
+            }
+            autoMitigate: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Auto Mitigate'
+                    description: 'Auto Mitigate for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAutoMitigate
             }
             effect: {
                 type: 'String'
@@ -182,6 +196,9 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    autoMitigate: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -217,6 +234,7 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                                                 ]
                                                 'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
                                             }
+                                            autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
                                                 severity: {
                                                     value: '[parameters(\'severity\')]'
@@ -226,6 +244,9 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                                                 }
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
+                                                }
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
                                             }
                                         }
@@ -247,6 +268,9 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                                 }
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
+                                }
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
                             }
                         }
