@@ -2,13 +2,9 @@
 ## How to consume the IP contained in this repo
 <!-- markdownlint-restore -->
 
-
-
-fixme need to fix/verify commands for deploying policies, initiatives and policy assignments
-fixme need to change subscription ids in workflows to be secret
+fixme need to change subscription ids in workflows to be secret, done need to test
 fixme need to create sample workflow
 fixme provide function to enable initiate remediation
-Fixme change deployments to optout by default
 Fixme include pid to policy file deployment, initiatives deployments and policy assignment deployment
 
 ## Background
@@ -42,15 +38,25 @@ This guide describes how to get started with implementing these policies and ini
   location="Your Azure location of choice"
   managementGroupId="The management group id where you want to deploy policies"
   az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $location --management-group-id $managementGroupId
-  # Wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
-  Fixme check if this needs to be json
-  az deployment mg create --template-file infra-as-code/bicep/deploy_dine_initiatives.bicep --location $location --management-group-id $managementGroupId
-  # Wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating policy assignments
-  az deployment mg create --template-file infra-as-code/bicep/policyAssignDeploy.bicep --parameters parTargetManagementGroupId=$managementGroupId --location $location --management-group-id $managementGroupId
+  #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
+  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location $location --management-group-id $managementGroupId
+  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location $location --management-group-id $managementGroupId
+  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location $location --management-group-id $managementGroupId
+  #Assign Policy Initiatives
+  # fixme template to deploy initiative assignments
 ```
 
 ```powershell
-fixme powershell here
+  $location = "Your Azure location of choice"
+  $managementGroupID = "The management group id where you want to deploy policies"
+  #Deploy policy definitions
+  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/deploy_dine_policies.bicep
+  #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
+  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json
+  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json
+  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json
+  #Assign Policy Initiatives
+  # fixme template to deploy initiative assignments
 ```
 ### Deploy through GitHub Actions - vanilla
 To deploy through GitHub actions, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following.
@@ -64,7 +70,7 @@ To deploy through GitHub actions, please refer to the sample GitHub workflow in 
 The policies are all deploy-if-not-exists, by default, meaning that any new deployments will be influenced by them. Therefore if you are deploying in a greenfield scenario and will afterwards be deploying any of the covered resource types, including subscriptions, then the policies will take effect and the relevant alert rules, action groups and alert processing rules will be created. 
 If you are in a brown-field scenario on the other hand, policies will be reporting non-compliance for resources in scope, but to remediate non-compliant resources you will need to initiate remediation. This can be done either through the portal, on a policy-by-policy basis or you can run the script found in fixme to remediate all policies in scope as defined by management group pre-fix.
 
-## Customize the deployment
+## Customizing policy assignments
 fixme particularly for policy/initiative assignment, wait for input from @kausd1/Bryan
 
 ## Customizing the `ALZ-Monitor` policies
