@@ -202,10 +202,6 @@
               "disabled"
             ]
           },
-          "KVRequestThreshold": {
-            "type": "string",
-            "defaultValue": "0"
-          },
           "PIPBytesInDDoSAlertSeverity": {
             "type": "String",
             "defaultValue": "4",
@@ -398,9 +394,6 @@
               },
               "effect": {
                 "value": "[[parameters('KVRequestPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('KVRequestThreshold')]"
               }
             }
           },
