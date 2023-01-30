@@ -45,7 +45,7 @@ The following policy definition categories will be enabled as part of ALZ deploy
 
 As this is a work in progress, in the future we may investigate and include:
 
-- Log Alerts (from Log Analytics)
+- Custom log alerts based on Kusto queries against Log Analytics
 
 #### Resource Metrics
 
