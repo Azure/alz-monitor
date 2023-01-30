@@ -55,22 +55,14 @@ Resource Metric alerts are deployed in the same resource group as the created Az
 
 [Service health](https://learn.microsoft.com/en-us/azure/service-health/overview) provides a personalized view of the health of the Azure services and regions you're using. Resource health provides information about the health of your individual cloud resources such as a specific virtual machine instance.
 
-Service and resource health events are written into the activity log. This means we can create a sub set of activity log alerts that can alert on health events. As with all activity log alerts these will be raised as severity 4 alerts. We create these alerts scoped to each subscription with four separate alerts for each of the four service health categories: Incident, Planned Maintenance, Security Advisories and Health Advisories.
+Service and resource health events are written into the activity log. This means we can create a sub set of activity log alerts that can alert on health events. We create these alerts scoped to each subscription with four separate alerts for each of the four service health categories: Incident, Planned Maintenance, Security Advisories and Health Advisories.
 A resource health alert will be created for any resource that goes into an unavailable or degraded state which can be platform or user initiated. We will ignore if the state is unknown as this can lead to erroneous alerting.
-
-For activity log alerts will be looking for any delete activity log events for the following resources within the subscriptions: Key vault, Log Analytics workspaces, Azure Firewall and Network Security Groups.
 
 #### DNS Zone Alerts
 
 1. RecordSetCapacityUtilization alert
 1. RecordSetCount alert
 1. QueryVolume alert
-
-#### All Others
-
-Other alerts are configured to be deployed in a dedicated resource group: AlzMonitoring-rg.
-
-As this is a work in progress, we may investigate and change the resource group criteria.
 
 ## ALZ Monitor Alert Processing Rules
 
