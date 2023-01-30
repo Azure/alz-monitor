@@ -10,7 +10,7 @@ param parPolicyManagementGroupId string = 'alz'
 param parTelemetryOptOut bool = false
 
 // Customer Usage Attribution Id
-var varCuaid = '2d69aa07-8780-4697-a431-79882cb9f00e'
+var varCuaid = 'd87415c4-01ef-4667-af89-0b5adc14af1b'
 
 module Deploy_DNSZ_QueryVolume_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Alerting-Management'
