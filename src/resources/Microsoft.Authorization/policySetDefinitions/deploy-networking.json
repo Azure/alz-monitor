@@ -5,7 +5,7 @@
     {
       "type": "Microsoft.Authorization/policySetDefinitions",
       "apiVersion": "2021-06-01",
-      "name": "Alerting-Networking",
+      "name": "Alerting-Connectivity",
       "properties": {
         "metadata": {
           "version": "1.0.0",
