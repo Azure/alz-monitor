@@ -49,7 +49,7 @@ As this is a work in progress, in the future we may investigate and include:
 
 #### Resource Metrics
 
-Resource Metric alerts are deployed in the same resource group as the created Azure resource. For example, a resource metric alert for Express Route will be created in the same resource group containing the Express Route Gateway.
+Resource Metric alerts are deployed in the same resource group as the created Azure resource. For example, a resource metric alert for Express Route will be created in the same resource group containing the Express Route Gateway. This is done because these alert types are related to the specific resource id, therefore it makes sense to link the alert to the resource in the same resource group.
 
 #### Service and Resource Health
 
