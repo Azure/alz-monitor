@@ -1,4 +1,4 @@
-## Security initiative comprises of DDOS Alerts , Puplic IP Availability Alerting , Activity Logging
+## Identity initiative comprises of DDOS Alerts , Puplic IP Availability Alerting , Activity Logging
 
     -deploy-pip_bytesinddosattack_alert
     -deploy-pip_ddosattack_alert
@@ -24,21 +24,25 @@
     -deploy-aa_totaljob_alert
     -deploy-rv_backuphealth_alert
     -deploy-afw_firewallhealth_alert
+    -deploy-kv_capacity_alert
+    -deploy-kv_latency_alert
+    -deploy-kv_availability_alert
+    -deploy-sa_availability_alert
 
 ## Availability initiative comprises of
 
-    -deploy-ercir_arpavailability_alert
-    -deploy-ercir_bgpavailability_alert
-    -deploy-sa_availability_alert
-    -deploy-kv_availability_alert
+    -deploy-ercir_arpavailability_alert-moved to Connectivity
+    -deploy-ercir_bgpavailability_alert-moved to Connectivity
+    -deploy-sa_availability_alert-moved to Management
+    -deploy-kv_availability_alert-moved to Management
     ~~-deploy-vm_availablememory_alert~~-delete
-    -deploy-kv_latency_alert
+    -deploy-kv_latency_alert-moved to Management
     ~~-deploy-sa_e2elatency_alert~~-Delete
     -~~deploy-sa_latency_alert~~-Delete
-    -deploy-kv_capacity_alert
-    -deploy-afw_snatportutilization_alert
+    -deploy-kv_capacity_alert-moved to Management
+    -deploy-afw_snatportutilization_alert-moved to Connectivity
 
-## Networking initiative comprises of
+## Connectivity initiative comprises of
     ~~deploy-dnsz_queryvolume_alert~~-delete
     ~~-deploy-dnsz_recordsetcapacityutilization_alert~~-delete
     ~~-deploy-dnsz_recordsetcount_alert~~-delete
@@ -72,4 +76,7 @@
     -deploy-vnetg_ingresspacketdropmismatch_alert
     -deploy-ercir_bgpavailability_alert
     -deploy-vnetg_bgppeerstatus_alert
+    -deploy-ercir_arpavailability_alert
+    -deploy-ercir_bgpavailability_alert
+    -deploy-afw_snatportutilization_alert
 
