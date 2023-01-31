@@ -1268,6 +1268,102 @@
           "VnetGwBGPPeerStatusThreshold": {
             "type": "string",
             "defaultValue": "1"
+          },
+          "ERCIRArpAvailabilityAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "ERCIRArpAvailabilityWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "ERCIRArpAvailabilityFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "ERCIRArpAvailabilityPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "ERCIRArpAvailabilityThreshold": {
+            "type": "string",
+            "defaultValue": "90"
+          },
+          "AFWSNATPortUtilizationAlertSeverity": {
+            "type": "String",
+            "defaultValue": "1",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "AFWSNATPortUtilizationWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "AFWSNATPortUtilizationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "AFWSNATPortUtilizationPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "AFWSNATPortUtilizationThreshold": {
+            "type": "string",
+            "defaultValue": "80"
           }
         },
         "policyDefinitions": [
@@ -1799,6 +1895,46 @@
               },
               "threshold": {
                 "value": "[[parameters('VnetGwBGPPeerStatusThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_ArpAvailability_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('ERCIRArpAvailabilityAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('ERCIRArpAvailabilityWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('ERCIRArpAvailabilityFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('ERCIRArpAvailabilityPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('ERCIRArpAvailabilityThreshold')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_SNATPortUtilization_Alert')]",
+            "parameters": {
+              "severity": {
+                "value": "[[parameters('AFWSNATPortUtilizationAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[parameters('AFWSNATPortUtilizationWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[parameters('AFWSNATPortUtilizationFrequency')]"
+              },
+              "effect": {
+                "value": "[[parameters('AFWSNATPortUtilizationPolicyEffect')]"
+              },
+              "threshold": {
+                "value": "[[parameters('AFWSNATPortUtilizationThreshold')]"
               }
             }
           }
