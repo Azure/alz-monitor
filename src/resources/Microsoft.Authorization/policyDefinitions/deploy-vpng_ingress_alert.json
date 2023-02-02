@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.13.1.58284",
-      "templateHash": "13471582175003603203"
+      "templateHash": "12016606012218321966"
     }
   },
   "parameters": {
@@ -18,6 +18,58 @@
       "defaultValue": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
       ]
+    },
+    "parAlertSeverity": {
+      "type": "string",
+      "defaultValue": "0",
+      "allowedValues": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "parWindowSize": {
+      "type": "string",
+      "defaultValue": "PT5M",
+      "allowedValues": [
+        "PT1M",
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H",
+        "PT6H",
+        "PT12H",
+        "P1D"
+      ]
+    },
+    "parEvaluationFrequency": {
+      "type": "string",
+      "defaultValue": "PT5M",
+      "allowedValues": [
+        "PT1M",
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H"
+      ]
+    },
+    "parPolicyEffect": {
+      "type": "string",
+      "defaultValue": "disabled",
+      "allowedValues": [
+        "deployIfNotExists",
+        "disabled"
+      ]
+    },
+    "parAutoMitigate": {
+      "type": "string",
+      "defaultValue": "true"
+    },
+    "parThreshold": {
+      "type": "string",
+      "defaultValue": "1"
     }
   },
   "resources": [
@@ -51,6 +103,90 @@
               "source": "https://github.com/Azure/ALZ-Monitor/"
             }
           },
+          "parameters": {
+            "value": {
+              "severity": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Severity",
+                  "description": "Severity of the Alert"
+                },
+                "allowedValues": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "defaultValue": "[parameters('parAlertSeverity')]"
+              },
+              "windowSize": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Window Size",
+                  "description": "Window size for the alert"
+                },
+                "allowedValues": [
+                  "PT1M",
+                  "PT5M",
+                  "PT15M",
+                  "PT30M",
+                  "PT1H",
+                  "PT6H",
+                  "PT12H",
+                  "P1D"
+                ],
+                "defaultValue": "[parameters('parWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Evaluation Frequency",
+                  "description": "Evaluation frequency for the alert"
+                },
+                "allowedValues": [
+                  "PT1M",
+                  "PT5M",
+                  "PT15M",
+                  "PT30M",
+                  "PT1H"
+                ],
+                "defaultValue": "[parameters('parEvaluationFrequency')]"
+              },
+              "autoMitigate": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Auto Mitigate",
+                  "description": "Auto Mitigate for the alert"
+                },
+                "allowedValues": [
+                  "true",
+                  "false"
+                ],
+                "defaultValue": "[parameters('parAutoMitigate')]"
+              },
+              "threshold": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Threshold",
+                  "description": "Threshold for the alert"
+                },
+                "defaultValue": "[parameters('parThreshold')]"
+              },
+              "effect": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Effect",
+                  "description": "Effect of the policy"
+                },
+                "allowedValues": [
+                  "deployIfNotExists",
+                  "disabled"
+                ],
+                "defaultValue": "[parameters('parPolicyEffect')]"
+              }
+            }
+          },
           "policyRule": {
             "value": {
               "if": {
@@ -62,7 +198,7 @@
                 ]
               },
               "then": {
-                "effect": "deployIfNotExists",
+                "effect": "[[parameters('effect')]",
                 "details": {
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.Insights/metricAlerts",
@@ -102,6 +238,21 @@
                               "displayName": "resourceId",
                               "description": "Resource ID of the resource emitting the metric that will be used for the comparison"
                             }
+                          },
+                          "severity": {
+                            "type": "String"
+                          },
+                          "windowSize": {
+                            "type": "String"
+                          },
+                          "evaluationFrequency": {
+                            "type": "String"
+                          },
+                          "autoMitigate": {
+                            "type": "String"
+                          },
+                          "threshold": {
+                            "type": "String"
                           }
                         },
                         "variables": {},
@@ -113,26 +264,44 @@
                             "location": "global",
                             "properties": {
                               "description": "Metric Alert for VPN Gateway tunnel ingress bytes",
-                              "severity": 3,
+                              "severity": "[[parameters('severity')]",
                               "enabled": true,
                               "scopes": [
                                 "[[parameters('resourceId')]"
                               ],
-                              "evaluationFrequency": "PT5M",
-                              "windowSize": "PT5M",
+                              "evaluationFrequency": "[[parameters('evaluationFrequency')]",
+                              "windowSize": "[[parameters('windowSize')]",
                               "criteria": {
                                 "allOf": [
                                   {
                                     "name": "tunnelingressbytes",
                                     "metricNamespace": "microsoft.network/vpngateways",
                                     "metricName": "tunnelingressbytes",
-                                    "operator": "LessThanOrEqual",
-                                    "threshold": 0,
-                                    "timeAggregation": "Total",
+                                    "operator": "LessThan",
+                                    "threshold": "[[parameters('threshold')]",
+                                    "timeAggregation": "Average",
                                     "criterionType": "StaticThresholdCriterion"
                                   }
                                 ],
                                 "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                              },
+                              "autoMitigate": "[[parameters('autoMitigate')]",
+                              "parameters": {
+                                "severity": {
+                                  "value": "[[parameters('severity')]"
+                                },
+                                "windowSize": {
+                                  "value": "[[parameters('windowSize')]"
+                                },
+                                "evaluationFrequency": {
+                                  "value": "[[parameters('evaluationFrequency')]"
+                                },
+                                "autoMitigate": {
+                                  "value": "[[parameters('autoMitigate')]"
+                                },
+                                "threshold": {
+                                  "value": "[[parameters('threshold')]"
+                                }
                               }
                             }
                           }
@@ -144,6 +313,21 @@
                         },
                         "resourceId": {
                           "value": "[[field('id')]"
+                        },
+                        "severity": {
+                          "value": "[[parameters('severity')]"
+                        },
+                        "windowSize": {
+                          "value": "[[parameters('windowSize')]"
+                        },
+                        "evaluationFrequency": {
+                          "value": "[[parameters('evaluationFrequency')]"
+                        },
+                        "autoMitigate": {
+                          "value": "[[parameters('autoMitigate')]"
+                        },
+                        "threshold": {
+                          "value": "[[parameters('threshold')]"
                         }
                       }
                     }

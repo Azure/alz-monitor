@@ -6,45 +6,6 @@ targetScope = 'managementGroup'
 @description('The management group scope to which the policy definitions are to be created at. DEFAULT VALUE = "alz"')
 param parTargetManagementGroupId string = 'alz'
 
-module Deploy_DNSZ_QueryVolume_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_DNSZ_QueryVolume_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_QueryVolume_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy DNSZ Query Volume Alert'
-    parPolicyAssignmentName: 'Deploy_DNSZ_QueryVolume'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy DNS Zone Query Volume Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
-module Deploy_DNSZ_RecordSetCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_DNSZ_RecordSetCount_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_RecordSetCount_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy DNSZ Record Set Count Alert'
-    parPolicyAssignmentName: 'Deploy_DNSZ_RecordSetCo'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy DNS Zone Record Set Count Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
-module Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_ZoneRecordSetCapacityUtil_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy DNSZ Record Set Capacity Utilization Alert'
-    parPolicyAssignmentName: 'Deploy_DNSZ_ZoneRecordS'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy DNS Zone Record Set Capacity Utilization Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
 module Deploy_KeyVault_Availability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_KeyVault_Availability_Alert'
   params: {
@@ -214,32 +175,6 @@ module Deploy_RecoveryVault_BackupHealth_Alert '../../infra-as-code/bicep/module
     ]
   }
 }
-module Deploy_StorageAccount_Transaction_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_StorageAccount_Transaction_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Transaction_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy SA Transaction Alert'
-    parPolicyAssignmentName: 'Deploy_StorageAccount_T'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy SA Transaction Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
-module Deploy_StorageAccount_Latency_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_StorageAccount_Latency_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Latency_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy SA Latency Alert'
-    parPolicyAssignmentName: 'Deploy_StorageAccount_L'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy SA Latency Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
 module Deploy_StorageAccount_Availability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_StorageAccount_Availability_Alert'
   params: {
@@ -253,19 +188,6 @@ module Deploy_StorageAccount_Availability_Alert '../../infra-as-code/bicep/modul
     ]
   }
 }
-module Deploy_StorageAccount_E2ELatency_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_StorageAccount_E2ELatency_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_E2ELatency_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy SA E2E Latency Alert'
-    parPolicyAssignmentName: 'Deploy_StorageAccount_E'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy SA E2E Latency Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
 module Deploy_VM_AvailableMemory_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_VM_AvailableMemory_Alert'
   params: {
@@ -273,32 +195,6 @@ module Deploy_VM_AvailableMemory_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentDisplayName: '[DINE] Deploy VM Available Memory Alert'
     parPolicyAssignmentName: 'Deploy_VM_AvailableMemo'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy VM Available Memory Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
-module Deploy_VNET_PingAvgRoundtrip_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_VNET_PingAvgRoundtrip_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_PingAvgRoundtrip_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy VNet Ping Avg Roundtrip Alert'
-    parPolicyAssignmentName: 'Deploy_VNET_PingAvgRoun'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy Virtual Network Ping Average Roundtrip Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
-module Deploy_VNET_ProbeFailed_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_VNET_ProbeFailed_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_ProbeFailed_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy VNet Probe Failed Alert'
-    parPolicyAssignmentName: 'Deploy_VNET_ProbeFailed'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy Virtual Network Probe Failed Alert'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
@@ -624,19 +520,6 @@ module Deploy_ERCIR_QosDropBitsOutPerSecond_Alert '../../infra-as-code/bicep/mod
     parPolicyAssignmentDisplayName: '[DINE] Deploy ExpressRoute QosDropBitsOutPerSecond Alert'
     parPolicyAssignmentName: 'Deploy_ERCIR_QosDropOut'
     parPolicyAssignmentDescription: 'DINE policy to audit/deploy ExpressRoute QosDropBitsOutPerSecond Alert'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-  }
-}
-module Deploy_VNETG_BgpPeerStatus_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Deploy_VNETG_BgpPeerStatus_Alert'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_BgpPeerStatus_Alert'
-    parPolicyAssignmentDisplayName: '[DINE] Deploy Virtual Network Gateway BgpPeerStatus Alert'
-    parPolicyAssignmentName: 'Deploy_VNETG_BgpPeerSta'
-    parPolicyAssignmentDescription: 'DINE policy to audit/deploy Virtual Network Gateway BgpPeerStatus Alert'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
