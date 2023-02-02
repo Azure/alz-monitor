@@ -2,8 +2,12 @@
 ## How to consume the IP contained in this repo
 <!-- markdownlint-restore -->
 
-fixme need to update sample workflow
+fixme test sample workflow
 fixme links in readme
+fixme sidebar in readme
+All-up update for readme
+customization of assignments - separate doc
+parameter file for policy assignments
 
 ## Background
 
@@ -29,46 +33,53 @@ This guide describes how to get started with implementing these policies and ini
 
 ### Manual deployment - vanilla
 - Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
-- Run the following commands to deploy the policy definitions, initiatives and policy assignments as-is. Note that there can be some delay between policies getting created and actually being included in initiatives so allow for some delay between command fix and command fixme. Refer to fixme for more information on how customize the installation.
+- Run the following commands to deploy the policy definitions, initiatives and policy assignments as-is. Note that there can be some delay between policies getting created and actually being available to be included in initiatives as wel as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
 
 
 ```bash
   location="Your Azure location of choice"
   managementGroupId="The management group id where you want to deploy policies"
+  identityManagementGroup="The management group id for Identity"
+  managementManagementGroup="The management group id for Management"
+  connectivityManagementGroup="The management group id for Connectivity"
   az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $location --management-group-id $managementGroupId
   #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location $location --management-group-id $managementGroupId
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location $location --management-group-id $managementGroupId
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location $location --management-group-id $managementGroupId
-  #Assign Policy Initiatives
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $identityManagementGroupID --parameters parPolicyManagementGroupId=$managementGroupId
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementyManagementGroupID --parameters parPolicyManagementGroupId=$managementGroupId
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroupID --parameters parPolicyManagementGroupId=$managementGroupId
+  #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $identityManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
 ```
 
 ```powershell
   $location = "Your Azure location of choice"
   $managementGroupID = "The management group id where you want to deploy policies"
-  $identityManagementGroupID = "The management group id for Identity"
-  $managementManagementGroupID = "The management group id for Management"
-  $connectivityManagementGroupID = "The management group id for Connectivity"
+  $identityManagementGroup = "The management group id for Identity"
+  $managementManagementGroup = "The management group id for Management"
+  $connectivityManagementGroup = "The management group id for Connectivity"
   #Deploy policy definitions
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/deploy_dine_policies.bicep
   #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json
-  #Assign Policy Initiatives
-  New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -parPolicyManagementGroupId $managementGroupId
-  New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -parPolicyManagementGroupId $managementGroupId
-  New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -parPolicyManagementGroupId $managementGroupId
+  #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
+  New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -parPolicyManagementGroupId $managementGroupId
+  New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -parPolicyManagementGroupId $managementGroupId
+  New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -parPolicyManagementGroupId $managementGroupId
 ```
 ### Deploy through GitHub Actions - vanilla
 To deploy through GitHub actions, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following.
 - Configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
 - Modify the following values in sample-workflow.yml:
   - Change _Location: "norwayeast"_, to your preferred Azure region
-  - Change _ManagementGroupPrefix: "contoso"_, to the management group where you wish to deploy the policies, initiatives and policy assignments.
+  - Change _ManagementGroupPrefix: "alz"_, to the management group where you wish to deploy the policies, initiatives and policy assignments.
+  - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
+  - Change _managementManagementGroup: "alz-platform-management"_, to the management group for management in your ALZ implementation.
+  - Change _ManagementGroupPrefix: "alz-platform-connectivity"_, to the management group for connectivity in your ALZ implementation.
+
 - Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
 
 ## Policy remediation
