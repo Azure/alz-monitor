@@ -11,7 +11,10 @@ permissions:
 
 env:
   Location: "norwayeast"
-  ManagementGroupPrefix: "contoso"
+  ManagementGroupPrefix: "alz"
+  identityManagementGroup: "alz-platform-identity"
+  managementManagementGroup: "alz-platform-management"
+  connectivityManagementGroup: "alz-platform-connectivity"
   
 jobs:
   deploy_job:
@@ -37,9 +40,19 @@ jobs:
       shell: bash
       run: |
           az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
-    
-    - name: Az CLI Monitor Policy assignments
-      id: create_monitor_policy_assignment_dine
+
+    - name: Az CLI Deploy Monitor Policy Initiative Definitions
+      id: create_monitor_policy_initiative_defs
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/policyAssignDeploy.bicep --parameters parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    
+    - name: Az CLI Monitor Policy initiative assignments
+      id: assign_monitor_policy_initiatives
+      shell: bash
+      run: |
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location ${{ env.Location }} --management-group-id ${{ env.identityManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location ${{ env.Location }} --management-group-id ${{ env.managementManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location ${{ env.Location }} --management-group-id ${{ env.connectivityManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
