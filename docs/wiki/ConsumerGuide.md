@@ -35,6 +35,7 @@ This guide describes how to get started with implementing these policies and ini
 - Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 - Run the following commands to deploy the policy definitions, initiatives and policy assignments as-is. Note that there can be some delay between policies getting created and actually being available to be included in initiatives as wel as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
 
+#### Azure CLI
 
 ```bash
   location="Your Azure location of choice"
@@ -52,6 +53,8 @@ This guide describes how to get started with implementing these policies and ini
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
 ```
+
+#### Azure PowerShell
 
 ```powershell
   $location = "Your Azure location of choice"
@@ -84,10 +87,12 @@ To deploy through GitHub actions, please refer to the sample GitHub workflow in 
 
 ## Policy remediation
 The policies are all deploy-if-not-exists, by default, meaning that any new deployments will be influenced by them. Therefore if you are deploying in a greenfield scenario and will afterwards be deploying any of the covered resource types, including subscriptions, then the policies will take effect and the relevant alert rules, action groups and alert processing rules will be created. 
-If you are in a brown-field scenario on the other hand, policies will be reporting non-compliance for resources in scope, but to remediate non-compliant resources you will need to initiate remediation. This can be done either through the portal, on a policy-by-policy basis or you can run the script found in .github/script to remediate all ALZ-Monitor policies in scope as defined by management group pre-fix.
+If you are in a brown-field scenario on the other hand, policies will be reporting non-compliance for resources in scope, but to remediate non-compliant resources you will need to initiate remediation. This can be done either through the portal, on a policy-by-policy basis or you can run the script found in .github/script/Start-ALZMonitorRemediation to remediate all ALZ-Monitor policies in scope as defined by management group pre-fix.
 
 ## Customizing policy assignments
-fixme particularly for policy/initiative assignment, wait for input from @kausd1/Bryan
+
+For details on how to customize policy and in particular initiative assignments please refer to ./CustomizePolicyAssignment.md
+
 
 ## Customizing the `ALZ-Monitor` policies
 
