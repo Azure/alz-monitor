@@ -2,11 +2,16 @@
 
 The following metric alerts have been defined and can deployed within your landing zones via Azure Policy.
 
-Placeholders have been added for future work which will define Alert Processing Rules, Action Groups.
+
 
 ## Metric Alerts Settings
 
-The values shown for Aggregation, Operator, Threshold, WindowSize, Frequency and Severity have been derived from field and what we've seen from other customers, we encourage you to adjust these threshold to match your environment.
+The values shown for Aggregation, Operator, Threshold, WindowSize, Frequency and Severity have been derived from field experience and what customers have implemented themselves; Where possible we've also cross-referenced alerting guidance that's been provided by the Product Group for each of the resources below, this is shown as "Y" in the "Verified" column. When there's a "N" there is no official guidance and we've relied on field and customer guidance. Links to Product Group guidance can be found in the References column and when no guidance is provided we've provided a link to the description of the Metric on learn.microsoft.com.
+
+The resources, metric alerts and their settings provide you with a starting point to help you address the following monitoring questions:
+"What should we monitor in Azure?" and "What alert settings should we use?"  While they are opinionated settings and they are meant to cover the most common Azure Landing Zone components, we encourage you to adjust these settings to suit your monitoring needs based on how you're using Azure.
+
+If you have suggestions for other resources that should be included please open an Issue on this page providing the Azure resource provider and settings you'd like implemented, we can't promise to implement them all but we will look into it.
 
 | AlertName                                                                                                                                                                                                                                                          | Component                                | Metric                                            | Aggregation   | Operator           | Threshold   | WindowSize   | Frequency   | Severity   | Verified   | <div style="width:240px">References</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------|:-------------------------------------------------:|:-------------:|:------------------:|:-----------:|:------------:|:-----------:|:----------:|:----------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
