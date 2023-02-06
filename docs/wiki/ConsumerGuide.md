@@ -2,12 +2,11 @@
 ## How to consume the IP contained in this repo
 <!-- markdownlint-restore -->
 
-fixme test sample workflow
+fixme test sample workflow and commands
 fixme links in readme
 fixme sidebar in readme
 All-up update for readme
-customization of assignments - separate doc
-parameter file for policy assignments
+
 
 ## Background
 
