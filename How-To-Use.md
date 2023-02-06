@@ -4,15 +4,6 @@ Welcome to the fixme more fluffy stuff. This is an introduction on how to use th
 
 ## Getting started
 
-Fork repo
-Clone to local 
-Import policy definitions and policysetdefinitions
-Assign policies and policysetdefinitions
-Evaluate compliance and remediate
-Bug reports
-Feature requests
-Issues
-Pull requests
 Recommended tooling
 
 

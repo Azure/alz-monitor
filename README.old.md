@@ -1,39 +1,97 @@
 # Alerts for Azure Landing Zone
 
-## Overview
+<!-- vscode-markdown-toc -->
+* [Rules of engagement](#Rulesofengagement)
+  * [.github/workflows/deploy-hub-networking.yml](#githubworkflowsdeploy-hub-networking.yml)
+  * [.github/workflows/deploy-vwan-networking.yml](#githubworkflowsdeploy-vwan-networking.yml)
+  * [.github/workflows/delete-networking resources.yml](#githubworkflowsdelete-networkingresources.yml)
+* [Summary](#Summary)
+* [Dependencies](#Dependencies)
+* [Roadmap](#Roadmap)
+* [Prerequisites](#Prerequisites)
+* [Metric Alert Policy Deployment Steps](#MetricAlertPolicyDeploymentSteps)
 
-One of the most common questions we've faced in working with customers is, "What should we monitor in Azure?" and "What thresholds should we configure our alerts for?"
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+## <a name='Rulesofengagement'></a>Rules of engagement
+
+Please remember to create all contributions as branches and create a pull request when you are ready to merge with main.
+
+There are three pipelines as follows:
+
+### <a name='githubworkflowsdeploy-hub-networking.yml'></a>.github/workflows/deploy-hub-networking.yml
+
+This pipeline is started manually only and deploys the following:
+
+* Management group structure hubnw with four subscriptions. Three for the various platform areas and one for the landing zones area (corp)
+* Log analytics workspace and automation account in the management subscription
+* HUB vNet, Azure Firewall, private DNS zones, ER Gateway, VPN gateway and Bastion etc. in connectivity subscription. Note that DDoS is not enabled (cost reasons)
+* Spoke vnet peered to hub vnet and UDR i landing zone subscription
+* Default ALZ custom role definitions (no assignments)
+* ALZ custom policy/initiative definitions
+* ALZ Custom Monitor policy definitions (from ./Observability_L100/Deploy/policyDefinitions), actual deployment happens through ./Observability_L100/Deploy/deploy_dine_policies.bicep.
+* Default ALZ policy assignments except for DDoS (cost reasons)
+* ALZ Custom Monitor policy assignments, deployment happens through ./Observability_L100/Deploy/policyAssignDeploy.bicep
+The workflow is set for manual runs only, i.e. you need to run it from [here](https://github.com/Azure/alz-monitor/actions/workflows/deploy-hub-networking.yml)
+
+### <a name='githubworkflowsdeploy-vwan-networking.yml'></a>.github/workflows/deploy-vwan-networking.yml
+
+This pipeline is started manually only and  deploys the following:
+
+* Management group structure vwan with four subscriptions. Three for the various platform areas and one for the landing zones area (corp)
+* Log analytics workspace and automation account in the management subscription
+* vWan hub, Azure Firewall, private DNS zones, ER Gateway, VPN gateway etc in connectivity subscription. Note that DDoS is not enabled (cost reasons)
+* Spoke vnet connected to vWan hub and UDR in landing zone subscription
+* Default ALZ custom role definitions (no assignments)
+* ALZ custom policy/initiative definitions
+* ALZ Custom Monitor policy definitions (from ./Observability_L100/Deploy/policyDefinitions), actual deployment happens through ./Observability_L100/Deploy/deploy_dine_policies.bicep.
+* Default ALZ policy assignments except for DDoS (cost reasons)
+* ALZ Custom Monitor policy assignments, deployment happens through ./Observability_L100/Deploy/policyAssignDeploy.bicep
+The workflow is set for manual runs only, i.e. you need to run it from [here](https://github.com/Azure/alz-monitor/actions/workflows/deploy-vwan-networking.yml)
+
+### <a name='githubworkflowsdelete-networkingresources.yml'></a>.github/workflows/delete-networking resources.yml
+
+This pipeline can be started manually, but also runs at 7 PM EST every day to delete the following:
+
+* ARM deployments to hubnw management group hierarchy
+* Resource group containing HUB vNet, Azure Firewall, private DNS zones, ER Gateway, VPN gateway and Bastion etc. in connectivity subscription
+* Resource group containing spoke vnet peered to hub vnet and UDR i landing zone subscription
+* ARM deployments to vwan management group hierarchy
+* Resource group containing vWan hub, Azure Firewall, private DNS zones, ER Gateway, VPN gateway etc in connectivity subscription
+* Resource group containing Spoke vnet connected to vWan hub and UDR in landing zone subscription
+The workflow is set to run every day at 12:00 AM UTC (should be 7pm EST), but can also be run manually from [here](https://github.com/Azure/alz-monitor/actions/workflows/delete-networking-resources.yml)
+
+## <a name='Summary'></a>Summary
+
+One of the most common questions we've faced in working with Customers is, "What should we monitor in Azure?" and "What thresholds should we configure our alerts for?"
+
+We started thinking about our experiences on our customer projects where we were working with them to establish how they would manage their Azure Landing Zones, eventually we'd come to the age old question, "What should we monitor?" and "What thresholds should we set?"
 
 There isn't definitive list of what you should monitor when you deploy something to Azure because "it depends", on what services you're using and how the services are used which will dictate what you should monitor and what thresholds the metrics you do decide to collect are and what errors you should alert on in logs.
 
 Microsoft has tried to address this by providing a number of 'insights or solutions' for popular services which pull together all the things you should care about ([Storage Insights](https://learn.microsoft.com/en-us/azure/storage/common/storage-insights-overview), [VM Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-overview), [Container Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-overview)); but what about everything else???
 
-Let's reduce the list of what we should monitor to something a bit more manageable... Let's look at Azure Landing Zone. It's a common set of Azure resources/services that are configured in a similar way across organizations. (Of course there will be exceptions but we'll get to that.)
+Let's reduce the list of what we should monitor to something a bit more manageable... Let's look at the Azure Landing Zone. It's a common set of Azure resources/services that are configured in a similar way across organizations. (Of course there will be exceptions but we'll get to that.)
 
- This project is a opinionated view on What you should monitor for the key components of your Azure Landing Zone within the Platform scope. I.e:
+ What you should monitor are the key components of your Azure Landing Zones within the Platform/Shared landing zones and the pieces which stretch into application or workload subscriptions and then add monitoring to the resources which use those landing zone components.
 
-- Express Route Circuits
-- Azure Firewalls
-- Virtual Networks
-- Virtual Network gateways
-- Log Analytics workspaces
-- Private DNS zones
-- Azure Key Vaults
+ Example:
 
-Monitoring baselines for the above components are proposed to be deployed leveraging Azure Policy and has been bundled into Azure Policy initiatives for ease of deployment and management. In addition to the components mentioned there are also a number of other component alerts included in the repo, but outside any initiatives, or disabled by default. These components are:
+  - Storage Accounts
+  - ASR Vaults
+  - VNETs and subnets
+  - Log Analytics workspace/s
+  - DNS
+  - Azure Firewall or 3rd Party NVA (Note: we won't be providing guidance on 3rd Party NVA monitoring, NVA vendors are in the best position to provide you that)
+  - Key Vaults
 
-- Storage accounts
-- Network security groups
-- Azure route tables
+ As for what thresholds should be set we should set?
 
-In addition to the component specific alerts mentioned above the repo also contains policies for deploying service health alerts by subscription. 
-
-Alerts are based on Microsoft public guidance where available, and on practical application experience where public guidance is not available. For more details on which alerts are included please refer to here
-
-
-
-
-Look to the documentation Microsoft has provided for the Azure resources, there's a wealth of information to get you started, some of those recommedations are short simple metric queries, some are slightly more complex log alerts and sometimes there's a lot to read through such as with [Storage Accounts](https://learn.microsoft.com/en-us/azure/storage/blobs/blob-storage-monitoring-scenarios).
+ Look to the documentation Microsoft has provided for the Azure resources, there's a wealth of information to get you started, some of those recommedations are short simple metric queries, some are slightly more complex log alerts and sometimes there's a lot to read through such as with [Storage Accounts](https://learn.microsoft.com/en-us/azure/storage/blobs/blob-storage-monitoring-scenarios).
 
  An important part that's missed often is Service Health alerts, getting those can save you a lot of headaches and needless troubleshooting if you know first that there's an issue with the Azure resource service and not how you're using it.
 
