@@ -1,5 +1,5 @@
 <!-- markdownlint-disable -->
-## How to consume the IP contained in this repo
+## Consumer Guide
 <!-- markdownlint-restore -->
 
 fixme test sample workflow and commands
