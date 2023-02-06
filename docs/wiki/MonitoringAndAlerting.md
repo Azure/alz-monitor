@@ -1,7 +1,5 @@
 # Monitoring and Alerting in ALZ
 
-[TOC]
-
 ## ALZ Monitor Alert Approach
 
 The overall approach for enabling alerts in ALZ is to use Azure Policy to deploy relevant alerts as resources are created, configure action group(s), and then use Alert Processing Rules to activate alerts and connect them to the Action Group.
@@ -39,9 +37,9 @@ ALZ Alerts, Action Groups and Alert Processing Rules are deployed using Azure Po
 
 The following policy definition categories will be enabled as part of ALZ deployments for the hubs and landing zones defined by Enterprise Scale:
 
-- Resource Metrics
-- Service and Resource Health
-- Activity Logs
+- Resource Metrics; See here for details on which resource metrics are included.
+- Service and Resource Health; See here for details on which alerts are included.
+- Activity Logs; See here for details on which alerts are included.
 
 As this is a work in progress, in the future we may investigate and include:
 
@@ -57,12 +55,6 @@ Resource Metric alerts are deployed in the same resource group as the created Az
 
 Service and resource health events are written into the activity log. This means we can create a sub set of activity log alerts that can alert on health events. We create these alerts scoped to each subscription with four separate alerts for each of the four service health categories: Incident, Planned Maintenance, Security Advisories and Health Advisories.
 A resource health alert will be created for any resource that goes into an unavailable or degraded state which can be platform or user initiated. We will ignore if the state is unknown as this can lead to erroneous alerting.
-
-#### DNS Zone Alerts
-
-1. RecordSetCapacityUtilization alert
-1. RecordSetCount alert
-1. QueryVolume alert
 
 ## ALZ Monitor Alert Processing Rules
 
