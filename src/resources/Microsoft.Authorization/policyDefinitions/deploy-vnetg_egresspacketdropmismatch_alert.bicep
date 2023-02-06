@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgegresspacketdropmismatch-policyDefinitions'
     params: {
@@ -118,6 +120,18 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                     'false'
                 ]
                 defaultValue: parAutoMitigate
+            }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
             }
             effect: {
                 type: 'String'
@@ -199,6 +213,9 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -210,7 +227,7 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                                         properties: {
                                             description: 'Metric Alert for Vnet Gateway tunnel TunnelEgressPacketDropTSMismatch'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -248,6 +265,9 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -271,6 +291,9 @@ module VnetgEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/pol
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                             }
                         }

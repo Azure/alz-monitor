@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgingresspacketdropcount-policyDefinitions'
     params: {
@@ -118,6 +120,18 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                     'false'
                 ]
                 defaultValue: parAutoMitigate
+            }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
             }
             effect: {
                 type: 'String'
@@ -199,6 +213,9 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -210,7 +227,7 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                                         properties: {
                                             description: 'Metric Alert for Vnet Gateway tunnel TunnelIngressPacketDropCount'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -248,6 +265,9 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -271,6 +291,9 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                             }
                         }

@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 param parThreshold string = '1'
 
 module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -120,6 +122,18 @@ module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                     'false'
                 ]
                 defaultValue: parAutoMitigate
+            }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
             }
             threshold: {
                 type: 'String'
@@ -209,6 +223,9 @@ module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -223,7 +240,7 @@ module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                         properties: {
                                             description: 'Metric Alert for VNet Gateway Tunnel Avg Bandwidth'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -257,6 +274,9 @@ module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
                                                 }
@@ -283,6 +303,9 @@ module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

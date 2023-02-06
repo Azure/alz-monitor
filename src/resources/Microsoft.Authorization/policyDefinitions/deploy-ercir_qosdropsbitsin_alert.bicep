@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 module QosDropBitsInPerSecondAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-erqosdropsin-policyDefinitions'
     params: {
@@ -118,6 +120,18 @@ module QosDropBitsInPerSecondAlert '../../arm/Microsoft.Authorization/policyDefi
                     'false'
                 ]
                 defaultValue: parAutoMitigate
+            }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
             }
             effect: {
                 type: 'String'
@@ -195,6 +209,9 @@ module QosDropBitsInPerSecondAlert '../../arm/Microsoft.Authorization/policyDefi
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -206,7 +223,7 @@ module QosDropBitsInPerSecondAlert '../../arm/Microsoft.Authorization/policyDefi
                                         properties: {
                                             description: 'Metric Alert for ExpressRoute Circuit QosDropBitsInPerSecond'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -244,6 +261,9 @@ module QosDropBitsInPerSecondAlert '../../arm/Microsoft.Authorization/policyDefi
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -267,6 +287,9 @@ module QosDropBitsInPerSecondAlert '../../arm/Microsoft.Authorization/policyDefi
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                             }
                         }

@@ -46,6 +46,8 @@ param parPolicyEffect string = 'disabled'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 param parThreshold string = '40000'
 
 module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -120,6 +122,18 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                     'false'
                 ]
                 defaultValue: parAutoMitigate
+            }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
             }
             threshold: {
                 type: 'String'
@@ -205,6 +219,9 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -219,7 +236,7 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                         properties: {
                                             description: 'Metric Alert for Public IP Address Packets IN DDOS'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -253,6 +270,9 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
                                                 }
@@ -279,6 +299,9 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

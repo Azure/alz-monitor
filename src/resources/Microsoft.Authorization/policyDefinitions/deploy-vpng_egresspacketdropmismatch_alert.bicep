@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngegresspacketdropmismatch-policyDefinitions'
     params: {
@@ -118,6 +120,18 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                     'false'
                 ]
                 defaultValue: parAutoMitigate
+            }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
             }
             effect: {
                 type: 'String'
@@ -195,6 +209,9 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -206,7 +223,7 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                                         properties: {
                                             description: 'Metric Alert for VPN Gateway tunnel TunnelEgressPacketDropTSMismatch'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -244,6 +261,9 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -267,6 +287,9 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                             }
                         }
