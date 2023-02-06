@@ -86,28 +86,37 @@ The associated command line to assign the initiative would then look like this:
 ```
 
 The above approach can be leveraged with any of the different parameters in the initiatives. For each individual policy in the initiatives there are the following common parameters, that are referenced with unique names in the initiatives and can be modified correspondingly where required.
+> Note that as a general rule it is recommended to leverage parameter files over parameters specified on command line, as it is arguably easier to manage multiple parameters in a parameter file rather than on a command line.
 
-### Metric alert policies
+### Metric alert policy parameters
 
-- parAlertSeverity, indicating alert severity
-- parWindowSize, indicating the time windows inside which the alert is evaluating for true/false
-- parEvaluationFrequency, indicating how often inside the time window evaluation takes place
-- parPolicyEffect, can be either DeployIfNotExists or Disabled
-- parAutoMitigate, indicates whether the the alert will auto-resolve if the alert condition is no longer true
-- parThreshold, indicates a numerical threshold for when the alert would trigger. Not relevant to all alerts as some are configured with dynamic rather than fixed thresholds
-- parAlertState, whether the alert is enabled or not.
+The following parameters can be changed for metric alert policies
 
-### Activity log, Service health alert and action group policies
+| **Parameter Name** | **Parameter Description** |
+|----------|----------|
+| parAlertSeverity | 0 - 4 indicating alert severity |
+| parWindowSize | Indicating the time windows inside which the alert is evaluating for true/false |
+| parEvaluationFrequency | Indicating how often inside the time window evaluation takes place |
+| parPolicyEffect | Can be either DeployIfNotExists or Disabled |
+| parAutoMitigate | Indicates whether the the alert will auto-resolve if the alert condition is no longer true |
+| parThreshold | Indicates a numerical threshold for when the alert would trigger. Not relevant to all alerts as some are configured with dynamic rather than fixed thresholds |
+| parAlertState | Whether the alert is enabled or not |
+### Activity log, Service health alert and action group policy parameters 
 
-- parResourceGroupName, the namee of the resource group to place the alerts in
-- parResourcGroupTags, any tags than needs to be added to the resource group created
+The following parameters can be changed for activity log, service health alert and action group policies.
+
+| **Parameter Name** | **Parameter Description** |
+|----------|----------|
+| parResourceGroupName | The name of the resource group to place the alerts in |
+| parResourcGroupTags | Any tags than needs to be added to the resource group created |
 
 ## Big Red Button
 
-A special use case for modifying initiative parameters when assigning would be a situation where it is determined that alerts are running amok and that it is necessary to turn off alerting for one or more policies. In that case the following approach should be followed.
+Recognizing that it is not always possible to test alerts in a dev/test environment, we have introduced the parAlertstate parameter for all metric alerts. This is to address a scenario where   an alert storm occurs and it is necessary to disable one or more alerts deployed via policies through a controlled process. This could be considered for a roll-back process as part of a change request.
+These are the high-level steps that would need to take place:
 1. Change values for the parAlertState for the offending policies to disabled, fixme waiting on https://dev.azure.com/csusoleng/Azure%20Landing%20Zones/_workitems/edit/26227, either via command line or parameter file as described previously.
-2. Change values for parPolicyEffect for the offending policies to disabled, if you wish to avoid deploying more alerts for this particular metric
 3. Deploy the policy assignments as described previously
 4. After deploying and policy evaluation there will be a number of non-compliant policies depending on which alerts were to be disabled. These will then need to be remediated which can be done either through the portal, on a policy-by-policy basis or you can run the script found in .github/script/Start-ALZMonitorRemediation to remediate all ALZ-Monitor policies in scope as defined by management group pre-fix.
-
+> Note that the above approach will not delete the alerts objects in Azure, merely disable them. To delete the alerts you will have to do so manually.
+> Also note that while you can engage the parPolicyEffect to avoid deploying new alerts, you should not do so until you have successfully remediated the above. Otherwise the policy will be disabled, and you will not be able to turn alerts off via policy until that is changed back. 
 

@@ -42,12 +42,16 @@ Please see the content in the [wiki](https://github.com/Azure/alz-monitor/wiki) 
 
 Please see the [Known Issues](https://github.com/Azure/alz-monitor/wiki/KnownIssues) in the wiki.
 
+## Frequently Asked Questions
+
+Please see the [Frequently Asked Questions](https://github.com/Azure/alz-monitor/wiki/FAQ) in the wiki.
+
 ## Consumer Guide
 We have a [Consumer Guide](https://github.com/Azure/alz-monitor/wiki/ConsumerGuide) available for guidance on how to consume the contents of this repo.
 
 ## Dependencies
 
-This project uses the bicep modules from the [CARML](https://github.com/Azure/ResourceModules), version [0.7.0](https://github.com/Azure/ResourceModules/releases/tag/v0.7.0), and the modules from [ALZ-Bicep](https://github.com/Azure/ALZ-Bicep/tree/main/infra-as-code/bicep), version [0.10.2](https://github.com/Azure/ALZ-Bicep/releases/tag/v0.10.2). As the primary goal of the project is to provide policy baselines for consumption by reference ALZ implementations as well as potentially implementations not aligned to ALZ, these modules are unlikely to change from a repo standpoint.
+This project uses the bicep modules from the [CARML](https://github.com/Azure/ResourceModules), version [0.7.0](https://github.com/Azure/ResourceModules/releases/tag/v0.7.0), and the modules from [ALZ-Bicep](https://github.com/Azure/ALZ-Bicep/tree/main/infra-as-code/bicep), version [0.10.2](https://github.com/Azure/ALZ-Bicep/releases/tag/v0.10.2). As the primary goal of the project is to provide policy baselines for consumption by reference ALZ implementations as well as potentially implementations not aligned to ALZ, these modules are unlikely to change from a repo standpoint, and will indeed be completely disconnected onmce moving to ALZ reference implementations, since baselines there are all JSON by necessity.
 
 ## Contributing
 

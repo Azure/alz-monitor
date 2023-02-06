@@ -1,12 +1,4 @@
-<!-- markdownlint-disable -->
-## Consumer Guide
-<!-- markdownlint-restore -->
-
-fixme test sample workflow and commands
-fixme links in readme
-fixme sidebar in readme
-All-up update for readme
-
+# Consumer Guide
 
 ## Background
 
@@ -22,8 +14,8 @@ Note that the alerts, action groups and alert processing rules are created as fo
 
 This guide describes how to get started with implementing these policies and initiatives in your environment for testing and validation. In the guide it is assumed that you will be using GitHub actions or manual deployment to implement policies, initiatives and policy assignments in your dev/test environment. 
 
-> Note that this is an experimental solution which should be deployed to dev/test environments initially to protect against possible failurs/unnecessary cost. 
-> Also note that this private repo is shared with different select Microsoft customers, as such you should never upload or otherwise divulge sensititve information to this repo.
+> Note that this is a preview solution intended to solicitate feedback for further development which should be tested in a safe environment before deploying to production to protect against possible failures/unnecessary cost. 
+> Also note that this private repo is shared with different select Microsoft customers and partners, as such you should never upload or otherwise divulge sensititve information to this repo. If there is any concern, please contact your Microsoft counterparts for detailed advice.
 
 ## Getting started
 
@@ -90,7 +82,7 @@ If you are in a brown-field scenario on the other hand, policies will be reporti
 
 ## Customizing policy assignments
 
-For details on how to customize policy and in particular initiative assignments please refer to ./CustomizePolicyAssignment.md
+Fixme if need to disable all alerts to be comfortable with the process. For details on how to customize policy and in particular initiative assignments please refer to ./CustomizePolicyAssignment.md
 
 
 ## Customizing the `ALZ-Monitor` policies
