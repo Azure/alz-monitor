@@ -2,29 +2,30 @@
 
 ## Background
 
-This repo in its' present state contains ip for the following:
-- Policies to automatically create alerts, action groups and alert processing rules for different Azure resource types, centered around what is deployed in a greenfield ALZ deployment.
-- Initiatives grouping said policies into appropriate buckets for ease of policy assignment
-
-Note that the alerts, action groups and alert processing rules are created as follows:
-1. All metric alerts are created in the resource group where the resource that is being monitored exists. I.e. creating an ER circuit in a resource group covered by the policies will create the corresponding alerts in that same resource group.
-2. Activity log alerts are created in a specific resource group in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
-3. Resource health alerts are created in a specific resource group in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
-4. Action groups and alert processing rules are created in a specific resource group in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
-
-This guide describes how to get started with implementing these policies and initiatives in your environment for testing and validation. In the guide it is assumed that you will be using GitHub actions or manual deployment to implement policies, initiatives and policy assignments in your dev/test environment. 
+This guide describes how to get started with implementing alert policies and initiatives in your environment for testing and validation. In the guide it is assumed that you will be using GitHub actions or manual deployment to implement policies, initiatives and policy assignments in your environment. 
 
 > Note that this is a preview solution intended to solicitate feedback for further development which should be tested in a safe environment before deploying to production to protect against possible failures/unnecessary cost. 
 > Also note that this private repo is shared with different select Microsoft customers and partners, as such you should never upload or otherwise divulge sensititve information to this repo. If there is any concern, please contact your Microsoft counterparts for detailed advice.
+
+The repo at present contains ip for the following:
+- Policies to automatically create alerts, action groups and alert processing rules for different Azure resource types, centered around a recommended Azure Monitor Baseline for Alerting in a customers´ newly created or existing brownfield ALZ deployment.
+- Initiatives grouping said policies into appropriate buckets for ease of policy assignment in alignment with ALZ Platform structure (Networking, Identity and Management).
+
+Alerts, action groups and alert processing rules are created as follows:
+1. All metric alerts are created in the resource group where the resource that is being monitored exists. I.e. creating an ER circuit in a resource group covered by the policies will create the corresponding alerts in that same resource group.
+2. Activity log alerts are created in a specific resource group (created specifically by and used for this solution) in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
+3. Resource health alerts are created in a specific resource group (created specifically by and used for this solution) in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
+4. Action groups and alert processing rules are created in a specific resource group (created specifically by and used for this solution) in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
 
 ## Getting started
 
 - Fork this repo to your own GitHub organization, this should be done to allow all contributors to work completely independent of each other. Pull requests directly towards the repo will be rejected.
 - Clone the repo from your own GitHub organization to your developer workstation. 
 
-### Manual deployment - vanilla
+### Manual (Complete) deployment - default settings
 - Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
-- Run the following commands to deploy the policy definitions, initiatives and policy assignments as-is. Note that there can be some delay between policies getting created and actually being available to be included in initiatives as wel as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
+- Run the following commands to deploy the policy definitions, initiatives and policy assignments with default settings. There can be some delay between policies getting created and actually being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
+> As mentioned previously this should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment), to deploy and enable alerts in a controlled manner.
 
 #### Azure CLI
 
@@ -82,7 +83,7 @@ If you are in a brown-field scenario on the other hand, policies will be reporti
 
 ## Customizing policy assignments
 
-Fixme if need to disable all alerts to be comfortable with the process. For details on how to customize policy and in particular initiative assignments please refer to ./CustomizePolicyAssignment.md
+Fixme if need to disable all alerts to be comfortable with the process. For details on how to customize policy and in particular initiative assignments please refer to [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment)
 
 
 ## Customizing the `ALZ-Monitor` policies

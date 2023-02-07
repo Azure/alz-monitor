@@ -10,15 +10,15 @@ There are two general principles/approaches to enabling alerting in ALZ:
 
 With a **centralized** approach to alerting a central Action Group is used for all alerts, which means a single alerting email (distribution group) address or other configured actions.
 
-Metric alerts are deployed with resources (same resource group) and platform alerts like Service Health / Activity are created in a dedicated resource group, typically in the management platform landing zone. A single Alert Action Group in the management landing zone is configured with a central alerting email address, and Alert Processing Rules enabling filters and connecting alerts to the Action Group.
+Metric alerts are deployed with resources (same resource group) and platform alerts like Service Health / Activity are created in a dedicated resource group, in a subscription typically located in the Management platform management group. A single Alert Action Group in a subscription in the Management platform management group is configured with a central alerting email address, and Alert Processing Rules enabling filters and connecting alerts to the Action Group.
 
-As an example in the context of ALZ, a single centralized action group is deployed in the "AlzMonitoring-RG" resource group in the management platform landing zone. 
+As an example in the context of ALZ, a single centralized action group is deployed in the "AlzMonitoring-RG" resource group in a subscription in the Management platform management group. 
 
 ### Decentralized
 
 For a **decentralized** approach every subscription has a dedicated Action Group allowing for more granular control of how to direct alert notifications, for example, for connectivity/networking alerts for the platform connectivity subscription, direct the alerts to the network operations team.
 
-Metric alerts are deployed with resources (in the same resource group) and platform alerts like Service Health / Activity are created in a dedicated resource group, typically in the management platform landing zone. Alert Action Groups are created in each landing zone subscription, allowing each operational area and landing zone subscription to have different alerting email addresses (networking, identity, ops, workloads, etc.) or other supported actions. Alert Processing Rules are created to enable filters and connect alerts to the Action Groups.
+Metric alerts are deployed with resources (in the same resource group) and platform alerts like Service Health / Activity are created in a dedicated resource group for each subscription. Alert Action Groups are created in each landing zone subscription, allowing each operational area and landing zone subscription to have different alerting email addresses (networking, identity, ops, workloads, etc.) or other supported actions. Alert Processing Rules are created to enable filters and connect alerts to the Action Groups.
 
 As an example in the context of ALZ, an action group is deployed in the "AlzMonitoring-RG" resource group in each subscription.
 
@@ -37,9 +37,9 @@ ALZ Alerts, Action Groups and Alert Processing Rules are deployed using Azure Po
 
 The following policy definition categories will be enabled as part of ALZ deployments for the hubs and landing zones defined by Enterprise Scale:
 
-- Resource Metrics; See here for details on which resource metrics are included.
-- Service and Resource Health; See here for details on which alerts are included.
-- Activity Logs; See here for details on which alerts are included.
+- Resource Metrics; See [here](https://github.com/Azure/alz-monitor/wiki/AlertDetails#metric-alert-settings) for details on which resource metrics are included.
+- Service and Resource Health; See [here](https://github.com/Azure/alz-monitor/wiki/AlertDetails#activity-log-alerts) for details on which alerts are included.
+- Activity Logs; See [here](https://github.com/Azure/alz-monitor/wiki/AlertDetails#activity-log-administrative) for details on which alerts are included.
 
 As this is a work in progress, in the future we may investigate and include:
 
