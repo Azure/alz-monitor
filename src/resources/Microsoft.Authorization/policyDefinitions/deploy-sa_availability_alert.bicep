@@ -184,6 +184,10 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Storage/storageAccounts/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {

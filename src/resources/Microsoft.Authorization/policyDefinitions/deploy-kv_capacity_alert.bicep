@@ -184,6 +184,10 @@ module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.keyvault/vaults/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {

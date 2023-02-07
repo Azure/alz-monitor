@@ -178,6 +178,10 @@ module VnetgIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/po
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {

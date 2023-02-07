@@ -184,6 +184,10 @@ module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/privateDnsZones/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {

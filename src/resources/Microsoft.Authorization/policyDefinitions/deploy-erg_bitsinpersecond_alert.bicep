@@ -184,6 +184,10 @@ module ErgExpressRouteBitsInAlert '../../arm/Microsoft.Authorization/policyDefin
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/expressroutegateways/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {
