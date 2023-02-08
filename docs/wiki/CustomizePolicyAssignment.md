@@ -112,7 +112,7 @@ The following parameters can be changed for activity log, service health alert a
 Recognizing that it is not always possible to test alerts in a dev/test environment, we have introduced the parAlertstate parameter for all metric alerts. This is to address a scenario where   an alert storm occurs and it is necessary to disable one or more alerts deployed via policies through a controlled process. This could be considered for a roll-back process as part of a change request.
 These are the high-level steps that would need to take place:
 1. Change values for the parAlertState for the offending policies to disabled, fixme waiting on https://dev.azure.com/csusoleng/Azure%20Landing%20Zones/_workitems/edit/26227, either via command line or parameter file as described previously.
-3. Deploy the policy assignments as described previously
+3. Deploy the policy assignments as described previously.
 4. After deploying and policy evaluation there will be a number of non-compliant policies depending on which alerts were to be disabled. These will then need to be remediated which can be done either through the portal, on a policy-by-policy basis or you can run the script found in .github/script/Start-ALZMonitorRemediation to remediate all ALZ-Monitor policies in scope as defined by management group pre-fix.
 > Note that the above approach will not delete the alerts objects in Azure, merely disable them. To delete the alerts you will have to do so manually.
 > Also note that while you can engage the parPolicyEffect to avoid deploying new alerts, you should not do so until you have successfully remediated the above. Otherwise the policy will be disabled, and you will not be able to turn alerts off via policy until that is changed back. 

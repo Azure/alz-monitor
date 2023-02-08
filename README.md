@@ -8,10 +8,11 @@ There isn't definitive list of what you should monitor when you deploy something
 
 Microsoft has tried to address this by providing a number of 'insights or solutions' for popular services which pull together all the things you should care about ([Storage Insights](https://learn.microsoft.com/en-us/azure/storage/common/storage-insights-overview), [VM Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-overview), [Container Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-overview)); but what about everything else???
 
-The purpose of this project is to focus on monitoring for Azure Landing Zone as a common set of Azure resources/services that are configured in a similar way across organizations. 
-This project is a opinionated view on what you should monitor for the key components of your Azure Landing Zone within the Platform scope. I.e:
+The purpose of this project is to focus on monitoring for Azure Landing Zone as a common set of Azure resources/services that are configured in a similar way across organizations. This provided us with a starting point on addressing "What should be monitored in Azure?" It also provides an example of how to monitor-at-scale while leveraging Infrastructure-as-code principles.
+This project is an opinionated view on what you should monitor for the key components of your Azure Landing Zone within the Platform scope. i.e:
 
 - Express Route Circuits
+- Express Route Gateways
 - Azure Firewalls
 - Virtual Networks
 - Virtual Network gateways
@@ -75,7 +76,7 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 When you deploy the IP located in this repo, Microsoft can identify the installation of said IP with the deployed Azure resources. Microsoft can correlate these resources used to support the software. Microsoft collects this information to provide the best experiences with their products and to operate their business. The telemetry is collected through customer usage attribution. The data is collected and governed by [Microsoft's privacy policies](https://www.microsoft.com/trustcenter).
 
-If you don't wish to send usage data to Microsoft, or need to understand more about its' use details can be found [here.](https://github.com/azure/alz-monitor/wiki/Telemetry).
+If you don't wish to send usage data to Microsoft, or need to understand more about its' use details can be found [here](https://github.com/azure/alz-monitor/wiki/Telemetry).
 
 ## Trademarks
 
