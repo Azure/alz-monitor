@@ -6,6 +6,8 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
+param parAlertState string = 'true'
+
 module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
@@ -17,6 +19,20 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
             version: '1.0.0'
             Category: 'ServiceHealth'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
+        parameters: {
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
+            }
         }
         policyRule: {
             if: {
@@ -39,67 +55,70 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
-  
-                          {
-                            field: 'Microsoft.Insights/ActivityLogAlerts/enabled'
-                            equals: 'true'
-                          }
-                          {
-                            count: {
-                              field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*]'
-                              where: {
-                                anyOf: [
-                                  {
-                                    allOf: [
-                                      {
-                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field'
-                                        equals: 'category'
-                                      }
-                                      {
-                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals'
-                                        equals: 'ServiceHealth'
-                                      }
-                                    ]
-                                  }
-                                  {
-                                    allOf: [
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].field'
-                                        equals: 'properties.incidentType'
-                                      }
-                                      {
-                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
-                                        equals: 'Incident'
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
+
+                            {
+                                field: 'Microsoft.Insights/ActivityLogAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
                             }
-                            equals: 2
-                          }
+                            {
+                                count: {
+                                    field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*]'
+                                    where: {
+                                        anyOf: [
+                                            {
+                                                allOf: [
+                                                    {
+                                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field'
+                                                        equals: 'category'
+                                                    }
+                                                    {
+                                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals'
+                                                        equals: 'ServiceHealth'
+                                                    }
+                                                ]
+                                            }
+                                            {
+                                                allOf: [
+                                                    {
+                                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].field'
+                                                        equals: 'properties.incidentType'
+                                                    }
+                                                    {
+                                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
+                                                        equals: 'Incident'
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                                equals: 2
+                            }
                         ]
                     }
                     deployment: {
-                      location: policyLocation 
+                        location: policyLocation
                         properties: {
                             mode: 'incremental'
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
-                                  parameters: {
-                                  parResourceGroupName: {
-                                      type: 'string'
-                                      defaultValue: parResourceGroupName
-                                  }
-                                  policyLocation: {
-                                      type: 'string'
-                                      defaultValue: policyLocation
-                                  }
-                              }
-                               variables: {}
-                              resources: [ 
-                                {
+                                parameters: {
+                                    parResourceGroupName: {
+                                        type: 'string'
+                                        defaultValue: parResourceGroupName
+                                    }
+                                    policyLocation: {
+                                        type: 'string'
+                                        defaultValue: policyLocation
+                                    }
+                                    enabled: {
+                                        type: 'string'
+                                    }
+                                }
+                                variables: {}
+                                resources: [
+                                    {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
                                         name: parResourceGroupName
@@ -119,50 +138,66 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                             template: {
                                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                                 contentVersion: '1.0.0.0'
-                                                parameters: {}
+                                                parameters: {
+                                                    enabled: {
+                                                        type: 'string'
+                                                    }
+                                                }
                                                 variables: {}
                                                 resources: [
-                                {
-                                        type: 'microsoft.insights/activityLogAlerts'
-                                        apiVersion: '2020-10-01'
-                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
-                                        name: 'ServieHealthIncident'
-                                        location: 'global'
-                                        properties: {
-                                            description: 'ServiceHealthIncidentAlert'
-                                            enabled: true
-                                            scopes: [
-                                                '[subscription().id]'
-                                            ]
-                                            condition: {
-                                            allOf: [
-                                                {
-                                                  field:'category'
-                                                  equals: 'ServiceHealth'
+                                                    {
+                                                        type: 'microsoft.insights/activityLogAlerts'
+                                                        apiVersion: '2020-10-01'
+                                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
+                                                        name: 'ServieHealthIncident'
+                                                        location: 'global'
+                                                        properties: {
+                                                            description: 'ServiceHealthIncidentAlert'
+                                                            enabled: '[parameters(\'enabled\')]'
+                                                            scopes: [
+                                                                '[subscription().id]'
+                                                            ]
+                                                            condition: {
+                                                                allOf: [
+                                                                    {
+                                                                        field: 'category'
+                                                                        equals: 'ServiceHealth'
+                                                                    }
+                                                                    {
+                                                                        field: 'properties.incidentType'
+                                                                        equals: 'Incident'
+                                                                    }
+
+                                                                ]
+                                                            }
+                                                        }
+                                                        parameters: {
+                                                            enabled: {
+                                                                value: '[parameters(\'enabled\')]'
+                                                            }
+                                                        }
+
+                                                    }
+                                                ]
+                                            }
+                                            parameters: {
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
                                                 }
-                                                {
-                                                  field: 'properties.incidentType'
-                                                  equals: 'Incident'
-                                                }
-                                               
-                                              
-                                              ]
                                             }
                                         }
-  
                                     }
-                                ] 
-                                }
-                                }
-                                }
                                 ]
                             }
-                           
+                            parameters: {
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     }
-  }
-  
+}
