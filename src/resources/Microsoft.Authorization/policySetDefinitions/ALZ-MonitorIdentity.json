@@ -1,6 +1,18 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
+  "parameters": {
+    "parTelemetryOptOut": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Set Parameter to true to Opt-out of deployment telemetry"
+      }
+    }
+  },
+  "variables": {
+    "varCuaid": "7e6d4601-dfd7-4996-8ea6-3e1ef93758f1"
+  },
   "resources": [
     {
       "type": "Microsoft.Authorization/policySetDefinitions",
@@ -448,6 +460,25 @@
           }
         ],
         "policyType": "Custom"
+      }
+    },
+    {
+      "condition": "[not(parameters('parTelemetryOptOut'))]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[format('pid-{0}-{1}', variables('varCuaid'), uniqueString(deployment().location))]",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {},
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": []
+        }
       }
     }
   ]
