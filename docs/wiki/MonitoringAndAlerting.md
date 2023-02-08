@@ -20,7 +20,10 @@ For a **decentralized** approach every subscription has a dedicated Action Group
 
 Metric alerts are deployed with resources (in the same resource group) and platform alerts like Service Health / Activity are created in a dedicated resource group for each subscription. Alert Action Groups are created in each landing zone subscription, allowing each operational area and landing zone subscription to have different alerting email addresses (networking, identity, ops, workloads, etc.) or other supported actions. Alert Processing Rules are created to enable filters and connect alerts to the Action Groups.
 
-As an example in the context of ALZ, an action group is deployed in the "AlzMonitoring-RG" resource group in each subscription.
+As an example in the context of ALZ, see below for a graphic representation of the flow.
+
+![ALZ alerting](../../media/monitoringandalerting.2.png)
+
 
 ### ALZ Approach
 
