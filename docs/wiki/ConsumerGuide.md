@@ -7,7 +7,7 @@ This guide describes how to get started with implementing alert policies and ini
 > Note that this is a preview solution intended to solicitate feedback for further development which should be tested in a safe environment before deploying to production to protect against possible failures/unnecessary cost. 
 > Also note that this private repo is shared with different select Microsoft customers and partners, as such you should never upload or otherwise divulge sensititve information to this repo. If there is any concern, please contact your Microsoft counterparts for detailed advice.
 
-The repo at present contains ip for the following:
+The repo at present contains code and details for the following:
 - Policies to automatically create alerts, action groups and alert processing rules for different Azure resource types, centered around a recommended Azure Monitor Baseline for Alerting in a customers´ newly created or existing brownfield ALZ deployment.
 - Initiatives grouping said policies into appropriate buckets for ease of policy assignment in alignment with ALZ Platform structure (Networking, Identity and Management).
 
