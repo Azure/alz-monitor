@@ -10,7 +10,7 @@ There are two general principles/approaches to enabling alerting in ALZ:
 
 With a **centralized** approach to alerting a central Action Group is used for all alerts, which means a single alerting email (distribution group) address or other configured actions.
 
-Metric alerts are deployed with resources (same resource group) and platform alerts like Service Health / Activity are created in a dedicated resource group, in a subscription typically located in the Management platform management group. A single Alert Action Group in a subscription in the Management platform management group is configured with a central alerting email address, and Alert Processing Rules enabling filters and connecting alerts to the Action Group.
+Metric alerts are deployed with resources (same resource group) and platform alerts like Service Health / Activity are created in a dedicated resource group, in a subscription typically located in the Management platform management group. A single Alert Action Group in a subscription in the Management platform management group is configured with a central alerting email address, and Alert Processing Rules enabling filters and connecting alerts to the Alert Action Group.
 
 As an example in the context of ALZ, a single centralized action group is deployed in the "AlzMonitoring-RG" resource group in a subscription in the Management platform management group. 
 
