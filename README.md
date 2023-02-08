@@ -12,6 +12,7 @@ The purpose of this project is to focus on monitoring for Azure Landing Zone as 
 This project is an opinionated view on what you should monitor for the key components of your Azure Landing Zone within the Platform scope. i.e:
 
 - Express Route Circuits
+- Express Route Gateways
 - Azure Firewalls
 - Virtual Networks
 - Virtual Network gateways
