@@ -19,7 +19,7 @@ Alerts, action groups and alert processing rules are created as follows:
 
 ## Getting started
 
-- Fork this repo to your own GitHub organization, this should be done to allow all contributors to work completely independent of each other. Pull requests directly towards the repo will be rejected.
+- Fork this repo to your own GitHub organization, you should not create a direct clone of the repo. Pull requests based off direct clones of the repo will not be allowed.
 - Clone the repo from your own GitHub organization to your developer workstation. 
 
 ### Manual (Complete) deployment - default settings
@@ -65,8 +65,8 @@ Alerts, action groups and alert processing rules are created as follows:
   New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -parPolicyManagementGroupId $managementGroupId
   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -parPolicyManagementGroupId $managementGroupId
 ```
-### Deploy through GitHub Actions - vanilla
-To deploy through GitHub actions, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following.
+### Deploy through GitHub Actions (Complete) - Default settings
+To deploy through GitHub actions, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following:
 - Configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
 - Modify the following values in sample-workflow.yml:
   - Change _Location: "norwayeast"_, to your preferred Azure region
@@ -83,7 +83,7 @@ If you are in a brown-field scenario on the other hand, policies will be reporti
 
 ## Customizing policy assignments
 
-Fixme if need to disable all alerts to be comfortable with the process. For details on how to customize policy and in particular initiative assignments please refer to [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment)
+As mentioned previously the above guidance will deploy policies, alerts and action groups with default settings. For details on how to customize policy and in particular initiative assignments please refer to [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment)
 
 
 ## Customizing the `ALZ-Monitor` policies
