@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.6.61914",
-      "templateHash": "15113713399681330378"
+      "templateHash": "15035036569495062857"
     }
   },
   "parameters": {
@@ -207,7 +207,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.14.6.61914",
-              "templateHash": "12668333713972403110"
+              "templateHash": "17188615798613485377"
             }
           },
           "parameters": {
@@ -283,7 +283,7 @@
             },
             "enableDefaultTelemetry": {
               "type": "bool",
-              "defaultValue": true,
+              "defaultValue": false,
               "metadata": {
                 "description": "Optional. Enable telemetry via the Customer Usage Attribution ID (GUID)."
               }
