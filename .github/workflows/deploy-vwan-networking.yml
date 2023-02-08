@@ -13,11 +13,11 @@ env:
   Location: "norwayeast"
   ManagementGroupPrefix: "vwan"
   TopLevelManagementGroupDisplayName: "VWAN Networking management group hierarchy"
-  mgSubscriptionId: "512307ea-3f76-4a8d-8f4f-0df465351158"
+  mgSubscriptionId: ${{ secrets.VWAN_MGMT_SUBSCRIPTIONID }}
   mgResourceGroup: "vwan-mgmt"
-  connSubscriptionId: "b520e36b-23a2-4c14-a04f-854dc0c24ee1"
+  connSubscriptionId: ${{ secrets.VWAN_CONNECTIVITY_SUBSCRIPTIONID }}
   connResourceGroup: "vwan-connectivity"
-  spokeSubscriptionId: "328c153d-e17a-43f1-85fa-26295930711d"
+  spokeSubscriptionId: ${{ secrets.VWAN_SPOKE_SUBSCRIPTIONID }}
   spokeResourceGroup: "spoke-connectivity"
 
   
@@ -97,19 +97,9 @@ jobs:
           az account set --subscription ${{ env.connSubscriptionId }}
           az group create --name ${{ env.connResourceGroup }} --location ${{ env.Location }}
           az deployment group create --resource-group ${{ env.connResourceGroup }} --template-file infra-as-code/bicep/modules/vwanConnectivity/vwanConnectivity.bicep --parameters @infra-as-code/bicep/modules/vwanConnectivity/parameters/vwanConnectivity.parameters.all.json parLocation=${{ env.Location }} 
-    
-    #Replace with spoke orchestration
+
     - name: Az CLI Deploy Spoke Networking for PR
       id: create_spoke_network
       shell: bash
       run: |
           az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.vwan.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
-
-    # - name: Az CLI Delete vwan Networking for PR
-    #   id: delete_hub_network
-    #   shell: bash
-    #   run: |
-    #       az account set --subscription ${{ env.connSubscriptionId }}
-    #       az group delete --name ${{ env.connResourceGroup }} --yes
-
-
