@@ -17,7 +17,7 @@ param parAssigneePrincipalType string
 param parAssigneeObjectId string
 
 @description('Set Parameter to true to Opt-out of deployment telemetry')
-param parTelemetryOptOut bool = false
+param parTelemetryOptOut bool = true
 
 // Customer Usage Attribution Id
 var varCuaid = '59c2ac61-cd36-413b-b999-86a3e0d958fb'

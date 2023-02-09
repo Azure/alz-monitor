@@ -1,6 +1,18 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
+  "parameters": {
+    "parTelemetryOptOut": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Set Parameter to true to Opt-out of deployment telemetry"
+      }
+    }
+  },
+  "variables": {
+    "varCuaid": "7e6d4601-dfd7-4996-8ea6-3e1ef93758f1"
+  },
   "resources": [
     {
       "type": "Microsoft.Authorization/policySetDefinitions",
@@ -525,6 +537,60 @@
               "disabled"
             ]
           },
+
+          "VPNGWIngressAlertSeverity": {
+            "type": "string",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          "VPNGWIngressWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ]
+          },
+          "VPNGWIngressEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ]
+          },
+          "VPNGWIngressPolicyEffect": {
+            "type": "string",
+            "defaultValue": "disabled",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ]
+          },
+          "VPNGWIngressThreshold": {
+            "type": "string",
+            "defaultValue": "1"
+          },
+          "VPNGWIngressAutoMitigate": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+
           "VPNGWTunnelIngressPacketDropCountAlertSeverity": {
             "type": "String",
             "defaultValue": "3",
@@ -613,7 +679,7 @@
               "disabled"
             ]
           },
-          "PDNSZCapacityUtilAlertSeveritySeverity": {
+          "PDNSZCapacityUtilAlertSeverity": {
             "type": "String",
             "defaultValue": "2",
             "allowedValues": [
@@ -661,7 +727,7 @@
             "type": "string",
             "defaultValue": "80"
           },
-          "PDNSZQueryVolumeAlertSeveritySeverity": {
+          "PDNSZQueryVolumeAlertSeverity": {
             "type": "String",
             "defaultValue": "4",
             "allowedValues": [
@@ -709,7 +775,7 @@
             "type": "string",
             "defaultValue": "500"
           },
-          "PDNSZRecordSetCapacityAlertSeveritySeverity": {
+          "PDNSZRecordSetCapacityAlertSeverity": {
             "type": "String",
             "defaultValue": "2",
             "allowedValues": [
@@ -1221,54 +1287,6 @@
             "type": "string",
             "defaultValue": "90"
           },
-          "VnetGwBGPPeerStatusAlertSeverity": {
-            "type": "String",
-            "defaultValue": "3",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "VnetGwBGPPeerStatusWindowSize": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "VnetGwBGPPeerStatusEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
-          "VnetGwBGPPeerStatusPolicyEffect": {
-            "type": "string",
-            "defaultValue": "deployIfNotExists",
-            "allowedValues": [
-              "deployIfNotExists",
-              "disabled"
-            ]
-          },
-          "VnetGwBGPPeerStatusThreshold": {
-            "type": "string",
-            "defaultValue": "1"
-          },
           "ERCIRArpAvailabilityAlertSeverity": {
             "type": "String",
             "defaultValue": "0",
@@ -1593,6 +1611,9 @@
               },
               "threshold": {
                 "value": "[[parameters('VPNGWIngressThreshold')]"
+              },
+              "autoMitigate": {
+                "value": "[[parameters('VPNGWIngressAutoMitigate')]"
               }
             }
           },
@@ -1879,26 +1900,6 @@
             }
           },
           {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_BgpPeerStatus_Alert')]",
-            "parameters": {
-              "severity": {
-                "value": "[[parameters('VnetGwBGPPeerStatusAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('VnetGwBGPPeerStatusWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('VnetGwBGPPeerStatusEvaluationFrequency')]"
-              },
-              "effect": {
-                "value": "[[parameters('VnetGwBGPPeerStatusPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('VnetGwBGPPeerStatusThreshold')]"
-              }
-            }
-          },
-          {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_ArpAvailability_Alert')]",
             "parameters": {
               "severity": {
@@ -1940,6 +1941,25 @@
           }
         ],
         "policyType": "Custom"
+      }
+    },
+    {
+      "condition": "[not(parameters('parTelemetryOptOut'))]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[format('pid-{0}-{1}', variables('varCuaid'), uniqueString(deployment().location))]",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {},
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": []
+        }
       }
     }
   ]
