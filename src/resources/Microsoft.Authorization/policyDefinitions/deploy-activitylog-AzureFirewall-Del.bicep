@@ -37,7 +37,6 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
         policyRule: {
             if: {
                 allOf: [
-
                     {
                         field: 'type'
                         equals: 'Microsoft.Network/azureFirewalls'
@@ -49,8 +48,10 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
-                    // should be replaced with parameter value
+                    name: 'ActivityFirewallDelete'
+                    existenceScope: 'resourcegroup'
                     resourceGroupName: parResourceGroupName
+                    deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
                             {
@@ -77,12 +78,12 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                             {
                                                 allOf: [
                                                     {
-                                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].field'
+                                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field'
                                                         equals: 'operationName'
                                                     }
                                                     {
-                                                        field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
-                                                        equals: 'Microsoft.Microsoft.Network/azurefirewalls/delete'
+                                                        field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals'
+                                                        equals: 'Microsoft.Network/azureFirewalls/delete'
                                                     }
                                                 ]
                                             }
@@ -94,31 +95,38 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                         ]
                     }
                     deployment: {
+                        location: policyLocation
                         properties: {
                             mode: 'incremental'
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
+                                    parResourceGroupName: {
+                                        type: 'string'
+                                        defaultValue: parResourceGroupName
+                                    }
+                                    policyLocation: {
+                                        type: 'string'
+                                        defaultValue: policyLocation
+                                    }
                                     enabled: {
                                         type: 'string'
                                     }
                                 }
                                 variables: {}
                                 resources: [
-                                    //should deploy resource group as well
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2020-10-01'
                                         name: parResourceGroupName
                                         location: policyLocation
-                                        properties: {}
                                     }
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
                                         //change name
-                                        name: 'ActivityLAWorkspaceDelete'
+                                        name: 'ActivityAzureFirewallDelete'
                                         resourceGroup: parResourceGroupName
                                         dependsOn: [
                                             'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
@@ -163,14 +171,13 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                                                             'succeeded'
                                                                         ]
                                                                     }
-
                                                                 ]
                                                             }
                                                             parameters: {
                                                                 enabled: {
                                                                     value: '[parameters(\'enabled\')]'
                                                                 }
-                                                            } 
+                                                            }
                                                         }
                                                     }
                                                 ]
