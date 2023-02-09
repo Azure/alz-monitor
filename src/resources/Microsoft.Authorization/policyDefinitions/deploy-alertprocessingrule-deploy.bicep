@@ -7,8 +7,6 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
-param parAlertState string = 'true'
-
 module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
@@ -21,23 +19,10 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
             Category: 'Action Groups'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
-        parameters: {
-            enabled: {
-                type: 'String'
-                metadata: {
-                    displayName: 'Alert State'
-                    description: 'Alert state for the alert'
-                }
-                allowedValues: [
-                    'true'
-                    'false'
-                ]
-                defaultValue: parAlertState
-            }
-        }
         policyRule: {
             if: {
                 allOf: [
+
                     {
                         field: 'type'
                         equals: 'Microsoft.Resources/subscriptions'
@@ -55,10 +40,12 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
+
                             {
                                 field: 'Microsoft.AlertsManagement/actionRules/description'
                                 equals: 'Alz Alert Processing Rule for Subscription'
                             }
+
                         ]
                     }
                     deployment: {
@@ -68,11 +55,6 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
-                                parameters: {
-                                    enabled: {
-                                        type: 'string'
-                                    }
-                                }
                                 variables: {}
                                 resources: [
                                     //should deploy resource group as well
@@ -83,6 +65,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                                         location: policyLocation
                                         properties: {}
                                     }
+
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
@@ -97,11 +80,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                                             template: {
                                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                                 contentVersion: '1.0.0.0'
-                                                parameters: {
-                                                    enabled: {
-                                                        type: 'string'
-                                                    }
-                                                }
+                                                parameters: {}
                                                 variables: {}
                                                 resources: [
                                                     {
@@ -112,27 +91,20 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                                                         location: 'global'
                                                         properties: {
                                                             groupShortName: 'AlzActionGrp'
-                                                            enabled: '[parameters(\'enabled\')]'
+                                                            enabled: true
                                                             emailReceivers: [
                                                                 {
                                                                     name: 'AlzMail'
                                                                     emailAddress: parActionGroupEmail
                                                                     useCommonAlertSchema: true
+
                                                                 }
                                                             ]
-                                                            parameters: {
-                                                                enabled: {
-                                                                    value: '[parameters(\'enabled\')]'
-                                                                }
-                                                            }
+
                                                         }
                                                     }
+
                                                 ]
-                                            }
-                                            parameters: {
-                                                enabled: {
-                                                    value: '[parameters(\'enabled\')]'
-                                                }
                                             }
                                         }
                                     }
@@ -150,11 +122,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                                             template: {
                                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                                 contentVersion: '1.0.0.0'
-                                                parameters: {
-                                                    enabled: {
-                                                        type: 'string'
-                                                    }
-                                                }
+                                                parameters: {}
                                                 variables: {}
                                                 resources: [
                                                     {
@@ -165,39 +133,33 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                                                         properties: {
                                                             scopes: [
                                                                 '[subscription().Id]'
+
                                                             ]
                                                             description: 'Alz Alert Processing Rule for Subscription'
-                                                            enabled: '[parameters(\'enabled\')]'
+                                                            enabled: true
                                                             actions: [
                                                                 {
                                                                     actiongroupIds: [
+
                                                                         '''[resourceId('Microsoft.Insights/actionGroups','AlzActionGrp')]'''
+
                                                                     ]
                                                                     actionType: 'AddActionGroups'
+
                                                                 }
+
                                                             ]
-                                                            parameters: {
-                                                                enabled: {
-                                                                    value: '[parameters(\'enabled\')]'
-                                                                }
-                                                            }
+
                                                         }
+
                                                     }
+
                                                 ]
-                                            }
-                                            parameters: {
-                                                enabled: {
-                                                    value: '[parameters(\'enabled\')]'
-                                                }
+
                                             }
                                         }
                                     }
                                 ]
-                            }
-                            parameters: {
-                                enabled: {
-                                    value: '[parameters(\'enabled\')]'
-                                }
                             }
                         }
                     }
@@ -205,4 +167,5 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
             }
         }
     }
+
 }
