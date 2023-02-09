@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.46.61228",
-      "templateHash": "12617741610858477485"
+      "templateHash": "1924184462845460099"
     }
   },
   "parameters": {
@@ -64,6 +64,10 @@
       ]
     },
     "parAutoMitigate": {
+      "type": "string",
+      "defaultValue": "true"
+    },
+    "parAlertState": {
       "type": "string",
       "defaultValue": "true"
     },
@@ -165,6 +169,18 @@
                 ],
                 "defaultValue": "[parameters('parAutoMitigate')]"
               },
+              "enabled": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Alert State",
+                  "description": "Alert state for the alert"
+                },
+                "allowedValues": [
+                  "true",
+                  "false"
+                ],
+                "defaultValue": "[parameters('parAlertState')]"
+              },
               "threshold": {
                 "type": "String",
                 "metadata": {
@@ -215,6 +231,10 @@
                       {
                         "field": "Microsoft.Insights/metricalerts/scopes[*]",
                         "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/privateDnsZones/', field('fullName'))]"
+                      },
+                      {
+                        "field": "Microsoft.Insights/metricAlerts/enabled",
+                        "equals": "[[parameters('enabled')]"
                       }
                     ]
                   },
@@ -251,6 +271,9 @@
                           "autoMitigate": {
                             "type": "String"
                           },
+                          "enabled": {
+                            "type": "String"
+                          },
                           "threshold": {
                             "type": "String"
                           }
@@ -265,7 +288,7 @@
                             "properties": {
                               "description": "Metric Alert for Private DNS Query Volume",
                               "severity": "[[parameters('severity')]",
-                              "enabled": true,
+                              "enabled": "[[parameters('enabled')]",
                               "scopes": [
                                 "[[parameters('resourceId')]"
                               ],
@@ -299,6 +322,9 @@
                                 "autoMitigate": {
                                   "value": "[[parameters('autoMitigate')]"
                                 },
+                                "enabled": {
+                                  "value": "[[parameters('enabled')]"
+                                },
                                 "threshold": {
                                   "value": "[[parameters('threshold')]"
                                 }
@@ -325,6 +351,9 @@
                         },
                         "autoMitigate": {
                           "value": "[[parameters('autoMitigate')]"
+                        },
+                        "enabled": {
+                          "value": "[[parameters('enabled')]"
                         },
                         "threshold": {
                           "value": "[[parameters('threshold')]"
