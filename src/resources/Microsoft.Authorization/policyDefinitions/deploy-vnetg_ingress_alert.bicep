@@ -46,6 +46,8 @@ param parPolicyEffect string = 'disabled'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 param parThreshold string = '1'
 
 module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -121,6 +123,18 @@ module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 ]
                 defaultValue: parAutoMitigate
             }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
+            }
             threshold: {
                 type: 'String'
                 metadata: {
@@ -174,6 +188,10 @@ module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {
@@ -209,6 +227,9 @@ module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -223,7 +244,7 @@ module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         properties: {
                                             description: 'Metric Alert for VNet Gateway Tunnel ingress Bytes'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -257,6 +278,9 @@ module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
                                                 }
@@ -283,6 +307,9 @@ module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 param parThreshold string = '80'
 
 module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -121,6 +123,18 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                 ]
                 defaultValue: parAutoMitigate
             }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
+            }
             threshold: {
                 type: 'String'
                 metadata: {
@@ -170,6 +184,10 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/privateDnsZones/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {
@@ -205,6 +223,9 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -219,7 +240,7 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                         properties: {
                                             description: 'Metric Alert for Private DNS Zone Registration Capacity Utilization'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -253,6 +274,9 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
                                                 }
@@ -279,6 +303,9 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

@@ -6,6 +6,7 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
+param parAlertState string = 'true'
 
 module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
@@ -18,6 +19,20 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
             version: '1.0.0'
             Category: 'ServiceHealth'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+        }
+        parameters: {
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
+            }
         }
         policyRule: {
             if: {
@@ -43,7 +58,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
 
                             {
                                 field: 'Microsoft.Insights/ActivityLogAlerts/enabled'
-                                equals: 'true'
+                                equals: '[parameters(\'enabled\')]'
                             }
                             {
                                 count: {
@@ -97,6 +112,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                         type: 'string'
                                         defaultValue: policyLocation
                                     }
+                                    enabled: {
+                                        type: 'string'
+                                    }
                                     // deploymentRoleDefinitionIds: {
                                     //     type: 'array'
                                     //     defaultValue: deploymentRoleDefinitionIds
@@ -124,7 +142,11 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                             template: {
                                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                                 contentVersion: '1.0.0.0'
-                                                parameters: {}
+                                                parameters: {
+                                                    enabled: {
+                                                        type: 'string'
+                                                    }
+                                                }
                                                 variables: {}
                                                 resources: [
                                                     {
@@ -134,7 +156,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                         name: 'ServiceHealthAdvisoryEvent'
                                                         properties: {
                                                             description: 'Service Health Advisory Alert'
-                                                            enabled: true
+                                                            enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
                                                                 '[subscription().id]'
                                                             ]
@@ -150,15 +172,28 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                                     }
                                                                 ]
                                                             }
+                                                            parameters: {
+                                                                enabled: {
+                                                                    value: '[parameters(\'enabled\')]'
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 ]
+                                            }
+                                            parameters: {
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                             }
                                         }
                                     }
                                 ]
                             }
                             parameters: {
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
+                                }
                             }
                         }
                     }

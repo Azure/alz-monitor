@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 param parThreshold string = '0'
 
 module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -121,6 +123,18 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                 ]
                 defaultValue: parAutoMitigate
             }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
+            }
             threshold: {
                 type: 'String'
                 metadata: {
@@ -170,6 +184,10 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/virtualNetworks/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {
@@ -205,6 +223,9 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                     threshold: {
                                         type: 'String'
                                     }
@@ -219,7 +240,7 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                         properties: {
                                             description: 'Metric Alert for VNet DDOS Attack'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -253,6 +274,9 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                                 threshold: {
                                                     value: '[parameters(\'threshold\')]'
                                                 }
@@ -279,6 +303,9 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                                 threshold: {
                                     value: '[parameters(\'threshold\')]'

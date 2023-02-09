@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-erqosdropsout-policyDefinitions'
     params: {
@@ -119,6 +121,18 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                 ]
                 defaultValue: parAutoMitigate
             }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
+            }
             effect: {
                 type: 'String'
                 metadata: {
@@ -160,6 +174,10 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/expressRouteCircuits/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {
@@ -195,6 +213,9 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -206,7 +227,7 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                         properties: {
                                             description: 'Metric Alert for ExpressRoute Circuit QosDropBitsOutPerSecond'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -244,6 +265,9 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -267,6 +291,9 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                             }
                         }

@@ -46,6 +46,8 @@ param parPolicyEffect string = 'deployIfNotExists'
 
 param parAutoMitigate string = 'true'
 
+param parAlertState string = 'true'
+
 module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgegresspacketdropcount-policyDefinitions'
     params: {
@@ -119,6 +121,18 @@ module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policy
                 ]
                 defaultValue: parAutoMitigate
             }
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
+            }
             effect: {
                 type: 'String'
                 metadata: {
@@ -164,6 +178,10 @@ module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policy
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
                                 equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/microsoft.network/virtualNetworkGateways/\', field(\'fullName\'))]'
                             }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/enabled'
+                                equals: '[parameters(\'enabled\')]'
+                            }
                         ]
                     }
                     deployment: {
@@ -199,6 +217,9 @@ module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policy
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    enabled: {
+                                        type: 'String'
+                                    }
                                 }
                                 variables: {}
                                 resources: [
@@ -210,7 +231,7 @@ module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policy
                                         properties: {
                                             description: 'Metric Alert for Vnet Gateway tunnel TunnelEgressPacketDropCount'
                                             severity: '[parameters(\'severity\')]'
-                                            enabled: true
+                                            enabled: '[parameters(\'enabled\')]'
                                             scopes: [
                                                 '[parameters(\'resourceId\')]'
                                             ]
@@ -248,6 +269,9 @@ module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policy
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -271,6 +295,9 @@ module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policy
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
+                                }
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
                                 }
                             }
                         }
