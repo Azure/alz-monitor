@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.46.61228",
-      "templateHash": "14578987456137202827"
+      "templateHash": "9673243883731279525"
     }
   },
   "parameters": {
@@ -64,6 +64,10 @@
       ]
     },
     "parAutoMitigate": {
+      "type": "string",
+      "defaultValue": "true"
+    },
+    "parAlertState": {
       "type": "string",
       "defaultValue": "true"
     },
@@ -165,6 +169,18 @@
                 ],
                 "defaultValue": "[parameters('parAutoMitigate')]"
               },
+              "enabled": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Alert State",
+                  "description": "Alert state for the alert"
+                },
+                "allowedValues": [
+                  "true",
+                  "false"
+                ],
+                "defaultValue": "[parameters('parAlertState')]"
+              },
               "threshold": {
                 "type": "String",
                 "metadata": {
@@ -219,6 +235,10 @@
                       {
                         "field": "Microsoft.Insights/metricalerts/scopes[*]",
                         "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworkGateways/', field('fullName'))]"
+                      },
+                      {
+                        "field": "Microsoft.Insights/metricAlerts/enabled",
+                        "equals": "[[parameters('enabled')]"
                       }
                     ]
                   },
@@ -255,6 +275,9 @@
                           "autoMitigate": {
                             "type": "String"
                           },
+                          "enabled": {
+                            "type": "String"
+                          },
                           "threshold": {
                             "type": "String"
                           }
@@ -269,7 +292,7 @@
                             "properties": {
                               "description": "Metric Alert for VNet Gateway Tunnel ingress Bytes",
                               "severity": "[[parameters('severity')]",
-                              "enabled": true,
+                              "enabled": "[[parameters('enabled')]",
                               "scopes": [
                                 "[[parameters('resourceId')]"
                               ],
@@ -303,6 +326,9 @@
                                 "autoMitigate": {
                                   "value": "[[parameters('autoMitigate')]"
                                 },
+                                "enabled": {
+                                  "value": "[[parameters('enabled')]"
+                                },
                                 "threshold": {
                                   "value": "[[parameters('threshold')]"
                                 }
@@ -329,6 +355,9 @@
                         },
                         "autoMitigate": {
                           "value": "[[parameters('autoMitigate')]"
+                        },
+                        "enabled": {
+                          "value": "[[parameters('enabled')]"
                         },
                         "threshold": {
                           "value": "[[parameters('threshold')]"

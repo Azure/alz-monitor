@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.46.61228",
-      "templateHash": "7991591043316219824"
+      "templateHash": "8371009248521324865"
     }
   },
   "parameters": {
@@ -22,6 +22,10 @@
       "defaultValue": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
       ]
+    },
+    "parAlertState": {
+      "type": "string",
+      "defaultValue": "true"
     }
   },
   "resources": [
@@ -55,6 +59,22 @@
               "source": "https://github.com/Azure/ALZ-Monitor/"
             }
           },
+          "parameters": {
+            "value": {
+              "enabled": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Alert State",
+                  "description": "Alert state for the alert"
+                },
+                "allowedValues": [
+                  "true",
+                  "false"
+                ],
+                "defaultValue": "[parameters('parAlertState')]"
+              }
+            }
+          },
           "policyRule": {
             "value": {
               "if": {
@@ -75,7 +95,7 @@
                     "allOf": [
                       {
                         "field": "Microsoft.Insights/ActivityLogAlerts/enabled",
-                        "equals": "true"
+                        "equals": "[[parameters('enabled')]"
                       },
                       {
                         "count": {
@@ -119,6 +139,11 @@
                       "template": {
                         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                         "contentVersion": "1.0.0.0",
+                        "parameters": {
+                          "enabled": {
+                            "type": "string"
+                          }
+                        },
                         "variables": {},
                         "resources": [
                           {
@@ -141,7 +166,11 @@
                               "template": {
                                 "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                                 "contentVersion": "1.0.0.0",
-                                "parameters": {},
+                                "parameters": {
+                                  "enabled": {
+                                    "type": "string"
+                                  }
+                                },
                                 "variables": {},
                                 "resources": [
                                   {
@@ -151,7 +180,7 @@
                                     "location": "global",
                                     "properties": {
                                       "description": "Activity Log Firewall Delete",
-                                      "enabled": true,
+                                      "enabled": "[[parameters('enabled')]",
                                       "scopes": [
                                         "[[subscription().id]"
                                       ],
@@ -172,14 +201,29 @@
                                             ]
                                           }
                                         ]
+                                      },
+                                      "parameters": {
+                                        "enabled": {
+                                          "value": "[[parameters('enabled')]"
+                                        }
                                       }
                                     }
                                   }
                                 ]
+                              },
+                              "parameters": {
+                                "enabled": {
+                                  "value": "[[parameters('enabled')]"
+                                }
                               }
                             }
                           }
                         ]
+                      },
+                      "parameters": {
+                        "enabled": {
+                          "value": "[[parameters('enabled')]"
+                        }
                       }
                     }
                   }

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.46.61228",
-      "templateHash": "3024789706523478010"
+      "templateHash": "6214817061363983640"
     }
   },
   "parameters": {
@@ -64,6 +64,10 @@
       ]
     },
     "parAutoMitigate": {
+      "type": "string",
+      "defaultValue": "true"
+    },
+    "parAlertState": {
       "type": "string",
       "defaultValue": "true"
     }
@@ -161,6 +165,18 @@
                 ],
                 "defaultValue": "[parameters('parAutoMitigate')]"
               },
+              "enabled": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Alert State",
+                  "description": "Alert state for the alert"
+                },
+                "allowedValues": [
+                  "true",
+                  "false"
+                ],
+                "defaultValue": "[parameters('parAlertState')]"
+              },
               "effect": {
                 "type": "String",
                 "metadata": {
@@ -203,6 +219,10 @@
                       {
                         "field": "Microsoft.Insights/metricalerts/scopes[*]",
                         "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/expressRouteCircuits/', field('fullName'))]"
+                      },
+                      {
+                        "field": "Microsoft.Insights/metricAlerts/enabled",
+                        "equals": "[[parameters('enabled')]"
                       }
                     ]
                   },
@@ -238,6 +258,9 @@
                           },
                           "autoMitigate": {
                             "type": "String"
+                          },
+                          "enabled": {
+                            "type": "String"
                           }
                         },
                         "variables": {},
@@ -250,7 +273,7 @@
                             "properties": {
                               "description": "Metric Alert for ExpressRoute Circuit QosDropBitsInPerSecond",
                               "severity": "[[parameters('severity')]",
-                              "enabled": true,
+                              "enabled": "[[parameters('enabled')]",
                               "scopes": [
                                 "[[parameters('resourceId')]"
                               ],
@@ -287,6 +310,9 @@
                                 },
                                 "autoMitigate": {
                                   "value": "[[parameters('autoMitigate')]"
+                                },
+                                "enabled": {
+                                  "value": "[[parameters('enabled')]"
                                 }
                               }
                             }
@@ -311,6 +337,9 @@
                         },
                         "autoMitigate": {
                           "value": "[[parameters('autoMitigate')]"
+                        },
+                        "enabled": {
+                          "value": "[[parameters('enabled')]"
                         }
                       }
                     }
