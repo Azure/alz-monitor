@@ -48,8 +48,8 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
-                    name: 'ActivityFirewallDelete'
-                    existenceScope: 'resourcegroup'
+                    name: 'ActivityAzureFirewallDelete'
+                    existenceScope: 'resourceGroup'
                     resourceGroupName: parResourceGroupName
                     deploymentScope: 'subscription'
                     existenceCondition: {
