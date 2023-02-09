@@ -50,7 +50,7 @@ param parPolicyAssignmentIdentityRoleAssignmentsSubs array = []
 param parPolicyAssignmentIdentityRoleDefinitionIds array = []
 
 @description('Set Parameter to true to Opt-out of deployment telemetry')
-param parTelemetryOptOut bool = false
+param parTelemetryOptOut bool = true
 
 var varPolicyAssignmentParametersMerged = union(parPolicyAssignmentParameters, parPolicyAssignmentParameterOverrides)
 
