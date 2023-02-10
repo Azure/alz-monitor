@@ -147,7 +147,6 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        //change name
                                         name: 'ActivityAzureFirewallDelete'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
