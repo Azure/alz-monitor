@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.46.61228",
-      "templateHash": "8371009248521324865"
+      "templateHash": "6275946636071825631"
     }
   },
   "parameters": {
@@ -90,7 +90,10 @@
                 "details": {
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.Insights/activityLogAlerts",
+                  "name": "ActivityAzureFirewallDelete",
+                  "existenceScope": "resourceGroup",
                   "resourceGroupName": "[parameters('parResourceGroupName')]",
+                  "deploymentScope": "subscription",
                   "existenceCondition": {
                     "allOf": [
                       {
@@ -117,12 +120,12 @@
                               {
                                 "allOf": [
                                   {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].field",
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field",
                                     "equals": "operationName"
                                   },
                                   {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].equals",
-                                    "equals": "Microsoft.Microsoft.Network/azurefirewalls/delete"
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals",
+                                    "equals": "Microsoft.Network/azureFirewalls/delete"
                                   }
                                 ]
                               }
@@ -134,12 +137,21 @@
                     ]
                   },
                   "deployment": {
+                    "location": "[parameters('policyLocation')]",
                     "properties": {
                       "mode": "incremental",
                       "template": {
                         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                         "contentVersion": "1.0.0.0",
                         "parameters": {
+                          "parResourceGroupName": {
+                            "type": "string",
+                            "defaultValue": "[parameters('parResourceGroupName')]"
+                          },
+                          "policyLocation": {
+                            "type": "string",
+                            "defaultValue": "[parameters('policyLocation')]"
+                          },
                           "enabled": {
                             "type": "string"
                           }
@@ -150,13 +162,12 @@
                             "type": "Microsoft.Resources/resourceGroups",
                             "apiVersion": "2020-10-01",
                             "name": "[parameters('parResourceGroupName')]",
-                            "location": "[parameters('policyLocation')]",
-                            "properties": {}
+                            "location": "[parameters('policyLocation')]"
                           },
                           {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
-                            "name": "ActivityLAWorkspaceDelete",
+                            "name": "ActivityAzureFirewallDelete",
                             "resourceGroup": "[parameters('parResourceGroupName')]",
                             "dependsOn": [
                               "[format('Microsoft.Resources/resourceGroups/{0}', parameters('parResourceGroupName'))]"
