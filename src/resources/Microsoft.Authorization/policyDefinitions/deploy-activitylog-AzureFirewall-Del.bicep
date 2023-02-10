@@ -223,7 +223,6 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                     value: '[parameters(\'enabled\')]'
                                 }
                                 alertResourceGroupName: {
-
                                     value: '[parameters(\'alertResourceGroupName\')]'
                                 }
                                 alertResourceGroupTags: {
