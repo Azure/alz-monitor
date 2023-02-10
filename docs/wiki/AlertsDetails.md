@@ -5,7 +5,7 @@ The following metric alerts have been defined and can deployed within your landi
 The resources, metric alerts and their settings provide you with a starting point to help you address the following monitoring questions:
 "What should we monitor in Azure?" and "What alert settings should we use?"  While they are opinionated settings and they are meant to cover the most common Azure Landing Zone components, we encourage you to adjust these settings to suit your monitoring needs based on how you're using Azure.
 
-If you have suggestions for other resources that should be included please open an Issue on this page providing the Azure resource provider and settings you'd like implemented, we can't promise to implement them all but we will look into it.
+If you have suggestions for other resources that should be included please open an Issue on this page providing the Azure resource provider and settings you'd like implemented, we can't promise to implement them all but we will look into it. Or if you'd like to contribute directly, follow the steps on how to contribute [here](https://github.com/azure/alz-monitor/wiki/Contributing#git-information-on-contributing).
 
 ## Metric Alerts Settings
 
