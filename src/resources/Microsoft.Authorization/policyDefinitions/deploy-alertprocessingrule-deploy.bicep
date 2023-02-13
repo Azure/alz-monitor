@@ -140,7 +140,6 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                             name: 'Alz Alert Processing Rule'
                             location: 'global'
                              dependsOn: [
-                            //   '''[resourceId('Microsoft.Insights/actionGroups','AlzActionGrp')]'''
                             '[concat(\'Microsoft.Insights/actionGroups/\', \'AlzActionGrp\')]'
                              ]
                             properties: {
