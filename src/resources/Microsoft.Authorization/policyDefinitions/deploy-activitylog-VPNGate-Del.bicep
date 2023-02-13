@@ -5,7 +5,9 @@ param parResourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
-
+param parResourceGroupTags object = {
+    environment: 'test'
+}
 param parAlertState string = 'true'
 
 module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -33,6 +35,22 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                 ]
                 defaultValue: parAlertState
             }
+            alertResourceGroupName: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Resource Group Name'
+                    description: 'Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupName
+            }
+            alertResourceGroupTags: {
+                type: 'Object'
+                metadata: {
+                    displayName: 'Resource Group Tags'
+                    description: 'Tags on the Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupTags
+            }
         }
         policyRule: {
             if: {
@@ -49,7 +67,7 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
                     existenceScope: 'resourcegroup'
-                    resourceGroupName: parResourceGroupName
+                    resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
@@ -101,9 +119,11 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
-                                    parResourceGroupName: {
+                                    alertResourceGroupName: {
                                         type: 'string'
-                                        defaultValue: parResourceGroupName
+                                    }
+                                    alertResourceGroupTags: {
+                                        type: 'object'
                                     }
                                     policyLocation: {
                                         type: 'string'
@@ -118,17 +138,17 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
-                                        name: parResourceGroupName
+                                        name: '[parameters(\'alertResourceGroupName\')]'
                                         location: policyLocation
+                                        tags: '[parameters(\'alertResourceGroupTags\')]'
                                     }
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        //change name
                                         name: 'ActivityVPNGatewayDelete'
-                                        resourceGroup: parResourceGroupName
+                                        resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
-                                            'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                            '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                                         ]
                                         properties: {
                                             mode: 'Incremental'
@@ -137,6 +157,9 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                                                 contentVersion: '1.0.0.0'
                                                 parameters: {
                                                     enabled: {
+                                                        type: 'string'
+                                                    }
+                                                    alertResourceGroupName: {
                                                         type: 'string'
                                                     }
                                                 }
@@ -185,6 +208,9 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                                                 enabled: {
                                                     value: '[parameters(\'enabled\')]'
                                                 }
+                                                alertResourceGroupName: {
+                                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -193,6 +219,12 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                             parameters: {
                                 enabled: {
                                     value: '[parameters(\'enabled\')]'
+                                }
+                                alertResourceGroupName: {
+                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                }
+                                alertResourceGroupTags: {
+                                    value: '[parameters(\'alertResourceGroupTags\')]'
                                 }
                             }
                         }
