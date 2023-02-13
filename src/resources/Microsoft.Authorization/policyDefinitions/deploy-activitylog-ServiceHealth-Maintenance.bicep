@@ -120,7 +120,6 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
-                                variables: {}
                                 parameters: {
                                     alertResourceGroupName: {
                                         type: 'string'
@@ -136,6 +135,7 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                                         type: 'string'
                                     }
                                 }
+                                variables: {}
                                 resources: [
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
