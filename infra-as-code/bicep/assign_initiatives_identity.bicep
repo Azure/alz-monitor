@@ -15,7 +15,7 @@ var varCuaid = '8d257c20-97bf-4d14-acb3-38dd1436d13a'
 module Deploy_DNSZ_QueryVolume_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Alerting-Identity'
   params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyManagementGroupId}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Security'
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyManagementGroupId}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Identity'
     parPolicyAssignmentDisplayName: 'ALZ Monitoring Alerts for Identity'
     parPolicyAssignmentName: 'ALZ-Monitor_Identity'
     parPolicyAssignmentDescription: 'Initiative to deploy alerts relevant to the ALZ Identity Management group'
