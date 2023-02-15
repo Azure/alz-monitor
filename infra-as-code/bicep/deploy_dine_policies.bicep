@@ -1,5 +1,3 @@
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT license.
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
