@@ -103,7 +103,7 @@ module ActivityLogUDRUpdateAlert '../../arm/Microsoft.Authorization/policyDefini
                                                     }
                                                     {
                                                         field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
-                                                        equals: 'Microsoft.Network/routeTables/write'
+                                                        equals: 'Microsoft.Network/routeTables/routes/write'
                                                     }
                                                 ]
                                             }
@@ -171,7 +171,7 @@ module ActivityLogUDRUpdateAlert '../../arm/Microsoft.Authorization/policyDefini
                                                     {
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
-                                                        name: 'ActivityNSGDelete'
+                                                        name: 'ActivityUDRUpdate'
                                                         location: 'global'
                                                         properties: {
                                                             description: 'Activity Log Route table update'
@@ -187,7 +187,7 @@ module ActivityLogUDRUpdateAlert '../../arm/Microsoft.Authorization/policyDefini
                                                                     }
                                                                     {
                                                                         field: 'operationName'
-                                                                        equals: 'Microsoft.Network/routeTables/write'
+                                                                        equals: 'Microsoft.Network/routeTables/routes/write'
                                                                     }
                                                                     {
                                                                         field: 'status'
