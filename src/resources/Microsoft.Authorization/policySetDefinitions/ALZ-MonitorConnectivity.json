@@ -25,6 +25,16 @@
           "source": "https://github.com/Azure/ALZ-Monitor/"
         },
         "parameters": {
+          "ALZMonitorResourceGroupName": {
+            "type": "String",
+            "defaultValue": "ALZ-Monitoring-RG"
+          },
+          "ALZMonitorResourceGroupTags": {
+            "type": "Object",
+            "defaultValue": {
+              "Environment": "test"
+            }
+          },
           "ERCIRQoSDropBitsinPerSecAlertSeverity": {
             "type": "String",
             "defaultValue": "2",
@@ -2628,6 +2638,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('ResHlthUnhealthyAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             }
           },
@@ -2636,6 +2652,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('SvcHlthAdvisoryAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             }
           },
@@ -2644,6 +2666,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('SvcHlthIncidentAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             }
           },
@@ -2651,6 +2679,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
@@ -2659,6 +2693,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
@@ -2667,6 +2707,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityFWDeleteAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete')]"
@@ -2675,6 +2721,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityNSGDeleteAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
@@ -2683,6 +2735,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityVPNGWDeleteAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete')]"

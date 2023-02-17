@@ -25,6 +25,16 @@
           "source": "https://github.com/Azure/ALZ-Monitor/"
         },
         "parameters": {
+          "ALZMonitorResourceGroupName": {
+            "type": "String",
+            "defaultValue": "ALZ-Monitoring-RG"
+          },
+          "ALZMonitorResourceGroupTags": {
+            "type": "Object",
+            "defaultValue": {
+              "Environment": "test"
+            }
+          },
           "AATotalJobAlertSeverity": {
             "type": "String",
             "defaultValue": "2",
@@ -216,6 +226,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('ResHlthUnhealthyAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             }
           },
@@ -224,6 +240,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('SvcHlthAdvisoryAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             }
           },
@@ -232,6 +254,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('SvcHlthIncidentAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             }
           },
@@ -239,6 +267,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
@@ -247,6 +281,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
@@ -256,6 +296,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityLAWDeleteAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             }
           },
@@ -264,6 +310,12 @@
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityLAWKeyRegenAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               }
             }
           },
