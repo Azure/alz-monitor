@@ -1808,6 +1808,38 @@
           "FirewallHealthThreshold": {
             "type": "string",
             "defaultValue": "90"
+          },
+          "ResHlthUnhealthyAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthAdvisoryAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthIncidentAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthMaintenanceAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "svcHlthSecAdvisoryAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "activityFWDeleteAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "activityNSGDeleteAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "activityVPNGWDeleteAlertState": {
+            "type": "string",
+            "defaultValue": "true"
           }
         },
         "policyDefinitions": [
@@ -2593,34 +2625,66 @@
           },
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]",
-            "parameters": {}
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('ResHlthUnhealthyAlertState')]"
+              }
+            }
           },
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]",
-            "parameters": {}
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthAdvisoryAlertState')]"
+              }
+            }
           },
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]",
-            "parameters": {}
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthIncidentAlertState')]"
+              }
+            }
           },
           {
-            "parameters": {},
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
+              }
+            },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
           },
           {
-            "parameters": {},
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
+              }
+            },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
           },
           {
-            "parameters": {},
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityFWDeleteAlertState')]"
+              }
+            },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete')]"
           },
           {
-            "parameters": {},
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityNSGDeleteAlertState')]"
+              }
+            },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
           },
           {
-            "parameters": {},
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityVPNGWDeleteAlertState')]"
+              }
+            },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete')]"
           }
         ],

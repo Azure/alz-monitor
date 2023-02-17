@@ -180,36 +180,92 @@
           "StorageAccountAvailabilityThreshold": {
             "type": "string",
             "defaultValue": "90"
+          },
+          "ResHlthUnhealthyAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthAdvisoryAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthIncidentAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthMaintenanceAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "svcHlthSecAdvisoryAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "activityLAWDeleteAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "activityLAWKeyRegenAlertState": {
+            "type": "string",
+            "defaultValue": "true"
           }
         },
         "policyDefinitions": [
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]",
-            "parameters": {}
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('ResHlthUnhealthyAlertState')]"
+              }
+            }
           },
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]",
-            "parameters": {}
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthAdvisoryAlertState')]"
+              }
+            }
           },
           {
-            "parameters": {},
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]"
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthIncidentAlertState')]"
+              }
+            }
           },
           {
-            "parameters": {},
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
+              }
+            },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
           },
           {
-            "parameters": {},
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
+              }
+            },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
           },
           {
-            "parameters": {},
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete')]"
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityLAWDeleteAlertState')]"
+              }
+            }
           },
           {
-            "parameters": {},
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen')]"
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityLAWKeyRegenAlertState')]"
+              }
+            }
           },
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AA_TotalJob_Alert')]",
