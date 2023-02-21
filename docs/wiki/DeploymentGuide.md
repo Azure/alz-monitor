@@ -22,6 +22,17 @@ Alerts, action groups and alert processing rules are created as follows:
 - Fork this repo to your own GitHub organization, you should not create a direct clone of the repo. Pull requests based off direct clones of the repo will not be allowed.
 - Clone the repo from your own GitHub organization to your developer workstation. 
 
+### Deploy through GitHub Actions (Complete) - Default settings
+To deploy through GitHub actions which is the preferred approach, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following:
+- Configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
+- Modify the following values in sample-workflow.yml:
+  - Change _Location: "norwayeast"_, to your preferred Azure region
+  - Change _ManagementGroupPrefix: "alz"_, to the management group where you wish to deploy the policies, initiatives and policy assignments.
+  - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
+  - Change _managementManagementGroup: "alz-platform-management"_, to the management group for management in your ALZ implementation.
+  - Change _ManagementGroupPrefix: "alz-platform-connectivity"_, to the management group for connectivity in your ALZ implementation.
+- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
+
 ### Manual (Complete) deployment - default settings
 - Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 - Run the following commands to deploy the policy definitions, initiatives and policy assignments with default settings. There can be some delay between policies getting created and actually being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
@@ -65,17 +76,6 @@ Alerts, action groups and alert processing rules are created as follows:
   New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -parPolicyManagementGroupId $managementGroupId
   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -parPolicyManagementGroupId $managementGroupId
 ```
-### Deploy through GitHub Actions (Complete) - Default settings
-To deploy through GitHub actions, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following:
-- Configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
-- Modify the following values in sample-workflow.yml:
-  - Change _Location: "norwayeast"_, to your preferred Azure region
-  - Change _ManagementGroupPrefix: "alz"_, to the management group where you wish to deploy the policies, initiatives and policy assignments.
-  - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
-  - Change _managementManagementGroup: "alz-platform-management"_, to the management group for management in your ALZ implementation.
-  - Change _ManagementGroupPrefix: "alz-platform-connectivity"_, to the management group for connectivity in your ALZ implementation.
-
-- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
 
 ## Policy remediation
 The policies are all deploy-if-not-exists, by default, meaning that any new deployments will be influenced by them. Therefore if you are deploying in a greenfield scenario and will afterwards be deploying any of the covered resource types, including subscriptions, then the policies will take effect and the relevant alert rules, action groups and alert processing rules will be created. 
