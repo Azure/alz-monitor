@@ -87,25 +87,29 @@ The above approach can be leveraged with any of the different parameters in the 
 
 ### Metric alert policy parameters
 
-The following parameters can be changed for metric alert policies
+The following parameters can be changed for metric alert policies, in the initiatives these are prefixed with an appropriate string to indicate the metric in question.
 
 | **Parameter Name** | **Parameter Description** |
 |----------|----------|
-| parAlertSeverity | 0 - 4 indicating alert severity |
-| parWindowSize | Indicating the time windows inside which the alert is evaluating for true/false |
-| parEvaluationFrequency | Indicating how often inside the time window evaluation takes place |
-| parPolicyEffect | Can be either DeployIfNotExists or Disabled |
-| parAutoMitigate | Indicates whether the the alert will auto-resolve if the alert condition is no longer true |
-| parThreshold | Indicates a numerical threshold for when the alert would trigger. Not relevant to all alerts as some are configured with dynamic rather than fixed thresholds |
-| parAlertState | Whether the alert is enabled or not |
+| severity | 0 - 4 indicating alert severity |
+| windowSize | Indicating the time windows inside which the alert is evaluating for true/false |
+| evaluationFrequency | Indicating how often inside the time window evaluation takes place |
+| effect | Can be either DeployIfNotExists or Disabled |
+| autoMitigate | Indicates whether the the alert will auto-resolve if the alert condition is no longer true |
+| threshold | Indicates a numerical threshold for when the alert would trigger. Not relevant to all alerts as some are configured with dynamic rather than fixed thresholds |
+| enabled | Whether the alert is enabled or not |
 ### Activity log, Service health alert and action group policy parameters 
 
 The following parameters can be changed for activity log, service health alert and action group policies.
 
 | **Parameter Name** | **Parameter Description** |
 |----------|----------|
-| parResourceGroupName | The name of the resource group to place the alerts in |
-| parResourcGroupTags | Any tags than needs to be added to the resource group created |
+| alertResourceGroupName | The name of the resource group to place the alerts in |
+| alertResourcGroupTags | Any tags than needs to be added to the resource group created |
+
+Note that the above parameters specifies the resource group that activity log alerts are placed in. If the resource group does not exist it gets created. Also the parameter for tags can take several tags, if multiple tags are needed. Tags are only applied at the resource group level. The tags parameter is set to a default value of one tag with the name *environment* and the value *test*, you can add more tags as already mentioned or set it to be an empty value.
+
+
 
 ## Big Red Button
 
