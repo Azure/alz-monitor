@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.46.61228",
-      "templateHash": "18263818759785280336"
+      "templateHash": "16746286846063169259"
     }
   },
   "parameters": {
@@ -22,6 +22,12 @@
       "defaultValue": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
       ]
+    },
+    "parResourceGroupTags": {
+      "type": "object",
+      "defaultValue": {
+        "environment": "test"
+      }
     },
     "parAlertState": {
       "type": "string",
@@ -72,6 +78,22 @@
                   "false"
                 ],
                 "defaultValue": "[parameters('parAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Resource Group Name",
+                  "description": "Resource group the alert is placed in"
+                },
+                "defaultValue": "[parameters('parResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "type": "Object",
+                "metadata": {
+                  "displayName": "Resource Group Tags",
+                  "description": "Tags on the Resource group the alert is placed in"
+                },
+                "defaultValue": "[parameters('parResourceGroupTags')]"
               }
             }
           },
@@ -91,7 +113,7 @@
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.Insights/activityLogAlerts",
                   "existenceScope": "resourcegroup",
-                  "resourceGroupName": "[parameters('parResourceGroupName')]",
+                  "resourceGroupName": "[[parameters('alertResourceGroupName')]",
                   "deploymentScope": "subscription",
                   "existenceCondition": {
                     "allOf": [
@@ -143,9 +165,11 @@
                         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                         "contentVersion": "1.0.0.0",
                         "parameters": {
-                          "parResourceGroupName": {
-                            "type": "string",
-                            "defaultValue": "[parameters('parResourceGroupName')]"
+                          "alertResourceGroupName": {
+                            "type": "string"
+                          },
+                          "alertResourceGroupTags": {
+                            "type": "object"
                           },
                           "policyLocation": {
                             "type": "string",
@@ -160,16 +184,17 @@
                           {
                             "type": "Microsoft.Resources/resourceGroups",
                             "apiVersion": "2021-04-01",
-                            "name": "[parameters('parResourceGroupName')]",
-                            "location": "[parameters('policyLocation')]"
+                            "name": "[[parameters('alertResourceGroupName')]",
+                            "location": "[parameters('policyLocation')]",
+                            "tags": "[[parameters('alertResourceGroupTags')]"
                           },
                           {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "name": "ActivityVPNGatewayDelete",
-                            "resourceGroup": "[parameters('parResourceGroupName')]",
+                            "resourceGroup": "[[parameters('alertResourceGroupName')]",
                             "dependsOn": [
-                              "[format('Microsoft.Resources/resourceGroups/{0}', parameters('parResourceGroupName'))]"
+                              "[[concat('Microsoft.Resources/resourceGroups/', parameters('alertResourceGroupName'))]"
                             ],
                             "properties": {
                               "mode": "Incremental",
@@ -178,6 +203,9 @@
                                 "contentVersion": "1.0.0.0",
                                 "parameters": {
                                   "enabled": {
+                                    "type": "string"
+                                  },
+                                  "alertResourceGroupName": {
                                     "type": "string"
                                   }
                                 },
@@ -224,6 +252,9 @@
                               "parameters": {
                                 "enabled": {
                                   "value": "[[parameters('enabled')]"
+                                },
+                                "alertResourceGroupName": {
+                                  "value": "[[parameters('alertResourceGroupName')]"
                                 }
                               }
                             }
@@ -233,6 +264,12 @@
                       "parameters": {
                         "enabled": {
                           "value": "[[parameters('enabled')]"
+                        },
+                        "alertResourceGroupName": {
+                          "value": "[[parameters('alertResourceGroupName')]"
+                        },
+                        "alertResourceGroupTags": {
+                          "value": "[[parameters('alertResourceGroupTags')]"
                         }
                       }
                     }
