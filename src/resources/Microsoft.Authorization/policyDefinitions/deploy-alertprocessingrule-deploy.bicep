@@ -6,6 +6,9 @@ param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
   '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
+param parResourceGroupTags object = {
+  environment: 'test'
+}
 
 module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
   name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
@@ -18,6 +21,24 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
       version: '1.0.0'
       Category: 'Action Groups'
       source: 'https://github.com/Azure/ALZ-Monitor/'
+    }
+    parameters: {
+      alertResourceGroupName: {
+        type: 'String'
+        metadata: {
+          displayName: 'Resource Group Name'
+          description: 'Resource group the alert is placed in'
+        }
+        defaultValue: parResourceGroupName
+      }
+      alertResourceGroupTags: {
+        type: 'Object'
+        metadata: {
+          displayName: 'Resource Group Tags'
+          description: 'Tags on the Resource group the alert is placed in'
+        }
+        defaultValue: parResourceGroupTags
+      }
     }
     policyRule: {
       if: {
@@ -35,8 +56,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
           roleDefinitionIds: deploymentRoleDefinitionIds
           type: 'Microsoft.AlertsManagement/actionRules'
           existenceScope: 'resourcegroup'
-          // should be replaced with parameter value
-          resourceGroupName: parResourceGroupName
+          resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
           deploymentScope: 'subscription'
           existenceCondition: {
             allOf: [
@@ -55,38 +75,50 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
               template: {
                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                 contentVersion: '1.0.0.0'
+                parameters: {
+                  alertResourceGroupName: {
+                    type: 'string'
+                  }
+                  alertResourceGroupTags: {
+                    type: 'object'
+                  }
+                  policyLocation: {
+                    type: 'string'
+                    defaultValue: policyLocation
+                  }
+                }
                 variables: {}
                 resources: [
-                  //should deploy resource group as well
                   {
                     type: 'Microsoft.Resources/resourceGroups'
-                    apiVersion: '2020-10-01'
-                    name: parResourceGroupName
+                    apiVersion: '2021-04-01'
+                    name: '[parameters(\'alertResourceGroupName\')]'
                     location: policyLocation
-                    properties: {}
+                    tags: '[parameters(\'alertResourceGroupTags\')]'
                   }
-
                   {
                     type: 'Microsoft.Resources/deployments'
                     apiVersion: '2019-10-01'
-                    //change name
                     name: 'ActionGroupDeployment'
-                    resourceGroup: parResourceGroupName
+                    resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                     dependsOn: [
-                      'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                      '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                     ]
                     properties: {
                       mode: 'Incremental'
                       template: {
                         '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                         contentVersion: '1.0.0.0'
-                        parameters: {}
+                        parameters: {
+                          alertResourceGroupName: {
+                            type: 'string'
+                          }
+                        }
                         variables: {}
                         resources: [
                           {
                             type: 'Microsoft.Insights/actionGroups'
                             apiVersion: '2022-04-01'
-                            //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
                             name: 'AlzActionGrp'
                             location: 'global'
                             properties: {
@@ -100,66 +132,50 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
 
                                 }
                               ]
-
                             }
                           }
-
-                        ]
-                      }
-                    }
-                  }
-                  {
-                    type: 'Microsoft.Resources/deployments'
-                    apiVersion: '2019-10-01'
-                    //change name
-                    name: 'AlertProcessingRuleDeployment'
-                    resourceGroup: parResourceGroupName
-                    dependsOn: [
-                      'ActionGroupDeployment'
-                    ]
-                    properties: {
-                      mode: 'Incremental'
-                      template: {
-                        '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
-                        contentVersion: '1.0.0.0'
-                        parameters: {}
-                        variables: {}
-                        resources: [
                           {
                             type: 'Microsoft.AlertsManagement/actionRules'
                             apiVersion: '2021-08-08'
                             name: 'Alz Alert Processing Rule'
                             location: 'global'
+                             dependsOn: [
+                            '[concat(\'Microsoft.Insights/actionGroups/\', \'AlzActionGrp\')]'
+                             ]
                             properties: {
                               scopes: [
                                 '[subscription().Id]'
-
                               ]
                               description: 'Alz Alert Processing Rule for Subscription'
                               enabled: true
                               actions: [
                                 {
                                   actiongroupIds: [
-
                                     '''[resourceId('Microsoft.Insights/actionGroups','AlzActionGrp')]'''
-
                                   ]
                                   actionType: 'AddActionGroups'
-
                                 }
-
                               ]
-
                             }
-
                           }
-
                         ]
-
+                      }
+                      parameters: {
+                        alertResourceGroupName: {
+                          value: '[parameters(\'alertResourceGroupName\')]'
+                        }
                       }
                     }
                   }
                 ]
+              }
+              parameters: {
+                alertResourceGroupName: {
+                  value: '[parameters(\'alertResourceGroupName\')]'
+                }
+                alertResourceGroupTags: {
+                  value: '[parameters(\'alertResourceGroupTags\')]'
+                }
               }
             }
           }
@@ -167,5 +183,4 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
       }
     }
   }
-
 }

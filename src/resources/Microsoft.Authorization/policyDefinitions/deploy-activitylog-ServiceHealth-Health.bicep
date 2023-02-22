@@ -5,6 +5,9 @@ param parResourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
+param parResourceGroupTags object = {
+    environment: 'test'
+}
 
 param parAlertState string = 'true'
 
@@ -33,6 +36,22 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                 ]
                 defaultValue: parAlertState
             }
+            alertResourceGroupName: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Resource Group Name'
+                    description: 'Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupName
+            }
+            alertResourceGroupTags: {
+                type: 'Object'
+                metadata: {
+                    displayName: 'Resource Group Tags'
+                    description: 'Tags on the Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupTags
+            }
         }
         policyRule: {
             if: {
@@ -48,10 +67,8 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
-                    //name: 'ALZ-SvcHealth'
                     existenceScope: 'resourcegroup'
-                    // should be replaced with parameter value
-                    resourceGroupName: parResourceGroupName
+                    resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
@@ -104,9 +121,11 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                 '$schema': 'https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
-                                    parResourceGroupName: {
+                                    alertResourceGroupName: {
                                         type: 'string'
-                                        defaultValue: parResourceGroupName
+                                    }
+                                    alertResourceGroupTags: {
+                                        type: 'object'
                                     }
                                     policyLocation: {
                                         type: 'string'
@@ -115,10 +134,6 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                     enabled: {
                                         type: 'string'
                                     }
-                                    // deploymentRoleDefinitionIds: {
-                                    //     type: 'array'
-                                    //     defaultValue: deploymentRoleDefinitionIds
-                                    // }
                                 }
                                 variables: {
                                 }
@@ -126,16 +141,17 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
-                                        name: parResourceGroupName
+                                        name: '[parameters(\'alertResourceGroupName\')]'
                                         location: policyLocation
+                                        tags: '[parameters(\'alertResourceGroupTags\')]'
                                     }
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
                                         name: 'ALZ-SvcHealth-Health'
-                                        resourceGroup: parResourceGroupName
+                                        resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
-                                            'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                            '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                                         ]
                                         properties: {
                                             mode: 'Incremental'
@@ -144,6 +160,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                 contentVersion: '1.0.0.0'
                                                 parameters: {
                                                     enabled: {
+                                                        type: 'string'
+                                                    }
+                                                    alertResourceGroupName: {
                                                         type: 'string'
                                                     }
                                                 }
@@ -185,14 +204,22 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                 enabled: {
                                                     value: '[parameters(\'enabled\')]'
                                                 }
-                                            }
-                                        }
+                                                alertResourceGroupName: {
+                                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                                }
+                                            }                                        }
                                     }
                                 ]
                             }
                             parameters: {
                                 enabled: {
                                     value: '[parameters(\'enabled\')]'
+                                }
+                                alertResourceGroupName: {
+                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                }
+                                alertResourceGroupTags: {
+                                    value: '[parameters(\'alertResourceGroupTags\')]'
                                 }
                             }
                         }
