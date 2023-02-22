@@ -25,6 +25,16 @@
           "source": "https://github.com/Azure/ALZ-Monitor/"
         },
         "parameters": {
+          "ALZMonitorResourceGroupName": {
+            "type": "String",
+            "defaultValue": "ALZ-Monitoring-RG"
+          },
+          "ALZMonitorResourceGroupTags": {
+            "type": "Object",
+            "defaultValue": {
+              "Environment": "test"
+            }
+          },
           "AATotalJobAlertSeverity": {
             "type": "String",
             "defaultValue": "2",
@@ -68,6 +78,10 @@
               "deployIfNotExists",
               "disabled"
             ]
+          },
+          "AATotalJobAlertAlertState": {
+            "type": "string",
+            "defaultValue": "true"
           },
           "AATotalJobAlertThreshold": {
             "type": "string",
@@ -117,201 +131,13 @@
               "disabled"
             ]
           },
+          "RVBackupHealthAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
           "RVBackupHealthThreshold": {
             "type": "string",
             "defaultValue": "20"
-          },
-          "FirewallHealthAlertSeverity": {
-            "type": "String",
-            "defaultValue": "0",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "FirewallHealthWindowSize": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "FirewallHealthEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT1M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
-          "FirewallHealthPolicyEffect": {
-            "type": "string",
-            "defaultValue": "deployIfNotExists",
-            "allowedValues": [
-              "deployIfNotExists",
-              "disabled"
-            ]
-          },
-          "FirewallHealthThreshold": {
-            "type": "string",
-            "defaultValue": "90"
-          },
-          "KvAvailabilityAlertSeverity": {
-            "type": "String",
-            "defaultValue": "1",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "KvAvailabilityWindowSize": {
-            "type": "string",
-            "defaultValue": "PT1M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "KvAvailabilityEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT1M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
-          "KvAvailabilityPolicyEffect": {
-            "type": "string",
-            "defaultValue": "disabled",
-            "allowedValues": [
-              "deployIfNotExists",
-              "disabled"
-            ]
-          },
-          "KVAvailabilityThreshold": {
-            "type": "string",
-            "defaultValue": "20"
-          },
-          "KvLatencyAvailabilityAlertSeverity": {
-            "type": "String",
-            "defaultValue": "3",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "KvLatencyAvailabilityWindowSize": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "KvLatencyAvailabilityEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
-          "KvLatencyAvailabilityPolicyEffect": {
-            "type": "string",
-            "defaultValue": "disabled",
-            "allowedValues": [
-              "deployIfNotExists",
-              "disabled"
-            ]
-          },
-          "KvLatencyAvailabilityThreshold": {
-            "type": "string",
-            "defaultValue": "1000"
-          },
-          "KVCapacityAlertSeverity": {
-            "type": "String",
-            "defaultValue": "1",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "KVCapacityWindowSize": {
-            "type": "string",
-            "defaultValue": "PT5M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "KVCapacityEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT1M",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
-          "KVCapacityPolicyEffect": {
-            "type": "string",
-            "defaultValue": "disabled",
-            "allowedValues": [
-              "deployIfNotExists",
-              "disabled"
-            ]
-          },
-          "KVCapacityThreshold": {
-            "type": "string",
-            "defaultValue": "75"
           },
           "StorageAccountAvailabilityAlertSeverity": {
             "type": "String",
@@ -357,29 +183,141 @@
               "disabled"
             ]
           },
+          "StorageAccountAvailabilityAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
           "StorageAccountAvailabilityThreshold": {
             "type": "string",
             "defaultValue": "90"
+          },
+          "ResHlthUnhealthyAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthAdvisoryAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthIncidentAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthMaintenanceAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "svcHlthSecAdvisoryAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "activityLAWDeleteAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "activityLAWKeyRegenAlertState": {
+            "type": "string",
+            "defaultValue": "true"
           }
         },
         "policyDefinitions": [
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]",
             "parameters": {
+              "enabled": {
+                "value": "[[parameters('ResHlthUnhealthyAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
             }
           },
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]",
             "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthAdvisoryAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
             }
           },
           {
-            "parameters": {},
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]"
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthIncidentAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
+            }
           },
           {
-            "parameters": {},
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
+            },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
+          },
+          {
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
+            },
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityLAWDeleteAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityLAWKeyRegenAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
+            }
           },
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AA_TotalJob_Alert')]",
@@ -395,6 +333,9 @@
               },
               "effect": {
                 "value": "[[parameters('AATotalJobAlertPolicyEffect')]"
+              },
+              "enabled": {
+                "value": "[[parameters('AATotalJobAlertAlertState')]"
               },
               "threshold": {
                 "value": "[[parameters('AATotalJobAlertThreshold')]"
@@ -416,89 +357,11 @@
               "effect": {
                 "value": "[[parameters('RVBackupHealthPolicyEffect')]"
               },
+              "enabled": {
+                "value": "[[parameters('RVBackupHealthAlertState')]"
+              },
               "threshold": {
                 "value": "[[parameters('RVBackupHealthThreshold')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_FirewallHealth_Alert')]",
-            "parameters": {
-              "severity": {
-                "value": "[[parameters('FirewallHealthAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('FirewallHealthWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('FirewallHealthEvaluationFrequency')]"
-              },
-              "effect": {
-                "value": "[[parameters('FirewallHealthPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('FirewallHealthThreshold')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Availability_Alert')]",
-            "parameters": {
-              "severity": {
-                "value": "[[parameters('KvAvailabilityAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('KvAvailabilityWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('KvAvailabilityEvaluationFrequency')]"
-              },
-              "effect": {
-                "value": "[[parameters('KvAvailabilityPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('KVAvailabilityThreshold')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Latency_Alert')]",
-            "parameters": {
-
-              "severity": {
-                "value": "[[parameters('KvLatencyAvailabilityAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('KvLatencyAvailabilityWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('KvLatencyAvailabilityEvaluationFrequency')]"
-              },
-              "effect": {
-                "value": "[[parameters('KvLatencyAvailabilityPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('KvLatencyAvailabilityThreshold')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Capacity_Alert')]",
-            "parameters": {
-              "severity": {
-                "value": "[[parameters('KVCapacityAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('KVCapacityWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('KVCapacityEvaluationFrequency')]"
-              },
-              "effect": {
-                "value": "[[parameters('KVCapacityPolicyEffect')]"
-              },
-              "threshold": {
-                "value": "[[parameters('KVCapacityThreshold')]"
               }
             }
           },
@@ -516,6 +379,9 @@
               },
               "effect": {
                 "value": "[[parameters('StorageAccountAvailabilityPolicyEffect')]"
+              },
+              "enabled": {
+                "value": "[[parameters('StorageAccountAvailabilityAlertState')]"
               },
               "threshold": {
                 "value": "[[parameters('StorageAccountAvailabilityThreshold')]"
