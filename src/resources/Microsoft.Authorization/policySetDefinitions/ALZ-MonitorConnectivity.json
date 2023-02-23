@@ -1847,6 +1847,10 @@
             "type": "string",
             "defaultValue": "true"
           },
+          "activityUDRUpdateAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
           "activityVPNGWDeleteAlertState": {
             "type": "string",
             "defaultValue": "true"
@@ -2730,6 +2734,20 @@
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
+          },
+          {
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityUDRUpdateAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
+            },
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_RouteTable_Update')]"
           },
           {
             "parameters": {
