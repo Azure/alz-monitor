@@ -1,4 +1,4 @@
-# Consumer Guide
+# Deployment Guide
 
 ## Background
 
@@ -17,10 +17,29 @@ Alerts, action groups and alert processing rules are created as follows:
 3. Resource health alerts are created in a specific resource group (created specifically by and used for this solution) in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
 4. Action groups and alert processing rules are created in a specific resource group (created specifically by and used for this solution) in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
 
+## Prerequisites
+1. Azure Active Directory Tenant.
+2. ALZ Management group hierarchy deployed as described [here](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-areas).
+3. Minimum 1 subscription, for when deploying alerts through policies. 
+4. Deployment Identity with `Owner` permission to the pseudo root management group.  Owner permission is required to allow the Service Principal Account to create role-based access control assignments. 
+5. If deploying manually, i.e. via Azure CLI or PowerShell, ensure that you have [Bicep](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep) installed and working, before attempting installation. See here for how to configure for [Azure CLI](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli) and here for [PowerShell](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-powershell)
+
+
 ## Getting started
 
 - Fork this repo to your own GitHub organization, you should not create a direct clone of the repo. Pull requests based off direct clones of the repo will not be allowed.
 - Clone the repo from your own GitHub organization to your developer workstation. 
+
+### Deploy through GitHub Actions (Complete) - Default settings
+To deploy through GitHub actions which is the preferred approach, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following:
+- Configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
+- Modify the following values in sample-workflow.yml:
+  - Change _Location: "norwayeast"_, to your preferred Azure region
+  - Change _ManagementGroupPrefix: "alz"_, to the management group where you wish to deploy the policies, initiatives and policy assignments.
+  - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
+  - Change _managementManagementGroup: "alz-platform-management"_, to the management group for management in your ALZ implementation.
+  - Change _ManagementGroupPrefix: "alz-platform-connectivity"_, to the management group for connectivity in your ALZ implementation.
+- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
 
 ### Manual (Complete) deployment - default settings
 - Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
@@ -65,21 +84,15 @@ Alerts, action groups and alert processing rules are created as follows:
   New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -parPolicyManagementGroupId $managementGroupId
   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -parPolicyManagementGroupId $managementGroupId
 ```
-### Deploy through GitHub Actions (Complete) - Default settings
-To deploy through GitHub actions, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following:
-- Configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
-- Modify the following values in sample-workflow.yml:
-  - Change _Location: "norwayeast"_, to your preferred Azure region
-  - Change _ManagementGroupPrefix: "alz"_, to the management group where you wish to deploy the policies, initiatives and policy assignments.
-  - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
-  - Change _managementManagementGroup: "alz-platform-management"_, to the management group for management in your ALZ implementation.
-  - Change _ManagementGroupPrefix: "alz-platform-connectivity"_, to the management group for connectivity in your ALZ implementation.
-
-- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
 
 ## Policy remediation
 The policies are all deploy-if-not-exists, by default, meaning that any new deployments will be influenced by them. Therefore if you are deploying in a greenfield scenario and will afterwards be deploying any of the covered resource types, including subscriptions, then the policies will take effect and the relevant alert rules, action groups and alert processing rules will be created. 
-If you are in a brown-field scenario on the other hand, policies will be reporting non-compliance for resources in scope, but to remediate non-compliant resources you will need to initiate remediation. This can be done either through the portal, on a policy-by-policy basis or you can run the script found in .github/script/Start-ALZMonitorRemediation to remediate all ALZ-Monitor policies in scope as defined by management group pre-fix.
+If you are in a brown-field scenario on the other hand, policies will be reporting non-compliance for resources in scope, but to remediate non-compliant resources you will need to initiate remediation. This can be done either through the portal, on a policy-by-policy basis or you can run the script found in .github/script/Start-ALZMonitorRemediation to remediate all ALZ-Monitor policies in scope as defined by management group pre-fix. To use the script do the following:
+- Log on to Azure PowerShell with an account with at least Resource Policy Contributor permissions at the pseudo-root management group level
+- Navigate to the root of the cloned repo
+- To remediate for example the Alerting-Management initiative, assigned to the alz-platform-management Management Group run the following command: .github\script\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policySetName Alerting-Management.
+- The script will return the output from the rest api calls which should be a status code 201. 
+- After running the script you should be able to see a number of remediation tasks initiated at the alz-platform-management.
 
 ## Customizing policy assignments
 

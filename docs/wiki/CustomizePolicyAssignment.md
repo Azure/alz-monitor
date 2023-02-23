@@ -4,7 +4,7 @@
 
 # Introduction
 
-As described in the [Consumer Guide](https://github.com/Azure/alz-monitor/wiki/ConsumerGuide), the policies and initiatives in this repo can be deployed in a default configuration, i.e. with default settings and are intended to be used as such. There may be however, scenarios where you would want to tweak the initiative assignment for individual policies to conform with your monitoring requirements, or potentially wish to deploy alerts in a more phased approach to a brownfield environment. This document lists some of the various scenarios as well as how you would go about making such changes to the assignments. 
+As described in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide), the policies and initiatives in this repo can be deployed in a default configuration, i.e. with default settings and are intended to be used as such. There may be however, scenarios where you would want to tweak the initiative assignment for individual policies to conform with your monitoring requirements, or potentially wish to deploy alerts in a more phased approach to a brownfield environment. This document lists some of the various scenarios as well as how you would go about making such changes to the assignments. 
 
 ## Modify initiative assignment
 
