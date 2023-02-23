@@ -50,7 +50,7 @@ To deploy through GitHub actions which is the preferred approach, please refer t
 
 ```bash
   location="Your Azure location of choice"
-  managementGroupId="The management group id where you want to deploy policies"
+  managementGroupId="The pseudo root management group id parenting the identity, management and connectivity management groups"
   identityManagementGroup="The management group id for Identity"
   managementManagementGroup="The management group id for Management"
   connectivityManagementGroup="The management group id for Connectivity"
@@ -69,7 +69,7 @@ To deploy through GitHub actions which is the preferred approach, please refer t
 
 ```powershell
   $location = "Your Azure location of choice"
-  $managementGroupID = "The management group id where you want to deploy policies"
+  $managementGroupID = "The pseudo root management group id parenting the identity, management and connectivity management groups"
   $identityManagementGroup = "The management group id for Identity"
   $managementManagementGroup = "The management group id for Management"
   $connectivityManagementGroup = "The management group id for Connectivity"
