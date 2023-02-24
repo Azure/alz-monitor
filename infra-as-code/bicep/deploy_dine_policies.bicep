@@ -519,6 +519,14 @@ module aLog_NsgDelete_policy '../../src/resources/Microsoft.Authorization/policy
   }
 }
 
+module aLog_UdrUpdate_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-RouteTable-Update.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogUdrUpdate-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
 module aLog_ResHealth_Unhealthy_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep' = {
   name: '${uniqueString(deployment().name)}-aLogResHealthUnhealthy-policyDefinitions-deploy'
   params: {
