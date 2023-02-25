@@ -28,17 +28,22 @@ jobs:
       uses: aliencube/bicep-build-actions@v0.3
       with:
         files: 'src/resources/Microsoft.Authorization/policyDefinitions/*.bicep'
+    - uses: tibdex/github-app-token@v1
+      id: generate-token
+      with:
+        app_id: ${{ secrets.APP_ID }}
+        private_key: ${{ secrets.APP_PRIVATE_KEY }}
     - name: Commit & Push
       uses: actions-js/push@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token:  ${{ steps.generate-token.outputs.token }}
         branch: 'arm-conversion-${{ steps.date.outputs.date }}'
         force: true
         message: 'BICEP to ARM automatic conversion by Github Actions - update-${{ steps.date.outputs.date }}'
     - name: Pull request
       uses: devops-infra/action-pull-request@v0.5.3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token:  ${{ steps.generate-token.outputs.token }}
         source_branch: 'arm-conversion-${{ steps.date.outputs.date }}'
         target_branch: main
         title: 'BICEP to ARM automatic conversion by Github Actions - update-${{ steps.date.outputs.date }}'
