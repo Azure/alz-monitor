@@ -167,11 +167,11 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'microsoft.network/virtualNetworkGateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'TunnelIngressPacketDropCount'
                             }
                             {
@@ -253,7 +253,7 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                                                         criterionType: 'DynamicThresholdCriterion'
                                                     }
                                                 ]
-                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                                'odata.type': 'Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria'
                                             }
                                             autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
