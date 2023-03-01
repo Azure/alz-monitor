@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.85.62628",
-      "templateHash": "17366901410027908608"
+      "templateHash": "3179502047439075072"
     }
   },
   "parameters": {
@@ -213,11 +213,11 @@
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
                         "equals": "microsoft.network/virtualNetworkGateways"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName",
                         "equals": "TunnelEgressPacketDropTSMismatch"
                       },
                       {
@@ -299,7 +299,7 @@
                                     "criterionType": "DynamicThresholdCriterion"
                                   }
                                 ],
-                                "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                                "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
                               },
                               "autoMitigate": "[[parameters('autoMitigate')]",
                               "parameters": {
