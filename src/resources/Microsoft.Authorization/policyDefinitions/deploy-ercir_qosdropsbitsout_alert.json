@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.14.85.62628",
-      "templateHash": "5297286434930046032"
+      "templateHash": "3747052277891643237"
     }
   },
   "parameters": {
@@ -295,7 +295,7 @@
                                     "criterionType": "DynamicThresholdCriterion"
                                   }
                                 ],
-                                "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                                "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
                               },
                               "autoMitigate": "[[parameters('autoMitigate')]",
                               "parameters": {
