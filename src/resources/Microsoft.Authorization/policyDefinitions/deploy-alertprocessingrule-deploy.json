@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.14.46.61228",
-      "templateHash": "12688085689446095845"
+      "version": "0.14.85.62628",
+      "templateHash": "11026527268264753965"
     }
   },
   "parameters": {
@@ -26,6 +26,12 @@
       "defaultValue": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
       ]
+    },
+    "parResourceGroupTags": {
+      "type": "object",
+      "defaultValue": {
+        "environment": "test"
+      }
     }
   },
   "resources": [
@@ -59,6 +65,26 @@
               "source": "https://github.com/Azure/ALZ-Monitor/"
             }
           },
+          "parameters": {
+            "value": {
+              "alertResourceGroupName": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Resource Group Name",
+                  "description": "Resource group the alert is placed in"
+                },
+                "defaultValue": "[parameters('parResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "type": "Object",
+                "metadata": {
+                  "displayName": "Resource Group Tags",
+                  "description": "Tags on the Resource group the alert is placed in"
+                },
+                "defaultValue": "[parameters('parResourceGroupTags')]"
+              }
+            }
+          },
           "policyRule": {
             "value": {
               "if": {
@@ -75,7 +101,7 @@
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.AlertsManagement/actionRules",
                   "existenceScope": "resourcegroup",
-                  "resourceGroupName": "[parameters('parResourceGroupName')]",
+                  "resourceGroupName": "[[parameters('alertResourceGroupName')]",
                   "deploymentScope": "subscription",
                   "existenceCondition": {
                     "allOf": [
@@ -92,29 +118,45 @@
                       "template": {
                         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                         "contentVersion": "1.0.0.0",
+                        "parameters": {
+                          "alertResourceGroupName": {
+                            "type": "string"
+                          },
+                          "alertResourceGroupTags": {
+                            "type": "object"
+                          },
+                          "policyLocation": {
+                            "type": "string",
+                            "defaultValue": "[parameters('policyLocation')]"
+                          }
+                        },
                         "variables": {},
                         "resources": [
                           {
                             "type": "Microsoft.Resources/resourceGroups",
-                            "apiVersion": "2020-10-01",
-                            "name": "[parameters('parResourceGroupName')]",
+                            "apiVersion": "2021-04-01",
+                            "name": "[[parameters('alertResourceGroupName')]",
                             "location": "[parameters('policyLocation')]",
-                            "properties": {}
+                            "tags": "[[parameters('alertResourceGroupTags')]"
                           },
                           {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "name": "ActionGroupDeployment",
-                            "resourceGroup": "[parameters('parResourceGroupName')]",
+                            "resourceGroup": "[[parameters('alertResourceGroupName')]",
                             "dependsOn": [
-                              "[format('Microsoft.Resources/resourceGroups/{0}', parameters('parResourceGroupName'))]"
+                              "[[concat('Microsoft.Resources/resourceGroups/', parameters('alertResourceGroupName'))]"
                             ],
                             "properties": {
                               "mode": "Incremental",
                               "template": {
                                 "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                                 "contentVersion": "1.0.0.0",
-                                "parameters": {},
+                                "parameters": {
+                                  "alertResourceGroupName": {
+                                    "type": "string"
+                                  }
+                                },
                                 "variables": {},
                                 "resources": [
                                   {
@@ -133,32 +175,15 @@
                                         }
                                       ]
                                     }
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          {
-                            "type": "Microsoft.Resources/deployments",
-                            "apiVersion": "2019-10-01",
-                            "name": "AlertProcessingRuleDeployment",
-                            "resourceGroup": "[parameters('parResourceGroupName')]",
-                            "dependsOn": [
-                              "ActionGroupDeployment"
-                            ],
-                            "properties": {
-                              "mode": "Incremental",
-                              "template": {
-                                "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                                "contentVersion": "1.0.0.0",
-                                "parameters": {},
-                                "variables": {},
-                                "resources": [
+                                  },
                                   {
                                     "type": "Microsoft.AlertsManagement/actionRules",
                                     "apiVersion": "2021-08-08",
                                     "name": "Alz Alert Processing Rule",
                                     "location": "global",
+                                    "dependsOn": [
+                                      "[[concat('Microsoft.Insights/actionGroups/', 'AlzActionGrp')]"
+                                    ],
                                     "properties": {
                                       "scopes": [
                                         "[[subscription().Id]"
@@ -176,10 +201,23 @@
                                     }
                                   }
                                 ]
+                              },
+                              "parameters": {
+                                "alertResourceGroupName": {
+                                  "value": "[[parameters('alertResourceGroupName')]"
+                                }
                               }
                             }
                           }
                         ]
+                      },
+                      "parameters": {
+                        "alertResourceGroupName": {
+                          "value": "[[parameters('alertResourceGroupName')]"
+                        },
+                        "alertResourceGroupTags": {
+                          "value": "[[parameters('alertResourceGroupTags')]"
+                        }
                       }
                     }
                   }
@@ -194,8 +232,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.14.46.61228",
-              "templateHash": "6758506931317698239"
+              "version": "0.14.85.62628",
+              "templateHash": "15761979195461263436"
             }
           },
           "parameters": {

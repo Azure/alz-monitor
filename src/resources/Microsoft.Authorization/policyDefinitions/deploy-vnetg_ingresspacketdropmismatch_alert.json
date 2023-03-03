@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.14.46.61228",
-      "templateHash": "17540162293917884802"
+      "version": "0.14.85.62628",
+      "templateHash": "12152332463344041925"
     }
   },
   "parameters": {
@@ -213,11 +213,11 @@
                   "existenceCondition": {
                     "allOf": [
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
                         "equals": "microsoft.network/virtualNetworkGateways"
                       },
                       {
-                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
+                        "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName",
                         "equals": "TunnelIngressPacketDropTSMismatch"
                       },
                       {
@@ -299,7 +299,7 @@
                                     "criterionType": "DynamicThresholdCriterion"
                                   }
                                 ],
-                                "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                                "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
                               },
                               "autoMitigate": "[[parameters('autoMitigate')]",
                               "parameters": {
@@ -359,8 +359,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.14.46.61228",
-              "templateHash": "6758506931317698239"
+              "version": "0.14.85.62628",
+              "templateHash": "15761979195461263436"
             }
           },
           "parameters": {

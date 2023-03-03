@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.14.46.61228",
-      "templateHash": "6942467158915419592"
+      "version": "0.14.85.62628",
+      "templateHash": "8252299504485137597"
     }
   },
   "parameters": {
@@ -295,7 +295,7 @@
                                     "criterionType": "DynamicThresholdCriterion"
                                   }
                                 ],
-                                "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                                "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
                               },
                               "autoMitigate": "[[parameters('autoMitigate')]",
                               "parameters": {
@@ -355,8 +355,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.14.46.61228",
-              "templateHash": "6758506931317698239"
+              "version": "0.14.85.62628",
+              "templateHash": "15761979195461263436"
             }
           },
           "parameters": {
