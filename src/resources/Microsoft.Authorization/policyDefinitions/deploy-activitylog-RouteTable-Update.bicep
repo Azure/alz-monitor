@@ -12,6 +12,8 @@ param parResourceGroupTags object = {
 
 param parAlertState string = 'true'
 
+param parMonitorDisable string = 'MonitorDisable'
+
 module ActivityLogUDRUpdateAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
@@ -53,6 +55,15 @@ module ActivityLogUDRUpdateAlert '../../arm/Microsoft.Authorization/policyDefini
                 }
                 defaultValue: parResourceGroupTags
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -60,6 +71,10 @@ module ActivityLogUDRUpdateAlert '../../arm/Microsoft.Authorization/policyDefini
                     {
                         field: 'type'
                         equals: 'Microsoft.Network/routeTables'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

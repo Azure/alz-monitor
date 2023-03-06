@@ -11,6 +11,8 @@ param parResourceGroupTags object = {
 
 param parAlertState string = 'true'
 
+param parMonitorDisable string = 'MonitorDisable'
+
 module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
@@ -52,14 +54,15 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                 }
                 defaultValue: parResourceGroupTags
             }
+
             MonitorDisable: {
                 type: 'String'
                 metadata: {
                     displayName: 'Effect'
-                    description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
+                    description: 'Tag name to disable monitoring on subscripton level alerts. Set to true if monitoring should be disabled'
                 }
           
-                defaultValue: 'MonitorDisable'
+                defaultValue: parMonitorDisable
             }
           
 

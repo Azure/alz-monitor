@@ -48,6 +48,8 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngegresspacketdropmismatch-policyDefinitions'
     params: {
@@ -145,6 +147,15 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -152,6 +163,10 @@ module VpngTunnelEgressPacketDropMismatchAlert '../../arm/Microsoft.Authorizatio
                     {
                         field: 'type'
                         equals: 'microsoft.network/vpngateways'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

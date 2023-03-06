@@ -10,6 +10,8 @@ param parResourceGroupTags object = {
 }
 param parAlertState string = 'true'
 
+param parMonitorDisable string = 'MonitorDisable'
+
 module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
@@ -51,6 +53,16 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                 }
                 defaultValue: parResourceGroupTags
             }
+
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -58,6 +70,10 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                     {
                         field: 'type'
                         equals: 'Microsoft.Network/vpnGateways'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '0'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetddosaa-policyDefinitions'
     params: {
@@ -155,6 +157,15 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -162,6 +173,10 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                     {
                         field: 'type'
                         equals: 'Microsoft.Network/virtualNetworks'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

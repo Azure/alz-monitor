@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '90'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-saaa-policyDefinitions'
     params: {
@@ -155,6 +157,15 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -162,6 +173,10 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                     {
                         field: 'type'
                         equals: 'Microsoft.Storage/storageAccounts'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

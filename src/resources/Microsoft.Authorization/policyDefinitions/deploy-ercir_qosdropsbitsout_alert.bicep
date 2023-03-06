@@ -48,6 +48,8 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-erqosdropsout-policyDefinitions'
     params: {
@@ -145,6 +147,16 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                 ]
                 defaultValue: parPolicyEffect
             }
+
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -152,6 +164,10 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                     {
                         field: 'type'
                         equals: 'Microsoft.Network/expressRouteCircuits'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

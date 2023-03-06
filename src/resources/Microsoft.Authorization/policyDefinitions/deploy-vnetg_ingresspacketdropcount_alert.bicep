@@ -48,6 +48,8 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgingresspacketdropcount-policyDefinitions'
     params: {
@@ -145,6 +147,15 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -156,6 +167,10 @@ module VnetgIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/polic
                     {
                         field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
                         equals: 'VPN'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

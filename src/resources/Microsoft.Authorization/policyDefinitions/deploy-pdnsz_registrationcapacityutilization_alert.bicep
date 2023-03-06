@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '80'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pdnszvnrcu-policyDefinitions'
     params: {
@@ -155,6 +157,15 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -162,6 +173,10 @@ module RegistrationCapacityUtilizationAlert '../../arm/Microsoft.Authorization/p
                     {
                         field: 'type'
                         equals: 'Microsoft.Network/privateDnsZones'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

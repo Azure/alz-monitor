@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '0'
 
+param parMonitorDisable string = 'MonitorDisable'
+
 module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-aatotaljob-policyDefinitions'
     params: {
@@ -162,7 +164,7 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                     description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
                 }
           
-                defaultValue: 'MonitorDisable'
+                defaultValue: parMonitorDisable
             }
           
         }

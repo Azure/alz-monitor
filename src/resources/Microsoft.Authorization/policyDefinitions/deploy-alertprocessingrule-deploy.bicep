@@ -10,6 +10,8 @@ param parResourceGroupTags object = {
   environment: 'test'
 }
 
+param parMonitorDisable string = 'MonitorDisable'
+
 module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
   name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
   params: {
@@ -39,6 +41,16 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
         }
         defaultValue: parResourceGroupTags
       }
+
+      MonitorDisable: {
+        type: 'String'
+        metadata: {
+            displayName: 'Effect'
+            description: 'Tag name to disable monitoring at subscription. Set to true if monitoring process rule should be disabled'
+        }
+  
+        defaultValue: parMonitorDisable
+    }
     }
     policyRule: {
       if: {
@@ -48,6 +60,10 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
             field: 'type'
             equals: 'Microsoft.Resources/subscriptions'
           }
+          {
+            field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+            notEquals: 'true'
+        }
         ]
       }
       then: {

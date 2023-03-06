@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '40000'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pippiddos-policyDefinitions'
     params: {
@@ -155,6 +157,16 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                 ]
                 defaultValue: parPolicyEffect
             }
+
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -162,6 +174,10 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                     {
                         field: 'type'
                         equals: 'Microsoft.Network/publicIPAddresses'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

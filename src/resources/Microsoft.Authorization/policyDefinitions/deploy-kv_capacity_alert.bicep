@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '75'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kvca-policyDefinitions'
     params: {
@@ -155,6 +157,16 @@ module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                 ]
                 defaultValue: parPolicyEffect
             }
+
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -162,6 +174,10 @@ module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                     {
                         field: 'type'
                         equals: 'microsoft.keyvault/vaults'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }
