@@ -155,6 +155,16 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: 'MonitorDisable'
+            }
+          
         }
         policyRule: {
             if: {
@@ -163,6 +173,12 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                         field: 'type'
                         equals: 'Microsoft.Automation/automationAccounts'
                     }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
+                    }
+
+
                 ]
             }
             then: {
