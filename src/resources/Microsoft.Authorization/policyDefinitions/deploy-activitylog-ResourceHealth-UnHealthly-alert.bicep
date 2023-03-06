@@ -52,6 +52,17 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                 }
                 defaultValue: parResourceGroupTags
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: 'MonitorDisable'
+            }
+          
+
         }
         policyRule: {
             if: {
@@ -59,6 +70,10 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                     {
                         field: 'type'
                         equals: 'Microsoft.Resources/subscriptions'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }
