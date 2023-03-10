@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '1'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vnetgtaba-policyDefinitions'
     params: {
@@ -155,6 +157,15 @@ module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -166,6 +177,10 @@ module VnetgBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                     {
                         field: 'Microsoft.Network/virtualNetworkGateways/gatewayType'
                         equals: 'VPN'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

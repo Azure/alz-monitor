@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '1000'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
@@ -155,6 +157,15 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -162,6 +173,11 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                     {
                         field: 'type'
                         equals: 'Microsoft.Compute/virtualMachines'
+                    }
+
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

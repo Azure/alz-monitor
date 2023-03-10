@@ -11,6 +11,8 @@ param parResourceGroupTags object = {
 
 param parAlertState string = 'true'
 
+param parMonitorDisable string = 'MonitorDisable'
+
 module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
@@ -52,6 +54,16 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                 }
                 defaultValue: parResourceGroupTags
             }
+            
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring  Subscription level alerts. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -59,6 +71,10 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                     {
                         field: 'type'
                         equals: 'Microsoft.Resources/subscriptions'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

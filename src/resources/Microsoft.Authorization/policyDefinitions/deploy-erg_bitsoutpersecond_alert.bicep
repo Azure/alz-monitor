@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '1'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module ErgExpressRouteBitsOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-ergergbout-policyDefinitions'
     params: {
@@ -155,6 +157,15 @@ module ErgExpressRouteBitsOutAlert '../../arm/Microsoft.Authorization/policyDefi
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -162,6 +173,10 @@ module ErgExpressRouteBitsOutAlert '../../arm/Microsoft.Authorization/policyDefi
                     {
                         field: 'type'
                         equals: 'Microsoft.Network/expressroutegateways'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }

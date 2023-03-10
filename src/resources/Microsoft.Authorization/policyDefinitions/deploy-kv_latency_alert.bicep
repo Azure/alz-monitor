@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '1000'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-kvla-policyDefinitions'
     params: {
@@ -155,6 +157,15 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -162,6 +173,10 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                     {
                         field: 'type'
                         equals: 'microsoft.keyvault/vaults'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }
