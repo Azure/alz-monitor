@@ -574,7 +574,7 @@
           "VNETDDOSAttackThreshold": {
             "type": "string",
             "defaultValue": "1"
-          },
+          }
           
           
 
