@@ -6,7 +6,7 @@ This document details the ALZ-Monitor Azure policy initiatives leveraged for dep
 
 ## Connectivity initiative
 
-This initiative is intended for assignment of policies relevant to networking components in ALZ. With the guidance provided in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide), this will assign to the alz-platform-connectivity management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table. 
+This initiative is intended for assignment of policies relevant to networking components in ALZ. With the guidance provided in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide), this will assign to the alz-platform-connectivity management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
 
 | **Policy Name** | **Path to policy json file** | **Policy default effect** |
 |----------|----------|----------|
@@ -94,7 +94,7 @@ This initiative is intended for assignment of policies relevant to identity comp
 
 ## Landing Zone initiative
 
-This initiative is intended for assignment of policies relevant to a landing zone in the ALZ structure. With the guidance provided in [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide),  details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table. ***add details of how to deploy***
+This initiative is intended for assignment of policies relevant to a landing zone in the ALZ structure. With the guidance provided in [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide) this will assign to the Landing Zones management group in the ALZ reference architecture,  details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
 
 | **Policy Name** | **Path to policy json file** | **Policy default effect** |
 |----------|----------|----------|
