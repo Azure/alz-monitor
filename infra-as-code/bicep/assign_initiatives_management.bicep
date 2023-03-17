@@ -12,13 +12,27 @@ param parTelemetryOptOut bool = false
 // Customer Usage Attribution Id
 var varCuaid = 'd87415c4-01ef-4667-af89-0b5adc14af1b'
 
-module Deploy_DNSZ_QueryVolume_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+module Deploy_Alerting_Management '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Alerting-Management'
   params: {
     parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyManagementGroupId}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Management'
     parPolicyAssignmentDisplayName: 'ALZ Monitoring Alerts for Management'
     parPolicyAssignmentName: 'ALZ-Monitor_Management'
     parPolicyAssignmentDescription: 'Initiative to deploy alerts relevant to the ALZ Management Management group'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+  }
+}
+
+module Deploy_AlertProcessing_rule '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+  name: '${uniqueString(deployment().name)}-AlertProcessing_rule'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_AlertProcessing_Rule'
+    parPolicyAssignmentDisplayName: 'ALZ Monitoring Alert Processing rule'
+    parPolicyAssignmentName: 'ALZ-AlertProcessing_rule'
+    parPolicyAssignmentDescription: 'Initiative to deploy alert processing rule and action group in each subscription'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'

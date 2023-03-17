@@ -5,6 +5,12 @@ param parResourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
+param parResourceGroupTags object = {
+    environment: 'test'
+}
+param parAlertState string = 'true'
+
+param parMonitorDisable string = 'MonitorDisable'
 
 module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
@@ -18,6 +24,45 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
             Category: 'ActivityLog'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
+        parameters: {
+            enabled: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert State'
+                    description: 'Alert state for the alert'
+                }
+                allowedValues: [
+                    'true'
+                    'false'
+                ]
+                defaultValue: parAlertState
+            }
+            alertResourceGroupName: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Resource Group Name'
+                    description: 'Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupName
+            }
+            alertResourceGroupTags: {
+                type: 'Object'
+                metadata: {
+                    displayName: 'Resource Group Tags'
+                    description: 'Tags on the Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupTags
+            }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
+        }
         policyRule: {
             if: {
                 allOf: [
@@ -25,6 +70,11 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                         field: 'type'
                         equals: 'Microsoft.OperationalInsights/workspaces'
                     }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
+                    }
+
                 ]
             }
             then: {
@@ -34,15 +84,14 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                     type: 'Microsoft.Insights/activityLogAlerts'
                     name: 'ActivityLAWorkspaceDelete'
                     existenceScope: 'resourcegroup'
-                    // should be replaced with parameter value
-                    resourceGroupName: parResourceGroupName
+                    resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
 
                             {
                                 field: 'Microsoft.Insights/ActivityLogAlerts/enabled'
-                                equals: 'true'
+                                equals: '[parameters(\'enabled\')]'
                             }
                             {
                                 count: {
@@ -88,13 +137,18 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                                 '$schema': 'https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
-                                    parResourceGroupName: {
+                                    alertResourceGroupName: {
                                         type: 'string'
-                                        defaultValue: parResourceGroupName
+                                    }
+                                    alertResourceGroupTags: {
+                                        type: 'object'
                                     }
                                     policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
+                                    }
+                                    enabled: {
+                                        type: 'string'
                                     }
                                 }
                                 variables: {}
@@ -102,35 +156,41 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
-                                        name: parResourceGroupName
+                                        name: '[parameters(\'alertResourceGroupName\')]'
                                         location: policyLocation
+                                        tags: '[parameters(\'alertResourceGroupTags\')]'
                                     }
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        //change name
                                         name: 'ActivityLAWorkspaceDelete'
-                                        resourceGroup: parResourceGroupName
+                                        resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
-                                            'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                            '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                                         ]
                                         properties: {
                                             mode: 'Incremental'
                                             template: {
                                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                                 contentVersion: '1.0.0.0'
-                                                parameters: {}
+                                                parameters: {
+                                                    enabled: {
+                                                        type: 'string'
+                                                    }
+                                                    alertResourceGroupName: {
+                                                        type: 'string'
+                                                    }
+                                                }
                                                 variables: {}
                                                 resources: [
                                                     {
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
-                                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
                                                         name: 'ActivityLAWorkspaceDelete'
                                                         location: 'global'
                                                         properties: {
                                                             description: 'Activity Log LA Workspace Delete'
-                                                            enabled: true
+                                                            enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
                                                                 '[subscription().id]'
                                                             ]
@@ -153,16 +213,39 @@ module ActivityLogLAWorkspaceDeleteAlert '../../arm/Microsoft.Authorization/poli
 
                                                                 ]
                                                             }
+                                                            parameters: {
+                                                                enabled: {
+                                                                    value: '[parameters(\'enabled\')]'
+                                                                }
+                                                            }
                                                         }
 
                                                     }
                                                 ]
                                             }
+                                            parameters: {
+                                                enabled: {
+                                                    value: '[parameters(\'enabled\')]'
+                                                }
+                                                alertResourceGroupName: {
+                                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                                }
+                                            }
                                         }
                                     }
                                 ]
                             }
-
+                            parameters: {
+                                enabled: {
+                                    value: '[parameters(\'enabled\')]'
+                                }
+                                alertResourceGroupName: {
+                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                }
+                                alertResourceGroupTags: {
+                                    value: '[parameters(\'alertResourceGroupTags\')]'
+                                }
+                            }
                         }
                     }
                 }

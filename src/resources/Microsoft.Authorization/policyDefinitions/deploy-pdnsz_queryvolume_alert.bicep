@@ -50,6 +50,8 @@ param parAlertState string = 'true'
 
 param parThreshold string = '500'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-pdnszqv-policyDefinitions'
     params: {
@@ -155,6 +157,15 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -163,6 +174,11 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                         field: 'type'
                         equals: 'Microsoft.Network/privateDnsZones'
                     }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
+                    }
+         
                 ]
             }
             then: {

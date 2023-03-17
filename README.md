@@ -34,6 +34,8 @@ For details on how policies are grouped into initiatives please refer to [Azure 
 
 In addition to the above of course the alerts need to go somewhere. To that end a generic action group and alert processing rule is deployed to every subscription in scope, also via policy. For more details around this, as well as the reasoning behind this approach please refer to [Monitoring and Alerting in ALZ](https://github.com/Azure/alz-monitor/wiki/MonitoringAndAlerting).
 
+## Deployment Guide
+We have a [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide) available for guidance on how to consume the contents of this repo.
 
 ## Wiki
 
@@ -46,9 +48,6 @@ Please see the [Known Issues](https://github.com/Azure/alz-monitor/wiki/KnownIss
 ## Frequently Asked Questions
 
 Please see the [Frequently Asked Questions](https://github.com/Azure/alz-monitor/wiki/FAQ) in the wiki.
-
-## Consumer Guide
-We have a [Consumer Guide](https://github.com/Azure/alz-monitor/wiki/ConsumerGuide) available for guidance on how to consume the contents of this repo.
 
 ## Dependencies
 

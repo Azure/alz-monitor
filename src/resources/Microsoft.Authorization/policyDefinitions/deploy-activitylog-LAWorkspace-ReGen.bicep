@@ -6,7 +6,15 @@ param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 
+param parResourceGroupTags object = {
+    environment: 'test'
+}
+
 param parAlertState string = 'true'
+
+param parMonitorDisable string = 'MonitorDisable'
+
+
 
 module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
@@ -33,6 +41,32 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                 ]
                 defaultValue: parAlertState
             }
+            alertResourceGroupName: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Resource Group Name'
+                    description: 'Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupName
+            }
+            alertResourceGroupTags: {
+                type: 'Object'
+                metadata: {
+                    displayName: 'Resource Group Tags'
+                    description: 'Tags on the Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupTags
+            }
+
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -40,6 +74,10 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                     {
                         field: 'type'
                         equals: 'Microsoft.OperationalInsights/workspaces'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }
@@ -49,9 +87,8 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
                     name: 'ActivityLAWorkspaceRegenKey'
-                    existenceScope: 'resourcegroup'
-                    // should be replaced with parameter value
-                    resourceGroupName: parResourceGroupName
+                    existenceScope: 'resourceGroup'
+                    resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
@@ -103,9 +140,11 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                                 '$schema': 'https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
-                                    parResourceGroupName: {
+                                    alertResourceGroupName: {
                                         type: 'string'
-                                        defaultValue: parResourceGroupName
+                                    }
+                                    alertResourceGroupTags: {
+                                        type: 'object'
                                     }
                                     policyLocation: {
                                         type: 'string'
@@ -113,24 +152,23 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                                     }
                                     enabled: {
                                         type: 'string'
-                                    }
-                                }
+                                    } }
                                 variables: {}
                                 resources: [
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
-                                        name: parResourceGroupName
+                                        name: '[parameters(\'alertResourceGroupName\')]'
                                         location: policyLocation
+                                        tags: '[parameters(\'alertResourceGroupTags\')]'
                                     }
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        //change name
                                         name: 'ActivityLAWorkspaceRegenKey'
-                                        resourceGroup: parResourceGroupName
+                                        resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
-                                            'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                            '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                                         ]
                                         properties: {
                                             mode: 'Incremental'
@@ -141,13 +179,15 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                                                     enabled: {
                                                         type: 'string'
                                                     }
+                                                    alertResourceGroupName: {
+                                                        type: 'string'
+                                                    }
                                                 }
                                                 variables: {}
                                                 resources: [
                                                     {
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
-                                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
                                                         name: 'ActivityLAWorkspaceRegenKey'
                                                         location: 'global'
                                                         properties: {
@@ -187,6 +227,9 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                                                 enabled: {
                                                     value: '[parameters(\'enabled\')]'
                                                 }
+                                                alertResourceGroupName: {
+                                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -195,6 +238,12 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                             parameters: {
                                 enabled: {
                                     value: '[parameters(\'enabled\')]'
+                                }
+                                alertResourceGroupName: {
+                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                }
+                                alertResourceGroupTags: {
+                                    value: '[parameters(\'alertResourceGroupTags\')]'
                                 }
                             }
                         }

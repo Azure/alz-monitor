@@ -48,6 +48,8 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
+param parMonitorDisable string = 'MonitorDisable' 
+
 module VpngTunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vpngingresspacketdropcount-policyDefinitions'
     params: {
@@ -145,6 +147,15 @@ module VpngTunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/
                 ]
                 defaultValue: parPolicyEffect
             }
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -152,6 +163,10 @@ module VpngTunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/
                     {
                         field: 'type'
                         equals: 'microsoft.network/vpngateways'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }
@@ -163,11 +178,11 @@ module VpngTunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/
                     existenceCondition: {
                         allOf: [
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
                                 equals: 'microsoft.network/vpngateways'
                             }
                             {
-                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName'
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
                                 equals: 'TunnelIngressPacketDropCount'
                             }
                             {
@@ -249,7 +264,7 @@ module VpngTunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/
                                                         criterionType: 'DynamicThresholdCriterion'
                                                     }
                                                 ]
-                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                                'odata.type': 'Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria'
                                             }
                                             autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {

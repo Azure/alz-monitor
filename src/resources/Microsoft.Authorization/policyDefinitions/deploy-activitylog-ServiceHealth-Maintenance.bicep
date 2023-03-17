@@ -5,8 +5,13 @@ param parResourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
+param parResourceGroupTags object = {
+    environment: 'test'
+}
 
 param parAlertState string = 'true'
+
+param parMonitorDisable string = 'MonitorDisable'
 
 module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
@@ -33,6 +38,32 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                 ]
                 defaultValue: parAlertState
             }
+            alertResourceGroupName: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Resource Group Name'
+                    description: 'Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupName
+            }
+            alertResourceGroupTags: {
+                type: 'Object'
+                metadata: {
+                    displayName: 'Resource Group Tags'
+                    description: 'Tags on the Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupTags
+            }
+
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring  Subscription level alerts. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -40,6 +71,10 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                     {
                         field: 'type'
                         equals: 'Microsoft.Resources/subscriptions'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }
@@ -49,8 +84,7 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
                     existenceScope: 'resourcegroup'
-                    // should be replaced with parameter value
-                    resourceGroupName: parResourceGroupName
+                    resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
@@ -102,11 +136,12 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
-                                variables: {}
                                 parameters: {
-                                    parResourceGroupName: {
+                                    alertResourceGroupName: {
                                         type: 'string'
-                                        defaultValue: parResourceGroupName
+                                    }
+                                    alertResourceGroupTags: {
+                                        type: 'object'
                                     }
                                     policyLocation: {
                                         type: 'string'
@@ -116,21 +151,22 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                                         type: 'string'
                                     }
                                 }
+                                variables: {}
                                 resources: [
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
-                                        name: parResourceGroupName
+                                        name: '[parameters(\'alertResourceGroupName\')]'
                                         location: policyLocation
+                                        tags: '[parameters(\'alertResourceGroupTags\')]'
                                     }
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        //change name
                                         name: 'ServiceHealthMaintenance'
-                                        resourceGroup: parResourceGroupName
+                                        resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
-                                            'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                            '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                                         ]
                                         properties: {
                                             mode: 'Incremental'
@@ -141,13 +177,15 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                                                     enabled: {
                                                         type: 'string'
                                                     }
+                                                    alertResourceGroupName: {
+                                                        type: 'string'
+                                                    }
                                                 }
                                                 variables: {}
                                                 resources: [
                                                     {
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
-                                                        //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
                                                         name: 'ServiceHealthPlannedMaintenance'
                                                         location: 'global'
                                                         properties: {
@@ -182,6 +220,9 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                                                 enabled: {
                                                     value: '[parameters(\'enabled\')]'
                                                 }
+                                                alertResourceGroupName: {
+                                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -191,6 +232,12 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                             parameters: {
                                 enabled: {
                                     value: '[parameters(\'enabled\')]'
+                                }
+                                alertResourceGroupName: {
+                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                }
+                                alertResourceGroupTags: {
+                                    value: '[parameters(\'alertResourceGroupTags\')]'
                                 }
                             }
                         }

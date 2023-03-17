@@ -1,10 +1,11 @@
 targetScope = 'managementGroup'
 
-param policyLocation string = 'centralus'
 param parResourceGroupName string = 'AlzMonitoring-rg'
+param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
+
 param parResourceGroupTags object = {
     environment: 'test'
 }
@@ -13,16 +14,16 @@ param parAlertState string = 'true'
 
 param parMonitorDisable string = 'MonitorDisable'
 
-module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module ActivityLogUDRUpdateAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
-        name: 'Deploy_activitylog_ServiceHealth_Incident'
-        displayName: '[DINE] Deploy Service Health Incident Alert'
-        description: 'DINE policy to Deploy Service Health Incident Alert'
+        name: 'Deploy_activitylog_RouteTable_Update'
+        displayName: '[DINE] Deploy Activity Log Route Table Update Alert'
+        description: 'DINE policy to Deploy Activity Log Route Table Update Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'ServiceHealth'
+            Category: 'ActivityLog'
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
         parameters: {
@@ -54,12 +55,11 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                 }
                 defaultValue: parResourceGroupTags
             }
-            
             MonitorDisable: {
                 type: 'String'
                 metadata: {
                     displayName: 'Effect'
-                    description: 'Tag name to disable monitoring  Subscription level alerts. Set to true if monitoring should be disabled'
+                    description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
                 }
           
                 defaultValue: parMonitorDisable
@@ -70,7 +70,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Resources/subscriptions'
+                        equals: 'Microsoft.Network/routeTables'
                     }
                     {
                         field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
@@ -83,12 +83,12 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
+                    name: 'ActivityUDRUpdate'
                     existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
-
                             {
                                 field: 'Microsoft.Insights/ActivityLogAlerts/enabled'
                                 equals: '[parameters(\'enabled\')]'
@@ -106,7 +106,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                     }
                                                     {
                                                         field: 'Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals'
-                                                        equals: 'ServiceHealth'
+                                                        equals: 'Administrative'
                                                     }
                                                 ]
                                             }
@@ -114,11 +114,11 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                 allOf: [
                                                     {
                                                         field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].field'
-                                                        equals: 'properties.incidentType'
+                                                        equals: 'operationName'
                                                     }
                                                     {
                                                         field: 'microsoft.insights/activityLogAlerts/condition.allOf[*].equals'
-                                                        equals: 'Incident'
+                                                        equals: 'Microsoft.Network/routeTables/routes/write'
                                                     }
                                                 ]
                                             }
@@ -163,7 +163,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'ServiceHealthIncident'
+                                        name: 'ActivityUDRUpdate'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
@@ -186,10 +186,10 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                     {
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
-                                                        name: 'ServieHealthIncident'
+                                                        name: 'ActivityUDRUpdate'
                                                         location: 'global'
                                                         properties: {
-                                                            description: 'ServiceHealthIncidentAlert'
+                                                            description: 'Activity Log Route table update'
                                                             enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
                                                                 '[subscription().id]'
@@ -198,13 +198,18 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                                 allOf: [
                                                                     {
                                                                         field: 'category'
-                                                                        equals: 'ServiceHealth'
+                                                                        equals: 'Administrative'
                                                                     }
                                                                     {
-                                                                        field: 'properties.incidentType'
-                                                                        equals: 'Incident'
+                                                                        field: 'operationName'
+                                                                        equals: 'Microsoft.Network/routeTables/routes/write'
                                                                     }
-
+                                                                    {
+                                                                        field: 'status'
+                                                                        containsAny: [
+                                                                            'succeeded'
+                                                                        ]
+                                                                    }
                                                                 ]
                                                             }
                                                             parameters: {

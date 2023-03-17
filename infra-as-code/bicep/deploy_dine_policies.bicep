@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT license.
-
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
@@ -513,6 +510,14 @@ module aLog_LawRegen_policy '../../src/resources/Microsoft.Authorization/policyD
 
 module aLog_NsgDelete_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-NSG-Del.bicep' = {
   name: '${uniqueString(deployment().name)}-aLogNsgDelete-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module aLog_UdrUpdate_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-RouteTable-Update.bicep' = {
+  name: '${uniqueString(deployment().name)}-aLogUdrUpdate-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation

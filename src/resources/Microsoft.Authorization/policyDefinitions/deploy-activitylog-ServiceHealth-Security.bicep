@@ -5,8 +5,13 @@ param parResourceGroupName string = 'AlzMonitoring-rg'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
+param parResourceGroupTags object = {
+    environment: 'test'
+}
 
 param parAlertState string = 'true'
+
+param parMonitorDisable string = 'MonitorDisable'
 
 module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
@@ -33,6 +38,32 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                 ]
                 defaultValue: parAlertState
             }
+            alertResourceGroupName: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Resource Group Name'
+                    description: 'Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupName
+            }
+            alertResourceGroupTags: {
+                type: 'Object'
+                metadata: {
+                    displayName: 'Resource Group Tags'
+                    description: 'Tags on the Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupTags
+            }
+
+            MonitorDisable: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Effect'
+                    description: 'Tag name to disable monitoring  Subscription level alerts. Set to true if monitoring should be disabled'
+                }
+          
+                defaultValue: parMonitorDisable
+            }
         }
         policyRule: {
             if: {
@@ -40,6 +71,10 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                     {
                         field: 'type'
                         equals: 'Microsoft.Resources/subscriptions'
+                    }
+                    {
+                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
+                        notEquals: 'true'
                     }
                 ]
             }
@@ -49,8 +84,7 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/activityLogAlerts'
                     existenceScope: 'resourcegroup'
-                    // should be replaced with parameter value
-                    resourceGroupName: parResourceGroupName
+                    resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
@@ -102,9 +136,11 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
-                                    parResourceGroupName: {
+                                    alertResourceGroupName: {
                                         type: 'string'
-                                        defaultValue: parResourceGroupName
+                                    }
+                                    alertResourceGroupTags: {
+                                        type: 'object'
                                     }
                                     policyLocation: {
                                         type: 'string'
@@ -119,17 +155,17 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
-                                        name: parResourceGroupName
+                                        name: '[parameters(\'alertResourceGroupName\')]'
                                         location: policyLocation
+                                        tags: '[parameters(\'alertResourceGroupTags\')]'
                                     }
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        //change name
                                         name: 'ServiceSecurityIncident'
-                                        resourceGroup: parResourceGroupName
+                                        resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
-                                            'Microsoft.Resources/resourceGroups/${parResourceGroupName}'
+                                            '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                                         ]
                                         properties: {
                                             mode: 'Incremental'
@@ -138,6 +174,9 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                                                 contentVersion: '1.0.0.0'
                                                 parameters: {
                                                     enabled: {
+                                                        type: 'string'
+                                                    }
+                                                    alertResourceGroupName: {
                                                         type: 'string'
                                                     }
                                                 }
@@ -179,6 +218,9 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                                                 enabled: {
                                                     value: '[parameters(\'enabled\')]'
                                                 }
+                                                alertResourceGroupName: {
+                                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                                }
                                             }
                                         }
                                     }
@@ -187,6 +229,12 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                             parameters: {
                                 enabled: {
                                     value: '[parameters(\'enabled\')]'
+                                }
+                                alertResourceGroupName: {
+                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                }
+                                alertResourceGroupTags: {
+                                    value: '[parameters(\'alertResourceGroupTags\')]'
                                 }
                             }
                         }

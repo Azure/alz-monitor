@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.14.46.61228",
-      "templateHash": "8371009248521324865"
+      "version": "0.14.85.62628",
+      "templateHash": "16079979773242025372"
     }
   },
   "parameters": {
@@ -22,6 +22,12 @@
       "defaultValue": [
         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
       ]
+    },
+    "parResourceGroupTags": {
+      "type": "object",
+      "defaultValue": {
+        "environment": "test"
+      }
     },
     "parAlertState": {
       "type": "string",
@@ -72,6 +78,22 @@
                   "false"
                 ],
                 "defaultValue": "[parameters('parAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Resource Group Name",
+                  "description": "Resource group the alert is placed in"
+                },
+                "defaultValue": "[parameters('parResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "type": "Object",
+                "metadata": {
+                  "displayName": "Resource Group Tags",
+                  "description": "Tags on the Resource group the alert is placed in"
+                },
+                "defaultValue": "[parameters('parResourceGroupTags')]"
               }
             }
           },
@@ -90,7 +112,10 @@
                 "details": {
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.Insights/activityLogAlerts",
-                  "resourceGroupName": "[parameters('parResourceGroupName')]",
+                  "name": "ActivityAzureFirewallDelete",
+                  "existenceScope": "resourceGroup",
+                  "resourceGroupName": "[[parameters('alertResourceGroupName')]",
+                  "deploymentScope": "subscription",
                   "existenceCondition": {
                     "allOf": [
                       {
@@ -117,12 +142,12 @@
                               {
                                 "allOf": [
                                   {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].field",
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].field",
                                     "equals": "operationName"
                                   },
                                   {
-                                    "field": "microsoft.insights/activityLogAlerts/condition.allOf[*].equals",
-                                    "equals": "Microsoft.Microsoft.Network/azurefirewalls/delete"
+                                    "field": "Microsoft.Insights/ActivityLogAlerts/condition.allOf[*].equals",
+                                    "equals": "Microsoft.Network/azureFirewalls/delete"
                                   }
                                 ]
                               }
@@ -134,12 +159,23 @@
                     ]
                   },
                   "deployment": {
+                    "location": "[parameters('policyLocation')]",
                     "properties": {
                       "mode": "incremental",
                       "template": {
                         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                         "contentVersion": "1.0.0.0",
                         "parameters": {
+                          "alertResourceGroupName": {
+                            "type": "string"
+                          },
+                          "alertResourceGroupTags": {
+                            "type": "object"
+                          },
+                          "policyLocation": {
+                            "type": "string",
+                            "defaultValue": "[parameters('policyLocation')]"
+                          },
                           "enabled": {
                             "type": "string"
                           }
@@ -149,17 +185,17 @@
                           {
                             "type": "Microsoft.Resources/resourceGroups",
                             "apiVersion": "2020-10-01",
-                            "name": "[parameters('parResourceGroupName')]",
+                            "name": "[[parameters('alertResourceGroupName')]",
                             "location": "[parameters('policyLocation')]",
-                            "properties": {}
+                            "tags": "[[parameters('alertResourceGroupTags')]"
                           },
                           {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
-                            "name": "ActivityLAWorkspaceDelete",
-                            "resourceGroup": "[parameters('parResourceGroupName')]",
+                            "name": "ActivityAzureFirewallDelete",
+                            "resourceGroup": "[[parameters('alertResourceGroupName')]",
                             "dependsOn": [
-                              "[format('Microsoft.Resources/resourceGroups/{0}', parameters('parResourceGroupName'))]"
+                              "[[concat('Microsoft.Resources/resourceGroups/', parameters('alertResourceGroupName'))]"
                             ],
                             "properties": {
                               "mode": "Incremental",
@@ -168,6 +204,9 @@
                                 "contentVersion": "1.0.0.0",
                                 "parameters": {
                                   "enabled": {
+                                    "type": "string"
+                                  },
+                                  "alertResourceGroupName": {
                                     "type": "string"
                                   }
                                 },
@@ -214,6 +253,9 @@
                               "parameters": {
                                 "enabled": {
                                   "value": "[[parameters('enabled')]"
+                                },
+                                "alertResourceGroupName": {
+                                  "value": "[[parameters('alertResourceGroupName')]"
                                 }
                               }
                             }
@@ -223,6 +265,12 @@
                       "parameters": {
                         "enabled": {
                           "value": "[[parameters('enabled')]"
+                        },
+                        "alertResourceGroupName": {
+                          "value": "[[parameters('alertResourceGroupName')]"
+                        },
+                        "alertResourceGroupTags": {
+                          "value": "[[parameters('alertResourceGroupTags')]"
                         }
                       }
                     }
@@ -238,8 +286,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.14.46.61228",
-              "templateHash": "6758506931317698239"
+              "version": "0.14.85.62628",
+              "templateHash": "15761979195461263436"
             }
           },
           "parameters": {
