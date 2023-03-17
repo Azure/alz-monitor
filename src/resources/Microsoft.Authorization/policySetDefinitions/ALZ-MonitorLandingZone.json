@@ -574,6 +574,14 @@
           "VNETDDOSAttackThreshold": {
             "type": "string",
             "defaultValue": "1"
+          },
+           "activityNSGDeleteAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "activityUDRUpdateAlertState": {
+            "type": "string",
+            "defaultValue": "true"
           }
           
           
@@ -742,7 +750,7 @@
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
           },
           {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete')]",
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityKVDeleteAlertState')]"
@@ -759,7 +767,7 @@
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Availability_Alert')]",
             "parameters": {
               "severity": {
-                "value": "[[parameters('StorageAccountAvailabilityAlertSeverity')]"
+                "value": "[[parameters('')]"
               },
               "windowSize": {
                 "value": "[[parameters('StorageAccountAvailabilityWindowSize')]"
@@ -870,6 +878,34 @@
                 "value": "[[parameters('PIPVIPAvailabilityThreshold')]"
               }
             }
+          },
+          {
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityNSGDeleteAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
+            },
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
+          },
+          {
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('activityUDRUpdateAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              }
+            },
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_RouteTable_Update')]"
           },
            {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_DDoSAttack_Alert')]",
