@@ -819,7 +819,7 @@
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Availability_Alert')]",
             "parameters": {
               "severity": {
-                "value": "[[parameters('')]"
+                "value": "[[parameters('StorageAccountAvailabilityAlertSeverity')]"
               },
               "windowSize": {
                 "value": "[[parameters('StorageAccountAvailabilityWindowSize')]"

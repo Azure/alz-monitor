@@ -54,6 +54,7 @@ To deploy through GitHub actions which is the preferred approach, please refer t
   identityManagementGroup="The management group id for Identity"
   managementManagementGroup="The management group id for Management"
   connectivityManagementGroup="The management group id for Connectivity"
+  LZManagementGroup="The management group id for Landing Zones"
   az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $location --management-group-id $managementGroupId
   #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location $location --management-group-id $managementGroupId
@@ -63,6 +64,7 @@ To deploy through GitHub actions which is the preferred approach, please refer t
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $identityManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $location --management-group-id $LZManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
 ```
 
 #### Azure PowerShell
