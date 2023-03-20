@@ -116,4 +116,4 @@ This initiative is intended for assignment of policies relevant to a landing zon
 | Deploy_PublicIp_PacketsInDDoSAttack_Alert | [deploy-pip_packetsinddos_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-pip_packetsinddos_alert.json)  | disabled |
 | Deploy_PublicIp_VIPAvailability_Alert | [deploy-pip_vipavailability_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-pip_vipavailability_alert.json)  | deployIfNotExists |
 | Deploy_VNET_DDoSAttack_Alert | [deploy-vnet_ddosattack_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vnet_ddosattack_alert.json)  | deployIfNotExists |
-
+| Deploy_RecoveryVault_BackupHealth_Alert | [deploy-rv_backuphealth_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-rv_backuphealth_alert.json)  | deployIfNotExists |
