@@ -13,5 +13,7 @@
 
 *The metric rules we've created are based on recommendations from Microsoft documentation and field experience. How you're using Azure resources may also be different so tailor the alerts to suit your needs. The main goal of this project is to help you have a way to do Azure Monitor alerts at scale, create new rules with your own thresholds. We'd love to hear about your new rules too so feel free to share back.*
 
+## Can I disable the alerts being deployed for a resource or subscription? 
 
+*Yes, please refer to the disabling monitoring section in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide)*
 
