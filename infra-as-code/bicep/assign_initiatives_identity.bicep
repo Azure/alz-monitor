@@ -23,6 +23,9 @@ module Deploy_Alerting_Identity '../../infra-as-code/bicep/modules/policy/assign
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 
@@ -37,6 +40,9 @@ module Deploy_AlertProcessing_rule '../../infra-as-code/bicep/modules/policy/ass
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 

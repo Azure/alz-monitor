@@ -17,6 +17,9 @@ module Deploy_KeyVault_Availability_Alert '../../infra-as-code/bicep/modules/pol
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_KeyVault_Capacity_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -30,6 +33,9 @@ module Deploy_KeyVault_Capacity_Alert '../../infra-as-code/bicep/modules/policy/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_KeyVault_Latency_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -43,6 +49,9 @@ module Deploy_KeyVault_Latency_Alert '../../infra-as-code/bicep/modules/policy/a
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_KeyVault_Requests_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -56,6 +65,9 @@ module Deploy_KeyVault_Requests_Alert '../../infra-as-code/bicep/modules/policy/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_PDNSZ_RecordSetCapacity_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -69,6 +81,9 @@ module Deploy_PDNSZ_RecordSetCapacity_Alert '../../infra-as-code/bicep/modules/p
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_PDNSZ_CapacityUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -82,6 +97,9 @@ module Deploy_PDNSZ_CapacityUtil_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_PDNSZ_QueryVolume_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -95,6 +113,9 @@ module Deploy_PDNSZ_QueryVolume_Alert '../../infra-as-code/bicep/modules/policy/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_DNSZ_RegistrationCapacityUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -108,6 +129,9 @@ module Deploy_DNSZ_RegistrationCapacityUtil_Alert '../../infra-as-code/bicep/mod
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_PublicIp_DDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -121,6 +145,9 @@ module Deploy_PublicIp_DDoSAttack_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_PublicIp_BytesInDDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -134,6 +161,9 @@ module Deploy_PublicIp_BytesInDDoSAttack_Alert '../../infra-as-code/bicep/module
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_PublicIp_PacketsInDDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -147,6 +177,9 @@ module Deploy_PublicIp_PacketsInDDoSAttack_Alert '../../infra-as-code/bicep/modu
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_PublicIp_VIPAvailability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -160,6 +193,9 @@ module Deploy_PublicIp_VIPAvailability_Alert '../../infra-as-code/bicep/modules/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_RecoveryVault_BackupHealth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -173,6 +209,9 @@ module Deploy_RecoveryVault_BackupHealth_Alert '../../infra-as-code/bicep/module
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_StorageAccount_Availability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -186,6 +225,9 @@ module Deploy_StorageAccount_Availability_Alert '../../infra-as-code/bicep/modul
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VM_AvailableMemory_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -199,6 +241,9 @@ module Deploy_VM_AvailableMemory_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VNET_DDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -212,6 +257,9 @@ module Deploy_VNET_DDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/as
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_ExpressRouteCpuUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -225,6 +273,9 @@ module Deploy_VnetGw_ExpressRouteCpuUtil_Alert '../../infra-as-code/bicep/module
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_TunnelBandwidth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -238,6 +289,9 @@ module Deploy_VnetGw_TunnelBandwidth_Alert '../../infra-as-code/bicep/modules/po
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_TunnelEgress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -251,6 +305,9 @@ module Deploy_VnetGw_TunnelEgress_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_TunnelIngress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -264,6 +321,9 @@ module Deploy_VnetGw_TunnelIngress_Alert '../../infra-as-code/bicep/modules/poli
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VPNGw_BandwidthUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -277,6 +337,9 @@ module Deploy_VPNGw_BandwidthUtil_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VPNGw_BGPPeerStatus_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -290,6 +353,9 @@ module Deploy_VPNGw_BGPPeerStatus_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VPNGw_Ingress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -303,175 +369,213 @@ module Deploy_VPNGw_Ingress_Alert '../../infra-as-code/bicep/modules/policy/assi
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VPNGw_Egress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-        name: '${uniqueString(deployment().name)}-Deploy_VPNGw_Egress_Alert'
-          params: {
-            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Egress_Alert'
-            parPolicyAssignmentDisplayName: '[DINE] Deploy VPNG Egress Alert'
-            parPolicyAssignmentName: 'Deploy_VPNGw_Egress_Ale'
-            parPolicyAssignmentDescription: 'DINE policy to audit/deploy VPN Gateway Egress Alert'
-            parPolicyAssignmentIdentityType: 'SystemAssigned'
-            parPolicyAssignmentIdentityRoleDefinitionIds: [
-                'b24988ac-6180-42a0-ab88-20f7382dd24c'
-            ]
-          }
-        }
-
+  name: '${uniqueString(deployment().name)}-Deploy_VPNGw_Egress_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Egress_Alert'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy VPNG Egress Alert'
+    parPolicyAssignmentName: 'Deploy_VPNGw_Egress_Ale'
+    parPolicyAssignmentDescription: 'DINE policy to audit/deploy VPN Gateway Egress Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
+}
 
 module Deploy_svcHlth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-        name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Alert'
-          params: {
-            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident'
-            parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Incident Alert'
-            parPolicyAssignmentName: 'Deploy_svcHlth_Ale'
-            parPolicyAssignmentDescription: 'DINE policy to Deploy Service Health Incident Alert'
-            parPolicyAssignmentIdentityType: 'SystemAssigned'
-            parPolicyAssignmentIdentityRoleDefinitionIds: [
-                'b24988ac-6180-42a0-ab88-20f7382dd24c'
-            ]
-          }
-        }
+  name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Incident Alert'
+    parPolicyAssignmentName: 'Deploy_svcHlth_Ale'
+    parPolicyAssignmentDescription: 'DINE policy to Deploy Service Health Incident Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
+}
 
 module Deploy_svcHlth_Hlth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-        name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Hlth_Alert'
-          params: {
-            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory'
-            parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Health Advisory Alert'
-            parPolicyAssignmentName: 'Deploy_svcHlth_Hlth'
-            parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Health Advisory Alert'
-            parPolicyAssignmentIdentityType: 'SystemAssigned'
-            parPolicyAssignmentIdentityRoleDefinitionIds: [
-                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
-              ]
-            }
-          }
+  name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Hlth_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Health Advisory Alert'
+    parPolicyAssignmentName: 'Deploy_svcHlth_Hlth'
+    parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Health Advisory Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
+}
 
 module Deploy_svcHlth_Main_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-        name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Main_Alert'
-          params: {
-            parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance'
-            parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Planned Maintenance Alert'
-                parPolicyAssignmentName: 'Deploy_svcHlth_main'
-                parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Planned Maintenance Alert'
-                parPolicyAssignmentIdentityType: 'SystemAssigned'
-                parPolicyAssignmentIdentityRoleDefinitionIds: [
-                      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                  ]
-                }
-              }
+  name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Main_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Planned Maintenance Alert'
+    parPolicyAssignmentName: 'Deploy_svcHlth_main'
+    parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Planned Maintenance Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
+}
 
 module Deploy_svcHlth_Sec_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-         name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Sec_Alert'
-                  params: {
-                    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory'
-                    parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Security Advisory Alert'
-                        parPolicyAssignmentName: 'Deploy_svcHlth_sec'
-                        parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Security Advisory Alert'
-                        parPolicyAssignmentIdentityType: 'SystemAssigned'
-                        parPolicyAssignmentIdentityRoleDefinitionIds: [
-                              'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                          ]
-                        }
-                      }
-                      
+  name: '${uniqueString(deployment().name)}-Deploy_svcHlth_Sec_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Service Health Security Advisory Alert'
+    parPolicyAssignmentName: 'Deploy_svcHlth_sec'
+    parPolicyAssignmentDescription: 'DINE policy to deploy Service Health Security Advisory Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
+}
+
 module Deploy_ResHlth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-                        name: '${uniqueString(deployment().name)}-Deploy_resHlth_Unhlth_Alert'
-                                 params: {
-                                   parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert'
-                                   parPolicyAssignmentDisplayName: '[DINE] Deploy Resource Health Unhealthy Alert'
-                                       parPolicyAssignmentName: 'Deploy_resHlth_unhealth'
-                                       parPolicyAssignmentDescription: 'DINE policy to deploy Resource Health Unhealthy Alert'
-                                       parPolicyAssignmentIdentityType: 'SystemAssigned'
-                                       parPolicyAssignmentIdentityRoleDefinitionIds: [
-                                             'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                                         ]
-                                       }
-                                     }
+  name: '${uniqueString(deployment().name)}-Deploy_resHlth_Unhlth_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Resource Health Unhealthy Alert'
+    parPolicyAssignmentName: 'Deploy_resHlth_unhealth'
+    parPolicyAssignmentDescription: 'DINE policy to deploy Resource Health Unhealthy Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
+}
 
 module Deploy_ActLog_Firewall_Del_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-           name: '${uniqueString(deployment().name)}-Deploy_activity_firewalldel_Alert'
-                  params: {
-                         parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete'
-                         parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log Azure FireWall Delete Alert'
-                         parPolicyAssignmentName: 'Deploy_firewall_delete'
-                         parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log Azure Firewall Delete Alert'
-                         parPolicyAssignmentIdentityType: 'SystemAssigned'
-                         parPolicyAssignmentIdentityRoleDefinitionIds: [
-                           'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                                     ]
-                                    }
-          }
+  name: '${uniqueString(deployment().name)}-Deploy_activity_firewalldel_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log Azure FireWall Delete Alert'
+    parPolicyAssignmentName: 'Deploy_firewall_delete'
+    parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log Azure Firewall Delete Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
+}
 
 module Deploy_ActLog_KeyVault_Del_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-           name: '${uniqueString(deployment().name)}-Deploy_activity_keyvaultdel_Alert'
-                  params: {
-                         parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete'
-                         parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log Key Vault Delete Alert'
-                         parPolicyAssignmentName: 'Deploy_keyvault_delete'
-                         parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log Key Vault Delete Alert'
-                         parPolicyAssignmentIdentityType: 'SystemAssigned'
-                         parPolicyAssignmentIdentityRoleDefinitionIds: [
-                           'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                                     ]
-                                    }
+  name: '${uniqueString(deployment().name)}-Deploy_activity_keyvaultdel_Alert'
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log Key Vault Delete Alert'
+    parPolicyAssignmentName: 'Deploy_keyvault_delete'
+    parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log Key Vault Delete Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
 }
 
 module Deploy_ActLog_LogAnal_Del_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_activity_loganaldel_Alert'
-         params: {
-                parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete'
-                parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log LA Workspace Delete Alert'
-                parPolicyAssignmentName: 'Deploy_loganal_delete'
-                parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log LA Workspace Delete Alert'
-                parPolicyAssignmentIdentityType: 'SystemAssigned'
-                parPolicyAssignmentIdentityRoleDefinitionIds: [
-                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                            ]
-                           }
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_Delete'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log LA Workspace Delete Alert'
+    parPolicyAssignmentName: 'Deploy_loganal_delete'
+    parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log LA Workspace Delete Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
 }
 
 module Deploy_ActLog_LogAnal_regen_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_activity_loganalregen_Alert'
-         params: {
-                parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen'
-                parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log LA Workspace Regenerate Key Alert'
-                parPolicyAssignmentName: 'Deploy_loganal_ReGenk'
-                parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log LA Workspace Regenerate Key Alert'
-                parPolicyAssignmentIdentityType: 'SystemAssigned'
-                parPolicyAssignmentIdentityRoleDefinitionIds: [
-                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                            ]
-                           }
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_LAWorkspace_KeyRegen'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log LA Workspace Regenerate Key Alert'
+    parPolicyAssignmentName: 'Deploy_loganal_ReGenk'
+    parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log LA Workspace Regenerate Key Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
 }
 
 module Deploy_ActLog_NSG_delete_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_activity_nsgdel_Alert'
-         params: {
-                parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete'
-                parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log NSG Delete Alert'
-                parPolicyAssignmentName: 'Deploy_ActNSG_Del'
-                parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log NSG Delete Alert'
-                parPolicyAssignmentIdentityType: 'SystemAssigned'
-                parPolicyAssignmentIdentityRoleDefinitionIds: [
-                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                            ]
-                           }
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log NSG Delete Alert'
+    parPolicyAssignmentName: 'Deploy_ActNSG_Del'
+    parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log NSG Delete Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
 }
 
 module Deploy_ActLog_VPNGateway_delete_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Deploy_activity_vpngatedel_Alert'
-         params: {
-                parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete'
-                parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log VPN Gateway Delete Alert'
-                parPolicyAssignmentName: 'Deploy_ActVPNGate_Del'
-                parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log VPN Gateway Delete Alert'
-                parPolicyAssignmentIdentityType: 'SystemAssigned'
-                parPolicyAssignmentIdentityRoleDefinitionIds: [
-                  'b24988ac-6180-42a0-ab88-20f7382dd24c'
-                            ]
-                           }
+  params: {
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parTargetManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete'
+    parPolicyAssignmentDisplayName: '[DINE] Deploy Activity Log VPN Gateway Delete Alert'
+    parPolicyAssignmentName: 'Deploy_ActVPNGate_Del'
+    parPolicyAssignmentDescription: 'DINE policy to Deploy Activity Log VPN Gateway Delete Alert'
+    parPolicyAssignmentIdentityType: 'SystemAssigned'
+    parPolicyAssignmentIdentityRoleDefinitionIds: [
+      'b24988ac-6180-42a0-ab88-20f7382dd24c'
+    ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
+  }
 }
 
 module Deploy_ERCIR_ArpAvailability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -485,6 +589,9 @@ module Deploy_ERCIR_ArpAvailability_Alert '../../infra-as-code/bicep/modules/pol
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_ERCIR_BgpAvailability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -498,6 +605,9 @@ module Deploy_ERCIR_BgpAvailability_Alert '../../infra-as-code/bicep/modules/pol
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_ERCIR_QosDropBitsInPerSecond_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -511,6 +621,9 @@ module Deploy_ERCIR_QosDropBitsInPerSecond_Alert '../../infra-as-code/bicep/modu
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_ERCIR_QosDropBitsOutPerSecond_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -524,6 +637,9 @@ module Deploy_ERCIR_QosDropBitsOutPerSecond_Alert '../../infra-as-code/bicep/mod
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VPNGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -537,6 +653,9 @@ module Deploy_VPNGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bicep
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VPNGw_TunnelEgressPacketDropMisMatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -550,6 +669,9 @@ module Deploy_VPNGw_TunnelEgressPacketDropMisMatch_Alert '../../infra-as-code/bi
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VPNGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -563,6 +685,9 @@ module Deploy_VPNGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bice
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -576,6 +701,9 @@ module Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/b
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_AA_TotalJob_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -589,6 +717,9 @@ module Deploy_AA_TotalJob_Alert '../../infra-as-code/bicep/modules/policy/assign
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_AFW_FirewallHealth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -602,6 +733,9 @@ module Deploy_AFW_FirewallHealth_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_AFW_SNATPortUtilization_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -615,6 +749,9 @@ module Deploy_AFW_SNATPortUtilization_Alert '../../infra-as-code/bicep/modules/p
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_ERG_CPUUtilization_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -628,6 +765,9 @@ module Deploy_ERG_CPUUtilization_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_ERGw_ExpressRouteBitsIn_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -641,6 +781,9 @@ module Deploy_ERGw_ExpressRouteBitsIn_Alert '../../infra-as-code/bicep/modules/p
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_ERGw_ExpressRouteBitsOut_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -654,6 +797,9 @@ module Deploy_ERGw_ExpressRouteBitsOut_Alert '../../infra-as-code/bicep/modules/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -667,6 +813,9 @@ module Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert '../../infra-as-code/bicep/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -680,6 +829,9 @@ module Deploy_VnetGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bice
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -693,6 +845,9 @@ module Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert '../../infra-as-code/b
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -706,6 +861,9 @@ module Deploy_VnetGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 module Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -719,6 +877,9 @@ module Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
 
@@ -733,5 +894,8 @@ module Deploy_ActGrp_AlertPpocessingRule '../../infra-as-code/bicep/modules/poli
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentMetadata: {
+      _deployed_by_alz_monitor: true
+    }
   }
 }
