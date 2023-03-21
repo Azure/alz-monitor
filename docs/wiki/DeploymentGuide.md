@@ -88,7 +88,7 @@ To deploy through GitHub actions which is the preferred approach, please refer t
   New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -parPolicyManagementGroupId $managementGroupId
   New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -parPolicyManagementGroupId $managementGroupId
   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -parPolicyManagementGroupId $managementGroupId
-  New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -parPolicyManagementGroupId $managementGroupId
+  New-AzManagementGroupDeployment -ManagementGroupId $LZManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -parPolicyManagementGroupId $managementGroupId
 ```
 
 ## Policy remediation
