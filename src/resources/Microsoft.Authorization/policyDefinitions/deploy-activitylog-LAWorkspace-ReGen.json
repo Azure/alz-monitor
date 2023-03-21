@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.14.85.62628",
-      "templateHash": "10520031607089738638"
+      "version": "0.15.31.15270",
+      "templateHash": "4908875775763625495"
     }
   },
   "parameters": {
@@ -32,6 +32,10 @@
     "parAlertState": {
       "type": "string",
       "defaultValue": "true"
+    },
+    "parMonitorDisable": {
+      "type": "string",
+      "defaultValue": "MonitorDisable"
     }
   },
   "resources": [
@@ -94,6 +98,14 @@
                   "description": "Tags on the Resource group the alert is placed in"
                 },
                 "defaultValue": "[parameters('parResourceGroupTags')]"
+              },
+              "MonitorDisable": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Effect",
+                  "description": "Tag name to disable monitoring on resource. Set to true if monitoring should be disabled"
+                },
+                "defaultValue": "[parameters('parMonitorDisable')]"
               }
             }
           },
@@ -104,6 +116,10 @@
                   {
                     "field": "type",
                     "equals": "Microsoft.OperationalInsights/workspaces"
+                  },
+                  {
+                    "field": "[[concat('tags[', parameters('MonitorDisable'), ']')]",
+                    "notEquals": "true"
                   }
                 ]
               },
@@ -286,8 +302,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.14.85.62628",
-              "templateHash": "15761979195461263436"
+              "version": "0.15.31.15270",
+              "templateHash": "18014497053520809482"
             }
           },
           "parameters": {
