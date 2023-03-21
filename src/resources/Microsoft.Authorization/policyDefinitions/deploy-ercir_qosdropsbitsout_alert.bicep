@@ -240,6 +240,9 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-QosDropBitsOutPerSecond\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for ExpressRoute Circuit QosDropBitsOutPerSecond'
                                             severity: '[parameters(\'severity\')]'

@@ -252,6 +252,9 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-LatencyAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for KeyVault Latency'
                                             severity: '[parameters(\'severity\')]'

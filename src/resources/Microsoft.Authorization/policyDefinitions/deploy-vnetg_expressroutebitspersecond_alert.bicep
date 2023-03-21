@@ -256,6 +256,9 @@ module VnetgExpressRouteBitsPerSecondAlert '../../arm/Microsoft.Authorization/po
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-GatewayERBitsAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for VNet Gateway Express Route Bits Per Second'
                                             severity: '[parameters(\'severity\')]'

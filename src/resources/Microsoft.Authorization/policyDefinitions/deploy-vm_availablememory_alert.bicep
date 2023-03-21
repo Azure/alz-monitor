@@ -253,6 +253,9 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-AvailableMemoryAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for Virtual Machine Available Memory (MBytes)'
                                             severity: '[parameters(\'severity\')]'

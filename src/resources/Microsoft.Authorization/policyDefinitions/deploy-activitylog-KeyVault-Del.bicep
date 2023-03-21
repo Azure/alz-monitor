@@ -191,6 +191,9 @@ module ActivityLogKeyVaultDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                                         apiVersion: '2020-10-01'
                                                         name: 'ActivityKeyVaultDelete'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Activity Log Key Vault Delete'
                                                             enabled: '[parameters(\'enabled\')]'

@@ -252,6 +252,9 @@ module DDOSAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-DDOS_Attack\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for Public IP Address Under Attack'
                                             severity: '[parameters(\'severity\')]'

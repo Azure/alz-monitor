@@ -253,6 +253,9 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-QueryVolumeAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for Private DNS Query Volume'
                                             severity: '[parameters(\'severity\')]'

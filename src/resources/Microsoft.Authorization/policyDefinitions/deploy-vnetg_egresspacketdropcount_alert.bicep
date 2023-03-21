@@ -245,6 +245,9 @@ module VnetgEgressPacketDropCountAlert '../../arm/Microsoft.Authorization/policy
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressPacketDropCountAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for Vnet Gateway tunnel TunnelEgressPacketDropCount'
                                             severity: '[parameters(\'severity\')]'

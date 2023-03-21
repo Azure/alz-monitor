@@ -252,6 +252,9 @@ module BgpAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-BgpAvailability\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for ExpressRoute Circuit Bgp Availability'
                                             severity: '[parameters(\'severity\')]'

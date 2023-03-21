@@ -253,6 +253,9 @@ module ErgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/pol
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-GatewayERCPUAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for ER Gateway Express Route CPU Utilization'
                                             severity: '[parameters(\'severity\')]'

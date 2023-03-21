@@ -187,6 +187,9 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                                                         apiVersion: '2020-10-01'
                                                         name: 'ServiceHealthSecurityIncident'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Service Health Security Alert'
                                                             enabled: '[parameters(\'enabled\')]'

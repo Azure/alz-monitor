@@ -252,6 +252,9 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-FirewallHealth\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for AFW FirewallHealth'
                                             severity: '[parameters(\'severity\')]'

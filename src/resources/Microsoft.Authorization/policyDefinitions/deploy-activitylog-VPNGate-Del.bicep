@@ -187,6 +187,9 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                                                         //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
                                                         name: 'ActivityVPNGatewayDelete'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Activity Log VPN Gateway Delete'
                                                             enabled: '[parameters(\'enabled\')]'

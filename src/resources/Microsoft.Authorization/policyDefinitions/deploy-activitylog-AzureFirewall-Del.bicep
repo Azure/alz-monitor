@@ -189,6 +189,9 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
                                                         apiVersion: '2020-10-01'
                                                         name: 'ActivityAzureFirewallDelete'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Activity Log Firewall Delete'
                                                             enabled: '[parameters(\'enabled\')]'

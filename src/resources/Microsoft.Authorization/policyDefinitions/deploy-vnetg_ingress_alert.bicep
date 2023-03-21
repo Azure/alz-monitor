@@ -256,6 +256,9 @@ module VnetgIngressAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for VNet Gateway Tunnel ingress Bytes'
                                             severity: '[parameters(\'severity\')]'

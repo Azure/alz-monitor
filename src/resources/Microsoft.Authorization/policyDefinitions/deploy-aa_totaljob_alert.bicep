@@ -256,6 +256,9 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-TotalJob\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for Automation Account TotalJob Alert'
                                             severity: '[parameters(\'severity\')]'

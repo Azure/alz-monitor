@@ -188,6 +188,9 @@ module ActivityLogUDRUpdateAlert '../../arm/Microsoft.Authorization/policyDefini
                                                         apiVersion: '2020-10-01'
                                                         name: 'ActivityUDRUpdate'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Activity Log Route table update'
                                                             enabled: '[parameters(\'enabled\')]'

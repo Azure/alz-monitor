@@ -252,6 +252,9 @@ module VpngEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for VPN Gateway tunnel egress bytes'
                                             severity: '[parameters(\'severity\')]'

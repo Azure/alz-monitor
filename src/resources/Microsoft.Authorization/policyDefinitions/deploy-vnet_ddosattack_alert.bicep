@@ -252,6 +252,9 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-DDOSAttackAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for VNet DDOS Attack'
                                             severity: '[parameters(\'severity\')]'

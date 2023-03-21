@@ -252,6 +252,9 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-Availability\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for KeyVault Availability'
                                             severity: '[parameters(\'severity\')]'

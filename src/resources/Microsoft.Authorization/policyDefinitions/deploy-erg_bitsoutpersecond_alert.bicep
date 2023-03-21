@@ -252,6 +252,9 @@ module ErgExpressRouteBitsOutAlert '../../arm/Microsoft.Authorization/policyDefi
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-GatewayERBitsOutAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for ER Gateway Connection BitsOutPerSecond'
                                             severity: '[parameters(\'severity\')]'

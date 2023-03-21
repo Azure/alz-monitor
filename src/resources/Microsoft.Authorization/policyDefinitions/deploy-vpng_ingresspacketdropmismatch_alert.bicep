@@ -239,6 +239,9 @@ module VpngTunnelIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorizati
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-TunnelIngressPacketDropTSMismatchAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for VPN Gateway tunnel TunnelIngressPacketDropTSMismatch'
                                             severity: '[parameters(\'severity\')]'

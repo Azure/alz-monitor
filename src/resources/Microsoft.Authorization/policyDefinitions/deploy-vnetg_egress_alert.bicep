@@ -257,6 +257,9 @@ module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-TunnelEgressAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for VNet Gateway Tunnel Egress Bytes'
                                             severity: '[parameters(\'severity\')]'

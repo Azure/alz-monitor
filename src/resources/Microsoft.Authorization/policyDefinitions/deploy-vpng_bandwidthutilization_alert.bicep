@@ -252,6 +252,9 @@ module VpngBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-GatewayBandwidthAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for VPN Gateway Bandwidth Utilization'
                                             severity: '[parameters(\'severity\')]'

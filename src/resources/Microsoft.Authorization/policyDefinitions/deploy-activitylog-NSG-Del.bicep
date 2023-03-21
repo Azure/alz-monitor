@@ -190,6 +190,9 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                                                         apiVersion: '2020-10-01'
                                                         name: 'ActivityNSGDelete'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Activity Log NSG Delete'
                                                             enabled: '[parameters(\'enabled\')]'

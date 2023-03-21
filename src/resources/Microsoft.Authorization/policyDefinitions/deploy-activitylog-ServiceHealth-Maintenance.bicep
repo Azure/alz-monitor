@@ -188,6 +188,9 @@ module ServiceHealthMaintenanceAlert '../../arm/Microsoft.Authorization/policyDe
                                                         apiVersion: '2020-10-01'
                                                         name: 'ServiceHealthPlannedMaintenance'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'ServiceHealthPlannedMaintenance Alert'
                                                             enabled: '[parameters(\'enabled\')]'

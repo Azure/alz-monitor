@@ -252,6 +252,9 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-CapacityUtilizationAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for Private DNS Zone Virtual Network Link Capacity Utilization'
                                             severity: '[parameters(\'severity\')]'

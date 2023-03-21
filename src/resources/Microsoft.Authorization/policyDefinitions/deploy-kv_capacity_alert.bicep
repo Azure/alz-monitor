@@ -253,6 +253,9 @@ module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-CapacityAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for KeyVault Capacity'
                                             severity: '[parameters(\'severity\')]'

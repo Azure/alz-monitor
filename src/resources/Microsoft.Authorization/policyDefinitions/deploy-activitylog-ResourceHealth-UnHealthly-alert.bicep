@@ -179,6 +179,9 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                                                         apiVersion: '2020-10-01'
                                                         name: 'ResourceHealthUnhealthyAlert'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Resource Health Unhealthy Alert'
                                                             enabled: '[parameters(\'enabled\')]'

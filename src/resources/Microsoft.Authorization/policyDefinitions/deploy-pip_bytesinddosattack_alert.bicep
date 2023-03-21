@@ -253,6 +253,9 @@ module BytesInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-BytesInDDOSAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for Public IP Address Bytes IN DDOS'
                                             severity: '[parameters(\'severity\')]'

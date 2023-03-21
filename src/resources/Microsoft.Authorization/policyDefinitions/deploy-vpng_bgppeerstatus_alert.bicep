@@ -252,6 +252,9 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-BGPPeerStatusAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for VPN Gateway BGP peer status'
                                             severity: '[parameters(\'severity\')]'

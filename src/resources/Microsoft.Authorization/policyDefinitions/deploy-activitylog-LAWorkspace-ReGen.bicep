@@ -190,6 +190,9 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                                                         apiVersion: '2020-10-01'
                                                         name: 'ActivityLAWorkspaceRegenKey'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Activity Log LA Workspace Regenerate Key'
                                                             enabled: '[parameters(\'enabled\')]'

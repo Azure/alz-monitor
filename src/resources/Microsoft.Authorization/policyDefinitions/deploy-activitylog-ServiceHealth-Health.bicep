@@ -187,6 +187,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         name: 'ServiceHealthAdvisoryEvent'
                                                         properties: {
                                                             description: 'Service Health Advisory Alert'

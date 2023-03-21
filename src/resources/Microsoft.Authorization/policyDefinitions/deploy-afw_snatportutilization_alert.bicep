@@ -253,6 +253,9 @@ module SNATPortUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-SNATPortUtilization\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for AFW SNATPortUtilization'
                                             severity: '[parameters(\'severity\')]'
