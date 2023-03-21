@@ -63,6 +63,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
             version: '1.0.0'
             Category: 'Storage'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             severity: {

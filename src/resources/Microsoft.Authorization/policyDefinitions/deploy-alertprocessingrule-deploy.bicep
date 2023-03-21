@@ -23,6 +23,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
       version: '1.0.0'
       Category: 'Action Groups'
       source: 'https://github.com/Azure/ALZ-Monitor/'
+      _deployed_by_alz_monitor: 'True'
     }
     parameters: {
       alertResourceGroupName: {

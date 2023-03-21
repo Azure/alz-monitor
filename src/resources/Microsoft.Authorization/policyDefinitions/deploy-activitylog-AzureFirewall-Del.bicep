@@ -24,6 +24,7 @@ module ActivityLogFirewallDeleteAlert '../../arm/Microsoft.Authorization/policyD
             version: '1.0.0'
             Category: 'ActivityLog'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             enabled: {

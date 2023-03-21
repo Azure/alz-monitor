@@ -63,6 +63,7 @@ module VIPAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions
             version: '1.0.0'
             Category: 'Networking'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             severity: {
