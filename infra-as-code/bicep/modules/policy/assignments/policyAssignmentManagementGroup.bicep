@@ -52,6 +52,9 @@ param parPolicyAssignmentIdentityRoleDefinitionIds array = []
 @description('An open-ended object containing policy assignment metadata, typically key value pairs. DEFAULT VALUE = {}')
 param parPolicyAssignmentMetadata object = {}
 
+@description('A text field description for the RBAC role assignment created for the Policy Assignment. DEFAULT VALUE = ""')
+param parPolicyAssignmentRoleAssignmentDescription string = ''
+
 @description('Set Parameter to true to Opt-out of deployment telemetry')
 param parTelemetryOptOut bool = true
 
@@ -91,6 +94,7 @@ module modPolicyIdentityRoleAssignmentMgsMany '../../roleAssignments/roleAssignm
     parAssigneeObjectId: resPolicyAssignment.identity.principalId
     parAssigneePrincipalType: 'ServicePrincipal'
     parRoleDefinitionId: roles
+    parRoleAssignmentDescription: parPolicyAssignmentRoleAssignmentDescription
   }
 }]
 
@@ -102,6 +106,7 @@ module modPolicyIdentityRoleAssignmentSubsMany '../../roleAssignments/roleAssign
     parAssigneeObjectId: resPolicyAssignment.identity.principalId
     parAssigneePrincipalType: 'ServicePrincipal'
     parRoleDefinitionId: roles
+    parRoleAssignmentDescription: parPolicyAssignmentRoleAssignmentDescription
   }
 }]
 

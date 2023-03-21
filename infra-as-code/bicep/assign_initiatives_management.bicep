@@ -26,6 +26,7 @@ module Deploy_Alerting_Management '../../infra-as-code/bicep/modules/policy/assi
     parPolicyAssignmentMetadata: {
       _deployed_by_alz_monitor: true
     }
+    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -43,6 +44,7 @@ module Deploy_AlertProcessing_rule '../../infra-as-code/bicep/modules/policy/ass
     parPolicyAssignmentMetadata: {
       _deployed_by_alz_monitor: true
     }
+    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
