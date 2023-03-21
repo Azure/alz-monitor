@@ -115,7 +115,7 @@ This customized policy can then be deployed into your environment to deliver the
 
 ## Disabling Monitoring
 
-If you wish to disable monitoring for a resource or for alerts targeted at subscription level such as Activity Log, Service Health and Resource Health.  A "MonitorDisable" tag can be created with a value of "true".  This will remove the resource or subscription from the compliance check for the policy.
+If you wish to disable monitoring for a resource or for alerts targeted at subscription level such as Activity Log, Service Health and Resource Health.  A "MonitorDisable" tag can be created with a value of "true" at the scope where you wish to disable monitor.  This will effectively filter the resource or subscription from the compliance check for the policy.
 
 
 
