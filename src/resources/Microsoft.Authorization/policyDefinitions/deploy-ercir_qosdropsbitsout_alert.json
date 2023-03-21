@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.14.85.62628",
-      "templateHash": "3747052277891643237"
+      "version": "0.15.31.15270",
+      "templateHash": "18239488049902580804"
     }
   },
   "parameters": {
@@ -70,6 +70,10 @@
     "parAlertState": {
       "type": "string",
       "defaultValue": "true"
+    },
+    "parMonitorDisable": {
+      "type": "string",
+      "defaultValue": "MonitorDisable"
     }
   },
   "resources": [
@@ -188,6 +192,14 @@
                   "disabled"
                 ],
                 "defaultValue": "[parameters('parPolicyEffect')]"
+              },
+              "MonitorDisable": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Effect",
+                  "description": "Tag name to disable monitoring resource. Set to true if monitoring should be disabled"
+                },
+                "defaultValue": "[parameters('parMonitorDisable')]"
               }
             }
           },
@@ -198,6 +210,10 @@
                   {
                     "field": "type",
                     "equals": "Microsoft.Network/expressRouteCircuits"
+                  },
+                  {
+                    "field": "[[concat('tags[', parameters('MonitorDisable'), ']')]",
+                    "notEquals": "true"
                   }
                 ]
               },
@@ -355,8 +371,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.14.85.62628",
-              "templateHash": "15761979195461263436"
+              "version": "0.15.31.15270",
+              "templateHash": "18014497053520809482"
             }
           },
           "parameters": {
