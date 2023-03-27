@@ -71,6 +71,7 @@ resource resPolicyAssignment 'Microsoft.Authorization/policyAssignments@2020-09-
     nonComplianceMessages: parPolicyAssignmentNonComplianceMessages
     notScopes: parPolicyAssignmentNotScopes
     enforcementMode: parPolicyAssignmentEnforcementMode
+    metadata: {_deployed_by_alz_monitor: true}
   }
   identity: {
     type: varPolicyIdentity
