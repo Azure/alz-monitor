@@ -49,12 +49,6 @@ param parPolicyAssignmentIdentityRoleAssignmentsSubs array = []
 @description('An array containing a list of RBAC role definition IDs to be assigned to the Managed Identity that is created and associated with the policy assignment. Only required for Modify and DeployIfNotExists policy effects. e.g. [\'/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c\']. DEFAULT VALUE = []')
 param parPolicyAssignmentIdentityRoleDefinitionIds array = []
 
-@description('An open-ended object containing policy assignment metadata, typically key value pairs. DEFAULT VALUE = {}')
-param parPolicyAssignmentMetadata object = {}
-
-@description('A text field description for the RBAC role assignment created for the Policy Assignment. DEFAULT VALUE = ""')
-param parPolicyAssignmentRoleAssignmentDescription string = ''
-
 @description('Set Parameter to true to Opt-out of deployment telemetry')
 param parTelemetryOptOut bool = true
 
@@ -77,7 +71,6 @@ resource resPolicyAssignment 'Microsoft.Authorization/policyAssignments@2020-09-
     nonComplianceMessages: parPolicyAssignmentNonComplianceMessages
     notScopes: parPolicyAssignmentNotScopes
     enforcementMode: parPolicyAssignmentEnforcementMode
-    metadata: parPolicyAssignmentMetadata
   }
   identity: {
     type: varPolicyIdentity
@@ -94,7 +87,6 @@ module modPolicyIdentityRoleAssignmentMgsMany '../../roleAssignments/roleAssignm
     parAssigneeObjectId: resPolicyAssignment.identity.principalId
     parAssigneePrincipalType: 'ServicePrincipal'
     parRoleDefinitionId: roles
-    parRoleAssignmentDescription: parPolicyAssignmentRoleAssignmentDescription
   }
 }]
 
@@ -106,7 +98,6 @@ module modPolicyIdentityRoleAssignmentSubsMany '../../roleAssignments/roleAssign
     parAssigneeObjectId: resPolicyAssignment.identity.principalId
     parAssigneePrincipalType: 'ServicePrincipal'
     parRoleDefinitionId: roles
-    parRoleAssignmentDescription: parPolicyAssignmentRoleAssignmentDescription
   }
 }]
 

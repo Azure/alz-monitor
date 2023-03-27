@@ -16,9 +16,6 @@ param parAssigneePrincipalType string
 @description('Object ID of groups, service principals or managed identities. For managed identities use the principal id. For service principals, use the object ID and not the app ID')
 param parAssigneeObjectId string
 
-@description('A text value description of the role assignment.')
-param parRoleAssignmentDescription string = ''
-
 @description('Set Parameter to true to Opt-out of deployment telemetry')
 param parTelemetryOptOut bool = true
 
@@ -31,7 +28,6 @@ resource resRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-10-01-p
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', parRoleDefinitionId)
     principalId: parAssigneeObjectId
     principalType: parAssigneePrincipalType
-    description: parRoleAssignmentDescription
   }
 }
 
