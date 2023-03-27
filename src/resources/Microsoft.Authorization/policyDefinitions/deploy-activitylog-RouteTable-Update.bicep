@@ -8,6 +8,7 @@ param deploymentRoleDefinitionIds array = [
 
 param parResourceGroupTags object = {
     environment: 'test'
+     _deployed_by_alz_monitor: true
 }
 
 param parAlertState string = 'true'
