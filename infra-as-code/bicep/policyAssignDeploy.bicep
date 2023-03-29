@@ -17,10 +17,6 @@ module Deploy_KeyVault_Availability_Alert '../../infra-as-code/bicep/modules/pol
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_KeyVault_Capacity_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -34,10 +30,6 @@ module Deploy_KeyVault_Capacity_Alert '../../infra-as-code/bicep/modules/policy/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_KeyVault_Latency_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -51,10 +43,6 @@ module Deploy_KeyVault_Latency_Alert '../../infra-as-code/bicep/modules/policy/a
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_KeyVault_Requests_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -68,10 +56,6 @@ module Deploy_KeyVault_Requests_Alert '../../infra-as-code/bicep/modules/policy/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_PDNSZ_RecordSetCapacity_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -85,10 +69,6 @@ module Deploy_PDNSZ_RecordSetCapacity_Alert '../../infra-as-code/bicep/modules/p
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_PDNSZ_CapacityUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -102,10 +82,6 @@ module Deploy_PDNSZ_CapacityUtil_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_PDNSZ_QueryVolume_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -119,10 +95,6 @@ module Deploy_PDNSZ_QueryVolume_Alert '../../infra-as-code/bicep/modules/policy/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_DNSZ_RegistrationCapacityUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -136,10 +108,6 @@ module Deploy_DNSZ_RegistrationCapacityUtil_Alert '../../infra-as-code/bicep/mod
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_PublicIp_DDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -153,10 +121,6 @@ module Deploy_PublicIp_DDoSAttack_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_PublicIp_BytesInDDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -170,10 +134,6 @@ module Deploy_PublicIp_BytesInDDoSAttack_Alert '../../infra-as-code/bicep/module
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_PublicIp_PacketsInDDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -187,10 +147,6 @@ module Deploy_PublicIp_PacketsInDDoSAttack_Alert '../../infra-as-code/bicep/modu
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_PublicIp_VIPAvailability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -204,10 +160,6 @@ module Deploy_PublicIp_VIPAvailability_Alert '../../infra-as-code/bicep/modules/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_RecoveryVault_BackupHealth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -221,10 +173,6 @@ module Deploy_RecoveryVault_BackupHealth_Alert '../../infra-as-code/bicep/module
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_StorageAccount_Availability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -238,10 +186,6 @@ module Deploy_StorageAccount_Availability_Alert '../../infra-as-code/bicep/modul
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VM_AvailableMemory_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -255,10 +199,6 @@ module Deploy_VM_AvailableMemory_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VNET_DDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -272,10 +212,6 @@ module Deploy_VNET_DDoSAttack_Alert '../../infra-as-code/bicep/modules/policy/as
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_ExpressRouteCpuUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -289,10 +225,6 @@ module Deploy_VnetGw_ExpressRouteCpuUtil_Alert '../../infra-as-code/bicep/module
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_TunnelBandwidth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -306,10 +238,6 @@ module Deploy_VnetGw_TunnelBandwidth_Alert '../../infra-as-code/bicep/modules/po
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_TunnelEgress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -323,10 +251,6 @@ module Deploy_VnetGw_TunnelEgress_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_TunnelIngress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -340,10 +264,6 @@ module Deploy_VnetGw_TunnelIngress_Alert '../../infra-as-code/bicep/modules/poli
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VPNGw_BandwidthUtil_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -357,10 +277,6 @@ module Deploy_VPNGw_BandwidthUtil_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VPNGw_BGPPeerStatus_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -374,10 +290,6 @@ module Deploy_VPNGw_BGPPeerStatus_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VPNGw_Ingress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -391,10 +303,6 @@ module Deploy_VPNGw_Ingress_Alert '../../infra-as-code/bicep/modules/policy/assi
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VPNGw_Egress_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -408,10 +316,6 @@ module Deploy_VPNGw_Egress_Alert '../../infra-as-code/bicep/modules/policy/assig
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -426,10 +330,6 @@ module Deploy_svcHlth_Alert '../../infra-as-code/bicep/modules/policy/assignment
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -444,10 +344,6 @@ module Deploy_svcHlth_Hlth_Alert '../../infra-as-code/bicep/modules/policy/assig
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -462,10 +358,6 @@ module Deploy_svcHlth_Main_Alert '../../infra-as-code/bicep/modules/policy/assig
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -480,10 +372,6 @@ module Deploy_svcHlth_Sec_Alert '../../infra-as-code/bicep/modules/policy/assign
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -498,10 +386,6 @@ module Deploy_ResHlth_Alert '../../infra-as-code/bicep/modules/policy/assignment
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -516,10 +400,6 @@ module Deploy_ActLog_Firewall_Del_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -534,10 +414,6 @@ module Deploy_ActLog_KeyVault_Del_Alert '../../infra-as-code/bicep/modules/polic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -552,10 +428,6 @@ module Deploy_ActLog_LogAnal_Del_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -570,10 +442,6 @@ module Deploy_ActLog_LogAnal_regen_Alert '../../infra-as-code/bicep/modules/poli
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -588,10 +456,6 @@ module Deploy_ActLog_NSG_delete_Alert '../../infra-as-code/bicep/modules/policy/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -606,10 +470,6 @@ module Deploy_ActLog_VPNGateway_delete_Alert '../../infra-as-code/bicep/modules/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -624,10 +484,6 @@ module Deploy_ERCIR_ArpAvailability_Alert '../../infra-as-code/bicep/modules/pol
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_ERCIR_BgpAvailability_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -641,10 +497,6 @@ module Deploy_ERCIR_BgpAvailability_Alert '../../infra-as-code/bicep/modules/pol
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_ERCIR_QosDropBitsInPerSecond_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -658,10 +510,6 @@ module Deploy_ERCIR_QosDropBitsInPerSecond_Alert '../../infra-as-code/bicep/modu
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_ERCIR_QosDropBitsOutPerSecond_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -675,10 +523,6 @@ module Deploy_ERCIR_QosDropBitsOutPerSecond_Alert '../../infra-as-code/bicep/mod
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VPNGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -692,10 +536,6 @@ module Deploy_VPNGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bicep
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VPNGw_TunnelEgressPacketDropMisMatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -709,10 +549,6 @@ module Deploy_VPNGw_TunnelEgressPacketDropMisMatch_Alert '../../infra-as-code/bi
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VPNGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -726,10 +562,6 @@ module Deploy_VPNGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bice
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -743,10 +575,6 @@ module Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/b
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_AA_TotalJob_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -760,10 +588,6 @@ module Deploy_AA_TotalJob_Alert '../../infra-as-code/bicep/modules/policy/assign
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_AFW_FirewallHealth_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -777,10 +601,6 @@ module Deploy_AFW_FirewallHealth_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_AFW_SNATPortUtilization_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -794,10 +614,6 @@ module Deploy_AFW_SNATPortUtilization_Alert '../../infra-as-code/bicep/modules/p
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_ERG_CPUUtilization_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -811,10 +627,6 @@ module Deploy_ERG_CPUUtilization_Alert '../../infra-as-code/bicep/modules/policy
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_ERGw_ExpressRouteBitsIn_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -828,10 +640,6 @@ module Deploy_ERGw_ExpressRouteBitsIn_Alert '../../infra-as-code/bicep/modules/p
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_ERGw_ExpressRouteBitsOut_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -845,10 +653,6 @@ module Deploy_ERGw_ExpressRouteBitsOut_Alert '../../infra-as-code/bicep/modules/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -862,10 +666,6 @@ module Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert '../../infra-as-code/bicep/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -879,10 +679,6 @@ module Deploy_VnetGw_TunnelEgressPacketDropCount_Alert '../../infra-as-code/bice
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -896,10 +692,6 @@ module Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert '../../infra-as-code/b
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -913,10 +705,6 @@ module Deploy_VnetGw_TunnelIngressPacketDropCount_Alert '../../infra-as-code/bic
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 module Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
@@ -930,10 +718,6 @@ module Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert '../../infra-as-code/
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
 
@@ -948,9 +732,5 @@ module Deploy_ActGrp_AlertPpocessingRule '../../infra-as-code/bicep/modules/poli
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentMetadata: {
-      _deployed_by_alz_monitor: true
-    }
-    parPolicyAssignmentRoleAssignmentDescription: '_deployed_by_alz_monitor'
   }
 }
