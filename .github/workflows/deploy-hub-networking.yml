@@ -24,6 +24,8 @@ env:
 jobs:
   deploy_job:
     runs-on: ubuntu-latest
+    environment: deploy
+
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
