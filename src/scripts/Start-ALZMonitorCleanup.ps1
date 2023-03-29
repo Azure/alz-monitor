@@ -16,6 +16,24 @@
 
 #>
 
+Function _Search-AzGraph {
+    # ensure query results with more than 100 resources are returned
+    param($query, $managementGroups, $skipToken)
+
+    $optionalParams = @{}
+    If ($skipToken) {
+        $optionalParams += @{skipToken = $skipToken}
+    }
+
+    $result = Search-AzGraph -Query $query -ManagementGroup $managementGroups.id @optionalParams
+
+    $result.Data
+
+    If ($result.count -eq 100 -and $result.SkipToken) {
+        _Search-AzGraph -query $query -managementGroups $managementGroups -skipToken $result.SkipToken
+    }
+}
+
 Function Start-ALZMonitorCleanup {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param()
@@ -30,30 +48,50 @@ Function Start-ALZMonitorCleanup {
     }
 
     # get alert resources to delete
-    $alertResourceIds = Search-AzGraph -Query "Resources | where type in ('Microsoft.Insights/metricAlerts','Microsoft.Insights/activityLogAlerts') and tags['_deployed_by_alz_monitor'] ~= 'True' | project id" -ManagementGroup $managementGroups.Id | 
-        Select-Object -ExpandProperty Id
+    $alertResourceIds = _Search-AzGraph -Query "Resources | where type in ('Microsoft.Insights/metricAlerts','Microsoft.Insights/activityLogAlerts') and tags['_deployed_by_alz_monitor'] ~= 'True' | project id" -ManagementGroup $managementGroups.Id | 
+        Select-Object -ExpandProperty Data | Select-Object -ExpandProperty Id
     
-    If ($alertResourceIds.count -eq 100) {
-        Write-Error "Placeholder: pagination"
-    }
+    # delete alert resources
+    $alertResourceIds | Foreach-Object {Remove-AzResource -ResourceId $_}
 
     # get resource group to delete
-    $resourceGroupIds = Search-AzGraph -Query "ResourcesContainers | where type =~ 'Microsoft.Resources/ResourceGroups' and tags['_deployed_by_alz_monitor'] ~= 'True' | project id" -ManagementGroup $managementGroups.Id | 
-        Select-Object -ExpandProperty Id
+    $resourceGroupIds = _Search-AzGraph -Query "ResourcesContainers | where type =~ 'Microsoft.Resources/ResourceGroups' and tags['_deployed_by_alz_monitor'] ~= 'True' | project id" -ManagementGroup $managementGroups.Id | 
+    Select-Object -ExpandProperty Data | Select-Object -ExpandProperty Id
+
+    # delete resource groups
+    $resourceGroupIds | ForEach-Object {Remove-AzResourceGroup -ResourceGroupId $_}
 
     # get policy assignments to delete
-    $policyAssignmentIds = Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policyAssignments' | project name,metadata=parse_json(properties.metadata),type | where metadata._deployed_by_alz_monitor | project id" -ManagementGroup $managementGroups.Id | 
-    Select-Object -ExpandProperty Id
+    $policyAssignments = _Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policyAssignments' | project name,metadata=parse_json(properties.metadata),type,identity | where metadata._deployed_by_alz_monitor | project id" -ManagementGroup $managementGroups.Id
+    $policyAssignmentIds = $policyAssignments | Select-Object -ExpandProperty Data | Select-Object -ExpandProperty Id
+
+    # delete policy assignments
+    $policyAssignmentIds | ForEach-Object {Remove-AzPolicyAssignment -Id $_}
 
     # get policy set definitions to delete
-    $policySetDefinitionIds = Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policySetDefintions' | project name,metadata=parse_json(properties.metadata),type | where metadata._deployed_by_alz_monitor | project id" -ManagementGroup $managementGroups.Id | 
-    Select-Object -ExpandProperty Id
+    $policySetDefinitionIds = _Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policySetDefintions' | project name,metadata=parse_json(properties.metadata),type | where metadata._deployed_by_alz_monitor | project id" -ManagementGroup $managementGroups.Id | 
+    Select-Object -ExpandProperty Data | Select-Object -ExpandProperty Id
+
+    # delete policy set definitions
+    $policySetDefinitionIds | ForEach-Object {Remove-AzPolicySetDefinition -Id $_}
 
     # get policy definitions to delete
-    $policyDefinitionIds = Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policyDefintions' | project name,metadata=parse_json(properties.metadata),type | where metadata._deployed_by_alz_monitor | project id" -ManagementGroup $managementGroups.Id | 
-    Select-Object -ExpandProperty Id
+    $policyDefinitionIds = _Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policyDefintions' | project name,metadata=parse_json(properties.metadata),type | where metadata._deployed_by_alz_monitor | project id" -ManagementGroup $managementGroups.Id | 
+    Select-Object -ExpandProperty Data | Select-Object -ExpandProperty Id
 
-    # get policy assignment role assignments
-    
+    # delete policy definitions
+    $policyDefinitionIds | ForEach-Object {Remove-AzPolicyDefinition -Id $_}
 
+    # get policy assignment role assignments to delete
+    $policyAssignmentIdentities = $policyAssignments.data.identity.principalId
+    ForEach ($identity in $policyAssignmentIdentities) {
+        $roleAssignments = Get-AzRoleAssignment -ObjectId $identity
+
+        ForEach ($roleAssignment in $roleAssignments) {
+
+            If ($roleAssignment.Description -like '*_deployed_by_alz_monitor*') {
+                $roleAssignment | Remove-AzRoleAssignment
+            }
+        }
+    }
 }
