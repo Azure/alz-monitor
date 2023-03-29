@@ -4,6 +4,9 @@ name: Deploy ALZ in vwan Networking configuration
 # only trigger on pull request closed events
 on:
   workflow_dispatch: {}
+  push:
+    branches:
+      - "deployed-resource-cleanup"
 
 permissions:
       id-token: write
