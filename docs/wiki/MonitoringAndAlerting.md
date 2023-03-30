@@ -22,7 +22,7 @@ Metric alerts are deployed with resources (in the same resource group) and platf
 
 As an example in the context of ALZ, see below for a graphic representation of the flow.
 
-![ALZ alerting](../../media/monitoringandalerting.2.png)
+![ALZ alerting](../raw/main/media/monitoringandalerting.2.png)
 
 
 ### ALZ Approach
