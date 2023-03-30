@@ -17,3 +17,20 @@
 
 *Yes, please refer to the disabling monitoring section in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide)*
 
+## How much does it cost to run the ALZ Baseline solution?
+
+*This depends on numerous factors including how many of the metric alerts you choose to deploy into your environment, this combined with how many subscriptions inherit the baseline policies and resources deployed within each subscription that match the policy rules triggering an alert, alert rule and action group deployment influence the cost.* 
+
+*The solution is comprised of metric alert rules. Each metric alert rule costs ~0.1$/month[^1].*
+
+- *Metric alert rules are charged based on evaluations.*
+- *Assuming the alert rule had data to evaluate all throughout the month, it'll cost ~0.1$[^1].*
+- *If the rule was only evaluating during parts of the month (e.g. because the monitored resource was down and didn't send telemetry), the customer would pay for the prorated amount of time the rule was performing evaluations.*
+- *Dynamic Threshold doubles the cost of the alert rule (~0.2$/month in total[^1])*
+- *Our solution configures an email address as part of the Action groups deployment (one per subscription) and these are charged at ~2$/month per 1,000 emails.*
+
+***Whilst it is not anticipated that the solution will incur significant costs, it is recommended that you assess costs as part of a deployment to a non-production environment to make sure you are clear on the costs incurred for your deployment***
+
+*For costings related to your deployment please visit https://azure.microsoft.com/en-us/pricing/details/monitor/ and work with your local Microsoft account team to define a RoM costings*
+
+*[^1] Depending on the region you deploy to their may be a small difference in the associated cost*
