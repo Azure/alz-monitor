@@ -33,4 +33,4 @@
 
 *For costings related to your deployment please visit https://azure.microsoft.com/en-us/pricing/details/monitor/ and work with your local Microsoft account team to define a RoM costings*
 
-*[^1] Depending on the region you deploy to their may be a small difference in the associated cost*
+*[^1] Depending on the region you deploy to their may be a small difference in the associated cost, the costs provided here are based on prices captured as of April 2023*
