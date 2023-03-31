@@ -26,8 +26,8 @@
 
 .EXAMPLE
     . ./src/scripts/Start-ALZMonitorCleanup.ps1 # import the cleanup function into the current session
-    Start-ALZMonitorCleanup
-    # delete all resources deployed by the ALZ-Monitor IaC
+    Start-ALZMonitorCleanup -Confirm:$false
+    # delete all resources deployed by the ALZ-Monitor IaC without prompting for confirmation
 #>
 
 Function _Search-AzGraph {
@@ -61,7 +61,7 @@ Function Start-ALZMonitorCleanup {
 
     # get all management groups -- used in graph query scope
     $managementGroups = Get-AzManagementGroup
-    Write-Verbose "Found '$($managementGroups.Count)' management groups to query for ALZ-Monitor resources."
+    Write-Host "Found '$($managementGroups.Count)' management groups to query for ALZ-Monitor resources."
 
     If ($managementGroups.count -eq 0) {
         Write-Error "The command 'Get-AzManagementGroups' returned '0' groups. This script needs to run with Owner permissions on the Azure Landing Zones intermediate root management group to effectively clean up Policies and all related resources."
@@ -70,31 +70,31 @@ Function Start-ALZMonitorCleanup {
     # get alert resources to delete
     $alertResourceIds = _Search-AzGraph -Query "Resources | where type in~ ('Microsoft.Insights/metricAlerts','Microsoft.Insights/activityLogAlerts') and tags['_deployed_by_alz_monitor'] =~ 'True' | project id" -ManagementGroupNames $managementGroups.Name | 
     Select-Object -ExpandProperty Id
-    Write-Verbose "Found '$($alertResourceIds.Count)' metric and activity log alerts to be deleted."
+    Write-Host "Found '$($alertResourceIds.Count)' metric and activity log alerts to be deleted."
 
     # get resource group to delete
     $resourceGroupIds = _Search-AzGraph -Query "ResourceContainers | where type =~ 'microsoft.resources/subscriptions/resourcegroups' and tags['_deployed_by_alz_monitor'] =~ 'True' | project id" -ManagementGroupNames $managementGroups.Name | 
     Select-Object -ExpandProperty Id
-    Write-Verbose "Found '$($resourceGroupIds.Count)' resource groups with tag '_deployed_by_alz_monitor=True' to be deleted."
+    Write-Host "Found '$($resourceGroupIds.Count)' resource groups with tag '_deployed_by_alz_monitor=True' to be deleted."
 
     # get policy assignments to delete
     $policyAssignments = _Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policyAssignments' | project name,metadata=parse_json(properties.metadata),type,identity,id | where metadata._deployed_by_alz_monitor =~ 'true'" -ManagementGroupNames $managementGroups.Name
     $policyAssignmentIds = $policyAssignments | Select-Object -ExpandProperty Id
-    Write-Verbose "Found '$($policyAssignmentIds.Count)' policy assignments with metadata '_deployed_by_alz_monitor=True' to be deleted."
+    Write-Host "Found '$($policyAssignmentIds.Count)' policy assignments with metadata '_deployed_by_alz_monitor=True' to be deleted."
 
     # get policy set definitions to delete
     $policySetDefinitionIds = _Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policysetdefinitions' | project name,metadata=parse_json(properties.metadata),type,id | where metadata._deployed_by_alz_monitor =~ 'true' | project id" -ManagementGroupNames $managementGroups.Name | 
     Select-Object -ExpandProperty Id
-    Write-Verbose "Found '$($policySetDefinitionIds.Count)' policy set definitions with metadata '_deployed_by_alz_monitor=True' to be deleted."
+    Write-Host "Found '$($policySetDefinitionIds.Count)' policy set definitions with metadata '_deployed_by_alz_monitor=True' to be deleted."
 
     # get policy definitions to delete
     $policyDefinitionIds = _Search-AzGraph -Query "policyresources | where type =~ 'microsoft.authorization/policyDefinitions' | project name,metadata=parse_json(properties.metadata),type,id | where metadata._deployed_by_alz_monitor =~ 'true' | project id" -ManagementGroupNames $managementGroups.Name | 
     Select-Object -ExpandProperty Id
-    Write-Verbose "Found '$($policyDefinitionIds.Count)' policy definitions with metadata '_deployed_by_alz_monitor=True' to be deleted."
+    Write-Host "Found '$($policyDefinitionIds.Count)' policy definitions with metadata '_deployed_by_alz_monitor=True' to be deleted."
 
     # get policy assignment role assignments to delete
     $policyAssignmentIdentities = $policyAssignments.identity.principalId | Sort-Object | Get-Unique
-    Write-Verbose "There are '$($policyAssignmentIdentities.Count)' policy assignment identities to check for role assignments with description '_deployed_by_alz_monitor' to be deleted."
+    Write-Host "There are '$($policyAssignmentIdentities.Count)' policy assignment identities to check for role assignments with description '_deployed_by_alz_monitor' to be deleted."
 
     # get policy assignment role assignments to delete
     $roleAssignments = @()
@@ -111,40 +111,28 @@ Function Start-ALZMonitorCleanup {
 
     If (!$reportOnly.IsPresent) {
         # delete alert resources
-        Write-Verbose "Deleting alert resources..."
-        $alertDeleteJobs = @()
-        $alertResourceIds | Foreach-Object { $alertDeleteJobs += Remove-AzResource -ResourceId $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) -AsJob }
-        Write-Verbose "Waiting for '$($alertDeleteJobs.count)' delete jobs to complete..."
-        $alertDeleteJobs | Wait-Job | Receive-Job
+        Write-Host "Deleting alert resources..."
+        $alertResourceIds | Foreach-Object { Remove-AzResource -ResourceId $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) }
 
         # delete resource groups
-        Write-Verbose "Deleting resource groups..."
-        $resourceGroupIds | ForEach-Object { Remove-AzResourceGroup -ResourceGroupId $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) -AsJob | Out-Null }
+        Write-Host "Deleting resource groups..."
+        $resourceGroupIds | ForEach-Object { Remove-AzResourceGroup -ResourceGroupId $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) | Out-Null }
 
         # delete policy assignments
-        Write-Verbose "Deleting policy assignments..."
-        $assignmentDeleteJobs = @()
-        $policyAssignmentIds | ForEach-Object { $assignmentDeleteJobs += Start-Job -ScriptBlock {Remove-AzPolicyAssignment -Id $using:_ -Confirm:(!$using:force.isPresent) -ErrorAction Stop} }
-        Write-Verbose "Waiting for '$($assignmentDeleteJobs.count)' delete jobs to complete..."
-        $assignmentDeleteJobs | Wait-Job | Receive-Job
+        Write-Host "Deleting policy assignments..."
+        $policyAssignmentIds | ForEach-Object { Remove-AzPolicyAssignment -Id $_ -Confirm:(!$force.isPresent) -ErrorAction Stop }
 
         # delete policy set definitions
-        Write-Verbose "Deleting policy set definitions..."
-        $policySetDeleteJobs = @()
-        $policySetDefinitionIds | ForEach-Object { $policySetDeleteJobs += Remove-AzPolicySetDefinition -Id $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) -AsJob }
-        Write-Verbose "Waiting for '$($policySetDeleteJobs.count)' delete jobs to complete..."
-        $policySetDeleteJobs | Wait-Job | Receive-Job
+        Write-Host "Deleting policy set definitions..."
+        $policySetDefinitionIds | ForEach-Object { Remove-AzPolicySetDefinition -Id $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) }
 
         # delete policy definitions
-        Write-Verbose "Deleting policy definitions..."
-        $definitionDeleteJobs = @()
-        $policyDefinitionIds | ForEach-Object { $definitionDeleteJobs += Remove-AzPolicyDefinition -Id $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) -AsJob }
-        Write-Verbose "Waiting for '$($definitionDeleteJobs.count)' delete jobs to complete..."
-        $definitionDeleteJobs | Wait-Job | Receive-Job
+        Write-Host "Deleting policy definitions..."
+        $policyDefinitionIds | ForEach-Object { Remove-AzPolicyDefinition -Id $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) }
 
         # delete policy assignment role assignments
-        Write-Verbose "Deleting role assignments..."
-        $roleAssignments | ForEach-Object { $_ | Remove-AzRoleAssignment -Force:$force.IsPresent -Confirm:(!$force.isPresent) -AsJob | Out-Null }
+        Write-Host "Deleting role assignments..."
+        $roleAssignments | ForEach-Object { $_ | Remove-AzRoleAssignment -Force:$force.IsPresent -Confirm:(!$force.isPresent) | Out-Null }
 
     }
     Else {
