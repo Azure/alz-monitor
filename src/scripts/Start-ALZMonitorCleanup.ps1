@@ -26,7 +26,7 @@
 
 .EXAMPLE
     . ./src/scripts/Start-ALZMonitorCleanup.ps1 # import the cleanup function into the current session
-    Start-ALZMonitorCleanup -Confirm:$false
+    Start-ALZMonitorCleanup -Force
     # delete all resources deployed by the ALZ-Monitor IaC without prompting for confirmation
 #>
 
