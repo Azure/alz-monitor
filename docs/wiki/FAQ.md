@@ -11,7 +11,7 @@
 
 ## Why are the availability alert thresholds lower than 100% in this solution when the product group documention recommends 100%?
 
-*Setting a treshold of 100% would result in jittery alerts, generating un-necessary noise. Lowering the threshold slightly below 100% addresses this issue while still providing an alert for a service's availability. If the default threshold isn't aggressive enough we encourage you to adjust it upwards and/or provide us feedback.
+*Setting a threshold of 100% would result in jittery alerts, generating un-necessary noise. Lowering the threshold slightly below 100% addresses this issue while still providing an alert for a service's availability. If the default threshold isn't aggressive enough we encourage you to adjust it upwards and/or provide us feedback.
 
 ## Do I need to use these metrics or can they be replaced with ones more suited to my environment?
 
