@@ -9,6 +9,10 @@
 *It's provided as a starting point, we've based the initial thresholds on what we've seen and what Microsoft's documentation recommends. You will need to adjust the thresholds at some point.*
 *You will need to observe and if the alert is too chatty, adjust the threshold up; if it's not alerting when there's a problem, adjust the threshold down a bit, (or vice-versa depending on what metric or log error is being used as a monitoring source). Once you have decided upon an appropriate value, if you feel it's fit for more general consumption we would love to hear about it.*
 
+## Why are the availability alert thresholds lower than 100% in this solution when the product group documention recommends 100%?
+
+*Setting a threshold of 100% can, on occasion, cause erroneous alerts that generate un-necessary noise. Lowering the threshold slightly below 100% addresses this issue while still providing an alert for a service's availability. If the default threshold isn't aggressive enough we encourage you to adjust it upwards and/or provide us feedback by filing an issue in our GitHub repo, guidance can be found on our [Support page](../../SUPPORT.md##support).
+
 ## Do I need to use these metrics or can they be replaced with ones more suited to my environment?
 
 *The metric rules we've created are based on recommendations from Microsoft documentation and field experience. How you're using Azure resources may also be different so tailor the alerts to suit your needs. The main goal of this project is to help you have a way to do Azure Monitor alerts at scale, create new rules with your own thresholds. We'd love to hear about your new rules too so feel free to share back.*
