@@ -32,7 +32,7 @@
           "ALZMonitorResourceGroupTags": {
             "type": "Object",
             "defaultValue": {
-              "Environment": "test"
+              "_deployed_by_alz_monitor": true
             }
           },
           "KVRequestAlertSeverity": {
