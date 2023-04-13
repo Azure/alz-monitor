@@ -20,7 +20,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
     description: 'DINE policy to Deploy Deploy Alert Processing Rule with Action Group'
     location: policyLocation
     metadata: {
-      version: '1.0.0'
+      version: '1.0.1'
       Category: 'Action Groups'
       source: 'https://github.com/Azure/ALZ-Monitor/'
       _deployed_by_alz_monitor: 'True'

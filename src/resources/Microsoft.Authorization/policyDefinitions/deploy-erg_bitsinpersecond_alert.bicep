@@ -60,7 +60,7 @@ module ErgExpressRouteBitsInAlert '../../arm/Microsoft.Authorization/policyDefin
         description: 'DINE policy to audit/deploy ER Gateway Connection BitsInPerSecond Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'Networking'
             source: 'https://github.com/Azure/ALZ-Monitor/'
             _deployed_by_alz_monitor: 'True'

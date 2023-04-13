@@ -60,7 +60,7 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
         description: 'DINE policy to audit/deploy KeyVault Availability Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'Key Vault'
             source: 'https://github.com/Azure/ALZ-Monitor/'
             _deployed_by_alz_monitor: 'True'
