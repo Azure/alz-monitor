@@ -15,10 +15,15 @@ param parPolicyAssignmentParameters  object = {}
 @description('The LZ parameters to be passed to the policy definition.')
 param parPolicyAssignmentParametersLZ  object = {}
 
+@description('The Alert Processing parameters to be passed to the policy definition.')
+param parPolicAssignmentParametersAlertProcessing  object = {}
+
 // Customer Usage Attribution Id
 var varCuaid = 'd87415c4-01ef-4667-af89-0b5adc14af1b'
 
 var varPolicyAssignmentParametersLZ = union(parPolicyAssignmentParameters, parPolicyAssignmentParametersLZ)
+
+var varPolicyAssignmentParametersAlertProcessing = union(parPolicyAssignmentParameters, parPolicAssignmentParametersAlertProcessing)
 
 module Deploy_Alerting_Management '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Alerting-LandingZones'
@@ -46,7 +51,7 @@ module Deploy_AlertProcessing_rule '../../infra-as-code/bicep/modules/policy/ass
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentParameters: parPolicyAssignmentParameters
+    parPolicyAssignmentParameters: varPolicyAssignmentParametersAlertProcessing
   }
 }
 

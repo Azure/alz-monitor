@@ -15,10 +15,15 @@ param parPolicyAssignmentParameters  object = {}
 @description('The Identity parameters to be passed to the policy definition.')
 param parPolicyAssignmentParametersIdentity  object = {}
 
+@description('The Alert Processing parameters to be passed to the policy definition.')
+param parPolicAssignmentParametersAlertProcessing  object = {}
+
 // Customer Usage Attribution Id
 var varCuaid = '8d257c20-97bf-4d14-acb3-38dd1436d13a'
 
 var varPolicyAssignmentParametersIdentity = union(parPolicyAssignmentParameters, parPolicyAssignmentParametersIdentity)
+
+var varPolicyAssignmentParametersAlertProcessing = union(parPolicyAssignmentParameters, parPolicAssignmentParametersAlertProcessing)
 
 module Deploy_Alerting_Identity '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Alerting-Identity'
@@ -46,7 +51,7 @@ module Deploy_AlertProcessing_rule '../../infra-as-code/bicep/modules/policy/ass
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentParameters: parPolicyAssignmentParameters
+    parPolicyAssignmentParameters: varPolicyAssignmentParametersAlertProcessing
   }
 }
 

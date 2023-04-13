@@ -20,6 +20,13 @@
                 }
             }
         },
+        "parPolicAssignmentParametersAlertProcessing": {
+            "value": {
+                "ALZMonitorActionGroupEmail": {
+                    "value": "action@mail.com"
+                }
+            }
+        },
         "parPolicyAssignmentParametersManagement": {
             "value": {
                 "AATotalJobAlertSeverity": {

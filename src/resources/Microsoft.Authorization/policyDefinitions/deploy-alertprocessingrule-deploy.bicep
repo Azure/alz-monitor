@@ -50,6 +50,14 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
         }
         defaultValue: parResourceGroupLocation
       }
+      ALZMonitorActionGroupEmail: {
+        type: 'String'
+        metadata: {
+          displayName: 'Action Group Email'
+          description: 'Email address to send alerts to'
+        }
+        defaultValue: parActionGroupEmail
+      }
       MonitorDisable: {
         type: 'String'
         metadata: {
@@ -109,6 +117,9 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                   ALZMonitorResourceGroupLocation: {
                     type: 'string'
                   }
+                  ALZMonitorActionGroupEmail: {
+                    type: 'string'
+                  }
                   policyLocation: {
                     type: 'string'
                     defaultValue: policyLocation
@@ -140,6 +151,9 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                           ALZMonitorResourceGroupName: {
                             type: 'string'
                           }
+                          ALZMonitorActionGroupEmail: {
+                            type: 'string'
+                          }
                         }
                         variables: {}
                         resources: [
@@ -154,7 +168,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                               emailReceivers: [
                                 {
                                   name: 'AlzMail'
-                                  emailAddress: parActionGroupEmail
+                                  emailAddress: '[parameters(\'ALZMonitorActionGroupEmail\')]'
                                   useCommonAlertSchema: true
 
                                 }
@@ -191,6 +205,9 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                         ALZMonitorResourceGroupName: {
                           value: '[parameters(\'ALZMonitorResourceGroupName\')]'
                         }
+                        ALZMonitorActionGroupEmail: {
+                          value: '[parameters(\'ALZMonitorActionGroupEmail\')]'
+                        }
                       }
                     }
                   }
@@ -205,6 +222,9 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                 }
                 ALZMonitorResourceGroupLocation: {
                   value: '[parameters(\'ALZMonitorResourceGroupLocation\')]'
+                }
+                ALZMonitorActionGroupEmail: {
+                  value: '[parameters(\'ALZMonitorActionGroupEmail\')]'
                 }
               }
             }

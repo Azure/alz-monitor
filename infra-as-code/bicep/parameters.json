@@ -19,6 +19,13 @@
                     "value": "eastus"
                 }
             }
+        },
+        "parPolicAssignmentParametersAlertProcessing": {
+            "value": {
+                "ALZMonitorActionGroupEmail": {
+                    "value": "action@mail.com"
+                }
+            }
         }
     }
 }
