@@ -44,14 +44,14 @@ To deploy through GitHub actions which is the preferred approach, please refer t
 ### Manual (Complete) deployment - default settings
 - Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 
-1. For a standard deployment we recommend configuring the following parameters in the [parameters file](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters.json):
+#### 1. For a standard deployment we recommend configuring the following parameters in the [parameters file](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters.json):
   - Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments.
   - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
   - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
   - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
   - Change the value of _ALZMonitorActionGroupEmail_ to the email address where notifications of the alerts are sent to.
 
-2. Example Parameter file:
+#### 2. Example Parameter file:
 
 ```json
 {
@@ -88,10 +88,10 @@ To deploy through GitHub actions which is the preferred approach, please refer t
 }
 ```
 
-3. Run the following commands to deploy the policy definitions, initiatives and policy assignments with default settings. There can be some delay between policies getting created and actually being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
+#### 3. Run the following commands to deploy the policy definitions, initiatives and policy assignments with default settings. There can be some delay between policies getting created and actually being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
 > As mentioned previously this should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment), to deploy and enable alerts in a controlled manner.
 
-#### Azure CLI
+##### Azure CLI
 
 ```bash
   location="Your Azure location of choice"
@@ -117,7 +117,7 @@ To deploy through GitHub actions which is the preferred approach, please refer t
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $location --management-group-id $LZManagementGroup --parameters ./infra-as-code/bicep/parameters.json
 ```
 
-#### Azure PowerShell
+##### Azure PowerShell
 
 ```powershell
   $location = "Your Azure location of choice"
