@@ -9,8 +9,16 @@ param parPolicyManagementGroupId string = 'alz'
 @description('Set Parameter to true to Opt-out of deployment telemetry')
 param parTelemetryOptOut bool = false
 
+@description('The parameters to be passed to the policy definition.')
+param parPolicyAssignmentParameters  object = {}
+
+@description('The Management parameters to be passed to the policy definition.')
+param parPolicyAssignmentParametersManagement  object = {}
+
 // Customer Usage Attribution Id
 var varCuaid = 'd87415c4-01ef-4667-af89-0b5adc14af1b'
+
+var varPolicyAssignmentParametersManagement = union(parPolicyAssignmentParameters, parPolicyAssignmentParametersManagement)
 
 module Deploy_Alerting_Management '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Alerting-Management'
@@ -23,6 +31,7 @@ module Deploy_Alerting_Management '../../infra-as-code/bicep/modules/policy/assi
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentParameters: varPolicyAssignmentParametersManagement
   }
 }
 
@@ -37,6 +46,7 @@ module Deploy_AlertProcessing_rule '../../infra-as-code/bicep/modules/policy/ass
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
+    parPolicyAssignmentParameters: parPolicyAssignmentParameters
   }
 }
 
