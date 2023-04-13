@@ -8,82 +8,119 @@ As described in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki
 
 ## Modify initiative assignment
 
-As an example you may want to change alert thresholds for one or more metric alerts when assigning initiatives. To do so the specific parameters can be either specified in a parameter file or on the command line. If we are assigning the connectivity initiative to a management group, the default command would look something like this:
+As an example you may want to change alert thresholds for one or more metric alerts when assigning initiatives. To do so the specific parameters can be specified in a parameter file. You can either create a new parameters file and include only the parameters you wish to change or use one of the complete parameter files that are available. There are four parameters files, one for each of the initiatives, containing all the parameters that can be set for each individual alert rule. 
 
-### Azure CLI
+### Parameters files
 
-```bash
-  
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId
+- [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
+- [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
+- [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
+- [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
 
-```
+### Example new parameters file
 
-### Azure PowerShell
-
-```powershell
-
-   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -parPolicyManagementGroupId $managementGroupId
-
-```
-
-If we want to for instance change the threshold value for Virtual Network Gateway Express Route CPU utilization from 80 (default value) to 90, and Virtual Network Gateway Egress traffic from 1 to 1000 for instance, what we would do would be to include this in a parameter file as shown below. These specific thresholds would then be set in the individual policiy assignment, while remaining values for all other policies would remain at default. 
+If we want to change the threshold value for Virtual Network Gateway Express Route CPU utilization from 80 (default value) to 90, and Virtual Network Gateway Egress traffic from 1 to 1000, what we would do is include this in a parameter file as shown below. These specific thresholds would then be set in the individual policy assignment, while the remaining values for all other policies would remain at default. 
 
 ```json
-
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "parPolicyManagementGroupId": {
-           "value": "alz"
+            "value": "alz"
         },
-        "VnetGwERCpuUtilThreshold": {
-            "value": 90
+        "parPolicyAssignmentParameters": {
+            "value": {
+                "ALZMonitorResourceGroupName": {
+                    "value": "rg-alz-monitor"
+                },
+                "ALZMonitorResourceGroupTags": {
+                    "value": {
+                        "Project": "alz-monitor"
+                    }
+                },
+                "ALZMonitorResourceGroupLocation": {
+                    "value": "eastus"
+                }
+            }
         },
-        "VnetGwTunnelEgressThreshold": {
-            "value": 1000
+        "parPolicAssignmentParametersAlertProcessing": {
+            "value": {
+                "ALZMonitorActionGroupEmail": {
+                    "value": "action@mail.com"
+                }
+            }
+        },
+        "parPolicyAssignmentParametersConnectivity": {
+            "value": {
+                "VnetGwERCpuUtilThreshold": {
+                    "value": "90"
+                },
+                "VnetGwTunnelEgressThreshold": {
+                    "value": "1000"
+                }
+            }
         }
     }
 }
-
 ```
+
 The associated command line to assign the initiative would then look like this:
 
-### Azure CLI
+#### Azure CLI
 
 ```bash
-
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters <path to parameter file>
-
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters  <path to parameter file>
 ```
 
-### Azure PowerShell
+#### Azure PowerShell
 
 ```powershell
-
-   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep - TemplateParameterFile <path to parameter file>
-
+   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile <path to parameter file>
 ```
 
-As an alternative to using parameters files, specifying the parameters on the command line could be used. Note though that this approach soon becomes difficult to maintain as the number of parameters increases, instead parameter file usage is recommended. See below for examples of such command lines, configuring the same settings as described above.
+### Example using the complete parameters files
 
-### Azure CLI
+You can make the same changes by using the complete parameter files. Continuing with the same example, if we want to change the threshold value for Virtual Network Gateway Express Route CPU utilization from 80 (default value) to 90, and Virtual Network Gateway Egress traffic from 1 to 1000, we can modify [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json). These specific thresholds would then be set in the individual policy assignment. 
+
+> The complete parameters files have set the same default values. However, be aware that the _Policy assignment parameter reference type​_ will change for all parameters, even when a value of a parameter wasn't modified it will appear as a _User defined parameter_ since it was explicitly defined in the parameter file.
+
+The associated command line to assign the initiative would then look like this:
+
+#### Azure CLI
 
 ```bash
-  
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters parPolicyManagementGroupId=$managementGroupId VnetGwERCpuUtilThreshold=90 VnetGwTunnelEgressThreshold=1000
-
+    deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters ./infra-as-code/bicep/parameters.json
 ```
 
-### Azure PowerShell
+#### Azure PowerShell
 
 ```powershell
-
-   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -parPolicyManagementGroupId $managementGroupId -VnetGwERCpuUtilThreshold 90 -VnetGwTunnelEgressThreshold 1000
-
+   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters.json
 ```
 
-The above approach can be leveraged with any of the different parameters in the initiatives. For each individual policy in the initiatives there are the following common parameters, that are referenced with unique names in the initiatives and can be modified correspondingly where required.
+### Assigning all initiatives with the complete parameter files
+
+The associated command lines to assign all initiatives would then look like this:
+
+#### Azure CLI
+
+```bash
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $identityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-identity.json
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-management.json
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $location --management-group-id $LZManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json
+```
+
+#### Azure PowerShell
+
+```powershell
+  New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-identity.json
+  New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-management.json
+  New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-connectivity.json
+  New-AzManagementGroupDeployment -ManagementGroupId $LZManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-landingzones.json
+```
+
 
 ### Metric alert policy parameters
 
@@ -104,8 +141,9 @@ The following parameters can be changed for activity log, service health alert a
 
 | **Parameter Name** | **Parameter Description** |
 |----------|----------|
-| alertResourceGroupName | The name of the resource group to place the alerts in |
-| alertResourcGroupTags | Any tags than needs to be added to the resource group created |
+| ALZMonitorResourceGroupName | The name of the resource group to place the alerts in |
+| ALZMonitorResourceGroupTags | Any tags than needs to be added to the resource group created |
+| ALZMonitorResourceGroupLocation | The location of the resource group to place the alerts in |
 
 Note that the above parameters specifies the resource group that activity log alerts are placed in. If the resource group does not exist it gets created. Also the parameter for tags can take several tags, if multiple tags are needed. Tags are only applied at the resource group level. The tags parameter is set to a default value of one tag with the name *environment* and the value *test*, you can add more tags as already mentioned or set it to be an empty value.
 
