@@ -9,7 +9,7 @@ param parPolicyManagementGroupId string = 'alz'
 @description('Set Parameter to true to Opt-out of deployment telemetry')
 param parTelemetryOptOut bool = false
 
-@description('The parameters to be passed to the policy definition.')
+@description('The base parameters to be passed to the policy definition for resource group name, location and tags.')
 param parPolicyAssignmentParameters  object = {}
 
 @description('The Identity parameters to be passed to the policy definition.')
