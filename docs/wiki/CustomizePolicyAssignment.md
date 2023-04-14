@@ -19,7 +19,7 @@ As an example you may want to change alert thresholds for one or more metric ale
 
 ### Example new parameters file
 
-If we want to change the threshold value for Virtual Network Gateway Express Route CPU utilization from 80 (default value) to 90, and Virtual Network Gateway Egress traffic from 1 to 1000, what we would do is include this in a parameter file as shown below. These specific thresholds would then be set in the individual policy assignment, while the remaining values for all other policies would remain at default. 
+If we want to change the threshold value for Virtual Network Gateway Express Route CPU utilization from 80 (default value) to 90, and Virtual Network Gateway Egress traffic from 1 to 1000, what we would do is include this in a parameter file as shown below. These specific thresholds would then be set in the individual policy assignment, while the remaining values for all other policies would remain at default. Note that the parameter file shown below has been truncated for brevity, compared to the samples included.
 
 ```json
 {
