@@ -8,7 +8,7 @@ As described in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki
 
 ## Modify initiative assignment
 
-As an example you may want to change alert thresholds for one or more metric alerts when assigning initiatives. To do so the specific parameters can be specified in a parameter file. You can either create a new parameters file and include only the parameters you wish to change or use one of the complete parameter files that are available. There are four parameters files, one for each of the initiatives, containing all the parameters that can be set for each individual alert rule. 
+As an example you may want to change alert thresholds for one or more metric alerts when assigning initiatives. To do so the specific parameters can be specified in a parameter file. For convenience four parameters files, one for each of the initiatives, containing all the parameters that can be set for each individual alert rule as well as for the alert processing rule policy has been included. Note that you are advised to leverage these as templates for creating your own parameter files as the parameters in these files may change over time, which could potentially have undesirable effects on your alert configurations.
 
 ### Parameters files
 
