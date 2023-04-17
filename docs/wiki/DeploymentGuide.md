@@ -30,7 +30,7 @@ Alerts, action groups and alert processing rules are created as follows:
   - Microsoft.AlertsManagement
   - Microsoft.Insights
 
-Please see https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider for details on how to register a resource provider should you need to do so.
+Please see [here](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) for details on how to register a resource provider should you need to do so.
 
 ## Getting started
 
