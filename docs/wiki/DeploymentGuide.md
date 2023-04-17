@@ -29,7 +29,7 @@ Alerts, action groups and alert processing rules are created as follows:
 6. For the policies to work, the Azure resource providers listed below, which are normally registered by default, must be registered on all subscriptions in scope. For details on how to register Azure resource providers, see [here](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider)
   - Microsoft.AlertsManagement
   - Microsoft.Insights
-
+Please see https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider for details on how to register a resource provider should you need to do so.
 ## Getting started
 
 - Fork this repo to your own GitHub organization, you should not create a direct clone of the repo. Pull requests based off direct clones of the repo will not be allowed.
