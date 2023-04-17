@@ -26,10 +26,12 @@ Alerts, action groups and alert processing rules are created as follows:
 3. Minimum 1 subscription, for when deploying alerts through policies. 
 4. Deployment Identity with `Owner` permission to the pseudo root management group.  Owner permission is required to allow the Service Principal Account to create role-based access control assignments. 
 5. If deploying manually, i.e. via Azure CLI or PowerShell, ensure that you have [Bicep](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep) installed and working, before attempting installation. See here for how to configure for [Azure CLI](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli) and here for [PowerShell](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-powershell)
-6. For the policies to work, the Azure resource providers listed below, which are normally registered by default, must be registered on all subscriptions in scope. For details on how to register Azure resource providers, see [here](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider)
+6.  For the policies to work, the following Azure resource providers, normally registered by default, must be registered on all subscriptions in scope:
   - Microsoft.AlertsManagement
   - Microsoft.Insights
+
 Please see https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider for details on how to register a resource provider should you need to do so.
+
 ## Getting started
 
 - Fork this repo to your own GitHub organization, you should not create a direct clone of the repo. Pull requests based off direct clones of the repo will not be allowed.
