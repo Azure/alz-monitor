@@ -12,14 +12,14 @@ permissions:
 
 env:
   Location: "norwayeast"
-  hubSubscriptionId: "cef889d1-be0e-48d3-ab41-6a15291a2d95"
+  hubSubscription: "hub-connectivity"
   hubResourceGroup: "hubnw-connectivity"
-  hubSpokeSubscriptionId: "3b6e398c-8e14-47b5-952b-f201880f9746"
+  hubSpokeSubscription: "hub-landing zone"
   hubSpokeResourceGroup: "hubnw-norwayeast-spoke-networking"
   hubManagementGroup: "hubnw"
-  vwanSubscriptionId: "b520e36b-23a2-4c14-a04f-854dc0c24ee1"
+  vwanSubscription: "vwan-connectivity"
   vwanResourceGroup: "vwan-connectivity"
-  vwanSpokeSubscriptionId: "328c153d-e17a-43f1-85fa-26295930711d"
+  vwanSpokeSubscription: "vwan-landing zone"
   vwanSpokeResourceGroup: "vwan-norwayeast-spoke-networking"
   vwanManagementGroup: "vwan"
 
@@ -53,7 +53,7 @@ jobs:
         id: delete_hub_network
         shell: bash
         run: |
-          az account set --subscription ${{ env.hubSubscriptionId }}
+          az account set --name ${{ env.hubSubscription }}
           az group delete --name ${{ env.hubResourceGroup }} --yes
         continue-on-error: true
 
@@ -61,7 +61,7 @@ jobs:
         id: delete_hub_spoke_network
         shell: bash
         run: |
-          az account set --subscription ${{ env.hubSpokeSubscriptionId }}
+          az account set --name ${{ env.hubSpokeSubscription }}
           az group delete --name ${{ env.hubSpokeResourceGroup }} --yes
         continue-on-error: true
 
@@ -123,7 +123,7 @@ jobs:
         id: delete_vwan_network
         shell: bash
         run: |
-          az account set --subscription ${{ env.vwanSubscriptionId }}
+          az account set --name ${{ env.vwanSubscription }}
           az group delete --name ${{ env.vwanResourceGroup }} --yes
         continue-on-error: true
 
@@ -131,7 +131,7 @@ jobs:
         id: delete_vwan_spoke_network
         shell: bash
         run: |
-          az account set --subscription ${{ env.vwanSpokeSubscriptionId }}
+          az account set --name ${{ env.vwanSpokeSubscription }}
           az group delete --name ${{ env.vwanSpokeResourceGroup }} --yes
         continue-on-error: true
 
