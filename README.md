@@ -69,7 +69,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-> Details on contributing to this repo can be found [here in the wiki](https://github.com/azure/alz-monitor/wiki/Contributing) 👍
+> Details on contributing to this repo can be found [here in the wiki](https://github.com/azure/alz-monitor/wiki/Contributing)
 
 ## Telemetry
 
