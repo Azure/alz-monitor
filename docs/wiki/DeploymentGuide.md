@@ -88,7 +88,9 @@ To deploy through GitHub actions which is the preferred approach, please refer t
 }
 ```
 
-#### 3. Run the following commands to deploy the policy definitions, initiatives and policy assignments with default settings. There can be some delay between policies getting created and actually being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
+#### 3. Deploy the policy definitions, initiatives and policy assignments with default settings. 
+
+> There can be some delay between policies getting created and actually being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
 > As mentioned previously this should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment), to deploy and enable alerts in a controlled manner.
 
 ##### Azure CLI
