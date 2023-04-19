@@ -17,9 +17,11 @@ As an example you may want to change alert thresholds for one or more metric ale
 - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
 - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
 
-### Example new parameters file
+### Applying changes to the parameters files
 
 If we want to change the threshold value for Virtual Network Gateway Express Route CPU utilization from 80 (default value) to 90, and Virtual Network Gateway Egress traffic from 1 to 1000, what we would do is include this in a parameter file as shown below. These specific thresholds would then be set in the individual policy assignment, while the remaining values for all other policies would remain at default. Note that the parameter file shown below has been truncated for brevity, compared to the samples included.
+
+> The parameters file templates contain the same default values as listed in our documentation. However, be aware that the _Policy assignment parameter reference type​_ will change for all parameters when using the template parameter file, even when a value of a parameter wasn't modified it will appear as a _User defined parameter_ after deployment. This occurs because the parameter is explicitly defined in the parameter file. To avoid this, you can create your own parameters files that only include the parameters that you wish to modify.
 
 ```json
 {
@@ -65,47 +67,19 @@ If we want to change the threshold value for Virtual Network Gateway Express Rou
 }
 ```
 
-The associated command line to assign the initiative would then look like this:
-
-#### Azure CLI
-
-```bash
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters  <path to parameter file>
-```
-
-#### Azure PowerShell
-
-```powershell
-   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile <path to parameter file>
-```
-
-### Example using the complete parameters files
-
-You can make the same changes by using the complete parameter files. Continuing with the same example, if we want to change the threshold value for Virtual Network Gateway Express Route CPU utilization from 80 (default value) to 90, and Virtual Network Gateway Egress traffic from 1 to 1000, we can modify [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json). These specific thresholds would then be set in the individual policy assignment. 
-
-> The complete parameters files have set the same default values. However, be aware that the _Policy assignment parameter reference type​_ will change for all parameters, even when a value of a parameter wasn't modified it will appear as a _User defined parameter_ since it was explicitly defined in the parameter file.
-
-The associated command line to assign the initiative would then look like this:
-
-#### Azure CLI
-
-```bash
-    deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters ./infra-as-code/bicep/parameters.json
-```
-
-#### Azure PowerShell
-
-```powershell
-   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters.json
-```
-
 ### Assigning all initiatives with the complete parameter files
 
-The associated command lines to assign all initiatives would then look like this:
+After making all the desired changes to the parameters files you can run the following commands to assign the initiatives:
 
 #### Azure CLI
 
 ```bash
+  location="Your Azure location of choice"
+  identityManagementGroup="The management group id for Identity"
+  managementManagementGroup="The management group id for Management"
+  connectivityManagementGroup="The management group id for Connectivity"
+  LZManagementGroup="The management group id for Landing Zones"
+
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $identityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-identity.json
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-management.json
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
@@ -115,6 +89,12 @@ The associated command lines to assign all initiatives would then look like this
 #### Azure PowerShell
 
 ```powershell
+  $location = "Your Azure location of choice"
+  $identityManagementGroup = "The management group id for Identity"
+  $managementManagementGroup = "The management group id for Management"
+  $connectivityManagementGroup = "The management group id for Connectivity"
+  $LZManagementGroup="The management group id for Landing Zones"
+
   New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-identity.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-management.json
   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-connectivity.json
