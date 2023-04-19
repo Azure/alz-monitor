@@ -26,7 +26,7 @@ env:
 jobs:
   delete_hub_job:
     runs-on: ubuntu-latest
-    environment: deploy
+    #environment: deploy
 
     steps:
       - name: Checkout Repo
