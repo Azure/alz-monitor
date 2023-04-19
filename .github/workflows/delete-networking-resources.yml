@@ -135,13 +135,11 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            $excludelist = @('Deploy-ASC-Monitoring',
-            'Deploy-AzActivity-Log',
-            'Deploy-MDFC-Config',
-            'Deploy-Resource-Diag',
-            'Deploy-VM-Monitoring',
-            'Deploy-VMSS-Monitoring')
-            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/${{ env.vwanManagementGroup }} | where {$psitem.name -notin $excludelist} | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-identity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-connectivity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-management | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-landingzones | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
           azPSVersion: "latest"
 
       - name: Delete VWAN monitor policy Initiatives
