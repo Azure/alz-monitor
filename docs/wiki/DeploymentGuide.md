@@ -44,14 +44,24 @@ To deploy through GitHub actions which is the preferred approach, please refer t
 ### Manual (Complete) deployment - default settings
 - Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 
-#### 1. For a standard deployment we recommend configuring the following parameters in the [parameters file](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters.json):
+#### 1. For a standard deployment we recommend configuring the following parameters:
   - Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments.
   - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
   - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
   - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
   - Change the value of _ALZMonitorActionGroupEmail_ to the email address where notifications of the alerts are sent to.
 
+These changes have to made in each of the following parameters files:
+
+  - [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
+  - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
+  - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
+  - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
+
+
 #### 2. Example Parameter file:
+
+Note that the parameter file shown below has been truncated for brevity, compared to the samples included.
 
 ```json
 {
