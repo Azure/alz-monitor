@@ -69,15 +69,11 @@ jobs:
         uses: azure/powershell@v1
         with:
           inlineScript: |
-            $excludelist = @('Deploy-ASC-Monitoring',
-            'Deploy-AzActivity-Log',
-            'Deploy-MDFC-Config',
-            'Deploy-Resource-Diag',
-            'Deploy-VM-Monitoring',
-            'Deploy-VMSS-Monitoring',
-            'deploy_firewall_delete'
-            )
-            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw | where {$psitem.name -notin $excludelist} | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-identity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-connectivity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-management | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-landingzones | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
           azPSVersion: "latest"
 
       - name: Delete Hub/spoke monitor policy Initiatives
