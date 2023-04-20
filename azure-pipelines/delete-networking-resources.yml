@@ -1,0 +1,95 @@
+name: "Delete Networking Resources"
+
+trigger: none
+
+variables:
+  - group: csu-alz-monitor
+
+jobs:
+  - job: HubNW delete
+    displayName: Delete network resources and related artifacts from hubnw
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: AzurePowerShell@5
+        displayName: Delete hubnw management group deployments
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzManagementGroupDeployment -ManagementGroupId $(hubManagementGroup) | Remove-AzManagementGroupDeployment -AsJob
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+      
+      - task: Azurecli@2
+        displayName: Az CLI Delete Hub Network
+        inputs:
+          azureSubscription: hubnwconnection
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            az account set --name $(hubSubscription)
+            az group delete --name $(hubResourceGroup) --yes
+          workingDirectory: $(System.DefaultWorkingDirectory)
+          failOnStderr: true
+      
+      - task: Azurecli@2
+        displayName: Az CLI Delete Hub spoke Network
+        inputs:
+          azureSubscription: hubnwconnection
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            az account set --name $(hubSpokeSubscription)
+            az group delete --name $(hubSpokeResourceGroup) --yes
+          workingDirectory: $(System.DefaultWorkingDirectory)
+          failOnStderr: true  
+      
+      - task: AzurePowerShell@5
+        displayName: Delete Hub/spoke monitor policy assignments
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-identity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-connectivity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-management | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-landingzones | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+      
+      - task: AzurePowerShell@5
+        displayName: Delete Hub/spoke monitor policy Initiatives
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicySetDefinition -ManagementGroupName hubnw | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicySetDefinition -Id $PSItem.ResourceId -Force}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+
+      - task: AzurePowerShell@5
+        displayName: Delete Hub/spoke monitor policy definitions
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicyDefinition -ManagementGroupName hubnw | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+
+  - job: vWAN Delete
+    displayName: Delete network resources and related artifacts from vWAN
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      # - task: AzurePowerShell@5
+      #   displayName: Az CLI Remove/Cleanup Deployment
+      #   inputs:
+      #     azureSubscription: "azserviceconnection"
+      #     ScriptType: "FilePath"
+      #     ScriptPath: ".github/scripts/Wipe-AlzTenant.ps1"
+      #     ScriptArguments: '-tenantRootGroupID $(azclitenant) -intermediateRootGroupID "$(ManagementGroupPrefix)" -subscriptionName "$(SubscriptionName)"'
+      #     azurePowerShellVersion: "LatestVersion"
+      #     pwsh: true
