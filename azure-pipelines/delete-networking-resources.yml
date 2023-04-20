@@ -79,11 +79,11 @@ jobs:
           azurePowerShellVersion: "LatestVersion"
           pwsh: true
 
-  - job: vWAN Delete
-    displayName: Delete network resources and related artifacts from vWAN
-    pool:
-      vmImage: ubuntu-latest
-    steps:
+  # - job: vWAN Delete
+  #   displayName: Delete network resources and related artifacts from vWAN
+  #   pool:
+  #     vmImage: ubuntu-latest
+  #   steps:
       # - task: AzurePowerShell@5
       #   displayName: Az CLI Remove/Cleanup Deployment
       #   inputs:
