@@ -6,7 +6,7 @@ variables:
   - group: csu-alz-monitor
 
 jobs:
-  - job: HubNW delete
+  - job: HubNW_delete
     displayName: Delete network resources and related artifacts from hubnw
     pool:
       vmImage: ubuntu-latest
