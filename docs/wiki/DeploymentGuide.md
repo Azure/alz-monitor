@@ -157,23 +157,22 @@ Follow the instructions below to download the cleanup script file. Alternatively
 1. Install the **Az.ResourceGraph** module: `Install-Module Az.ResourceGraph`
 1. Change directories to the location of the **Start-ALZMonitorCleanup.ps1** script
 1. Sign in to the Azure with the `Connect-AzAccount` command. The account you sign in as needs to have permissions to remove Policy Assignments, Policy Definitions, and resources at the desired Management Group scope.
-1. Import the script function into your current session: `. ./Start-ALZMonitorCleanup.ps1`
 1. Execute the script using the option below
 
 **Generate a list of the resource IDs which would be deleted by this script:**
 
   ```powershell
-  Start-ALZMonitorCleanup -ReportOnly
+  ./Start-ALZMonitorCleanup.ps1 -ReportOnly
   ```
 
 **Show output of what would happen if deletes executed:**
 
   ```powershell
-  Start-ALZMonitorCleanup -WhatIf
+  ./Start-ALZMonitorCleanup.ps1 -WhatIf
   ```
 
 **Delete all resources deployed by the ALZ-Monitor IaC without prompting for confirmation:**
 
   ```powershell
-    Start-ALZMonitorCleanup -Force
+  ./Start-ALZMonitorCleanup.ps1 -Force
   ```
