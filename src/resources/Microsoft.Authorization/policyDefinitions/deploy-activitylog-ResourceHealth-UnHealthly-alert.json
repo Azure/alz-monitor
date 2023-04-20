@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.16.2.56959",
-      "templateHash": "3916169949258006179"
+      "templateHash": "16466401727086634955"
     }
   },
   "parameters": {
@@ -16,6 +16,10 @@
     "parResourceGroupName": {
       "type": "string",
       "defaultValue": "AlzMonitoring-rg"
+    },
+    "parResourceGroupLocation": {
+      "type": "string",
+      "defaultValue": "centralus"
     },
     "deploymentRoleDefinitionIds": {
       "type": "array",
@@ -99,6 +103,14 @@
                 },
                 "defaultValue": "[parameters('parResourceGroupTags')]"
               },
+              "alertResourceGroupLocation": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Resource Group Location",
+                  "description": "Location of the Resource group the alert is placed in"
+                },
+                "defaultValue": "[parameters('parResourceGroupLocation')]"
+              },
               "MonitorDisable": {
                 "type": "String",
                 "metadata": {
@@ -175,6 +187,9 @@
                           "alertResourceGroupTags": {
                             "type": "object"
                           },
+                          "alertResourceGroupLocation": {
+                            "type": "string"
+                          },
                           "policyLocation": {
                             "type": "string",
                             "defaultValue": "[parameters('policyLocation')]"
@@ -189,7 +204,7 @@
                             "type": "Microsoft.Resources/resourceGroups",
                             "apiVersion": "2021-04-01",
                             "name": "[[parameters('alertResourceGroupName')]",
-                            "location": "[parameters('policyLocation')]",
+                            "location": "[[parameters('alertResourceGroupLocation')]",
                             "tags": "[[parameters('alertResourceGroupTags')]"
                           },
                           {
@@ -288,6 +303,9 @@
                         },
                         "alertResourceGroupTags": {
                           "value": "[[parameters('alertResourceGroupTags')]"
+                        },
+                        "alertResourceGroupLocation": {
+                          "value": "[[parameters('alertResourceGroupLocation')]"
                         }
                       }
                     }
