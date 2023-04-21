@@ -1,5 +1,8 @@
 name: "Delete Networking Resources"
 
+schedules:
+- cron: '* 0 * * *'
+
 trigger: none
 
 variables:
@@ -20,31 +23,29 @@ jobs:
             Get-AzManagementGroupDeployment -ManagementGroupId $(hubManagementGroup) | Remove-AzManagementGroupDeployment -AsJob
           azurePowerShellVersion: "LatestVersion"
           pwsh: true
-      
-      - task: Azurecli@2
-        displayName: Az CLI Delete Hub Network
+
+      - task: AzurePowerShell@5
+        displayName: Delete Hub Network
         inputs:
           azureSubscription: hubnwconnection
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            az account set --name $(hubSubscription)
-            az group delete --name $(hubResourceGroup) --yes
-          workingDirectory: $(System.DefaultWorkingDirectory)
-          failOnStderr: true
-      
-      - task: Azurecli@2
-        displayName: Az CLI Delete Hub spoke Network
+          ScriptType: "inlineScript"
+          Inline: |
+            Select-AzSubscription -SubscriptionName $(hubSubscription)
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true        
+
+      - task: AzurePowerShell@5
+        displayName: Delete Hub spoke Network
         inputs:
           azureSubscription: hubnwconnection
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            az account set --name $(hubSpokeSubscription)
-            az group delete --name $(hubSpokeResourceGroup) --yes
-          workingDirectory: $(System.DefaultWorkingDirectory)
-          failOnStderr: true  
-      
+          ScriptType: "inlineScript"
+          Inline: |
+            Select-AzSubscription -SubscriptionName $(hubSpokeSubscription)
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true        
+
       - task: AzurePowerShell@5
         displayName: Delete Hub/spoke monitor policy assignments
         inputs:
