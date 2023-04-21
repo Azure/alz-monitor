@@ -1,0 +1,254 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "parPolicyManagementGroupId": {
+            "value": "alz"
+        },
+        "parPolicyAssignmentParameters": {
+            "value": {
+                "ALZMonitorResourceGroupName": {
+                    "value": "rg-alz-monitor"
+                },
+                "ALZMonitorResourceGroupTags": {
+                    "value": {
+                        "Project": "alz-monitor"
+                    }
+                },
+                "ALZMonitorResourceGroupLocation": {
+                    "value": "eastus"
+                }
+            }
+        },
+        "parPolicAssignmentParametersAlertProcessing": {
+            "value": {
+                "ALZMonitorActionGroupEmail": {
+                    "value": "action@mail.com"
+                }
+            }
+        },
+        "parPolicyAssignmentParametersLZ": {
+            "value": {
+                "KVRequestAlertSeverity": {
+                    "value": "2"
+                },
+                "KVRequestWindowSize": {
+                    "value": "PT5M"
+                },
+                "KVRequestEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "KVRequestPolicyEffect": {
+                    "value": "disabled"
+                },
+                "KVRequestAlertState": {
+                    "value": "true"
+                },
+                "KvAvailabilityAlertSeverity": {
+                    "value": "1"
+                },
+                "KvAvailabilityWindowSize": {
+                    "value": "PT1M"
+                },
+                "KvAvailabilityEvaluationFrequency": {
+                    "value": "PT1M"
+                },
+                "KvAvailabilityPolicyEffect": {
+                    "value": "disabled"
+                },
+                "KvAvailabilityAlertState": {
+                    "value": "true"
+                },
+                "KVAvailabilityThreshold": {
+                    "value": "20"
+                },
+                "KvLatencyAvailabilityAlertSeverity": {
+                    "value": "3"
+                },
+                "KvLatencyAvailabilityWindowSize": {
+                    "value": "PT5M"
+                },
+                "KvLatencyAvailabilityEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "KvLatencyAvailabilityPolicyEffect": {
+                    "value": "disabled"
+                },
+                "KvLatencyAvailabilityAlertState": {
+                    "value": "true"
+                },
+                "KvLatencyAvailabilityThreshold": {
+                    "value": "1000"
+                },
+                "KVCapacityAlertSeverity": {
+                    "value": "1"
+                },
+                "KVCapacityWindowSize": {
+                    "value": "PT5M"
+                },
+                "KVCapacityEvaluationFrequency": {
+                    "value": "PT1M"
+                },
+                "KVCapacityPolicyEffect": {
+                    "value": "disabled"
+                },
+                "KVCapacityAlertState": {
+                    "value": "true"
+                },
+                "KVCapacityThreshold": {
+                    "value": "75"
+                },
+                "ResHlthUnhealthyAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthAdvisoryAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthIncidentAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthMaintenanceAlertState": {
+                    "value": "true"
+                },
+                "svcHlthSecAdvisoryAlertState": {
+                    "value": "true"
+                },
+                "activityKVDeleteAlertState": {
+                    "value": "true"
+                },
+                "StorageAccountAvailabilityAlertSeverity": {
+                    "value": "1"
+                },
+                "StorageAccountAvailabilityWindowSize": {
+                    "value": "PT5M"
+                },
+                "StorageAccountAvailabilityFrequency": {
+                    "value": "PT5M"
+                },
+                "StorageAccountAvailabilityPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "StorageAccountAvailabilityAlertState": {
+                    "value": "true"
+                },
+                "StorageAccountAvailabilityThreshold": {
+                    "value": "90"
+                },
+                "PIPDDoSAttackAlertSeverity": {
+                    "value": "1"
+                },
+                "PIPDDoSAttackWindowSize": {
+                    "value": "PT5M"
+                },
+                "PIPDDoSAttackEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "PIPDDoSAttackPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "PIPDDoSAttackAlertState": {
+                    "value": "true"
+                },
+                "PIPDDoSAttackThreshold": {
+                    "value": "0"
+                },
+                "PIPPacketsInDDoSAlertSeverity": {
+                    "value": "4"
+                },
+                "PIPPacketsInDDoSWindowSize": {
+                    "value": "PT5M"
+                },
+                "PIPPacketsInDDoSEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "PIPPacketsInDDoSPolicyEffect": {
+                    "value": "disabled"
+                },
+                "PIPPacketsInDDoSAlertState": {
+                    "value": "true"
+                },
+                "PIPPacketsInDDoSThreshold": {
+                    "value": "40000"
+                },
+                "PIPVIPAvailabilityAlertSeverity": {
+                    "value": "1"
+                },
+                "PIPVIPAvailabilityWindowSize": {
+                    "value": "PT5M"
+                },
+                "PIPVIPAvailabilityEvaluationFrequency": {
+                    "value": "PT1M"
+                },
+                "PIPVIPAvailabilityPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "PIPVIPAvailabilityAlertState": {
+                    "value": "true"
+                },
+                "PIPVIPAvailabilityThreshold": {
+                    "value": "1"
+                },
+                "PIPBytesInDDoSAlertSeverity": {
+                    "value": "4"
+                },
+                "PIPBytesInDDoSWindowSize": {
+                    "value": "PT5M"
+                },
+                "PIPBytesInDDoSEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "PIPBytesInDDoSPolicyEffect": {
+                    "value": "disabled"
+                },
+                "PIPBytesInDDoSAlertState": {
+                    "value": "true"
+                },
+                "PIPBytesInDDoSThreshold": {
+                    "value": "8000000"
+                },
+                "RVBackupHealthAlertSeverity": {
+                    "value": "3"
+                },
+                "RVBackupHealthWindowSize": {
+                    "value": "P1D"
+                },
+                "RVBackupHealthEvaluationFrequency": {
+                    "value": "PT1H"
+                },
+                "RVBackupHealthPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "RVBackupHealthAlertState": {
+                    "value": "true"
+                },
+                "RVBackupHealthThreshold": {
+                    "value": "20"
+                },
+                "VNETDDOSAttackAlertSeverity": {
+                    "value": "1"
+                },
+                "VNETDDOSAttackWindowSize": {
+                    "value": "PT5M"
+                },
+                "VNETDDOSAttackEvaluationFrequency": {
+                    "value": "PT1M"
+                },
+                "VNETDDOSAttackPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VNETDDOSAttackAlertState": {
+                    "value": "true"
+                },
+                "VNETDDOSAttackThreshold": {
+                    "value": "1"
+                },
+                "activityNSGDeleteAlertState": {
+                    "value": "true"
+                },
+                "activityUDRUpdateAlertState": {
+                    "value": "true"
+                }
+            }
+        }
+    }
+}
