@@ -1,7 +1,12 @@
 name: "Delete Networking Resources"
 
-# schedules:
-# - cron: '* 0 * * *'
+schedules:
+- cron: '0 0 * * *'
+  displayName: Daily midnight build
+  branches:
+    include:
+    - main
+  always: true
 
 trigger: none
 
@@ -42,7 +47,7 @@ jobs:
           ScriptType: "inlineScript"
           Inline: |
             Select-AzSubscription -SubscriptionName "$(hubSpokeSubscription)"
-            Get-AzResourceGroup | Remove-AzResourceGroup -Force
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force 
           azurePowerShellVersion: "LatestVersion"
           pwsh: true        
 
