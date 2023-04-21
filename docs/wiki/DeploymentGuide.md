@@ -32,29 +32,65 @@ Alerts, action groups and alert processing rules are created as follows:
 
 Please see [here](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) for details on how to register a resource provider should you need to do so.
 
-_*While its recommended to implement the alert policies and initiatives to an ALZ Management Group hierarchy, it is not a technical requirement. These policies and initiatives can be implemented in existing brownfield scenarios that don´t adhere to the ALZ Management Group hierarchy. For example in hierarchies where there is noooo management group structure at all, or where the structure does not allign to ALZ._
+_*While it´s recommended to implement the alert policies and initiatives to an ALZ Management Group hierarchy, it is not a technical requirement. These policies and initiatives can be implemented in existing brownfield scenarios that don´t adhere to the ALZ Management Group hierarchy. For example in hierarchies where there is noooo management group structure at all, or where the structure does not allign to ALZ._
 
 ## Getting started
 
 - Fork this repo to your own GitHub organization, you should not create a direct clone of the repo. Pull requests based off direct clones of the repo will not be allowed.
-- Clone the repo from your own GitHub organization to your developer workstation. 
+- Clone the repo from your own GitHub organization to your developer workstation.
+- Review your current configuration to determine what scenario applies to you. We have guidance that will help deploy these policies and initiatives whether you are aligned with Azure Landing Zones, or use other management group hierarchy, or you may not be using management groups at all. If you know your type of management group hierarchy you can skip forward to your preferred deployment method:
+  - [Automated deployment with GitHub Actions](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide#Automated-deployment-with-GitHub-Actions) (recommended method)
+  - [Manual deployment with Azure CLI or PowerShell](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide#Manual-deployment-with-Azure-CLI-or-PowerShell)
 
-### Scenario 1: ALZ aligned - Deploy through GitHub Actions - Default settings
-To deploy through GitHub actions which is the preferred approach, please refer to the sample GitHub workflow in the repo under .github/workflows/sample-workflow.yml. To leverage this directly do the following:
-- Configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
-- Modify the following values in sample-workflow.yml:
-  - Change _Location: "norwayeast"_, to your preferred Azure region
-  - Change _ManagementGroupPrefix: "alz"_, to the management group where you wish to deploy the policies, initiatives and policy assignments.
-  - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
-  - Change _managementManagementGroup: "alz-platform-management"_, to the management group for management in your ALZ implementation.
-  - Change _ManagementGroupPrefix: "alz-platform-connectivity"_, to the management group for connectivity in your ALZ implementation.
-- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
+### Determining your management group hierarchy
 
-### Scenario 2: ALZ aligned - Manual deployment - Default settings
-- Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
+Azure Landing Zones is a concept that provides a set of best practices, patterns, and tools for creating a cloud environment that is secure, well-architected, and easy to manage. Management groups are a key component of Azure Landing Zones, as they allow you to organize and manage your subscriptions and resources in a hierarchical structure. By using management groups, you can apply policies and access controls across multiple subscriptions and resources, making it easier to manage and govern your Azure environment.
 
-#### 1. For a standard deployment we recommend configuring the following parameters:
-  - Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments.
+The initiatives provided in this repository align with the management group hierarchy guidelines of Azure Landing Zones. Effectively creating the following assignment mapping between the initiative and the management group:
+
+* Identity Initiative is assigned to the Identity management group.
+* Management Initiative is assigned to the Management management group.
+* Connectivity Initiative is assigned to the Connectivity management group.
+* Landing Zone Initiative is assigned to the Landing Zone management group.
+
+The image below is an example of how a management group hierarchy looks like when you follow Azure Landing Zone guidance. Also illustrated in this image is the default recommended assignments of the initiatives.
+
+![ALZ Management group structure](../raw/main/media/alz-management-groups.png)
+
+If you have this management group hierarchy you can skip forward to your preferred deployment method: [Automated deployment with GitHub Actions](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide#Automated-deployment-with-GitHub-Actions) or [Manual deployment with Azure CLI or PowerShell](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide#Manual-deployment-with-Azure-CLI-or-PowerShell)
+
+It´s important to understand why we assign initiatives to certain management groups. In the previous example, the assignment mapping was done this way because the associated resources within a subscription below a management group have a specific purpose. For example, below the Connectivity management group you will find a subscription that contains the networking components like Firewalls, Virtual WAN, Hub Networks, etc. Consequently, this is where we assign the connectivity initiative to get relevant alerting on those services. It wouldn't make sense to assign the connectivity initiative to other management groups when there are no relevant networking services deployed.
+
+We recognize that Azure allows for flexibility and choice, and you may not be aligned with ALZ. For example, you may have:
+
+* A management group structure that is not aligned to ALZ. Where you may only have a Platform management group without the sub management groups like Identity/ Management/ Connectivity. 
+* No management group structure where every subscription is directly below the tenant root.
+
+Suppose Identity/ Management/ Connectivity are combined in one Platform Management Group, the approach could be to assign the three corresponding initiatives to the Platform management group instead. Maybe you have a hierarchy where you organize by geography and/or business units instead specific landing zones. Assignment mapping:
+
+* Identity Initiative is assigned to the Platform management group.
+* Management Initiative is assigned to the Platform management group.
+* Connectivity Initiative is assigned to the Platform management group.
+* Landing Zone Initiative is assigned to the Geography management group.
+
+The image below is an example of how the assignments could look like when the management group hierarchy isn´t aligned with ALZ.
+
+![Management group structure - unaligned](../raw/main/media/alz-management-groups-unaligned.png)
+
+We recommend that you review the [initiative definitions](https://github.com/Azure/alz-monitor/tree/main/src/resources/Microsoft.Authorization/policySetDefinitions) to determine where best to apply the initiatives in your management group hierarchy.
+
+If you have this management group hierarchy you can skip forward to your preferred deployment method: [Automated deployment with GitHub Actions](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide#Automated-deployment-with-GitHub-Actions) or [Manual deployment with Azure CLI or PowerShell](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide#Manual-deployment-with-Azure-CLI-or-PowerShell)
+
+If management groups were never configured in your environment, you are in a scenario where there are no other management groups apart from the tenant root management group which exists by default. In this case you can assign all the initiatives that you are interested in directly to the tenant root.
+
+The image below is an example of how the assignments look like when you are not using management groups.
+
+![Management group structure - unstructured](../raw/main/media/alz-management-groups-unstructured.png)
+
+## Automated deployment with GitHub Actions
+
+### 1. We recommend configuring the following parameters:
+  - Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments. This is usually the pseudo root management group but it can also be the tenant root management group.
   - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
   - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
   - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
@@ -67,8 +103,101 @@ These changes have to made in each of the following parameters files:
   - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
   - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
 
+### 2. Example Parameter file:
 
-#### 2. Example Parameter file:
+Note that the parameter file shown below has been truncated for brevity, compared to the samples included.
+
+```json
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "parPolicyManagementGroupId": {
+            "value": "Contoso"
+        },
+        "parPolicyAssignmentParameters": {
+            "value": {
+                "ALZMonitorResourceGroupName": {
+                    "value": "rg-alz-monitor"
+                },
+                "ALZMonitorResourceGroupTags": {
+                    "value": {
+                        "Environment": "Production",
+                        "Project": "ALZ Monitor"
+                    }
+                },
+                "ALZMonitorResourceGroupLocation": {
+                    "value": "eastus"
+                }
+            }
+        },
+        "parPolicAssignmentParametersAlertProcessing": {
+            "value": {
+                "ALZMonitorActionGroupEmail": {
+                    "value": "alzmonitor@contoso.com"
+                }
+            }
+        }
+    }
+}
+```
+### 3. Configure and run the workflow
+First, configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
+
+To deploy through GitHub actions, please refer to the [sample GitHub workflow](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-workflow.yml) and follow the guidance corresponding to your management group hierarchy.
+
+#### ALZ aligned
+
+- Modify the following values in [sample-workflow.yml](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-workflow.yml):
+  - Change _Location: "norwayeast"_, to your preferred Azure region
+  - Change _ManagementGroupPrefix: "alz"_, to the pseudo root management group id parenting the identity, management and connectivity management groups.
+  - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
+  - Change _managementManagementGroup: "alz-platform-management"_, to the management group for management in your ALZ implementation.
+  - Change _connectivityManagementGroupPrefix: "alz-platform-connectivity"_, to the management group for connectivity in your ALZ implementation.
+  - Change _LZGroupPrefix: "alz-landing-zone"_, to the management group for Landing Zones in your ALZ implementation.
+- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
+
+#### ALZ unaligned
+> For ease of deployment and maintenance we have kept the same variables. If, for example, you combined Identity, Management and Connectivity into one management group you should configure the variables _identityManagementGroup_, _managementManagementGroup_ and _connectivityManagementGroup_ with the same management group.
+
+- Modify the following values in [sample-workflow.yml](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-workflow.yml):
+  - Change _Location: "norwayeast"_, to your preferred Azure region
+  - Change _ManagementGroupPrefix: "alz"_, to the pseudo root management group parenting the identity, management and connectivity management groups.
+  - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for the Identity initiative. The same management group may be repeated.
+  - Change _managementManagementGroup: "alz-platform-management"_, to the management group for Management. The same management group may be repeated.
+  - Change _connectivityManagementGroupPrefix: "alz-platform-connectivity"_, to the management group for Connectivity. The same management group may be repeated.
+  - Change _LZGroupPrefix: "alz-landing-zone"_, to the management group for Landing Zones. The same management group may be repeated.
+- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
+
+#### No management groups
+> For ease of deployment and maintenance we have kept the same variables. Configure the variables _$ManagementGroupID_, _identityManagementGroup_, _managementManagementGroup_, _connectivityManagementGroup_ and _$LZManagementGroup_ with the tenant root management group.
+
+- Modify the following values in [sample-workflow.yml](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-workflow.yml):
+  - Change _Location: "norwayeast"_, to your preferred Azure region
+  - Change _ManagementGroupPrefix: "alz"_, to the tenant root management group.
+  - Change _identityManagementGroup: "alz-platform-identity"_, to the tenant root management group.
+  - Change _managementManagementGroup: "alz-platform-management"_, to the tenant root management group.
+  - Change _connectivityManagementGroupPrefix: "alz-platform-connectivity"_, to the tenant root management group.
+  - Change _LZGroupPrefix: "alz-landing-zone"_, to the tenant root management group.
+- Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
+
+## Manual deployment with Azure CLI or PowerShell
+
+### 1. We recommend configuring the following parameters:
+  - Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments. This is usually the pseudo root management group but it can also be the tenant root management group.
+  - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
+  - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
+  - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
+  - Change the value of _ALZMonitorActionGroupEmail_ to the email address where notifications of the alerts are sent to.
+
+These changes have to made in each of the following parameters files:
+
+  - [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
+  - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
+  - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
+  - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
+
+### 2. Example Parameter file:
 
 Note that the parameter file shown below has been truncated for brevity, compared to the samples included.
 
@@ -107,13 +236,14 @@ Note that the parameter file shown below has been truncated for brevity, compare
 }
 ```
 
-#### 3. Deploy the policy definitions, initiatives and policy assignments with default settings. 
+### 3. Configuring variables for deployment
+Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 
-> There can be some delay between policies getting created and actually being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
-> As mentioned previously this should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment), to deploy and enable alerts in a controlled manner.
+Run only the commands that correspond to your management group hierarchy. 
+
+#### ALZ aligned
 
 ##### Azure CLI
-
 ```bash
   location="Your Azure location of choice"
   managementGroupId="The pseudo root management group id parenting the identity, management and connectivity management groups"
@@ -121,25 +251,11 @@ Note that the parameter file shown below has been truncated for brevity, compare
   managementManagementGroup="The management group id for Management"
   connectivityManagementGroup="The management group id for Connectivity"
   LZManagementGroup="The management group id for Landing Zones"
-
-  #Deploy policy definitions
-  az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $location --management-group-id $managementGroupId
-  
-  #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
-  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location $location --management-group-id $managementGroupId
-  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location $location --management-group-id $managementGroupId
-  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location $location --management-group-id $managementGroupId
-  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location $location --management-group-id $managementGroupId
-  
-  #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $identityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-identity.json
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-management.json
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $location --management-group-id $LZManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json
 ```
 
-##### Azure PowerShell
+> When running Azure CLI from PowerShell the variables have to start with a $.
 
+##### Azure PowerShell
 ```powershell
   $location = "Your Azure location of choice"
   $managementGroupID = "The pseudo root management group id parenting the identity, management and connectivity management groups"
@@ -147,61 +263,71 @@ Note that the parameter file shown below has been truncated for brevity, compare
   $managementManagementGroup = "The management group id for Management"
   $connectivityManagementGroup = "The management group id for Connectivity"
   $LZManagementGroup="The management group id for Landing Zones"
-
-  #Deploy policy definitions
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/deploy_dine_policies.bicep
-  
-  #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json
-  
-  #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
-  New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-identity.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-management.json
-  New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-connectivity.json
-  New-AzManagementGroupDeployment -ManagementGroupId $LZManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-landingzones.json
 ```
 
-### Scenario 3: Management group structure unaligned with ALZ - Manual deployment - Default settings
-The first two deployment scenarios in this guide assume a management group hierarchy that is based on the guidance and best practices of ALZ, an example is shown in the imagen below. 
-
-![ALZ Management group structure](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/media/sub-organization.png)
-
-The initiatives provided in this repository align with this hierarchy effectively creating the following mapping:
-
-* Identity Initiative is assigned to the Identity management group.
-* Management Initiative is assigned to the Management management group.
-* Connectivity Initiative is assigned to the Connectivity management group.
-* Landing Zone Initiative is assigned to the corresponding Landing Zone management group.
-
-The mapping is done this way because the associated resources within a subscription below a management group have a specific purpose. For example, below the Connectivity management group you will find a subscription that contains the networking components like Firewalls, Virtual WAN, Hub Networks, etc. This is where we can assign the connectivity initiative to get relevant alerting on those services. It wouldn't make sense to assign the connectivity initiative to other management groups when there are no relevant networking services deployed in those groups.
-
-We recognize that Azure allows for a lot a flexibility and choice, and you may not be aligned with ALZ. For example you may have:
-
-* A management group structure that is not aligned to ALZ. Where you may only have a Platform management group without the sub management groups like Identity/ Management/ Connectivity. 
-* No management group structure where everything is directly below the root.
-
-However, there are several ways in which you can still take advantage of these policies and initiatives. 
-
-* For example, If Identity/ Management/ Connectivity are combined in one Platform subscription, you could assign the three corresponding initiatives to the Platform management group instead.
-* When there is no management group structure in place you could assign all desired initiatives directly to the root.
-
-Review the [initiative definitions](https://github.com/Azure/alz-monitor/tree/main/src/resources/Microsoft.Authorization/policySetDefinitions) to determine where best to apply the initiatives in your management group hierarchy.
-
-#### Unaligned to ALZ
+#### ALZ unaligned
+> For ease of deployment and maintenance we have kept the same variables. If, for example, you combined Identity, Management and Connectivity into one management group you should configure the variables _identityManagementGroup_, _managementManagementGroup_ and _connectivityManagementGroup_ with the same management group id.
 
 ##### Azure CLI
-
 ```bash
   location="Your Azure location of choice"
-  managementGroupId="The pseudo root management group id parenting the identity, management and connectivity management groups (The same management group id may be repeated)"
-  identityManagementGroup="The management group id that best aligns with the Identity Initiative (The same management group id may be repeated)"
-  managementManagementGroup="The management group id that best aligns with the Management Initiative (The same management group id may be repeated)"
-  connectivityManagementGroup="The management group id that best aligns with the Connectivity Initiative (The same management group id may be repeated)"
-  LZManagementGroup="The management group id that best aligns with the Landing Zones Initiative (The same management group id may be repeated)"
+  managementGroupId="The pseudo root management group id parenting the identity, management and connectivity management groups"
+  identityManagementGroup="The management group id for the Identity initiative. The same management group id may be repeated"
+  managementManagementGroup="The management group id for Management. The same management group id may be repeated"
+  connectivityManagementGroup="The management group id for Connectivity. The same management group id may be repeated"
+  LZManagementGroup="The management group id for Landing Zones. The same management group id may be repeated"
+```
 
+> When running Azure CLI from PowerShell the variables have to start with a $.
+
+##### Azure PowerShell
+```powershell
+  $location = "Your Azure location of choice"
+  $managementGroupID = "The pseudo root management group id parenting the identity, management and connectivity management groups"
+  $identityManagementGroup = "The management group id for Identity. The same management group id may be repeated"
+  $managementManagementGroup = "The management group id for Management. The same management group id may be repeated"
+  $connectivityManagementGroup = "The management group id for Connectivity. The same management group id may be repeated"
+  $LZManagementGroup="The management group id for Landing Zones. The same management group id may be repeated"
+```
+
+#### No management groups
+> For ease of deployment and maintenance we have kept the same variables. Configure the variables _$managementGroupID_, _identityManagementGroup_, _managementManagementGroup_, _connectivityManagementGroup_ and _$LZManagementGroup_ with the tenant root management group id.
+
+##### Azure CLI
+```bash
+  location="Your Azure location of choice"
+  managementGroupId="The tenant root management group id"
+  identityManagementGroup="The tenant root management group id"
+  managementManagementGroup="The tenant root management group id"
+  connectivityManagementGroup="The tenant root management group id"
+  LZManagementGroup="The tenant root management group id"
+```
+
+> When running Azure CLI from PowerShell the variables have to start with a $.
+
+##### Azure PowerShell
+```powershell
+  $location = "Your Azure location of choice"
+  $managementGroupID = "The tenant root management group id"
+  $identityManagementGroup = "The tenant root management group id"
+  $managementManagementGroup = "The tenant root management group id"
+  $connectivityManagementGroup = "The tenant root management group id"
+  $LZManagementGroup="The tenant root management group id"
+```
+
+### 4. Deploy the policy definitions, initiatives and policy assignments with default settings. 
+The following commands apply to all scenarios, whether you are aligned or unaligned with ALZ or don't have management groups. 
+
+Using either a PowerShell prompt or Azure CLI, if you closed your previous session, navigate again to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
+
+Run only the commands that correspond to your management group hierarchy. 
+
+> There can be some delay between policies getting created and actually being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
+> This should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment), to deploy and enable alerts in a controlled manner.
+
+#### Azure CLI
+
+```bash
   #Deploy policy definitions
   az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $location --management-group-id $managementGroupId
   
@@ -221,13 +347,6 @@ Review the [initiative definitions](https://github.com/Azure/alz-monitor/tree/ma
 ##### Azure PowerShell
 
 ```powershell
-  $location="Your Azure location of choice"
-  $managementGroupId="The pseudo root management group id parenting the identity, management and connectivity management groups (The same management group id may be repeated)"
-  $identityManagementGroup="The management group id that best aligns with the Identity Initiative (The same management group id may be repeated)"
-  $managementManagementGroup="The management group id that best aligns with the Management Initiative (The same management group id may be repeated)"
-  $connectivityManagementGroup="The management group id that best aligns with the Connectivity Initiative (The same management group id may be repeated)"
-  $LZManagementGroup="The management group id that best aligns with the Landing Zones Initiative (The same management group id may be repeated)"
-
   #Deploy policy definitions
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/deploy_dine_policies.bicep
   
@@ -242,52 +361,6 @@ Review the [initiative definitions](https://github.com/Azure/alz-monitor/tree/ma
   New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-management.json
   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-connectivity.json
   New-AzManagementGroupDeployment -ManagementGroupId $LZManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-landingzones.json
-```
-
-#### No management group structure
-
-##### Azure CLI
-
-```bash
-  location="Your Azure location of choice"
-  managementGroupId="The root management group id"
-
-  #Deploy policy definitions
-  az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $location --management-group-id $managementGroupId
-  
-  #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
-  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location $location --management-group-id $managementGroupId
-  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location $location --management-group-id $managementGroupId
-  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location $location --management-group-id $managementGroupId
-  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location $location --management-group-id $managementGroupId
-  
-  #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $managementGroupId --parameters ./infra-as-code/bicep/parameters-complete-identity.json
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementGroupId --parameters ./infra-as-code/bicep/parameters-complete-management.json
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $managementGroupId --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
-  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $location --management-group-id $managementGroupId --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json
-```
-
-##### Azure PowerShell
-
-```powershell
-  $location="Your Azure location of choice"
-  $managementGroupId="The root management group id"
-
-  #Deploy policy definitions
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/deploy_dine_policies.bicep
-  
-  #Deploy policy initiatives, wait approximately 1-2 minutes after deploying policies to ensure that there are no errors when creating initiatives
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json
-  
-  #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupId -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-identity.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupId -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-management.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupId -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-connectivity.json
-  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupId -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-landingzones.json
 ```
 
 ## Policy remediation
