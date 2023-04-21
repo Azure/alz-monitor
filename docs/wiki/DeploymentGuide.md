@@ -96,7 +96,7 @@ The image below is an example of how the assignments look like when you are not 
   - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
   - Change the value of _ALZMonitorActionGroupEmail_ to the email address where notifications of the alerts are sent to.
 
-These changes have to made in each of the following parameters files:
+These changes have to be made in each of the following parameters files:
 
   - [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
   - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
