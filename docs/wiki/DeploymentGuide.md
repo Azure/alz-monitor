@@ -81,7 +81,7 @@ We recommend that you review the [initiative definitions](https://github.com/Azu
 
 If you have this management group hierarchy you can skip forward to your preferred deployment method: [Automated deployment with GitHub Actions](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide#Automated-deployment-with-GitHub-Actions) or [Manual deployment with Azure CLI or PowerShell](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide#Manual-deployment-with-Azure-CLI-or-PowerShell)
 
-If management groups were never configured in your environment, you are in a scenario where there are no other management groups apart from the tenant root management group which exists by default. In this case you can assign all the initiatives that you are interested in directly to the tenant root.
+If management groups were never configured in your environment, you are in a scenario where there are no other management groups apart from the tenant root management group which exists by default. In this case you can assign all the initiatives directly to the tenant root.
 
 The image below is an example of how the assignments look like when you are not using management groups.
 
