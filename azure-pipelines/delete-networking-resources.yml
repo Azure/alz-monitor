@@ -109,7 +109,7 @@ jobs:
       - task: Azurecli@2
         displayName: Az CLI Delete vwan spoke Network
         inputs:
-          azureSubscription: vwannwconnection
+          azureSubscription: vwanconnection
           scriptType: bash
           scriptLocation: inlineScript
           inlineScript: |
@@ -121,7 +121,7 @@ jobs:
       - task: AzurePowerShell@5
         displayName: Delete vwan monitor policy assignments
         inputs:
-          azureSubscription: vwanwconnection
+          azureSubscription: vwanconnection
           ScriptType: "inlineScript"
           Inline: |
             Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
