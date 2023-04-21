@@ -79,17 +79,75 @@ jobs:
           azurePowerShellVersion: "LatestVersion"
           pwsh: true
 
-  # - job: vWAN Delete
-  #   displayName: Delete network resources and related artifacts from vWAN
-  #   pool:
-  #     vmImage: ubuntu-latest
-  #   steps:
-      # - task: AzurePowerShell@5
-      #   displayName: Az CLI Remove/Cleanup Deployment
-      #   inputs:
-      #     azureSubscription: "azserviceconnection"
-      #     ScriptType: "FilePath"
-      #     ScriptPath: ".github/scripts/Wipe-AlzTenant.ps1"
-      #     ScriptArguments: '-tenantRootGroupID $(azclitenant) -intermediateRootGroupID "$(ManagementGroupPrefix)" -subscriptionName "$(SubscriptionName)"'
-      #     azurePowerShellVersion: "LatestVersion"
-      #     pwsh: true
+  - job: vwan_delete
+    displayName: Delete network resources and related artifacts from vwan
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: AzurePowerShell@5
+        displayName: Delete vwan management group deployments
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzManagementGroupDeployment -ManagementGroupId $(vwanManagementGroup) | Remove-AzManagementGroupDeployment -AsJob
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+      
+      - task: Azurecli@2
+        displayName: Az CLI Delete vwan Network
+        inputs:
+          azureSubscription: vwanconnection
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            az account set --name $(vwanSubscription)
+            az group delete --name $(vwanResourceGroup) --yes
+          workingDirectory: $(System.DefaultWorkingDirectory)
+          failOnStderr: true
+      
+      - task: Azurecli@2
+        displayName: Az CLI Delete vwan spoke Network
+        inputs:
+          azureSubscription: vwannwconnection
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            az account set --name $(vwanSpokeSubscription)
+            az group delete --name $(vwanSpokeResourceGroup) --yes
+          workingDirectory: $(System.DefaultWorkingDirectory)
+          failOnStderr: true  
+      
+      - task: AzurePowerShell@5
+        displayName: Delete vwan monitor policy assignments
+        inputs:
+          azureSubscription: vwanwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-identity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-connectivity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-management | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-landingzones | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+      
+      - task: AzurePowerShell@5
+        displayName: Delete vwan monitor policy Initiatives
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicySetDefinition -ManagementGroupName vwan | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicySetDefinition -Id $PSItem.ResourceId -Force}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+
+      - task: AzurePowerShell@5
+        displayName: Delete vwan monitor policy definitions
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicyDefinition -ManagementGroupName vwan | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
