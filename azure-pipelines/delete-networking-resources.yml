@@ -30,7 +30,7 @@ jobs:
           azureSubscription: hubnwconnection
           ScriptType: "inlineScript"
           Inline: |
-            Select-AzSubscription -SubscriptionName $(hubSubscription)
+            Select-AzSubscription -SubscriptionName "$(hubSubscription)"
             Get-AzResourceGroup | Remove-AzResourceGroup -Force
           azurePowerShellVersion: "LatestVersion"
           pwsh: true        
@@ -41,7 +41,7 @@ jobs:
           azureSubscription: hubnwconnection
           ScriptType: "inlineScript"
           Inline: |
-            Select-AzSubscription -SubscriptionName $(hubSpokeSubscription)
+            Select-AzSubscription -SubscriptionName "$(hubSpokeSubscription)"
             Get-AzResourceGroup | Remove-AzResourceGroup -Force
           azurePowerShellVersion: "LatestVersion"
           pwsh: true        
@@ -95,30 +95,27 @@ jobs:
           azurePowerShellVersion: "LatestVersion"
           pwsh: true
       
-      - task: Azurecli@2
-        displayName: Az CLI Delete vwan Network
+      - task: AzurePowerShell@5
+        displayName: Delete vwan Network
         inputs:
           azureSubscription: vwanconnection
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            az account set --name $(vwanSubscription)
-            az group delete --name $(vwanResourceGroup) --yes
-          workingDirectory: $(System.DefaultWorkingDirectory)
-          failOnStderr: true
-      
-      - task: Azurecli@2
-        displayName: Az CLI Delete vwan spoke Network
+          ScriptType: "inlineScript"
+          Inline: |
+            Select-AzSubscription -SubscriptionName "$(vwanSubscription)"
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true        
+
+      - task: AzurePowerShell@5
+        displayName: Delete vwan spoke Network
         inputs:
           azureSubscription: vwanconnection
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            az account set --name $(vwanSpokeSubscription)
-            az group delete --name $(vwanSpokeResourceGroup) --yes
-          workingDirectory: $(System.DefaultWorkingDirectory)
-          failOnStderr: true  
-      
+          ScriptType: "inlineScript"
+          Inline: |
+            Select-AzSubscription -SubscriptionName "$(vwanSpokeSubscription)"
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true             
       - task: AzurePowerShell@5
         displayName: Delete vwan monitor policy assignments
         inputs:
