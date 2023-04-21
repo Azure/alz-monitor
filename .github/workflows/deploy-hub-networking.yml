@@ -104,7 +104,11 @@ jobs:
       id: move_sub
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters @infra-as-code/bicep/orchestration/subPlacementAll/parameters/subPlacementAll.parameters.hubnw.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          parPlatformManagementMgSubs=("${{ env.mgSubscriptionId }}")
+          # parPlatformIdentityMgSubs=("${{ env.idSubscriptionId }}")
+          parPlatformConnectivityMgSubs=("${{ env.connSubscriptionId }}")
+          parLandingZonesCorpMgSubs=("${{ env.spokeSubscriptionId }}")
+          az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters @infra-as-code/bicep/orchestration/subPlacementAll/parameters/subPlacementAll.parameters.hubnw.json parPlatformManagementMgSubs=$parPlatformManagementMgSubs parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     - name: Az CLI Deploy Hub Networking for PR
       id: create_hub_network
