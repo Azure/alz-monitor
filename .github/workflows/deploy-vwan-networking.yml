@@ -44,61 +44,61 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
 
-    # - name: Az CLI Deploy Management Groups
-    #   id: create_mgs
-    #   shell: bash
-    #   run: |
-    #     az deployment tenant create --template-file infra-as-code/bicep/modules/managementGroups/managementGroups.bicep --parameters parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parTopLevelManagementGroupDisplayName="${{ env.TopLevelManagementGroupDisplayName }}" --location ${{ env.Location }} --name ${{ env.ManagementGroupPrefix }}
+    - name: Az CLI Deploy Management Groups
+      id: create_mgs
+      shell: bash
+      run: |
+        az deployment tenant create --template-file infra-as-code/bicep/modules/managementGroups/managementGroups.bicep --parameters parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parTopLevelManagementGroupDisplayName="${{ env.TopLevelManagementGroupDisplayName }}" --location ${{ env.Location }} --name ${{ env.ManagementGroupPrefix }}
 
-    # - name: Az CLI Deploy Custom Role Definitions
-    #   id: create_rbac_roles
-    #   shell: bash
-    #   run: |
-    #       az deployment mg create --template-file infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep --parameters @infra-as-code/bicep/modules/customRoleDefinitions/parameters/customRoleDefinitions.parameters.all.json parAssignableScopeManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    - name: Az CLI Deploy Custom Role Definitions
+      id: create_rbac_roles
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep --parameters @infra-as-code/bicep/modules/customRoleDefinitions/parameters/customRoleDefinitions.parameters.all.json parAssignableScopeManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
-    # - name: Az CLI Deploy Custom Policy Definitions for PR
-    #   id: create_policy_defs
-    #   shell: bash
-    #   run: |
-    #       az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/customPolicyDefinitions.parameters.all.json parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    - name: Az CLI Deploy Custom Policy Definitions for PR
+      id: create_policy_defs
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/customPolicyDefinitions.parameters.all.json parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
     
-    # - name: Az CLI Deploy Monitor Policy Definitions
-    #   id: create_monitor_policy_defs
-    #   shell: bash
-    #   run: |
-    #       az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    - name: Az CLI Deploy Monitor Policy Definitions
+      id: create_monitor_policy_defs
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
-    # - name: Az CLI Deploy Monitor Policy Initiatives
-    #   id: create_monitor_policy_initiatives
-    #   shell: bash
-    #   run: |
-    #       az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
-    #       az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
-    #       az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
-    #       az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    - name: Az CLI Deploy Monitor Policy Initiatives
+      id: create_monitor_policy_initiatives
+      shell: bash
+      run: |
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
     
-    # - name: Az CLI Deploy Logging for PR
-    #   id: create_logging
-    #   shell: bash
-    #   run: |
-    #       az account set --susbscription ${{ env.mgSubscriptionId }}
-    #       az group create --name ${{ env.mgResourceGroup }} --location ${{ env.Location }}
-    #       az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
+    - name: Az CLI Deploy Logging for PR
+      id: create_logging
+      shell: bash
+      run: |
+          az account set --susbscription ${{ env.mgSubscriptionId }}
+          az group create --name ${{ env.mgResourceGroup }} --location ${{ env.Location }}
+          az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
 
-    # - name: Az CLI Default ALZ Policy assignments
-    #   id: create_policy_assignment_dine
-    #   shell: bash
-    #   run: |
-    #       az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parLogAnalyticsWorkSpaceAndAutomationAccountLocation=${{ env.Location }} parLogAnalyticsWorkspaceResourceId="/subscriptions/${{ env.mgSubscriptionId }}/resourceGroups/${{ env.mgResourceGroup }}/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones" 
+    - name: Az CLI Default ALZ Policy assignments
+      id: create_policy_assignment_dine
+      shell: bash
+      run: |
+          az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parLogAnalyticsWorkSpaceAndAutomationAccountLocation=${{ env.Location }} parLogAnalyticsWorkspaceResourceId="/subscriptions/${{ env.mgSubscriptionId }}/resourceGroups/${{ env.mgResourceGroup }}/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones" 
 
-    # - name: Az CLI Monitor Policy initiative assignments
-    #   id: assign_monitor_policy_initiatives
-    #   shell: bash
-    #   run: |
-    #         az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location ${{ env.Location }} --management-group-id ${{ env.identityManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
-    #         az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location ${{ env.Location }} --management-group-id ${{ env.managementManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
-    #         az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location ${{ env.Location }} --management-group-id ${{ env.connectivityManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
-    #         az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location ${{ env.Location }} --management-group-id ${{ env.alzManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}          
+    - name: Az CLI Monitor Policy initiative assignments
+      id: assign_monitor_policy_initiatives
+      shell: bash
+      run: |
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location ${{ env.Location }} --management-group-id ${{ env.identityManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location ${{ env.Location }} --management-group-id ${{ env.managementManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location ${{ env.Location }} --management-group-id ${{ env.connectivityManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location ${{ env.Location }} --management-group-id ${{ env.alzManagementGroup }} --parameters parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}          
           
     - name: Az CLI Subscription Placement for PR
       id: move_sub
