@@ -110,16 +110,16 @@ jobs:
           parLandingZonesCorpMgSubs=("${{ env.spokeSubscriptionId }}")
           az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters @infra-as-code/bicep/orchestration/subPlacementAll/parameters/subPlacementAll.parameters.hubnw.json parPlatformManagementMgSubs='["${{ env.mgSubscriptionId }}"]' parPlatformConnectivityMgSubs='["${{ env.connSubscriptionId }}"]' parLandingZonesCorpMgSubs='["${{ env.spokeSubscriptionId }}"]' parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
-    - name: Az CLI Deploy Hub Networking for PR
-      id: create_hub_network
-      shell: bash
-      run: |
-          az account set --subscription ${{ env.connSubscriptionId }}
-          az group create --name ${{ env.connResourceGroup }} --location ${{ env.Location }}
-          az deployment group create --resource-group ${{ env.connResourceGroup }} --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep --parameters @infra-as-code/bicep/modules/hubNetworking/parameters/hubNetworking.parameters.all.json parLocation=${{ env.Location }} 
+    # - name: Az CLI Deploy Hub Networking for PR
+    #   id: create_hub_network
+    #   shell: bash
+    #   run: |
+    #       az account set --subscription ${{ env.connSubscriptionId }}
+    #       az group create --name ${{ env.connResourceGroup }} --location ${{ env.Location }}
+    #       az deployment group create --resource-group ${{ env.connResourceGroup }} --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep --parameters @infra-as-code/bicep/modules/hubNetworking/parameters/hubNetworking.parameters.all.json parLocation=${{ env.Location }} 
     
-    - name: Az CLI Deploy Spoke Networking for PR
-      id: create_spoke_network
-      shell: bash
-      run: |
-          az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+    # - name: Az CLI Deploy Spoke Networking for PR
+    #   id: create_spoke_network
+    #   shell: bash
+    #   run: |
+    #       az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
