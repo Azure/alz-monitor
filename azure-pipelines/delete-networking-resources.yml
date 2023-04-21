@@ -1,7 +1,7 @@
 name: "Delete Networking Resources"
 
-schedules:
-- cron: '* 0 * * *'
+# schedules:
+# - cron: '* 0 * * *'
 
 trigger: none
 
