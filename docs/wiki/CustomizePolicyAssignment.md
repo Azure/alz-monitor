@@ -8,20 +8,20 @@ As described in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki
 
 ## Modify initiative assignment
 
-As an example you may want to change alert thresholds for one or more metric alerts when assigning initiatives. To do so the specific parameters can be specified in a parameter file. For convenience four parameters files, one for each of the initiatives, containing all the parameters that can be set for each individual alert rule as well as for the alert processing rule policy has been included. Note that you are advised to leverage these as templates for creating your own parameter files as the parameters in these files may change over time, which could potentially have undesirable effects on your alert configurations.
+As an example you may want to change alert thresholds for one or more metric alerts when assigning initiatives. To do so the specific parameters can be specified in a parameter file. For convenience four parameter files, one for each of the initiatives, containing all the parameters that can be set for each individual alert rule as well as for the alert processing rule policy has been included. Note that you are advised to leverage these as templates for creating your own parameter files as the parameters in these files may change over time, which could potentially have undesirable effects on your alert configurations.
 
-### Parameters files
+### parameter files
 
 - [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
 - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
 - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
 - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
 
-### Applying changes to the parameters files
+### Applying changes to the parameter files
 
 If we want to change the threshold value for Virtual Network Gateway Express Route CPU utilization from 80 (default value) to 90, and Virtual Network Gateway Egress traffic from 1 to 1000, what we would do is include this in a parameter file as shown below. These specific thresholds would then be set in the individual policy assignment, while the remaining values for all other policies would remain at default. Note that the parameter file shown below has been truncated for brevity, compared to the samples included.
 
-> The parameters file templates contain the same default values as listed in our documentation. However, be aware that the _Policy assignment parameter reference type​_ will change for all parameters when using the template parameter file, even when a value of a parameter wasn't modified it will appear as a _User defined parameter_ after deployment. This occurs because the parameter is explicitly defined in the parameter file. To avoid this, you can create your own parameters files that only include the parameters that you wish to modify.
+> The parameters file templates contain the same default values as listed in our documentation. However, be aware that the _Policy assignment parameter reference type​_ will change for all parameters when using the template parameter file, even when a value of a parameter wasn't modified it will appear as a _User defined parameter_ after deployment. This occurs because the parameter is explicitly defined in the parameter file. To avoid this, you can create your own parameter files that only include the parameters that you wish to modify.
 
 ```json
 {
@@ -69,7 +69,7 @@ If we want to change the threshold value for Virtual Network Gateway Express Rou
 
 ### Assigning all initiatives with the complete parameter files
 
-After making all the desired changes to the parameters files you can run the following commands to assign the initiatives:
+After making all the desired changes to the parameter files you can run the following commands to assign the initiatives:
 
 #### Azure CLI
 
