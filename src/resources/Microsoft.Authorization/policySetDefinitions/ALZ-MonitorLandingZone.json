@@ -35,6 +35,10 @@
               "Environment": "test"
             }
           },
+          "ALZMonitorResourceGroupLocation": {
+            "type": "String",
+            "defaultValue": "centralus"
+          },
           "KVRequestAlertSeverity": {
             "type": "String",
             "defaultValue": "2",
@@ -742,6 +746,9 @@
               },
               "alertResourceGroupTags": {
                 "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -756,6 +763,9 @@
               },
               "alertResourceGroupTags": {
                 "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -770,6 +780,9 @@
               },
               "alertResourceGroupTags": {
                 "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -783,6 +796,9 @@
               },
               "alertResourceGroupTags": {
                 "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
@@ -797,6 +813,9 @@
               },
               "alertResourceGroupTags": {
                 "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
@@ -812,6 +831,9 @@
               },
               "alertResourceGroupTags": {
                 "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -941,6 +963,9 @@
               },
               "alertResourceGroupTags": {
                 "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
@@ -955,6 +980,9 @@
               },
               "alertResourceGroupTags": {
                 "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_RouteTable_Update')]"

@@ -1,5 +1,13 @@
 # Alerts for Azure Landing Zone
 
+## Disclaimer
+
+Please note that the policies in this GitHub repository are currently in development and may be subject to frequent changes and updates. This means that the functionality and features of the polices may change without notice. As such, you are advised to ensure that the policies are tested thoroughly in a test environment before considering moving to production.
+
+Additionally you are advised to reach out to the authors of this repository to discuss the policies and their suitability for your environment, before deploying them in production. To do so create an issue [here](https://github.com/alz-monitor/issues), and we will get back to you as soon as possible.
+
+By accessing or using the code in this repository, you agree to assume all risks associated with its use and to use it at your own discretion and risk. Microsoft shall not be liable for any damages or losses resulting from the use of this code. For support details, please see the [Support section](https://github.com/Azure/alz-monitor/blob/main/SUPPORT.md).
+
 ## Overview
 
 One of the most common questions faced when working with customers is, "What should we monitor in Azure?" and "What thresholds should we configure our alerts for?"
@@ -69,7 +77,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-> Details on contributing to this repo can be found [here in the wiki](https://github.com/azure/alz-monitor/wiki/Contributing) 👍
+> Details on contributing to this repo can be found [here in the wiki](https://github.com/azure/alz-monitor/wiki/Contributing)
 
 ## Telemetry
 

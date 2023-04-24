@@ -13,6 +13,7 @@ This project serves to define and implement the core Azure Monitor and alerting 
 - [Frequently Asked Questions](https://github.com/Azure/alz-monitor/wiki/FAQ)
 - [Contributing](https://github.com/Azure/alz-monitor/wiki/Contributing)
 - [Telemetry](https://github.com/Azure/alz-monitor/wiki/Telemetry)
-
+- [Known Issues](htttps://github.com/Azure/alz-monitor/wiki/KnownIssues)
+- [Versioning](https://github.com/Azure/alz-monitor/wiki/Versioning)
 
 

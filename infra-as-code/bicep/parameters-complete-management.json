@@ -1,0 +1,110 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "parPolicyManagementGroupId": {
+            "value": "alz"
+        },
+        "parPolicyAssignmentParameters": {
+            "value": {
+                "ALZMonitorResourceGroupName": {
+                    "value": "rg-alz-monitor"
+                },
+                "ALZMonitorResourceGroupTags": {
+                    "value": {
+                        "Project": "alz-monitor"
+                    }
+                },
+                "ALZMonitorResourceGroupLocation": {
+                    "value": "eastus"
+                }
+            }
+        },
+        "parPolicAssignmentParametersAlertProcessing": {
+            "value": {
+                "ALZMonitorActionGroupEmail": {
+                    "value": "action@mail.com"
+                }
+            }
+        },
+        "parPolicyAssignmentParametersManagement": {
+            "value": {
+                "AATotalJobAlertSeverity": {
+                    "value": "2"
+                },
+                "AATotalJobAlertWindowSize": {
+                    "value": "PT5M"
+                },
+                "AATotalJobAlertEvaluationFrequency": {
+                    "value": "PT1M"
+                },
+                "AATotalJobAlertPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "AATotalJobAlertAlertState": {
+                    "value": "true"
+                },
+                "AATotalJobAlertThreshold": {
+                    "value": "20"
+                },
+                "RVBackupHealthAlertSeverity": {
+                    "value": "3"
+                },
+                "RVBackupHealthWindowSize": {
+                    "value": "P1D"
+                },
+                "RVBackupHealthEvaluationFrequency": {
+                    "value": "PT1H"
+                },
+                "RVBackupHealthPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "RVBackupHealthAlertState": {
+                    "value": "true"
+                },
+                "RVBackupHealthThreshold": {
+                    "value": "20"
+                },
+                "StorageAccountAvailabilityAlertSeverity": {
+                    "value": "1"
+                },
+                "StorageAccountAvailabilityWindowSize": {
+                    "value": "PT5M"
+                },
+                "StorageAccountAvailabilityFrequency": {
+                    "value": "PT5M"
+                },
+                "StorageAccountAvailabilityPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "StorageAccountAvailabilityAlertState": {
+                    "value": "true"
+                },
+                "StorageAccountAvailabilityThreshold": {
+                    "value": "90"
+                },
+                "ResHlthUnhealthyAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthAdvisoryAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthIncidentAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthMaintenanceAlertState": {
+                    "value": "true"
+                },
+                "svcHlthSecAdvisoryAlertState": {
+                    "value": "true"
+                },
+                "activityLAWDeleteAlertState": {
+                    "value": "true"
+                },
+                "activityLAWKeyRegenAlertState": {
+                    "value": "true"
+                }
+            }
+        }
+    }
+}
