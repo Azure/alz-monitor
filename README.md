@@ -1,5 +1,13 @@
 # Alerts for Azure Landing Zone
 
+## Disclaimer
+
+Please note that the policies in this GitHub repository are currently in development and may be subject to frequent changes and updates. This means that the functionality and features of the polices may change without notice. As such, you are advised to ensure that the policies are tested thoroughly in a test environment before considering moving to production.
+
+Additionally you are advised to reach out to the authors of this repository to discuss the policies and their suitability for your environment, before deploying them in production. To do so create an issue [here](https://github.com/alz-monitor/issues), and we will get back to you as soon as possible.
+
+By accessing or using the code in this repository, you agree to assume all risks associated with its use and to use it at your own discretion and risk. Microsoft shall not be liable for any damages or losses resulting from the use of this code. For support details, please see the [Support section](https://github.com/Azure/alz-monitor/blob/main/SUPPORT.md).
+
 ## Overview
 
 One of the most common questions faced when working with customers is, "What should we monitor in Azure?" and "What thresholds should we configure our alerts for?"
@@ -8,8 +16,8 @@ There isn't definitive list of what you should monitor when you deploy something
 
 Microsoft has tried to address this by providing a number of 'insights or solutions' for popular services which pull together all the things you should care about ([Storage Insights](https://learn.microsoft.com/en-us/azure/storage/common/storage-insights-overview), [VM Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-overview), [Container Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-overview)); but what about everything else???
 
-The purpose of this project is to focus on monitoring for Azure Landing Zone as a common set of Azure resources/services that are configured in a similar way across organizations. This provided us with a starting point on addressing "What should be monitored in Azure?" It also provides an example of how to monitor-at-scale while leveraging Infrastructure-as-code principles.
-This project is an opinionated view on what you should monitor for the key components of your Azure Landing Zone within the Platform scope. i.e:
+The purpose of this project is to focus on monitoring for Azure Landing Zone as a common set of Azure resources/services that are configured in a similar way across organizations. We know that every organization is different, as such we also include guidance on how this can be used in custom brownfield scenarios that don´t align with ALZ. This provided us with a starting point on addressing "What should be monitored in Azure?" It also provides an example of how to monitor-at-scale while leveraging Infrastructure-as-code principles.
+This project is an opinionated view on what you should monitor for the key components of your Azure Landing Zone within the Platform and Landing Zone scope. i.e:
 
 - Express Route Circuits
 - Express Route Gateways
@@ -51,7 +59,7 @@ Please see the [Frequently Asked Questions](https://github.com/Azure/alz-monitor
 
 ## Dependencies
 
-This project uses the bicep modules from the [CARML](https://github.com/Azure/ResourceModules), version [0.7.0](https://github.com/Azure/ResourceModules/releases/tag/v0.7.0), and the modules from [ALZ-Bicep](https://github.com/Azure/ALZ-Bicep/tree/main/infra-as-code/bicep), version [0.10.2](https://github.com/Azure/ALZ-Bicep/releases/tag/v0.10.2). As the primary goal of the project is to provide policy baselines for consumption by reference ALZ implementations as well as potentially implementations not aligned to ALZ, these modules are unlikely to change from a repo standpoint, and will indeed be completely disconnected onmce moving to ALZ reference implementations, since baselines there are all JSON by necessity.
+This project uses the bicep modules from the [CARML](https://github.com/Azure/ResourceModules), version [0.7.0](https://github.com/Azure/ResourceModules/releases/tag/v0.7.0), and the modules from [ALZ-Bicep](https://github.com/Azure/ALZ-Bicep/tree/main/infra-as-code/bicep), version [0.10.2](https://github.com/Azure/ALZ-Bicep/releases/tag/v0.10.2). As the primary goal of the project is to provide policy baselines for consumption by reference ALZ implementations as well as implementations not aligned to ALZ, these modules are unlikely to change from a repo standpoint, and will indeed be completely disconnected once moving to ALZ reference implementations, since baselines there are all JSON by necessity.
 
 ## Contributing
 
