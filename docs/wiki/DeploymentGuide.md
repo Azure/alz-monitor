@@ -9,10 +9,12 @@ This guide describes how to get started with implementing alert policies and ini
 
 The repo at present contains code and details for the following:
 
+
 - Policies to automatically create alerts, action groups and alert processing rules for different Azure resource types, centered around a recommended Azure Monitor Baseline for Alerting in a customers´ newly created or existing brownfield ALZ deployment.
 - Initiatives grouping said policies into appropriate buckets for ease of policy assignment in alignment with ALZ Platform structure (Networking, Identity and Management).
 
 Alerts, action groups and alert processing rules are created as follows:
+
 
 1. All metric alerts are created in the resource group where the resource that is being monitored exists. i.e. creating an ER circuit in a resource group covered by the policies will create the corresponding alerts in that same resource group.
 2. Activity log alerts are created in a specific resource group (created specifically by and used for this solution) in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
@@ -20,6 +22,7 @@ Alerts, action groups and alert processing rules are created as follows:
 4. Action groups and alert processing rules are created in a specific resource group (created specifically by and used for this solution) in each subscription, when the subscription is deployed. The resource group name is parameterized, with a default value of AlzMonitoring-rg.
 
 ## Prerequisites
+
 
 1. Azure Active Directory Tenant.
 2. ALZ Management group hierarchy deployed as described [here](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-areas).*
@@ -375,14 +378,25 @@ The policies are all deploy-if-not-exists, by default, meaning that any new depl
 If you are in a brownfield scenario on the other hand, policies will be reporting non-compliance for resources in scope, but to remediate non-compliant resources you will need to initiate remediation. This can be done either through the portal, on a policy-by-policy basis or you can run the script found in .github/script/Start-ALZMonitorRemediation to remediate all ALZ-Monitor policies in scope as defined by management group pre-fix. To use the script do the following:
 - Log on to Azure PowerShell with an account with at least Resource Policy Contributor permissions at the pseudo-root management group level
 - Navigate to the root of the cloned repo
-- To remediate for example the Alerting-Management initiative, assigned to the alz-platform-management Management Group run the following command: .github\script\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policySetName Alerting-Management.
-- The script will return the output from the rest api calls which should be a status code 201. 
+- To remediate for example the Alerting-Management initiative, assigned to the alz-platform-management Management Group run the following command: .github\script\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Alerting-Management.
+- The script will return the output from the rest api calls which should be a status code 201. If the script fails, check the error message and ensure that the management group name and policy name are correct.
 - After running the script you should be able to see a number of remediation tasks initiated at the alz-platform-management.
+For convenience, assuming that the management hierarchy is fully aligned to ALZ, below are the commands required to remediate all policies assigned through the guidance provided in this repo:
+
+```powershell
+.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Alerting-Management
+.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Alerting-Connectivity
+.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Alerting-Identity
+.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-landingzones -policyName Alerting-LandingZones
+.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Deploy_AlertProcessing_Rule
+.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Deploy_AlertProcessing_Rule
+.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Deploy_AlertProcessing_Rule
+.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-landingzones -policyName Deploy_AlertProcessing_Rule
+```
 
 ## Customizing policy assignments
 
 As mentioned previously the above guidance will deploy policies, alerts and action groups with default settings. For details on how to customize policy and in particular initiative assignments please refer to [Customize Policy Assignment](https://github.com/Azure/alz-monitor/wiki/CustomizePolicyAssignment)
-
 
 ## Customizing the `ALZ-Monitor` policies
 
@@ -403,4 +417,3 @@ If you wish to disable monitoring for a resource or for alerts targeted at subsc
 > 
 > If you wish to, also feel free to submit a pull request relating to the issue which we can review and work with you to potentially implement the suggestion/feature request. 
 <!-- markdownlint-restore -->
-
