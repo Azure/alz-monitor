@@ -2,7 +2,7 @@
 
 This page lists the major changes and updates to this repository. For more detailed information about each release, please refer to the [Releases page](https://github.com/Azure/alz-monitor/releases).
 
-## 1.0.0 - Initial release
+## 0.1.1 - Initial release
 
 Switching repo to public visibility
 
