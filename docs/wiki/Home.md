@@ -6,6 +6,7 @@ This project serves to define and implement the core Azure Monitor and alerting 
 
 ## Navigation
 - [Wiki Home](https://github.com/Azure/alz-monitor/wiki/Home)
+- [What's New](https://github.com/Azure/alz-monitor/wiki/WhatsNew)
 - [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide)
 - [Monitoring and Alerting](https://github.com/Azure/alz-monitor/wiki/MonitoringAndAlerting)
 - [Alert Details](https://github.com/Azure/alz-monitor/wiki/AlertsDetails)
