@@ -13,12 +13,17 @@ env:
   Location: "norwayeast"
   ManagementGroupPrefix: "hubnw"
   TopLevelManagementGroupDisplayName: "Hub Networking management group hierarchy"
+  identityManagementGroup: "hubnw-platform-identity"
+  managementManagementGroup: "hubnw-platform-management"
+  connectivityManagementGroup: "hubnw-platform-connectivity"
+  alzManagementGroup: "hubnw-landingzones"
   mgSubscriptionId: ${{ secrets.HUBNW_MGMT_SUBSCRIPTIONID }}
   mgResourceGroup: "hubnw-mgmt"
   connSubscriptionId: ${{ secrets.HUBNW_CONNECTIVITY_SUBSCRIPTIONID }}
   connResourceGroup: "hubnw-connectivity"
   spokeSubscriptionId: ${{ secrets.HUBNW_SPOKE_SUBSCRIPTIONID }}
   spokeResourceGroup: "spoke-connectivity"
+  idSubscriptionId: ${{ secrets.HUBNW_IDENTITY_SUBSCRIPTIONID }}
 
   
 jobs:
@@ -63,7 +68,16 @@ jobs:
       shell: bash
       run: |
           az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
-    
+
+    - name: Az CLI Deploy Monitor Policy Initiatives
+      id: create_monitor_policy_initiatives
+      shell: bash
+      run: |
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+
     - name: Az CLI Deploy Logging for PR
       id: create_logging
       shell: bash
@@ -78,17 +92,20 @@ jobs:
       run: |
           az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} parLogAnalyticsWorkSpaceAndAutomationAccountLocation=${{ env.Location }} parLogAnalyticsWorkspaceResourceId="/subscriptions/${{ env.mgSubscriptionId }}/resourceGroups/${{ env.mgResourceGroup }}/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" --location ${{ env.Location }} --management-group-id "${{ env.ManagementGroupPrefix }}-landingzones" 
 
-    - name: Az CLI Monitor Policy assignments
-      id: create_monitor_policy_assignment_dine
+    - name: Az CLI Monitor Policy initiative assignments
+      id: assign_monitor_policy_initiatives
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/policyAssignDeploy.bicep --parameters parTargetManagementGroupId=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location ${{ env.Location }} --management-group-id ${{ env.identityManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-identity.json
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location ${{ env.Location }} --management-group-id ${{ env.managementManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-management.json
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location ${{ env.Location }} --management-group-id ${{ env.connectivityManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location ${{ env.Location }} --management-group-id ${{ env.alzManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json          
 
     - name: Az CLI Subscription Placement for PR
       id: move_sub
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters @infra-as-code/bicep/orchestration/subPlacementAll/parameters/subPlacementAll.parameters.hubnw.json parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters  parPlatformManagementMgSubs='["${{ env.mgSubscriptionId }}"]' parPlatformConnectivityMgSubs='["${{ env.connSubscriptionId }}"]' parLandingZonesCorpMgSubs='["${{ env.spokeSubscriptionId }}"]' parPlatformIdentityMgSubs='["${{ env.idSubscriptionId }}"]' parTopLevelManagementGroupPrefix=${{ env.ManagementGroupPrefix }} --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
 
     - name: Az CLI Deploy Hub Networking for PR
       id: create_hub_network
@@ -102,4 +119,4 @@ jobs:
       id: create_spoke_network
       shell: bash
       run: |
-          az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json parPeeredVnetSubscriptionId=${{ env.spokeSubscriptionId }} parHubVirtualNetworkId="/subscriptions/${{ env.connSubscriptionId }}/resourceGroups/hubnw-connectivity/providers/Microsoft.Network/virtualNetworks/alz-hub-eastus" --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
