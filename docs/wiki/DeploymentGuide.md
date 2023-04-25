@@ -373,6 +373,108 @@ Run only the commands that correspond to your management group hierarchy.
   New-AzManagementGroupDeployment -ManagementGroupId $LZManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-landingzones.json
 ```
 
+## Azure Devops Pipelines Deployment
+
+### Prerequisites
+
+1. Azure Active Directory Tenant.
+2. ALZ Management group hierarchy deployed as described [here](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-areas).
+3. Minimum 1 subscription, for when deploying alerts through policies. 
+4. Deployment Identity with `Owner` permission to the pseudo root management group.  Owner permission is required to allow the Service Principal Account to create role-based access control assignments.
+5. Azure Devops connected to your ALZ Implementation
+
+### Build Pipelines
+
+To use Azure Devops Pipelines fork or download github contents and import into your Azure Devops repo environment. An example build pipeline is provided in [sample-azdo-build.yml](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-azdo-build-workflow.yml)
+
+This buiild pipeline is provided as an example. For production use you may want to modify: trigger, pool & vmImage, display names as well as another other fields as required. As well adding checks like pester checks or other validations.
+
+### Az CLI Release Pipeline
+Once you have a successful Build Pipeline, you need to create a Release Pipeline to deploy the Azure Policies.
+
+#### Create Release Pipeline
+
+- In Pipelines, navigate to Releases and select New, New release pipeline.
+- Select Empty Job
+- Name the Stage
+- Select Add an Artificat
+- Select your Source, from the Build Pipeline
+- Set default version
+- Set Source Alias. In these examples the source Alias is _ALZ. If you wish to change this you will need to update the yaml file accordingly.
+- Click Add
+
+#### Define Variables
+In your newly created Release Pipeline, select Variables.  
+    Add the following:
+- connectivityManagementGroup
+- identityManagementGroup
+- managementManagementGroup
+- rootManagementGroup (the psuedo root, not the actual root Management Group)
+- location
+Use the corresponding management group names and location relevant to your Azure Tenant.
+
+#### Create Azure CLI Tasks
+
+#### Initial Pipeline Creation
+- In the Release Pipeline select Edit Tasks
+- On agent job click the plus and search for Azure CLI, add it to the pipeline
+- Name the Task
+
+#### Deploy Policy Definitions
+- Select Azure Resource Manager connection
+- for Script Type select Shell
+- for Script Location select Inline script.
+- in the Inline Script box paste in:  
+
+```bash
+az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/_ALZ/drop/infra-as-code/bicep/assign_initiatives_landingzones.bicep --location' --location $(location) --management-group-id $(rootManagementGroup) --parameters '$(System.DefaultWorkingDirectory)/_ALZ/drop/infra-as-code/bicep/parameters-complete-landingzones.json'
+```
+- Save the pipeline
+> Note, if you used a different Alias and published artifact name, you will need to modify the file path after the Default Working Directory.
+
+#### Deploy Policy Initiatives
+- Add a new Azure CLI Task, or clone the first task
+- Set all settings the same is the first task
+- In the Inline Script box paste in:
+
+```bash
+az deployment mg create --template-file '$(System.DefaultWorkingDirectory)/_ALZ/drop/src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json' --location $(location) --management-group-id $(connectivityManagementGroup)
+az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/_ALZ/drop/src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json' --location $(location) --management-group-id $(identityManagementGroup)
+az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/_ALZ/drop/src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json' --location $(location) --management-group-id $(managementManagementGroup)
+    
+```
+- Save the pipeline
+
+> Note, if you used a different Alias and published artifact name, you will need to modify the file path after the Default Working Directory.
+
+#### Assign Policy Initiatives
+- Add a new Azure CLI Task, or clone the other two tasks
+- Set all settings the same is the first task
+- In the Inline Script box paste in:
+```bash
+az deployment mg create --template-file '$(System.DefaultWorkingDirectory)/_ALZ/drop/infra-as-code/bicep/assign_initiatives_connectivity.bicep' --location $(location) --management-group-id $(connectivityManagementGroup) 
+az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/_ALZ/drop/infra-as-code/bicep/assign_initiatives_identity.bicep' --location $(location) --management-group-id $(identityManagementGroup) 
+az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/_ALZ/drop/infra-as-code/bicep/assign_initiatives_management.bicep' --location $(location) --management-group-id $(managementManagementGroup) 
+az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/_ALZ/drop/infra-as-code/bicep/assign_initiatives_landingzones.bicep --location' --location $(location) --management-group-id $(rootManagementGroup)
+```
+- Save the pipeline
+> Note, you can use parameter files provided or your own parameters file as well.
+If you used a different Alias and published artifact name, you will need to modify the file path after the Default Working Directory.
+- Save the pipeline
+
+
+#### Create Release
+- Select Create release from the top right 
+- select your trigger
+- source alias should match the source alias from the build pipeline. In this example its _ALZ
+- set version to use as the newest that is available
+- Click create
+
+#### Test Release Pipeline
+- select newly created release
+- Deploy from either the Drop down at the top or by clicking the stage and selecting deploy
+
+
 ## Policy remediation
 The policies are all deploy-if-not-exists, by default, meaning that any new deployments will be influenced by them. Therefore, if you are deploying in a greenfield scenario and will afterwards be deploying any of the covered resource types, including subscriptions, then the policies will take effect and the relevant alert rules, action groups and alert processing rules will be created. 
 If you are in a brownfield scenario on the other hand, policies will be reporting non-compliance for resources in scope, but to remediate non-compliant resources you will need to initiate remediation. This can be done either through the portal, on a policy-by-policy basis or you can run the script found in .github/script/Start-ALZMonitorRemediation to remediate all ALZ-Monitor policies in scope as defined by management group pre-fix. To use the script do the following:
