@@ -1,6 +1,7 @@
 targetScope = 'managementGroup'
 
 param parResourceGroupName string = 'AlzMonitoring-rg'
+param parResourceGroupLocation string = 'centralus'
 param parActionGroupEmail string = 'action@mail.com'
 param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
@@ -26,7 +27,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
       _deployed_by_alz_monitor: 'True'
     }
     parameters: {
-      alertResourceGroupName: {
+      ALZMonitorResourceGroupName: {
         type: 'String'
         metadata: {
           displayName: 'Resource Group Name'
@@ -34,7 +35,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
         }
         defaultValue: parResourceGroupName
       }
-      alertResourceGroupTags: {
+      ALZMonitorResourceGroupTags: {
         type: 'Object'
         metadata: {
           displayName: 'Resource Group Tags'
@@ -42,7 +43,22 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
         }
         defaultValue: parResourceGroupTags
       }
-
+      ALZMonitorResourceGroupLocation: {
+        type: 'String'
+        metadata: {
+          displayName: 'Resource Group Location'
+          description: 'Location of the Resource group the alert is placed in'
+        }
+        defaultValue: parResourceGroupLocation
+      }
+      ALZMonitorActionGroupEmail: {
+        type: 'String'
+        metadata: {
+          displayName: 'Action Group Email'
+          description: 'Email address to send alerts to'
+        }
+        defaultValue: parActionGroupEmail
+      }
       MonitorDisable: {
         type: 'String'
         metadata: {
@@ -73,7 +89,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
           roleDefinitionIds: deploymentRoleDefinitionIds
           type: 'Microsoft.AlertsManagement/actionRules'
           existenceScope: 'resourcegroup'
-          resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
+          resourceGroupName: '[parameters(\'ALZMonitorResourceGroupName\')]'
           deploymentScope: 'subscription'
           existenceCondition: {
             allOf: [
@@ -93,11 +109,17 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                 contentVersion: '1.0.0.0'
                 parameters: {
-                  alertResourceGroupName: {
+                  ALZMonitorResourceGroupName: {
                     type: 'string'
                   }
-                  alertResourceGroupTags: {
+                  ALZMonitorResourceGroupTags: {
                     type: 'object'
+                  }
+                  ALZMonitorResourceGroupLocation: {
+                    type: 'string'
+                  }
+                  ALZMonitorActionGroupEmail: {
+                    type: 'string'
                   }
                   policyLocation: {
                     type: 'string'
@@ -109,17 +131,17 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                   {
                     type: 'Microsoft.Resources/resourceGroups'
                     apiVersion: '2021-04-01'
-                    name: '[parameters(\'alertResourceGroupName\')]'
-                    location: policyLocation
-                    tags: '[parameters(\'alertResourceGroupTags\')]'
+                    name: '[parameters(\'ALZMonitorResourceGroupName\')]'
+                    location: '[parameters(\'ALZMonitorResourceGroupLocation\')]'
+                    tags: '[parameters(\'ALZMonitorResourceGroupTags\')]'
                   }
                   {
                     type: 'Microsoft.Resources/deployments'
                     apiVersion: '2019-10-01'
                     name: 'ActionGroupDeployment'
-                    resourceGroup: '[parameters(\'alertResourceGroupName\')]'
+                    resourceGroup: '[parameters(\'ALZMonitorResourceGroupName\')]'
                     dependsOn: [
-                      '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
+                      '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'ALZMonitorResourceGroupName\'))]'
                     ]
                     properties: {
                       mode: 'Incremental'
@@ -127,7 +149,10 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                         '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                         contentVersion: '1.0.0.0'
                         parameters: {
-                          alertResourceGroupName: {
+                          ALZMonitorResourceGroupName: {
+                            type: 'string'
+                          }
+                          ALZMonitorActionGroupEmail: {
                             type: 'string'
                           }
                         }
@@ -147,7 +172,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                               emailReceivers: [
                                 {
                                   name: 'AlzMail'
-                                  emailAddress: parActionGroupEmail
+                                  emailAddress: '[parameters(\'ALZMonitorActionGroupEmail\')]'
                                   useCommonAlertSchema: true
 
                                 }
@@ -184,8 +209,11 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                         ]
                       }
                       parameters: {
-                        alertResourceGroupName: {
-                          value: '[parameters(\'alertResourceGroupName\')]'
+                        ALZMonitorResourceGroupName: {
+                          value: '[parameters(\'ALZMonitorResourceGroupName\')]'
+                        }
+                        ALZMonitorActionGroupEmail: {
+                          value: '[parameters(\'ALZMonitorActionGroupEmail\')]'
                         }
                       }
                     }
@@ -193,11 +221,17 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                 ]
               }
               parameters: {
-                alertResourceGroupName: {
-                  value: '[parameters(\'alertResourceGroupName\')]'
+                ALZMonitorResourceGroupName: {
+                  value: '[parameters(\'ALZMonitorResourceGroupName\')]'
                 }
-                alertResourceGroupTags: {
-                  value: '[parameters(\'alertResourceGroupTags\')]'
+                ALZMonitorResourceGroupTags: {
+                  value: '[parameters(\'ALZMonitorResourceGroupTags\')]'
+                }
+                ALZMonitorResourceGroupLocation: {
+                  value: '[parameters(\'ALZMonitorResourceGroupLocation\')]'
+                }
+                ALZMonitorActionGroupEmail: {
+                  value: '[parameters(\'ALZMonitorActionGroupEmail\')]'
                 }
               }
             }

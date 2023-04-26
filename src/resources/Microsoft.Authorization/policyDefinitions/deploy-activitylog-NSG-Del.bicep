@@ -1,6 +1,7 @@
 targetScope = 'managementGroup'
 
 param parResourceGroupName string = 'AlzMonitoring-rg'
+param parResourceGroupLocation string = 'centralus'
 param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
@@ -56,6 +57,14 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                     description: 'Tags on the Resource group the alert is placed in'
                 }
                 defaultValue: parResourceGroupTags
+            }
+            alertResourceGroupLocation: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Resource Group Location'
+                    description: 'Location of the Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupLocation
             }
 
             MonitorDisable: {
@@ -147,6 +156,9 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                                     alertResourceGroupTags: {
                                         type: 'object'
                                     }
+                                    alertResourceGroupLocation: {
+                                        type: 'string'
+                                    }
                                     policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
@@ -161,7 +173,7 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
                                         name: '[parameters(\'alertResourceGroupName\')]'
-                                        location: policyLocation
+                                        location: '[parameters(\'alertResourceGroupLocation\')]'
                                         tags: '[parameters(\'alertResourceGroupTags\')]'
                                     }
                                     {
@@ -249,6 +261,9 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                                 }
                                 alertResourceGroupTags: {
                                     value: '[parameters(\'alertResourceGroupTags\')]'
+                                }
+                                alertResourceGroupLocation: {
+                                    value: '[parameters(\'alertResourceGroupLocation\')]'
                                 }
                             }
                         }

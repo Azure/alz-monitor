@@ -2,6 +2,7 @@ targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
 param parResourceGroupName string = 'AlzMonitoring-rg'
+param parResourceGroupLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -55,6 +56,14 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                     description: 'Tags on the Resource group the alert is placed in'
                 }
                 defaultValue: parResourceGroupTags
+            }
+            alertResourceGroupLocation: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Resource Group Location'
+                    description: 'Location of the Resource group the alert is placed in'
+                }
+                defaultValue: parResourceGroupLocation
             }
 
             MonitorDisable: {
@@ -144,6 +153,9 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                                     alertResourceGroupTags: {
                                         type: 'object'
                                     }
+                                    alertResourceGroupLocation: {
+                                        type: 'string'
+                                    }
                                     policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
@@ -158,7 +170,7 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                                         type: 'Microsoft.Resources/resourceGroups'
                                         apiVersion: '2021-04-01'
                                         name: '[parameters(\'alertResourceGroupName\')]'
-                                        location: policyLocation
+                                        location: '[parameters(\'alertResourceGroupLocation\')]'
                                         tags: '[parameters(\'alertResourceGroupTags\')]'
                                     }
                                     {
@@ -240,6 +252,9 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
                                 }
                                 alertResourceGroupTags: {
                                     value: '[parameters(\'alertResourceGroupTags\')]'
+                                }
+                                alertResourceGroupLocation: {
+                                    value: '[parameters(\'alertResourceGroupLocation\')]'
                                 }
                             }
                         }

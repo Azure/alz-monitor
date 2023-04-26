@@ -4,14 +4,18 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.15.31.15270",
-      "templateHash": "194623550156179011"
+      "version": "0.16.2.56959",
+      "templateHash": "17635715071674947074"
     }
   },
   "parameters": {
     "parResourceGroupName": {
       "type": "string",
       "defaultValue": "AlzMonitoring-rg"
+    },
+    "parResourceGroupLocation": {
+      "type": "string",
+      "defaultValue": "centralus"
     },
     "parActionGroupEmail": {
       "type": "string",
@@ -41,7 +45,7 @@
   "resources": [
     {
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2020-10-01",
+      "apiVersion": "2022-09-01",
       "name": "[format('{0}-shi-policyDefinitions', uniqueString(deployment().name))]",
       "location": "[deployment().location]",
       "properties": {
@@ -71,7 +75,7 @@
           },
           "parameters": {
             "value": {
-              "alertResourceGroupName": {
+              "ALZMonitorResourceGroupName": {
                 "type": "String",
                 "metadata": {
                   "displayName": "Resource Group Name",
@@ -79,13 +83,29 @@
                 },
                 "defaultValue": "[parameters('parResourceGroupName')]"
               },
-              "alertResourceGroupTags": {
+              "ALZMonitorResourceGroupTags": {
                 "type": "Object",
                 "metadata": {
                   "displayName": "Resource Group Tags",
                   "description": "Tags on the Resource group the alert is placed in"
                 },
                 "defaultValue": "[parameters('parResourceGroupTags')]"
+              },
+              "ALZMonitorResourceGroupLocation": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Resource Group Location",
+                  "description": "Location of the Resource group the alert is placed in"
+                },
+                "defaultValue": "[parameters('parResourceGroupLocation')]"
+              },
+              "ALZMonitorActionGroupEmail": {
+                "type": "String",
+                "metadata": {
+                  "displayName": "Action Group Email",
+                  "description": "Email address to send alerts to"
+                },
+                "defaultValue": "[parameters('parActionGroupEmail')]"
               },
               "MonitorDisable": {
                 "type": "String",
@@ -117,7 +137,7 @@
                   "roleDefinitionIds": "[parameters('deploymentRoleDefinitionIds')]",
                   "type": "Microsoft.AlertsManagement/actionRules",
                   "existenceScope": "resourcegroup",
-                  "resourceGroupName": "[[parameters('alertResourceGroupName')]",
+                  "resourceGroupName": "[[parameters('ALZMonitorResourceGroupName')]",
                   "deploymentScope": "subscription",
                   "existenceCondition": {
                     "allOf": [
@@ -135,11 +155,17 @@
                         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                         "contentVersion": "1.0.0.0",
                         "parameters": {
-                          "alertResourceGroupName": {
+                          "ALZMonitorResourceGroupName": {
                             "type": "string"
                           },
-                          "alertResourceGroupTags": {
+                          "ALZMonitorResourceGroupTags": {
                             "type": "object"
+                          },
+                          "ALZMonitorResourceGroupLocation": {
+                            "type": "string"
+                          },
+                          "ALZMonitorActionGroupEmail": {
+                            "type": "string"
                           },
                           "policyLocation": {
                             "type": "string",
@@ -151,17 +177,17 @@
                           {
                             "type": "Microsoft.Resources/resourceGroups",
                             "apiVersion": "2021-04-01",
-                            "name": "[[parameters('alertResourceGroupName')]",
-                            "location": "[parameters('policyLocation')]",
-                            "tags": "[[parameters('alertResourceGroupTags')]"
+                            "name": "[[parameters('ALZMonitorResourceGroupName')]",
+                            "location": "[[parameters('ALZMonitorResourceGroupLocation')]",
+                            "tags": "[[parameters('ALZMonitorResourceGroupTags')]"
                           },
                           {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "name": "ActionGroupDeployment",
-                            "resourceGroup": "[[parameters('alertResourceGroupName')]",
+                            "resourceGroup": "[[parameters('ALZMonitorResourceGroupName')]",
                             "dependsOn": [
-                              "[[concat('Microsoft.Resources/resourceGroups/', parameters('alertResourceGroupName'))]"
+                              "[[concat('Microsoft.Resources/resourceGroups/', parameters('ALZMonitorResourceGroupName'))]"
                             ],
                             "properties": {
                               "mode": "Incremental",
@@ -169,7 +195,10 @@
                                 "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                                 "contentVersion": "1.0.0.0",
                                 "parameters": {
-                                  "alertResourceGroupName": {
+                                  "ALZMonitorResourceGroupName": {
+                                    "type": "string"
+                                  },
+                                  "ALZMonitorActionGroupEmail": {
                                     "type": "string"
                                   }
                                 },
@@ -186,7 +215,7 @@
                                       "emailReceivers": [
                                         {
                                           "name": "AlzMail",
-                                          "emailAddress": "[parameters('parActionGroupEmail')]",
+                                          "emailAddress": "[[parameters('ALZMonitorActionGroupEmail')]",
                                           "useCommonAlertSchema": true
                                         }
                                       ]
@@ -219,8 +248,11 @@
                                 ]
                               },
                               "parameters": {
-                                "alertResourceGroupName": {
-                                  "value": "[[parameters('alertResourceGroupName')]"
+                                "ALZMonitorResourceGroupName": {
+                                  "value": "[[parameters('ALZMonitorResourceGroupName')]"
+                                },
+                                "ALZMonitorActionGroupEmail": {
+                                  "value": "[[parameters('ALZMonitorActionGroupEmail')]"
                                 }
                               }
                             }
@@ -228,11 +260,17 @@
                         ]
                       },
                       "parameters": {
-                        "alertResourceGroupName": {
-                          "value": "[[parameters('alertResourceGroupName')]"
+                        "ALZMonitorResourceGroupName": {
+                          "value": "[[parameters('ALZMonitorResourceGroupName')]"
                         },
-                        "alertResourceGroupTags": {
-                          "value": "[[parameters('alertResourceGroupTags')]"
+                        "ALZMonitorResourceGroupTags": {
+                          "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+                        },
+                        "ALZMonitorResourceGroupLocation": {
+                          "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+                        },
+                        "ALZMonitorActionGroupEmail": {
+                          "value": "[[parameters('ALZMonitorActionGroupEmail')]"
                         }
                       }
                     }
@@ -248,8 +286,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.15.31.15270",
-              "templateHash": "18014497053520809482"
+              "version": "0.16.2.56959",
+              "templateHash": "4565435729572538973"
             }
           },
           "parameters": {
@@ -365,24 +403,24 @@
           "outputs": {
             "name": {
               "type": "string",
-              "value": "[parameters('name')]",
               "metadata": {
                 "description": "Policy Definition Name."
-              }
+              },
+              "value": "[parameters('name')]"
             },
             "resourceId": {
               "type": "string",
-              "value": "[extensionResourceId(tenantResourceId('Microsoft.Management/managementGroups', parameters('managementGroupId')), 'Microsoft.Authorization/policyDefinitions', parameters('name'))]",
               "metadata": {
                 "description": "Policy Definition resource ID."
-              }
+              },
+              "value": "[extensionResourceId(tenantResourceId('Microsoft.Management/managementGroups', parameters('managementGroupId')), 'Microsoft.Authorization/policyDefinitions', parameters('name'))]"
             },
             "roleDefinitionIds": {
               "type": "array",
-              "value": "[if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then, 'details'), if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then.details, 'roleDefinitionIds'), reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then.details.roleDefinitionIds, createArray()), createArray())]",
               "metadata": {
                 "description": "Policy Definition Role Definition IDs."
-              }
+              },
+              "value": "[if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then, 'details'), if(contains(reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then.details, 'roleDefinitionIds'), reference(extensionResourceId(managementGroup().id, 'Microsoft.Authorization/policyDefinitions', parameters('name')), '2021-06-01').policyRule.then.details.roleDefinitionIds, createArray()), createArray())]"
             }
           }
         }

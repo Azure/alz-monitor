@@ -1,0 +1,156 @@
+name: "Delete Networking Resources"
+
+schedules:
+- cron: '0 0 * * *'
+  displayName: Daily midnight build
+  branches:
+    include:
+    - main
+  always: true
+
+trigger: none
+
+variables:
+  - group: csu-alz-monitor
+
+jobs:
+  - job: HubNW_delete
+    displayName: Delete network resources and related artifacts from hubnw
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: AzurePowerShell@5
+        displayName: Delete hubnw management group deployments
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzManagementGroupDeployment -ManagementGroupId $(hubManagementGroup) | Remove-AzManagementGroupDeployment -AsJob
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+
+      - task: AzurePowerShell@5
+        displayName: Delete Hub Network
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Select-AzSubscription -SubscriptionName "$(hubSubscription)"
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true        
+
+      - task: AzurePowerShell@5
+        displayName: Delete Hub spoke Network
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Select-AzSubscription -SubscriptionName "$(hubSpokeSubscription)"
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force 
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true        
+
+      - task: AzurePowerShell@5
+        displayName: Delete Hub/spoke monitor policy assignments
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-identity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-connectivity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-platform-management | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/hubnw-landingzones | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+      
+      - task: AzurePowerShell@5
+        displayName: Delete Hub/spoke monitor policy Initiatives
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicySetDefinition -ManagementGroupName hubnw | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicySetDefinition -Id $PSItem.ResourceId -Force}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+
+      - task: AzurePowerShell@5
+        displayName: Delete Hub/spoke monitor policy definitions
+        inputs:
+          azureSubscription: hubnwconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicyDefinition -ManagementGroupName hubnw | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+
+  - job: vwan_delete
+    displayName: Delete network resources and related artifacts from vwan
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: AzurePowerShell@5
+        displayName: Delete vwan management group deployments
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzManagementGroupDeployment -ManagementGroupId $(vwanManagementGroup) | Remove-AzManagementGroupDeployment -AsJob
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+      
+      - task: AzurePowerShell@5
+        displayName: Delete vwan Network
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Select-AzSubscription -SubscriptionName "$(vwanSubscription)"
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true        
+
+      - task: AzurePowerShell@5
+        displayName: Delete vwan spoke Network
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Select-AzSubscription -SubscriptionName "$(vwanSpokeSubscription)"
+            Get-AzResourceGroup | Remove-AzResourceGroup -Force
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true             
+      - task: AzurePowerShell@5
+        displayName: Delete vwan monitor policy assignments
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-identity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-connectivity | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-platform-management | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+            Get-AzPolicyAssignment -Scope /providers/Microsoft.Management/managementGroups/vwan-landingzones | foreach {Remove-AzPolicyAssignment -Id $PSItem.PolicyAssignmentId}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+      
+      - task: AzurePowerShell@5
+        displayName: Delete vwan monitor policy Initiatives
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicySetDefinition -ManagementGroupName vwan | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicySetDefinition -Id $PSItem.ResourceId -Force}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
+
+      - task: AzurePowerShell@5
+        displayName: Delete vwan monitor policy definitions
+        inputs:
+          azureSubscription: vwanconnection
+          ScriptType: "inlineScript"
+          Inline: |
+            Get-AzPolicyDefinition -ManagementGroupName vwan | where {$PSItem.Properties.Metadata.source -eq 'https://github.com/Azure/ALZ-Monitor/'} | foreach {Remove-AzPolicyDefinition -Id $PSItem.ResourceId -Force}
+          azurePowerShellVersion: "LatestVersion"
+          pwsh: true
