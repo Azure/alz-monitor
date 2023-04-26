@@ -69,6 +69,8 @@ We recognize that Azure allows for flexibility and choice, and you may not be al
 * A management group structure that is not aligned to ALZ. Where you may only have a Platform management group without the sub management groups like Identity/ Management/ Connectivity. 
 * No management group structure.
 
+> **NOTE:** If you are looking to align your Azure environment to Azure landing zone, please see [Transition existing Azure environments to the Azure landing zone conceptual architecture](http://aka.ms/alz/brownfield).
+
 Suppose Identity/ Management/ Connectivity are combined in one Platform Management Group, the approach could be to assign the three corresponding initiatives to the Platform management group instead. Maybe you have a hierarchy where you organize by geography and/or business units instead of specific landing zones. Assignment mapping:
 
 * Identity Initiative is assigned to the Platform management group.
