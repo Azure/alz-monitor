@@ -31,7 +31,7 @@
 param(
     # output a list of the resources to be deleted
     [switch]$reportOnly,
-    # if not specified, every delete will prompt for confirmation
+    # if not specified, delete will prompt for confirmation
     [switch]$force
 )
 
@@ -142,29 +142,45 @@ ForEach ($identity in $policyAssignmentIdentities) {
 }
 
 If (!$reportOnly.IsPresent) {
+
+    Write-Warning "This script will delete the resources discovered above."
+    
+    If (!$force.IsPresent) {
+        While ($prompt -notmatch '[yYnN]') {
+            $prompt = Read-Host -Prompt 'Would you like to proceed with the deletion? (y/n)'
+        }
+        If ($prompt -match '[yY]') {
+            $force = $true
+        }
+        Else {
+            Write-Host "Exiting script..."
+            return
+        }
+    }
+
     # delete alert resources
     Write-Host "Deleting alert resources..."
-    $alertResourceIds | Foreach-Object { Remove-AzResource -ResourceId $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) }
+    $alertResourceIds | Foreach-Object { Remove-AzResource -ResourceId $_ -Force:$force -Confirm:(!$force) }
 
     # delete resource groups
     Write-Host "Deleting resource groups..."
-    $resourceGroupIds | ForEach-Object { Remove-AzResourceGroup -ResourceGroupId $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) | Out-Null }
+    $resourceGroupIds | ForEach-Object { Remove-AzResourceGroup -ResourceGroupId $_ -Force:$force -Confirm:(!$force) | Out-Null }
 
     # delete policy assignments
     Write-Host "Deleting policy assignments..."
-    $policyAssignmentIds | ForEach-Object { Remove-AzPolicyAssignment -Id $_ -Confirm:(!$force.isPresent) -ErrorAction Stop }
+    $policyAssignmentIds | ForEach-Object { Remove-AzPolicyAssignment -Id $_ -Confirm:(!$force) -ErrorAction Stop }
 
     # delete policy set definitions
     Write-Host "Deleting policy set definitions..."
-    $policySetDefinitionIds | ForEach-Object { Remove-AzPolicySetDefinition -Id $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) }
+    $policySetDefinitionIds | ForEach-Object { Remove-AzPolicySetDefinition -Id $_ -Force:$force -Confirm:(!$force) }
 
     # delete policy definitions
     Write-Host "Deleting policy definitions..."
-    $policyDefinitionIds | ForEach-Object { Remove-AzPolicyDefinition -Id $_ -Force:$force.IsPresent -Confirm:(!$force.isPresent) }
+    $policyDefinitionIds | ForEach-Object { Remove-AzPolicyDefinition -Id $_ -Force:$force -Confirm:(!$force) }
 
     # delete policy assignment role assignments
     Write-Host "Deleting role assignments..."
-    $roleAssignments | ForEach-Object { $_ | Remove-AzRoleAssignment -Force:$force.IsPresent -Confirm:(!$force.isPresent) | Out-Null }
+    $roleAssignments | ForEach-Object { $_ | Remove-AzRoleAssignment -Force:$force -Confirm:(!$force) | Out-Null }
 
 }
 Else {
