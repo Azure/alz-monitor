@@ -36,7 +36,7 @@ param(
 )
 
 Function Search-AzGraphRecursive {
-    # ensure query results with more than 100 resources are returned
+    # ensure query results with more than 100 resources and/or over more than 10 management groups are returned
     param($query, $managementGroupNames, $skipToken)
 
     $optionalParams = @{}
@@ -44,13 +44,42 @@ Function Search-AzGraphRecursive {
         $optionalParams += @{skipToken = $skipToken }
     }
 
-    $result = Search-AzGraph -Query $query -ManagementGroup $managementGroupNames -Verbose:$false @optionalParams
+    # ARG will only query 10 management groups at a time--implement batching
+    If ($managementGroupNames.count -gt 10) {
+        $managementGroupBatches = @()
 
-    $result.Data
+        For ($i=0;$i -le $managementGroupNames.count;$i=$i+10) {
+            $batchGroups = $managementGroupNames[$i..($i+9)]
+            $managementGroupBatches += ,@($batchGroups)
+            
+            If ($batchGroups.count -lt 10) {
+                continue
+            }
+        }
 
-    If ($result.count -eq 100 -and $result.SkipToken) {
-        Search-AzGraphRecursive -query $query -managementGroupNames $managementGroupNames -skipToken $result.SkipToken
+        $result = @()
+        ForEach ($managementGroupBatch in $managementGroupBatches) {
+            $batchResult = Search-AzGraph -Query $query -ManagementGroup $managementGroupBatch -Verbose:$false @optionalParams
+
+            # resource graph returns pages of 100 resources, if there are more than 100 resources in a batch, recursively query for more
+            If ($batchResult.count -eq 100 -and $batchResult.SkipToken) {
+                $result += $batchResult
+                Search-AzGraphRecursive -query $query -managementGroupNames $managementGroupNames -skipToken $batchResult.SkipToken
+            }
+            else {
+                $result += $batchResult
+            }
+        }
     }
+    Else {
+        $result = Search-AzGraph -Query $query -ManagementGroup $managementGroupNames -Verbose:$false @optionalParams
+
+        If ($result.count -eq 100 -and $result.SkipToken) {
+            Search-AzGraphRecursive -query $query -managementGroupNames $managementGroupNames -skipToken $result.SkipToken
+        }
+    }
+
+    $result
 }
 
 $ErrorActionPreference = 'Stop'
