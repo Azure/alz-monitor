@@ -81,7 +81,7 @@ jobs:
       id: create_logging
       shell: bash
       run: |
-          az account set --susbscription ${{ env.mgSubscriptionId }}
+          az account set --subscription ${{ env.mgSubscriptionId }}
           az group create --name ${{ env.mgResourceGroup }} --location ${{ env.Location }}
           az deployment group create --resource-group ${{ env.mgResourceGroup }} --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
 
