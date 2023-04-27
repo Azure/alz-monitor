@@ -1,4 +1,4 @@
- // Copyright (c) Microsoft Corporation.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
 targetScope = 'managementGroup'
@@ -12,26 +12,26 @@ param parTelemetryOptOut bool = false
 @description('The base parameters to be passed to the policy definition for resource group name, location and tags.')
 param parPolicyAssignmentParameters  object = {}
 
-@description('The Connectivity parameters to be passed to the policy definition.')
-param parPolicyAssignmentParametersConnectivity  object = {}
+@description('The Management parameters to be passed to the policy definition.')
+param parPolicyAssignmentParametersServiceHealth  object = {}
 
 // Customer Usage Attribution Id
-var varCuaid = '2d69aa07-8780-4697-a431-79882cb9f00e'
+var varCuaid = 'd87415c4-01ef-4667-af89-0b5adc14af1b'
 
-var varPolicyAssignmentParametersConnectivity = union(parPolicyAssignmentParameters, parPolicyAssignmentParametersConnectivity)
+var varPolicyAssignmentParametersServiceHealth = union(parPolicyAssignmentParameters, parPolicyAssignmentParametersServiceHealth)
 
-module Deploy_Alerting_Connectivity '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-Alerting-Connectivity'
+module Deploy_Alerting_Management '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
+  name: '${uniqueString(deployment().name)}-Alerting-ServiceHealth'
   params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyManagementGroupId}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Connectivity'
-    parPolicyAssignmentDisplayName: 'ALZ Monitoring Alerts for Connectivity'
-    parPolicyAssignmentName: 'ALZ-Monitor_Connectivity'
-    parPolicyAssignmentDescription: 'Initiative to deploy alerts relevant to the ALZ Connectivity Management group'
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyManagementGroupId}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-ServiceHealth'
+    parPolicyAssignmentDisplayName: 'ALZ Monitoring Alerts for Service Health'
+    parPolicyAssignmentName: 'ALZ-Monitor_SvcHealth'
+    parPolicyAssignmentDescription: 'Initiative to deploy alerts relevant to the ALZ Management Management group. Also included are a generic action group and alert processing rule required to support the alerts.'
     parPolicyAssignmentIdentityType: 'SystemAssigned'
     parPolicyAssignmentIdentityRoleDefinitionIds: [
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
-    parPolicyAssignmentParameters: varPolicyAssignmentParametersConnectivity
+    parPolicyAssignmentParameters: varPolicyAssignmentParametersServiceHealth
   }
 }
 

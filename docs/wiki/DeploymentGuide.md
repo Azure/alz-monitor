@@ -69,8 +69,6 @@ We recognize that Azure allows for flexibility and choice, and you may not be al
 * A management group structure that is not aligned to ALZ. Where you may only have a Platform management group without the sub management groups like Identity/ Management/ Connectivity. 
 * No management group structure.
 
-> **NOTE:** If you are looking to align your Azure environment to Azure landing zone, please see [Transition existing Azure environments to the Azure landing zone conceptual architecture](http://aka.ms/alz/brownfield).
-
 Suppose Identity/ Management/ Connectivity are combined in one Platform Management Group, the approach could be to assign the three corresponding initiatives to the Platform management group instead. Maybe you have a hierarchy where you organize by geography and/or business units instead of specific landing zones. Assignment mapping:
 
 * Identity Initiative is assigned to the Platform management group.
@@ -348,12 +346,14 @@ Run only the commands that correspond to your management group hierarchy.
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location $location --management-group-id $managementGroupId
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location $location --management-group-id $managementGroupId
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location $location --management-group-id $managementGroupId
+  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorServiceHealthZone.json --location $location --management-group-id $managementGroupId
   
   #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $identityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-identity.json
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-management.json
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $location --management-group-id $LZManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep --location $location --management-group-id $managementGroupId --parameters ./infra-as-code/bicep/parameters-complete-servicehealth.json
 ```
 
 ##### Azure PowerShell
@@ -367,12 +367,14 @@ Run only the commands that correspond to your management group hierarchy.
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json
+  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorServiceHealth.json
   
   #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
   New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-identity.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-management.json
   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-connectivity.json
   New-AzManagementGroupDeployment -ManagementGroupId $LZManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-landingzones.json
+  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-servicehealth.json
 ```
 
 ## Policy remediation
@@ -389,14 +391,11 @@ To use the script do the following:
 For convenience, assuming that the management hierarchy is fully aligned to ALZ, below are the commands required to remediate all policies assigned through the guidance provided in this repo:
 
 ```powershell
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Alerting-Management
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Alerting-Connectivity
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Alerting-Identity
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-landingzones -policyName Alerting-LandingZone
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Deploy_AlertProcessing_Rule
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Deploy_AlertProcessing_Rule
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Deploy_AlertProcessing_Rule
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-landingzones -policyName Deploy_AlertProcessing_Rule
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Alerting-Management
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Alerting-Connectivity
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Alerting-Identity
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-landingzones -policyName Alerting-LandingZone
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz -policyName Alerting-ServiceHealth
 ```
 
 ## Customizing policy assignments

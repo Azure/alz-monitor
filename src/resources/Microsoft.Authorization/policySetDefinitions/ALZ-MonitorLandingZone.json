@@ -243,31 +243,11 @@
             "type": "string",
             "defaultValue": "75"
           },
-          "ResHlthUnhealthyAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "SvcHlthAdvisoryAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "SvcHlthIncidentAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "SvcHlthMaintenanceAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "svcHlthSecAdvisoryAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
           "activityKVDeleteAlertState": {
             "type": "string",
             "defaultValue": "true"
           },
-             "StorageAccountAvailabilityAlertSeverity": {
+          "StorageAccountAvailabilityAlertSeverity": {
             "type": "String",
             "defaultValue": "1",
             "allowedValues": [
@@ -319,7 +299,7 @@
             "type": "string",
             "defaultValue": "90"
           },
-                  "PIPDDoSAttackAlertSeverity": {
+          "PIPDDoSAttackAlertSeverity": {
             "type": "String",
             "defaultValue": "1",
             "allowedValues": [
@@ -527,7 +507,7 @@
             "type": "string",
             "defaultValue": "8000000"
           },
-           "RVBackupHealthAlertSeverity": {
+          "RVBackupHealthAlertSeverity": {
             "type": "String",
             "defaultValue": "3",
             "allowedValues": [
@@ -579,7 +559,7 @@
             "type": "string",
             "defaultValue": "20"
           },
-               "VNETDDOSAttackAlertSeverity": {
+          "VNETDDOSAttackAlertSeverity": {
             "type": "String",
             "defaultValue": "1",
             "allowedValues": [
@@ -631,7 +611,7 @@
             "type": "string",
             "defaultValue": "1"
           },
-           "activityNSGDeleteAlertState": {
+          "activityNSGDeleteAlertState": {
             "type": "string",
             "defaultValue": "true"
           },
@@ -639,8 +619,8 @@
             "type": "string",
             "defaultValue": "true"
           }
-          
-          
+
+
 
         },
         "policyDefinitions": [
@@ -736,91 +716,6 @@
             }
           },
           {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]",
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('ResHlthUnhealthyAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]",
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('SvcHlthAdvisoryAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]",
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('SvcHlthIncidentAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            }
-          },
-          {
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
-          },
-          {
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
-          },
-          {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete')]",
             "parameters": {
               "enabled": {
@@ -837,7 +732,7 @@
               }
             }
           },
-             {
+          {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_StorageAccount_Availability_Alert')]",
             "parameters": {
               "severity": {
@@ -861,7 +756,7 @@
 
             }
           },
-               {
+          {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_BytesInDDoSAttack_Alert')]",
             "parameters": {
               "severity": {
@@ -987,7 +882,7 @@
             },
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_RouteTable_Update')]"
           },
-            {
+          {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_RecoveryVault_BackupHealth_Alert')]",
             "parameters": {
               "severity": {
@@ -1010,7 +905,7 @@
               }
             }
           },
-           {
+          {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_DDoSAttack_Alert')]",
             "parameters": {
               "severity": {

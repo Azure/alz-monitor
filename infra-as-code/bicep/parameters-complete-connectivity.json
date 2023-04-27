@@ -20,13 +20,6 @@
                 }
             }
         },
-        "parPolicAssignmentParametersAlertProcessing": {
-            "value": {
-                "ALZMonitorActionGroupEmail": {
-                    "value": "action@mail.com"
-                }
-            }
-        },
         "parPolicyAssignmentParametersConnectivity": {
             "value": {
                 "ERCIRQoSDropBitsinPerSecAlertSeverity": {
@@ -631,21 +624,6 @@
                 },
                 "FirewallHealthThreshold": {
                     "value": "90"
-                },
-                "ResHlthUnhealthyAlertState": {
-                    "value": "true"
-                },
-                "SvcHlthAdvisoryAlertState": {
-                    "value": "true"
-                },
-                "SvcHlthIncidentAlertState": {
-                    "value": "true"
-                },
-                "SvcHlthMaintenanceAlertState": {
-                    "value": "true"
-                },
-                "svcHlthSecAdvisoryAlertState": {
-                    "value": "true"
                 },
                 "activityFWDeleteAlertState": {
                     "value": "true"
