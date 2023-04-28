@@ -8,6 +8,7 @@ param deploymentRoleDefinitionIds array = [
 ]
 param parResourceGroupTags object = {
     environment: 'test'
+     _deployed_by_alz_monitor: true
 }
 
 param parAlertState string = 'true'
@@ -22,9 +23,10 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
         description: 'DINE policy to Deploy Service Health Incident Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'ServiceHealth'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             enabled: {
@@ -200,6 +202,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                         apiVersion: '2020-10-01'
                                                         name: 'ServieHealthIncident'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'ServiceHealthIncidentAlert'
                                                             enabled: '[parameters(\'enabled\')]'

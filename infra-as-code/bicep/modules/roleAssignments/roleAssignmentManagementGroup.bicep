@@ -28,6 +28,7 @@ resource resRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-10-01-p
     roleDefinitionId: tenantResourceId('Microsoft.Authorization/roleDefinitions', parRoleDefinitionId)
     principalId: parAssigneeObjectId
     principalType: parAssigneePrincipalType
+    description: '_deployed_by_alz_monitor'
   }
 }
 

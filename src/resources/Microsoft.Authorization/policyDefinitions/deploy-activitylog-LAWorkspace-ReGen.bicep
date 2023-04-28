@@ -9,6 +9,7 @@ param deploymentRoleDefinitionIds array = [
 
 param parResourceGroupTags object = {
     environment: 'test'
+     _deployed_by_alz_monitor: true
 }
 
 param parAlertState string = 'true'
@@ -25,9 +26,10 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
         description: 'DINE policy to Deploy Activity Log LA Workspace Regenerate Key Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'ActivityLog'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             enabled: {
@@ -202,6 +204,9 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                                                         apiVersion: '2020-10-01'
                                                         name: 'ActivityLAWorkspaceRegenKey'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Activity Log LA Workspace Regenerate Key'
                                                             enabled: '[parameters(\'enabled\')]'
