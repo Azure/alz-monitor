@@ -8,6 +8,7 @@ param deploymentRoleDefinitionIds array = [
 ]
 param parResourceGroupTags object = {
     environment: 'test'
+     _deployed_by_alz_monitor: true
 }
 param parAlertState string = 'true'
 
@@ -21,9 +22,10 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
         description: 'DINE policy to Deploy Activity Log VPN Gateway Delete Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'ActivityLog'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             enabled: {
@@ -199,6 +201,9 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
                                                         //name: '[concat(subscription().subscriptionId, \'-ActivityReGenKey\')]'
                                                         name: 'ActivityVPNGatewayDelete'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Activity Log VPN Gateway Delete'
                                                             enabled: '[parameters(\'enabled\')]'

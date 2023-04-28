@@ -58,9 +58,10 @@ module RequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
         description: 'DINE policy to audit/deploy KeyVault Requests Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'Key Vault'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             severity: {
@@ -239,6 +240,9 @@ module RequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-RequestsAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for KeyVault Requests'
                                             severity: '[parameters(\'severity\')]'
