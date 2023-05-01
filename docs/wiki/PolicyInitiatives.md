@@ -48,12 +48,6 @@ This initiative is intended for assignment of policies relevant to networking co
 | Deploy_activitylog_RouteTable_Update | [deploy-activitylog-RouteTable-Update.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-RouteTable-Update.json)  | deployIfNotExists |
 | Deploy_activitylog_NSG_Delete | [deploy-activitylog-NSG-Del.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-NSG-Del.json)  | deployIfNotExists |
 | Deploy_activitylog_VPNGateway_Delete | [deploy-activitylog-VPNGate-Del.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-VPNGate-Del.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_SecurityAdvisory | [deploy-activitylog-ServiceHealth-Security.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.json)  | deployIfNotExists |
-| Deploy_activitylog_ResourceHealth_Unhealthy_Alert | [deploy-activitylog-ResourceHealth-UnHealthly-alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.json) | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_HealthAdvisory | [deploy-activitylog-ServiceHealth-Health.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_Incident | [deploy-activitylog-ServiceHealth-Incident.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_Maintenance | [deploy-activitylog-ServiceHealth-Maintenance.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.json)  | deployIfNotExists |
-
 
 ## Management initiative
 
@@ -66,11 +60,6 @@ This initiative is intended for assignment of policies relevant to management co
 | Deploy_StorageAccount_Availability_Alert | [deploy-sa_availability_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-sa_availability_alert.json)  | deployIfNotExists |
 | Deploy_activitylog_LAWorkspace_Delete | [deploy-activitylog-LAWorkspace-Del.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-LAWorkspace-Del.json)  | deployIfNotExists |
 | Deploy_activitylog_LAWorkspace_KeyRegen | [deploy-activitylog-LAWorkspace-ReGen.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-LAWorkspace-ReGen.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_SecurityAdvisory | [deploy-activitylog-ServiceHealth-Security.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.json)  | deployIfNotExists |
-| Deploy_activitylog_ResourceHealth_Unhealthy_Alert | [deploy-activitylog-ResourceHealth-UnHealthly-alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.json) | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_HealthAdvisory | [deploy-activitylog-ServiceHealth-Health.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_Incident | [deploy-activitylog-ServiceHealth-Incident.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_Maintenance | [deploy-activitylog-ServiceHealth-Maintenance.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.json)  | deployIfNotExists |
 
 ## Identity initiative
 
@@ -83,14 +72,6 @@ This initiative is intended for assignment of policies relevant to identity comp
 | Deploy_KeyVault_Latency_Alert | [deploy-kv_latency_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-kv_latency_alert.json)  | disabled |
 | Deploy_KeyVault_Capacity_Alert | [deploy-kv_capacity_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-kv_capacity_alert.json)  | disabled |
 | Deploy_activitylog_KeyVault_Delete | [deploy-activitylog-KeyVault-Del.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-KeyVault-Del.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_SecurityAdvisory | [deploy-activitylog-ServiceHealth-Security.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.json)  | deployIfNotExists |
-| Deploy_activitylog_ResourceHealth_Unhealthy_Alert | [deploy-activitylog-ResourceHealth-UnHealthly-alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.json) | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_HealthAdvisory | [deploy-activitylog-ServiceHealth-Health.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_Incident | [deploy-activitylog-ServiceHealth-Incident.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_Maintenance | [deploy-activitylog-ServiceHealth-Maintenance.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.json)  | deployIfNotExists |
-
-
-
 
 ## Landing Zone initiative
 
@@ -104,11 +85,6 @@ This initiative is intended for assignment of policies relevant to a landing zon
 | Deploy_KeyVault_Latency_Alert | [deploy-kv_latency_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-kv_latency_alert.json)  | deployIfNotExists |
 | Deploy_KeyVault_Capacity_Alert | [deploy-kv_capacity_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-kv_capacity_alert.json)  | deployIfNotExists |
 | Deploy_activitylog_KeyVault_Delete | [deploy-activitylog-KeyVault-Del.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-KeyVault-Del.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_SecurityAdvisory | [deploy-activitylog-ServiceHealth-Security.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.json)  | deployIfNotExists |
-| Deploy_activitylog_ResourceHealth_Unhealthy_Alert | [deploy-activitylog-ResourceHealth-UnHealthly-alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.json) | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_HealthAdvisory | [deploy-activitylog-ServiceHealth-Health.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_Incident | [deploy-activitylog-ServiceHealth-Incident.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.json)  | deployIfNotExists |
-| Deploy_activitylog_ServiceHealth_Maintenance | [deploy-activitylog-ServiceHealth-Maintenance.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.json)  | deployIfNotExists |
 | Deploy_activitylog_RouteTable_Update | [deploy-activitylog-RouteTable-Update.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-RouteTable-Update.json)  | deployIfNotExists |
 | Deploy_activitylog_NSG_Delete | [deploy-activitylog-NSG-Del.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-NSG-Del.json)  | deployIfNotExists |
 | Deploy_PublicIp_BytesInDDoSAttack_Alert | [deploy-pip_bytesinddosattack_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-pip_bytesinddosattack_alert.json) | disabled |
@@ -117,3 +93,17 @@ This initiative is intended for assignment of policies relevant to a landing zon
 | Deploy_PublicIp_VIPAvailability_Alert | [deploy-pip_vipavailability_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-pip_vipavailability_alert.json)  | deployIfNotExists |
 | Deploy_VNET_DDoSAttack_Alert | [deploy-vnet_ddosattack_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vnet_ddosattack_alert.json)  | deployIfNotExists |
 | Deploy_RecoveryVault_BackupHealth_Alert | [deploy-rv_backuphealth_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-rv_backuphealth_alert.json)  | deployIfNotExists |
+
+## Service Health initiative
+
+This initiative is intended for assignment of policies relevant to service health alerts in ALZ. With the guidance provided in [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide), this will assign to the alz intermediate root management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
+
+| **Policy Name** | **Path to policy json file** | **Policy default effect** |
+|----------|----------|----------|
+| Deploy_activitylog_ServiceHealth_SecurityAdvisory | [deploy-activitylog-ServiceHealth-Security.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.json)  | deployIfNotExists |
+| Deploy_activitylog_ResourceHealth_Unhealthy_Alert | [deploy-activitylog-ResourceHealth-UnHealthly-alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.json) | deployIfNotExists |
+| Deploy_activitylog_ServiceHealth_HealthAdvisory | [deploy-activitylog-ServiceHealth-Health.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.json)  | deployIfNotExists |
+| Deploy_activitylog_ServiceHealth_Incident | [deploy-activitylog-ServiceHealth-Incident.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.json)  | deployIfNotExists |
+| Deploy_activitylog_ServiceHealth_Maintenance | [deploy-activitylog-ServiceHealth-Maintenance.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.json)  | deployIfNotExists |
+| Deploy_AlertProcessing_Rule | [deploy-alertprocessingrule-deploy.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-alertprocessingrule-deploy.json)  | deployIfNotExists |
+
