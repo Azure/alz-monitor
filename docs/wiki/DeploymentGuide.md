@@ -55,7 +55,7 @@ The initiatives provided in this repository align with the management group hier
 * Management Initiative is assigned to the Management management group.
 * Connectivity Initiative is assigned to the Connectivity management group.
 * Landing Zone Initiative is assigned to the Landing Zone management group.
-* Service Health Initiative is assigned to the intermediate root management group.
+* Service Health Initiative is assigned to the intermediate (ALZ) root management group.
 
 The image below is an example of how a management group hierarchy looks like when you follow Azure Landing Zone guidance. Also illustrated in this image is the default recommended assignments of the initiatives.
 
@@ -109,7 +109,7 @@ The image below is an example of how the assignments look like when you are usin
 - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
 - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
 - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
-- Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative)to the email address where notifications of the alerts are sent to.
+- Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative) to the email address where notifications of the alerts are sent to.
 
 These changes have to be made in each of the following parameters files:
 
@@ -205,7 +205,7 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](h
 - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
 - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
 - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
-- Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative)to the email address where notifications of the alerts are sent to.
+- Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative) to the email address where notifications of the alerts are sent to.
 
 These changes must made in each of the following parameter files:
 
