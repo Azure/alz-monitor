@@ -367,7 +367,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                 ]
                                              
                                             }
-                                            autoMitigate: '[parameters(\'autoMitigate\')]'
+                                            //autoMitigate: '[parameters(\'autoMitigate\')]'
                                             ruleResolveConfiguration: {
                                                 autoResolved: '[parameters(\'autoResolve\')]'
                                                 timeToResolve: '[parameters(\'autoResolveTime\')]'
