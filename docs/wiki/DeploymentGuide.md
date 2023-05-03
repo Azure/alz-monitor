@@ -55,6 +55,7 @@ The initiatives provided in this repository align with the management group hier
 * Management Initiative is assigned to the Management management group.
 * Connectivity Initiative is assigned to the Connectivity management group.
 * Landing Zone Initiative is assigned to the Landing Zone management group.
+* Service Health Initiative is assigned to the intermediate (ALZ) root management group.
 
 The image below is an example of how a management group hierarchy looks like when you follow Azure Landing Zone guidance. Also illustrated in this image is the default recommended assignments of the initiatives.
 
@@ -77,6 +78,7 @@ Suppose Identity/ Management/ Connectivity are combined in one Platform Manageme
 * Management Initiative is assigned to the Platform management group.
 * Connectivity Initiative is assigned to the Platform management group.
 * Landing Zone Initiative is assigned to the Geography management group.
+* Service Health Initiative is assigned to the top-most level(s) in your management group hierarchy.
 
 The image below is an example of how the assignments could look like when the management group hierarchy isn´t aligned with ALZ.
 
@@ -102,18 +104,20 @@ The image below is an example of how the assignments look like when you are usin
 ## Automated deployment with GitHub Actions
 
 ### 1. We recommend configuring the following parameters:
-  - Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments. This is usually the pseudo root management group.
-  - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
-  - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
-  - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
-  - Change the value of _ALZMonitorActionGroupEmail_ to the email address where notifications of the alerts are sent to.
+
+- Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments. This is usually the pseudo root management group.
+- Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
+- Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
+- Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
+- Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative) to the email address where notifications of the alerts are sent to.
 
 These changes have to be made in each of the following parameters files:
 
-  - [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
-  - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
-  - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
-  - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
+- [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
+- [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
+- [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
+- [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
+- [parameters-complete-servicehealth.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-servicehealth.json)
 
 ### 2. Example Parameter file:
 
@@ -143,10 +147,10 @@ Note that the parameter file shown below has been truncated for brevity, compare
                 }
             }
         },
-        "parPolicAssignmentParametersAlertProcessing": {
+,        "parPolicyAssignmentParametersServiceHealth": {
             "value": {
                 "ALZMonitorActionGroupEmail": {
-                    "value": "alzmonitor@contoso.com"
+                    "value": "action@mail.com"
                 }
             }
         }
@@ -196,18 +200,20 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](h
 ## Manual deployment with Azure CLI or PowerShell
 
 ### 1. We recommend configuring the following parameters:
-  - Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments. This is usually the pseudo root management group.
-  - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
-  - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
-  - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
-  - Change the value of _ALZMonitorActionGroupEmail_ to the email address where notifications of the alerts are sent to.
+
+- Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments. This is usually the pseudo root management group.
+- Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
+- Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
+- Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
+- Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative) to the email address where notifications of the alerts are sent to.
 
 These changes must made in each of the following parameter files:
 
-  - [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
-  - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
-  - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
-  - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
+- [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
+- [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
+- [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
+- [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
+- [parameters-complete-servicehealth.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-servicehealth.json)
 
 ### 2. Example Parameter file:
 
@@ -237,10 +243,10 @@ Note that the parameter file shown below has been truncated for brevity, compare
                 }
             }
         },
-        "parPolicAssignmentParametersAlertProcessing": {
+,        "parPolicyAssignmentParametersServiceHealth": {
             "value": {
                 "ALZMonitorActionGroupEmail": {
-                    "value": "alzmonitor@contoso.com"
+                    "value": "action@mail.com"
                 }
             }
         }
@@ -348,12 +354,14 @@ Run only the commands that correspond to your management group hierarchy.
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location $location --management-group-id $managementGroupId
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location $location --management-group-id $managementGroupId
   az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location $location --management-group-id $managementGroupId
+  az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorServiceHealth.json --location $location --management-group-id $managementGroupId
   
   #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $location --management-group-id $identityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-identity.json
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $location --management-group-id $managementManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-management.json
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $location --management-group-id $connectivityManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
   az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $location --management-group-id $LZManagementGroup --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json
+  az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep --location $location --management-group-id $managementGroupId --parameters ./infra-as-code/bicep/parameters-complete-servicehealth.json
 ```
 
 ##### Azure PowerShell
@@ -367,12 +375,14 @@ Run only the commands that correspond to your management group hierarchy.
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json
+  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorServiceHealth.json
   
   #Assign Policy Initiatives, wait approximately 1-2 minutes after deploying initiatives policies to ensure that there are no errors when assigning them
   New-AzManagementGroupDeployment -ManagementGroupId $identityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_identity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-identity.json
   New-AzManagementGroupDeployment -ManagementGroupId $managementManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_management.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-management.json
   New-AzManagementGroupDeployment -ManagementGroupId $connectivityManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_connectivity.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-connectivity.json
   New-AzManagementGroupDeployment -ManagementGroupId $LZManagementGroup -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_landingzones.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-landingzones.json
+  New-AzManagementGroupDeployment -ManagementGroupId $managementGroupID -Location $location -TemplateFile ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep -TemplateParameterFile ./infra-as-code/bicep/parameters-complete-servicehealth.json
 ```
 
 ## Policy remediation
@@ -389,14 +399,11 @@ To use the script do the following:
 For convenience, assuming that the management hierarchy is fully aligned to ALZ, below are the commands required to remediate all policies assigned through the guidance provided in this repo:
 
 ```powershell
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Alerting-Management
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Alerting-Connectivity
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Alerting-Identity
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-landingzones -policyName Alerting-LandingZone
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Deploy_AlertProcessing_Rule
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Deploy_AlertProcessing_Rule
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Deploy_AlertProcessing_Rule
-.github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-landingzones -policyName Deploy_AlertProcessing_Rule
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Alerting-Management
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Alerting-Connectivity
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Alerting-Identity
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-landingzones -policyName Alerting-LandingZone
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName alz -policyName Alerting-ServiceHealth
 ```
 
 ## Customizing policy assignments

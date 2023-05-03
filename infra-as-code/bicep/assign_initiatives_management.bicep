@@ -15,15 +15,10 @@ param parPolicyAssignmentParameters  object = {}
 @description('The Management parameters to be passed to the policy definition.')
 param parPolicyAssignmentParametersManagement  object = {}
 
-@description('The Alert Processing parameters to be passed to the policy definition.')
-param parPolicAssignmentParametersAlertProcessing  object = {}
-
 // Customer Usage Attribution Id
 var varCuaid = 'd87415c4-01ef-4667-af89-0b5adc14af1b'
 
 var varPolicyAssignmentParametersManagement = union(parPolicyAssignmentParameters, parPolicyAssignmentParametersManagement)
-
-var varPolicyAssignmentParametersAlertProcessing = union(parPolicyAssignmentParameters, parPolicAssignmentParametersAlertProcessing)
 
 module Deploy_Alerting_Management '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Alerting-Management'
@@ -37,21 +32,6 @@ module Deploy_Alerting_Management '../../infra-as-code/bicep/modules/policy/assi
       'b24988ac-6180-42a0-ab88-20f7382dd24c'
     ]
     parPolicyAssignmentParameters: varPolicyAssignmentParametersManagement
-  }
-}
-
-module Deploy_AlertProcessing_rule '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
-  name: '${uniqueString(deployment().name)}-AlertProcessing_rule'
-  params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyManagementGroupId}/providers/Microsoft.Authorization/policyDefinitions/Deploy_AlertProcessing_Rule'
-    parPolicyAssignmentDisplayName: 'ALZ Monitoring Alert Processing rule'
-    parPolicyAssignmentName: 'ALZ-AlertProcessing_rule'
-    parPolicyAssignmentDescription: 'Initiative to deploy alert processing rule and action group in each subscription'
-    parPolicyAssignmentIdentityType: 'SystemAssigned'
-    parPolicyAssignmentIdentityRoleDefinitionIds: [
-      'b24988ac-6180-42a0-ab88-20f7382dd24c'
-    ]
-    parPolicyAssignmentParameters: varPolicyAssignmentParametersAlertProcessing
   }
 }
 

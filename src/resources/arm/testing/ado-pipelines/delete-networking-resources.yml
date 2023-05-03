@@ -2,7 +2,7 @@ name: "Delete Networking Resources"
 
 schedules:
 - cron: '0 0 * * *'
-  displayName: Daily midnight build
+  displayName: Daily midnight delete
   branches:
     include:
     - main

@@ -244,26 +244,6 @@
             "type": "string",
             "defaultValue": "75"
           },
-          "ResHlthUnhealthyAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "SvcHlthAdvisoryAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "SvcHlthIncidentAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "SvcHlthMaintenanceAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "svcHlthSecAdvisoryAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
           "activityKVDeleteAlertState": {
             "type": "string",
             "defaultValue": "true"
@@ -360,91 +340,6 @@
                 "value": "[[parameters('KVCapacityThreshold')]"
               }
             }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]",
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('ResHlthUnhealthyAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]",
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('SvcHlthAdvisoryAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            }
-          },
-          {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]",
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('SvcHlthIncidentAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            }
-          },
-          {
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
-          },
-          {
-            "parameters": {
-              "enabled": {
-                "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
-              },
-              "alertResourceGroupName": {
-                "value": "[[parameters('ALZMonitorResourceGroupName')]"
-              },
-              "alertResourceGroupTags": {
-                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
-              },
-              "alertResourceGroupLocation": {
-                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
-              }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
           },
           {
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete')]",

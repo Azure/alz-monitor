@@ -76,6 +76,7 @@ jobs:
           az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
           az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
           az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
+          az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorServiceHealth.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }}
     
     - name: Az CLI Deploy Logging for PR
       id: create_logging
@@ -95,10 +96,11 @@ jobs:
       id: assign_monitor_policy_initiatives
       shell: bash
       run: |
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location ${{ env.Location }} --management-group-id ${{ env.identityManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-identity.json
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location ${{ env.Location }} --management-group-id ${{ env.managementManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-management.json
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location ${{ env.Location }} --management-group-id ${{ env.connectivityManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location ${{ env.Location }} --management-group-id ${{ env.alzManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json          
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location ${{ env.Location }} --management-group-id ${{ env.identityManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-identity.json parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location ${{ env.Location }} --management-group-id ${{ env.managementManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-management.json parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location ${{ env.Location }} --management-group-id ${{ env.connectivityManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location ${{ env.Location }} --management-group-id ${{ env.alzManagementGroup }} --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }} --parameters ./infra-as-code/bicep/parameters-complete-servicehealth.json parPolicyManagementGroupId=${{ env.ManagementGroupPrefix }}
           
     - name: Az CLI Subscription Placement for PR
       id: move_sub
