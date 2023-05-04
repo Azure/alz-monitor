@@ -39,6 +39,6 @@
 
 *<sup>1</sup> Depending on the region you deploy to their may be a small difference in the associated cost, the costs provided here are based on prices captured as of April 2023*
 
-## Can I access the Visio diagrams used in the solution?
+## Can I access the Visio diagrams displayed in the documentation?
 
 *Yes, the Visio diagrams are available in the [docs\media](../../docs/media) folder*
