@@ -11,7 +11,8 @@ If you have suggestions for other resources that should be included please open 
 
 The values shown for Aggregation, Operator, Threshold, WindowSize, Frequency and Severity have been derived from field experience and what customers have implemented themselves; Alerts are based on Microsoft public guidance where available (indicated by a 'Yes' in the Verified column), and on practical application experience where public guidance is not available (indicated by a 'No' in the Verified column). Links to Product Group guidance can be found in the References column and when no guidance is provided we've provided a link to the description of the Metric on learn.microsoft.com.
 
-The Scope column details where we scoped the alerts as described in the [Deployment Guide](https://github.com/Azure/alz-monitor/main/docs/wiki/DeploymentGuide.md).  
+The Scope column details where we scoped the alerts as described in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide).  
+
 
 Only a small number of the resources support metric alert rules scoped at the subscription level and the metric alerts would only apply to resources deployed within the same region. The Support for Multiple Resources column to show which resources support metric alerts being scoped at the subscription level. For a complete list of which resources support metrics alert rules scoped at the subscription level click [here](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-types#monitor-multiple-resources).
 
