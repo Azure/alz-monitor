@@ -1,4 +1,5 @@
 name: Convert Policy Definitions from BICEP to ARM
+permissions: write-all
 
 on:
   pull_request:
@@ -27,7 +28,6 @@ jobs:
           branch: "arm-conversion-${{ env.DATE }}"
       - name: Checkout Repo
         uses: actions/checkout@v3
-
       - name: Run Bicep build
         uses: aliencube/bicep-build-actions@v0.3.255
         with:
