@@ -38,3 +38,7 @@
 *For costings related to your deployment please visit https://azure.microsoft.com/en-us/pricing/details/monitor/ and work with your local Microsoft account team to define a rough order of magnitude (RoM) costings*
 
 *<sup>1</sup> Depending on the region you deploy to their may be a small difference in the associated cost, the costs provided here are based on prices captured as of April 2023*
+
+## Can I access the Visio diagrams displayed in the documentation?
+
+*Yes, the Visio diagrams are available in the [docs\media](../../docs/media) folder*
