@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.16.2.56959",
-      "templateHash": "7133057328888790160"
+      "templateHash": "11877950636111875367"
     }
   },
   "parameters": {
@@ -102,9 +102,10 @@
           },
           "metadata": {
             "value": {
-              "version": "1.0.0",
+              "version": "1.0.1",
               "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "_deployed_by_alz_monitor": "True"
             }
           },
           "parameters": {
@@ -290,6 +291,9 @@
                             "apiVersion": "2018-03-01",
                             "name": "[[concat(parameters('resourceName'), '-TunnelEgressPacketDropTSMismatchAlert')]",
                             "location": "global",
+                            "tags": {
+                              "_deployed_by_alz_monitor": true
+                            },
                             "properties": {
                               "description": "Metric Alert for Vnet Gateway tunnel TunnelEgressPacketDropTSMismatch",
                               "severity": "[[parameters('severity')]",

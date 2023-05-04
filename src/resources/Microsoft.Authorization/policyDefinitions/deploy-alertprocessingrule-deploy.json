@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.16.2.56959",
-      "templateHash": "17635715071674947074"
+      "templateHash": "10524433565595458726"
     }
   },
   "parameters": {
@@ -68,9 +68,10 @@
           },
           "metadata": {
             "value": {
-              "version": "1.0.0",
+              "version": "1.0.1",
               "Category": "Action Groups",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "_deployed_by_alz_monitor": "True"
             }
           },
           "parameters": {
@@ -209,6 +210,9 @@
                                     "apiVersion": "2022-04-01",
                                     "name": "AlzActionGrp",
                                     "location": "global",
+                                    "tags": {
+                                      "_deployed_by_alz_monitor": true
+                                    },
                                     "properties": {
                                       "groupShortName": "AlzActionGrp",
                                       "enabled": true,
@@ -229,6 +233,9 @@
                                     "dependsOn": [
                                       "[[concat('Microsoft.Insights/actionGroups/', 'AlzActionGrp')]"
                                     ],
+                                    "tags": {
+                                      "_deployed_by_alz_monitor": true
+                                    },
                                     "properties": {
                                       "scopes": [
                                         "[[subscription().Id]"
