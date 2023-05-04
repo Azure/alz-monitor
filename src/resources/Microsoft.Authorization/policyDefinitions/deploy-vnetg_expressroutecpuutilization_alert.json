@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.16.2.56959",
-      "templateHash": "16402650227435219720"
+      "templateHash": "6963843245807468061"
     }
   },
   "parameters": {
@@ -106,9 +106,10 @@
           },
           "metadata": {
             "value": {
-              "version": "1.0.0",
+              "version": "1.0.1",
               "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "_deployed_by_alz_monitor": "True"
             }
           },
           "parameters": {
@@ -302,6 +303,9 @@
                             "apiVersion": "2018-03-01",
                             "name": "[[concat(parameters('resourceName'), '-GatewayERCPUAlert')]",
                             "location": "global",
+                            "tags": {
+                              "_deployed_by_alz_monitor": true
+                            },
                             "properties": {
                               "description": "Metric Alert for VNet Gateway Express Route CPU Utilization",
                               "severity": "[[parameters('severity')]",

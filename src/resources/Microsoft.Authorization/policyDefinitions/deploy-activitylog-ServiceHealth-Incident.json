@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.16.2.56959",
-      "templateHash": "6789696392719542234"
+      "templateHash": "9076721009548516302"
     }
   },
   "parameters": {
@@ -30,7 +30,8 @@
     "parResourceGroupTags": {
       "type": "object",
       "defaultValue": {
-        "environment": "test"
+        "environment": "test",
+        "_deployed_by_alz_monitor": true
       }
     },
     "parAlertState": {
@@ -68,9 +69,10 @@
           },
           "metadata": {
             "value": {
-              "version": "1.0.0",
+              "version": "1.0.1",
               "Category": "ServiceHealth",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "_deployed_by_alz_monitor": "True"
             }
           },
           "parameters": {
@@ -247,6 +249,9 @@
                                     "apiVersion": "2020-10-01",
                                     "name": "ServieHealthIncident",
                                     "location": "global",
+                                    "tags": {
+                                      "_deployed_by_alz_monitor": true
+                                    },
                                     "properties": {
                                       "description": "ServiceHealthIncidentAlert",
                                       "enabled": "[[parameters('enabled')]",

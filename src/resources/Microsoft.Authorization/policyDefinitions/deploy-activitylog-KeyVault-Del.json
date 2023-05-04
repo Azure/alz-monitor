@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.16.2.56959",
-      "templateHash": "6631341235932112311"
+      "templateHash": "2811709284500350840"
     }
   },
   "parameters": {
@@ -30,7 +30,8 @@
     "parResourceGroupTags": {
       "type": "object",
       "defaultValue": {
-        "environment": "test"
+        "environment": "test",
+        "_deployed_by_alz_monitor": true
       }
     },
     "parAlertState": {
@@ -68,9 +69,10 @@
           },
           "metadata": {
             "value": {
-              "version": "1.0.0",
+              "version": "1.0.1",
               "Category": "ActivityLog",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "_deployed_by_alz_monitor": "True"
             }
           },
           "parameters": {
@@ -248,6 +250,9 @@
                                     "apiVersion": "2020-10-01",
                                     "name": "ActivityKeyVaultDelete",
                                     "location": "global",
+                                    "tags": {
+                                      "_deployed_by_alz_monitor": true
+                                    },
                                     "properties": {
                                       "description": "Activity Log Key Vault Delete",
                                       "enabled": "[[parameters('enabled')]",

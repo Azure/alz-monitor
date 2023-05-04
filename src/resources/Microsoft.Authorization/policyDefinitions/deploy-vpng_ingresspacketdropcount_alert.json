@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.16.2.56959",
-      "templateHash": "14838019786598845136"
+      "templateHash": "17313264046326013164"
     }
   },
   "parameters": {
@@ -102,9 +102,10 @@
           },
           "metadata": {
             "value": {
-              "version": "1.0.0",
+              "version": "1.0.1",
               "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "_deployed_by_alz_monitor": "True"
             }
           },
           "parameters": {
@@ -286,6 +287,9 @@
                             "apiVersion": "2018-03-01",
                             "name": "[[concat(parameters('resourceName'), '-TunnelIngressPacketDropCountAlert')]",
                             "location": "global",
+                            "tags": {
+                              "_deployed_by_alz_monitor": true
+                            },
                             "properties": {
                               "description": "Metric Alert for VPN Gateway tunnel TunnelIngressPacketDropCount",
                               "severity": "[[parameters('severity')]",
