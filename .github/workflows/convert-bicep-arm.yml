@@ -2,15 +2,13 @@ name: Convert Policy Definitions from BICEP to ARM
 permissions: write-all
 
 on:
-  pull_request:
-    branches: ["main"]
-    types:
-      - closed
+  push:
+    branches: 
+      - "main"
   workflow_dispatch: {}
 
 jobs:
   build:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Generate token
