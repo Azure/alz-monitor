@@ -179,7 +179,7 @@ module ActivityLogNSGDeleteAlert '../../arm/Microsoft.Authorization/policyDefini
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'ActivityLAWorkspaceDelete'
+                                        name: 'ActivityNSGDelete'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
