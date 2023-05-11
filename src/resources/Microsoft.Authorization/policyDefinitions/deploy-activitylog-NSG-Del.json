@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.17.1.54307",
-      "templateHash": "2092504239829902698"
+      "templateHash": "927834130900168237"
     }
   },
   "parameters": {
@@ -225,7 +225,7 @@
                           {
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
-                            "name": "ActivityLAWorkspaceDelete",
+                            "name": "ActivityNSGDelete",
                             "resourceGroup": "[[parameters('alertResourceGroupName')]",
                             "dependsOn": [
                               "[[concat('Microsoft.Resources/resourceGroups/', parameters('alertResourceGroupName'))]"
