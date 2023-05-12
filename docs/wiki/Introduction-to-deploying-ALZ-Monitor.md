@@ -1,5 +1,3 @@
-# Introduction
-
 ## Background
 
 This guide describes how to get started with implementing alert policies and initiatives in your environment for testing and validation. In the guide it is assumed that you will be using GitHub actions or manual deployment to implement policies, initiatives and policy assignments in your environment. 

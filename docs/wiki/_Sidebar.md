@@ -5,7 +5,7 @@
 * [Alert Details](./AlertsDetails)
 * [Azure Policy Initiatives](./PolicyInitiatives)
 * Deploying ALZ Monitor
-   * [Introduction](./Deployment-introduction)
+   * [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor)
    * [Customize Policy Assignment](./CustomizePolicyAssignment)
    * [Deploy with GitHub Actions](./Deployment-automated-with-GitHub-Actions)
    * [Deploy with Azure CLI](./Deployment-manual-with-Azure-CLI)
