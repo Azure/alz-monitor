@@ -42,13 +42,6 @@ If we want to change the threshold value for Virtual Network Gateway Express Rou
                 }
             }
         },
-        "parPolicAssignmentParametersAlertProcessing": {
-            "value": {
-                "ALZMonitorActionGroupEmail": {
-                    "value": "action@mail.com"
-                }
-            }
-        },
         "parPolicyAssignmentParametersConnectivity": {
             "value": {
                 "VnetGwERCpuUtilThreshold": {
