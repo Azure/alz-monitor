@@ -1,5 +1,3 @@
-## Cleaning up an ALZ Monitor Deployment
-
 In some scenarios, it may be necessary to remove everything deployed by the ALZ Monitor solution. The instructions below detail execution of a PowerShell script to delete all resources deployed, including:
 
 - Metric Alerts
@@ -12,9 +10,9 @@ In some scenarios, it may be necessary to remove everything deployed by the ALZ 
 
 All resources deployed as part of the initial ALZ Monitor deployment and the resources created by dynamically by 'deploy if not exist' policies are either tagged, marked in metadata, or in description (depending on what the resource supports) with the value `_deployed_by_alz_monitor` or `_deployed_by_alz_monitor=True`. This metadata is used to execute the cleanup of deployed resources; _if it has been removed or modified the cleanup script will not include those resources_. 
 
-### Cleanup Script Execution
+## Cleanup Script Execution
 
-#### Download the script file
+### Download the script file
 
 Follow the instructions below to download the cleanup script file. Alternatively, clone the repo from GitHub and ensure you are working from the latest version of the file by fetching the latest `main` branch.
 
@@ -24,7 +22,7 @@ Follow the instructions below to download the cleanup script file. Alternatively
  1. Click the **Raw** button
  1. Save the open file as **Start-ALZMonitorCleanup.ps1**
 
-#### Executing the Script
+### Executing the Script
 
 1. Open PowerShell
 1. Install the **Az.ResourceGraph** module: `Install-Module Az.ResourceGraph`

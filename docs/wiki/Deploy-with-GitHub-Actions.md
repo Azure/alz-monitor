@@ -1,5 +1,3 @@
-# Configure an automated deployment with GitHub Actions
-
 ## 1. We recommend configuring the following parameters:
 
 - Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments. This is usually the pseudo root management group.
