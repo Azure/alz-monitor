@@ -26,7 +26,7 @@ jobs:
       vmImage: ubuntu-latest
     steps:
       - task: AzureCLI@2
-        displayeName: Az CLI Deploy Management Groups for hubnw
+        displayName: Az CLI Deploy Management Groups for hubnw
         inputs:
           azureSubscription: 'serviceconnection'
           scriptType: 'batch'
