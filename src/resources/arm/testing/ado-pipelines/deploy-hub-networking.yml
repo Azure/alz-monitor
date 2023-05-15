@@ -18,6 +18,10 @@ variables:
     value: "hubnw-platform-connectivity"
   - name: alzManagementGroup 
     value: "hubnw-landingzones"
+  - name: mgResourceGroup
+    value: "hubnw-mgmt"
+  - name: connResourceGroup
+    value: "hubnw-connectivity"
 
 jobs:
   - job: HubNW_deploy
