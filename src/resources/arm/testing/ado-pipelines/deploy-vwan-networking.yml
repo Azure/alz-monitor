@@ -19,9 +19,9 @@ variables:
   - name: alzManagementGroup 
     value: "vwan-landingzones"
   - name: mgResourceGroup
-    value: "hubnw-mgmt"
+    value: "vwan-mgmt"
   - name: connResourceGroup
-    value: "hubnw-connectivity"
+    value: "vwan-connectivity"
 
 jobs:
   - job: vwan_deploy
