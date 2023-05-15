@@ -18,6 +18,10 @@ variables:
     value: "vwan-platform-connectivity"
   - name: alzManagementGroup 
     value: "vwan-landingzones"
+  - name: mgResourceGroup
+    value: "hubnw-mgmt"
+  - name: connResourceGroup
+    value: "hubnw-connectivity"
 
 jobs:
   - job: vwan_deploy
@@ -81,7 +85,7 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az account set --subscription $(mgSubscriptionId)
+            az account set --name $(vwanMgmtSubscription)
             az group create --name $(mgResourceGroup) --location $(Location)
             az deployment group create --resource-group $(mgResourceGroup) --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
 
