@@ -121,13 +121,13 @@ jobs:
             az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters  parPlatformManagementMgSubs='["$(vwanMgmtSubscriptionId)"]' parPlatformConnectivityMgSubs='["$(vwanSubscriptionId)"]' parLandingZonesCorpMgSubs='["$(vwanSpokeSubscriptionId)"]' parPlatformIdentityMgSubs='["$(vwanIdentitySubscriptionId)"]' parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) --location $(Location) --management-group-id $(ManagementGroupPrefix)
 
       - task: AzureCLI@2
-        displayName: Az CLI Deploy Hub Networking
+        displayName: Az CLI Deploy vwan Networking
         inputs:
           azureSubscription: 'serviceconnection'
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az account set --subscription $(connSubscriptionId)
+            az account set --name $(vwanSubscription)
             az group create --name $(connResourceGroup) --location $(Location)
             az deployment group create --resource-group $(connResourceGroup) --template-file infra-as-code/bicep/modules/vwanConnectivity/vwanConnectivity.bicep --parameters @infra-as-code/bicep/modules/vwanConnectivity/parameters/vwanConnectivity.parameters.all.json parLocation=$(Location)
 
