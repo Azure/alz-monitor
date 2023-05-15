@@ -577,7 +577,15 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 ]
                             }
                             parameters: {
-                              
+                                alertResourceGroupName: {
+                                    value: '[parameters(\'alertResourceGroupName\')]'
+                                }
+                                alertResourceGroupTags: {
+                                    value: '[parameters(\'alertResourceGroupTags\')]'
+                                }
+                                alertResourceGroupLocation: {
+                                    value: '[parameters(\'alertResourceGroupLocation\')]'
+                                }
                                 severity: {
                                     value: '[parameters(\'severity\')]'
                                 }
