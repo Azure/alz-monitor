@@ -30,7 +30,7 @@ jobs:
       vmImage: ubuntu-latest
     steps:
       - task: AzureCLI@2
-        displayeName: Az CLI Deploy Management Groups for vwan
+        displayName: Az CLI Deploy Management Groups for vwan
         inputs:
           azureSubscription: 'serviceconnection'
           scriptType: 'bash'
