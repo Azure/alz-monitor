@@ -81,7 +81,7 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az account set --subscription $(mgSubscriptionId)
+            az account set --name $(hubMgmtSubscription)
             az group create --name $(mgResourceGroup) --location $(Location)
             az deployment group create --resource-group $(mgResourceGroup) --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
 
@@ -123,7 +123,7 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az account set --subscription $(connSubscriptionId)
+            az account set --name $(hubSubscription)
             az group create --name $(connResourceGroup) --location $(Location)
             az deployment group create --resource-group $(connResourceGroup) --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep --parameters @infra-as-code/bicep/modules/hubNetworking/parameters/hubNetworking.parameters.all.json parLocation=$(Location)
 
@@ -134,4 +134,4 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json parPeeredVnetSubscriptionId=$(spokeSubscriptionId) parHubVirtualNetworkId="/subscriptions/$(connSubscriptionId)/resourceGroups/hubnw-connectivity/providers/Microsoft.Network/virtualNetworks/alz-hub-eastus" --location $(Location) --management-group-id $(ManagementGroupPrefix)
+            az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json parPeeredVnetSubscriptionId=$(hubSpokeSubscriptionId) parHubVirtualNetworkId="/subscriptions/$(hubSubscriptionId)/resourceGroups/hubnw-connectivity/providers/Microsoft.Network/virtualNetworks/alz-hub-eastus" --location $(Location) --management-group-id $(ManagementGroupPrefix)
