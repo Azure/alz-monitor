@@ -15,7 +15,7 @@ param deploymentRoleDefinitionIds array = [
     '3'
     '4'
 ])
-param parAlertSeverity string = '2'
+param parAlertSeverity string = '1'
 
 @allowed([
     'PT5M'
@@ -26,7 +26,7 @@ param parAlertSeverity string = '2'
     'PT12H'
     'P1D'
 ])
-param parWindowSize string = 'PT5M'
+param parWindowSize string = 'PT15M'
 
 @allowed([
     'Equals'
@@ -78,9 +78,9 @@ param parMonitorDisable string = 'MonitorDisable'
 module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_LogAlert_Alert'
-        displayName: '[DINE] Deploy VM Log Alert'
-        description: 'DINE policy to audit/deploy VM Log Alert'
+        name: 'Deploy_VM_HeartBeat_Alert'
+        displayName: '[DINE] Deploy VM HeartBeat Alert'
+        description: 'DINE policy to audit/deploy VM HeartBeat Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -267,7 +267,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(resourceGroup().name, \'-ExampleLogAlert\')]'
+                                equals: '[concat(resourceGroup().name, \'-VMHeartBeatAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -325,10 +325,10 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                     {
                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                         apiVersion: '2022-08-01-preview'
-                                        name: '[concat(resourceGroup().name, \'-VMHeartBeat\')]'
+                                        name: '[concat(resourceGroup().name, \'-VMHeartBeatAlert\')]'
                                         location: '[resourceGroup().location]'
                                         properties: {
-                                            displayName: '[concat(resourceGroup().name, \'-VMHeartBeat\')]'
+                                            displayName: '[concat(resourceGroup().name, \'-VMHeartBeatAlert\')]'
                                             description: 'Log Alert for Virtual Machine Heartbeat'
                                             severity: '[parameters(\'severity\')]'
                                             enabled: '[parameters(\'enabled\')]'
