@@ -118,7 +118,7 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters  parPlatformManagementMgSubs='["$(mgSubscriptionId)"]' parPlatformConnectivityMgSubs='["$(connSubscriptionId)"]' parLandingZonesCorpMgSubs='["$(spokeSubscriptionId)"]' parPlatformIdentityMgSubs='["$(idSubscriptionId)"]' parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) --location $(Location) --management-group-id $(ManagementGroupPrefix)
+            az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters  parPlatformManagementMgSubs='["$(vwanMgmtSubscriptionId)"]' parPlatformConnectivityMgSubs='["$(vwanSubscriptionId)"]' parLandingZonesCorpMgSubs='["$(vwanSpokeSubscriptionId)"]' parPlatformIdentityMgSubs='["$(vwanIdentitySubscriptionId)"]' parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) --location $(Location) --management-group-id $(ManagementGroupPrefix)
 
       - task: AzureCLI@2
         displayName: Az CLI Deploy Hub Networking
