@@ -296,7 +296,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().name, \'-VMHeartBeatAlert\')]'
+                                equals: '[concat(subscription().displayName, \'-VMHeartBeatAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -394,10 +394,10 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().name, \'-VMHeartBeatAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMHeartBeatAlert\')]'
                                                         location: '[resourceGroup().location]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().name, \'-VMHeartBeatAlert\')]'
+                                                            displayName: '[concat(subscription().displayName, \'-VMHeartBeatAlert\')]'
                                                             description: 'Log Alert for Virtual Machine Heartbeat'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
