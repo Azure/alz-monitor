@@ -4,11 +4,6 @@
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
-param parResourceGroupName string = 'AlzMonitoring-rg'
-param parResourceGroupLocation string = 'centralus'
-param parResourceGroupTags object = {
-    environment: 'test'
-}
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
@@ -93,30 +88,6 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
             source: 'https://github.com/Azure/ALZ-Monitor/'
         }
         parameters: {
-            alertResourceGroupName: {
-                type: 'String'
-                metadata: {
-                    displayName: 'Resource Group Name'
-                    description: 'Resource group the alert is placed in'
-                }
-                defaultValue: parResourceGroupName
-            }
-            alertResourceGroupTags: {
-                type: 'Object'
-                metadata: {
-                    displayName: 'Resource Group Tags'
-                    description: 'Tags on the Resource group the alert is placed in'
-                }
-                defaultValue: parResourceGroupTags
-            }
-            alertResourceGroupLocation: {
-                type: 'String'
-                metadata: {
-                    displayName: 'Resource Group Location'
-                    description: 'Location of the Resource group the alert is placed in'
-                }
-                defaultValue: parResourceGroupLocation
-            }
             severity: {
                 type: 'String'
                 metadata: {
@@ -296,11 +267,11 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().name, \'-VMHeartBeatAlert\')]'
+                                equals: '[concat(resourceGroup().name, \'-VMHeartBeatAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
-                                equals: '[subscription().id]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name)]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/enabled'
@@ -315,16 +286,6 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
-
-                                    alertResourceGroupName: {
-                                        type: 'string'
-                                    }
-                                    alertResourceGroupTags: {
-                                        type: 'object'
-                                    }
-                                    alertResourceGroupLocation: {
-                                        type: 'string'
-                                    }
                                 
                                     severity: {
                                         type: 'String'
@@ -361,139 +322,6 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 }
                                 variables: {}
                                 resources: [
-                                    {
-                                        type: 'Microsoft.Resources/resourceGroups'
-                                        apiVersion: '2021-04-01'
-                                        name: '[parameters(\'alertResourceGroupName\')]'
-                                        location: '[parameters(\'alertResourceGroupLocation\')]'
-                                        tags: '[parameters(\'alertResourceGroupTags\')]'
-                                    }
-                                    {
-                                        type: 'Microsoft.Resources/deployments'
-                                        apiVersion: '2019-10-01'
-                                        name: 'ServiceHealthIncident'
-                                        resourceGroup: '[parameters(\'alertResourceGroupName\')]'
-                                        dependsOn: [
-                                            '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
-                                        ]
-                                        properties: {
-                                            mode: 'Incremental'
-                                            template: {
-                                                '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
-                                                contentVersion: '1.0.0.0'
-                                                parameters: {
-                                                    enabled: {
-                                                        type: 'string'
-                                                    }
-                                                    alertResourceGroupName: {
-                                                        type: 'string'
-                                                    }
-                                                }
-                                                variables: {}
-                                                resources: [
-                                                    {
-                                                        type: 'Microsoft.Insights/scheduledQueryRules'
-                                                        apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().name, \'-VMHeartBeatAlert\')]'
-                                                        location: '[resourceGroup().location]'
-                                                        properties: {
-                                                            displayName: '[concat(subscription().name, \'-VMHeartBeatAlert\')]'
-                                                            description: 'Log Alert for Virtual Machine Heartbeat'
-                                                            severity: '[parameters(\'severity\')]'
-                                                            enabled: '[parameters(\'enabled\')]'
-                                                            scopes: [
-                                                                '[subscription().Id]'
-                                                            ]
-                                                            targetResourceTypes: [
-                                                                'Microsoft.Compute/virtualMachines'
-                                                            ]
-                                                            evaluationFrequency: '[parameters(\'evaluationFrequency\')]'
-                                                            windowSize: '[parameters(\'windowSize\')]'
-                                                            criteria: {
-                                                                allOf: [
-                                                                    {
-                                                                        query: 'Heartbeat| summarize TimeGenerated=max(TimeGenerated) by Computer, _ResourceId| extend Duration = datetime_diff(\'minute\',now(),TimeGenerated)| summarize AggregatedValue = min(Duration) by Computer, bin(TimeGenerated,5m), _ResourceId'
-                                                                        metricMeasureColumn: 'AggregatedValue'
-                                                                        threshold: '[parameters(\'threshold\')]'
-                                                                        operator: '[parameters(\'operator\')]'
-                                                                        resourceIdColumn: '_ResourceId'
-                                                                        timeAggregation: '[parameters(\'timeAggregation\')]'
-                                                                        dimensions:[
-                                                                            {
-                                                                                name: 'Computer'
-                                                                                operator: 'Include'
-                                                                                values: [
-                                                                                    '*'
-                                                                                ]
-                                                                            }  
-                
-                                                                        ]
-                                                                        failingPariods:{
-                                                                            numberOfEvaluationPeriods: 1
-                                                                             minFailingPeriodsToAlert: 1
-                                                                        }
-                                                                    }
-                                                                ]
-                                                             
-                                                            }
-                                                            autoMitigate: '[parameters(\'autoMitigate\')]'
-                                                            ruleResolveConfiguration: {
-                                                                autoResolved: '[parameters(\'autoResolve\')]'
-                                                                timeToResolve: '[parameters(\'autoResolveTime\')]'
-                                                              }
-                                                          
-                                                            parameters: {
-
-                                                                alertResourceGroupName: {
-                                                                    value: '[parameters(\'alertResourceGroupName\')]'
-                                                                }
-                                                               severity: {
-                                                                    value: '[parameters(\'severity\')]'
-                                                                }
-                                                                windowSize: {
-                                                                    value: '[parameters(\'windowSize\')]'
-                                                                }
-                                                                evaluationFrequency: {
-                                                                    value: '[parameters(\'evaluationFrequency\')]'
-                                                                }
-                                                                autoMitigate: {
-                                                                    value: '[parameters(\'autoMitigate\')]'
-                                                                }
-                                                                autoResolve: {
-                                                                    value: '[parameters(\'autoResolve\')]'
-                                                                }
-                                                                autoResolveTime: {
-                                                                    value: '[parameters(\'autoResolveTime\')]'
-                                                                }
-                                                                enabled: {
-                                                                    value: '[parameters(\'enabled\')]'
-                                                                }
-                                                                threshold: {
-                                                                    value: '[parameters(\'threshold\')]'
-                                                                }
-                                                         
-                                                            }
-                                                        }
-                                                    }
-                                                ]
-                                            }
-                                            parameters: {
-                                                enabled: {
-                                                    value: '[parameters(\'enabled\')]'
-                                                }
-                                                alertResourceGroupName: {
-                                                    value: '[parameters(\'alertResourceGroupName\')]'
-                                                }
-
-                                                alertResourceGroupTags: {
-                                                    value: '[parameters(\'alertResourceGroupTags\')]'
-                                                }
-                                                alertResourceGroupLocation: {
-                                                    value: '[parameters(\'alertResourceGroupLocation\')]'
-                                                }
-                                            }
-                                        }
-                                    }
                                     {
                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                         apiVersion: '2022-08-01-preview'
