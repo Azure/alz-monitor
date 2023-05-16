@@ -398,7 +398,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
                                                         name: '[concat(subscription().displayName, \'-VMHeartBeatAlert\')]'
-                                                        location: '[resourceGroup().location]'
+                                                        location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
                                                             displayName: '[concat(subscription().displayName, \'-VMHeartBeatAlert\')]'
                                                             description: 'Log Alert for Virtual Machine Heartbeat'
