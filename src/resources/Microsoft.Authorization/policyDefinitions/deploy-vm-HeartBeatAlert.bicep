@@ -294,7 +294,6 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                     existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
-                    location: '[parameters(\'alertResourceGroupLocation\')]'
                     existenceCondition: {
                         allOf: [
                
@@ -315,7 +314,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                     deployment: {
                         properties: {
                             mode: 'incremental'
-                            location: policyLocation
+                            location: '[parameters(\'alertResourceGroupLocation\')]'
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
