@@ -80,7 +80,7 @@ param parTimeAggregation string = 'Average'
 
 param parMonitorDisable string = 'MonitorDisable' 
 
-module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_HeartBeat_Alert'
@@ -292,6 +292,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/scheduledQueryRules'
                     existenceScope: 'resourcegroup'
+                    location: policyLocation
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
                     existenceCondition: {
@@ -314,6 +315,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                     deployment: {
                         properties: {
                             mode: 'incremental'
+                            location: policyLocation
                             template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
