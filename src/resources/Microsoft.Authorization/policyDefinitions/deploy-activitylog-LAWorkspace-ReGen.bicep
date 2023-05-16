@@ -16,8 +16,6 @@ param parAlertState string = 'true'
 
 param parMonitorDisable string = 'MonitorDisable'
 
-
-
 module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
@@ -68,14 +66,12 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                 }
                 defaultValue: parResourceGroupLocation
             }
-
             MonitorDisable: {
                 type: 'String'
                 metadata: {
                     displayName: 'Effect'
                     description: 'Tag name to disable monitoring on resource. Set to true if monitoring should be disabled'
                 }
-          
                 defaultValue: parMonitorDisable
             }
         }
@@ -166,7 +162,8 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
                                     }
                                     enabled: {
                                         type: 'string'
-                                    } }
+                                    } 
+                                }
                                 variables: {}
                                 resources: [
                                     {

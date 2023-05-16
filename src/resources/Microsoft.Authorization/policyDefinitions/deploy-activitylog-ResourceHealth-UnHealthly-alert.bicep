@@ -65,18 +65,14 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                 }
                 defaultValue: parResourceGroupLocation
             }
-
             MonitorDisable: {
                 type: 'String'
                 metadata: {
                     displayName: 'Effect'
                     description: 'Tag name to disable monitoring on subscripton level alerts. Set to true if monitoring should be disabled'
                 }
-          
                 defaultValue: parMonitorDisable
             }
-          
-
         }
         policyRule: {
             if: {
@@ -251,7 +247,8 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                                                 alertResourceGroupName: {
                                                     value: '[parameters(\'alertResourceGroupName\')]'
                                                 }
-                                            }                                        }
+                                            }
+                                        }
                                     }
                                 ]
                             }
