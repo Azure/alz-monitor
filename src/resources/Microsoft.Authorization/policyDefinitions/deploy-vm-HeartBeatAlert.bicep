@@ -291,6 +291,9 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/scheduledQueryRules'
+                    existenceScope: 'resourcegroup'
+                    resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
+                    deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
                
