@@ -291,7 +291,6 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/scheduledQueryRules'
-                    existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     existenceCondition: {
                         allOf: [
