@@ -71,7 +71,6 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                     displayName: 'Effect'
                     description: 'Tag name to disable monitoring  Subscription level alerts. Set to true if monitoring should be disabled'
                 }
-          
                 defaultValue: parMonitorDisable
             }
         }
@@ -239,7 +238,8 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                 alertResourceGroupName: {
                                                     value: '[parameters(\'alertResourceGroupName\')]'
                                                 }
-                                            }                                        }
+                                            }                                        
+                                        }
                                     }
                                 ]
                             }
