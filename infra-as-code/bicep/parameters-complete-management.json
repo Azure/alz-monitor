@@ -3,12 +3,12 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "parPolicyManagementGroupId": {
-            "value": "alz"
+            "value": "cn"
         },
         "parPolicyAssignmentParameters": {
             "value": {
                 "ALZMonitorResourceGroupName": {
-                    "value": "rg-alz-monitor"
+                    "value": "cn-rg-alz-monitor"
                 },
                 "ALZMonitorResourceGroupTags": {
                     "value": {
@@ -16,7 +16,7 @@
                     }
                 },
                 "ALZMonitorResourceGroupLocation": {
-                    "value": "eastus"
+                    "value": "uksouth"
                 }
             }
         },
