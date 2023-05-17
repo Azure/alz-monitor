@@ -290,7 +290,6 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                     existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
-                    location: '[parameters(\'alertResourceGroupLocation\')]'
                     existenceCondition: {
                         allOf: [
                
