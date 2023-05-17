@@ -23,7 +23,7 @@
         "parPolicyAssignmentParametersServiceHealth": {
             "value": {
                 "ALZMonitorActionGroupEmail": {
-                    "value": "bharat.sharma@landg.com"
+                    "value": "AzureCloudFoundation@landg.com"
                 },
                 "ResHlthUnhealthyAlertState": {
                     "value": "true"
