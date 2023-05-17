@@ -293,7 +293,8 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                     type: 'Microsoft.Insights/scheduledQueryRules'
                     existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
-                    deploymentScope: 'subscription'
+                    //deploymentScope: 'subscription'
+                    //location: '[parameters(\'alertResourceGroupLocation\')]'
                     existenceCondition: {
                         allOf: [
                
@@ -377,6 +378,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                         apiVersion: '2019-10-01'
                                         name: 'ServiceHealthIncident'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
+                                        location: '[parameters(\'alertResourceGroupLocation\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                                         ]
