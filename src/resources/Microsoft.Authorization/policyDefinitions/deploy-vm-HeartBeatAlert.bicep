@@ -280,21 +280,17 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                         equals: 'Microsoft.Compute/virtualMachines'
                     }
 
-                    {
-                        field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
-                        notEquals: 'true'
-                    }
-                ]
+                   ]
             }
             then: {
                 effect: '[parameters(\'effect\')]'
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/scheduledQueryRules'
-                    existenceScope: 'resourcegroup'
+                   // existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
-                    location: '[parameters(\'alertResourceGroupLocation\')]'
+                    //location: '[parameters(\'alertResourceGroupLocation\')]'
                     existenceCondition: {
                         allOf: [
                
