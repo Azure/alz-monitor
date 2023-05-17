@@ -293,7 +293,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                     type: 'Microsoft.Insights/scheduledQueryRules'
                     existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
-                    //deploymentScope: 'subscription'
+                    deploymentScope: 'subscription'
                     //location: '[parameters(\'alertResourceGroupLocation\')]'
                     existenceCondition: {
                         allOf: [
