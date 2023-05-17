@@ -287,10 +287,10 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/scheduledQueryRules'
-                   // existenceScope: 'resourcegroup'
+                    existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
                     deploymentScope: 'subscription'
-                    //location: '[parameters(\'alertResourceGroupLocation\')]'
+                    location: '[parameters(\'alertResourceGroupLocation\')]'
                     existenceCondition: {
                         allOf: [
                
@@ -496,86 +496,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                             }
                                         }
                                     }
-                                    {
-                                        type: 'Microsoft.Insights/scheduledQueryRules'
-                                        apiVersion: '2022-08-01-preview'
-                                        name: '[concat(resourceGroup().name, \'-VMHeartBeatAlert\')]'
-                                        location: '[resourceGroup().location]'
-                                        properties: {
-                                            displayName: '[concat(resourceGroup().name, \'-VMHeartBeatAlert\')]'
-                                            description: 'Log Alert for Virtual Machine Heartbeat'
-                                            severity: '[parameters(\'severity\')]'
-                                            enabled: '[parameters(\'enabled\')]'
-                                            scopes: [
-                                                '[resourceGroup().Id]'
-                                            ]
-                                            targetResourceTypes: [
-                                                'Microsoft.Compute/virtualMachines'
-                                            ]
-                                            evaluationFrequency: '[parameters(\'evaluationFrequency\')]'
-                                            windowSize: '[parameters(\'windowSize\')]'
-                                            criteria: {
-                                                allOf: [
-                                                    {
-                                                        query: 'Heartbeat| summarize TimeGenerated=max(TimeGenerated) by Computer, _ResourceId| extend Duration = datetime_diff(\'minute\',now(),TimeGenerated)| summarize AggregatedValue = min(Duration) by Computer, bin(TimeGenerated,5m), _ResourceId'
-                                                        metricMeasureColumn: 'AggregatedValue'
-                                                        threshold: '[parameters(\'threshold\')]'
-                                                        operator: '[parameters(\'operator\')]'
-                                                        resourceIdColumn: '_ResourceId'
-                                                        timeAggregation: '[parameters(\'timeAggregation\')]'
-                                                        dimensions:[
-                                                            {
-                                                                name: 'Computer'
-                                                                operator: 'Include'
-                                                                values: [
-                                                                    '*'
-                                                                ]
-                                                            }  
-
-                                                        ]
-                                                        failingPariods:{
-                                                            numberOfEvaluationPeriods: 1
-                                                             minFailingPeriodsToAlert: 1
-                                                        }
-                                                    }
-                                                ]
-                                             
-                                            }
-                                            autoMitigate: '[parameters(\'autoMitigate\')]'
-                                            ruleResolveConfiguration: {
-                                                autoResolved: '[parameters(\'autoResolve\')]'
-                                                timeToResolve: '[parameters(\'autoResolveTime\')]'
-                                              }
-                                          
-                                            parameters: {
-                                                severity: {
-                                                    value: '[parameters(\'severity\')]'
-                                                }
-                                                windowSize: {
-                                                    value: '[parameters(\'windowSize\')]'
-                                                }
-                                                evaluationFrequency: {
-                                                    value: '[parameters(\'evaluationFrequency\')]'
-                                                }
-                                                autoMitigate: {
-                                                    value: '[parameters(\'autoMitigate\')]'
-                                                }
-                                                autoResolve: {
-                                                    value: '[parameters(\'autoResolve\')]'
-                                                }
-                                                autoResolveTime: {
-                                                    value: '[parameters(\'autoResolveTime\')]'
-                                                }
-                                                enabled: {
-                                                    value: '[parameters(\'enabled\')]'
-                                                }
-                                                threshold: {
-                                                    value: '[parameters(\'threshold\')]'
-                                                }
-                                         
-                                            }
-                                        }
-                                    }
+                                
                                 ]
                             }
                             parameters: {
