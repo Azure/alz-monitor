@@ -19,7 +19,7 @@
 
 ## Can I disable the alerts being deployed for a resource or subscription? 
 
-*Yes, please refer to the disabling monitoring section in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide)*
+*Yes, please refer to the disabling monitoring section in the [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor#disabling-monitoring)*
 
 ## How much does it cost to run the ALZ Baseline solution?
 

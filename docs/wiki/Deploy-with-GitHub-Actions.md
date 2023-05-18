@@ -93,4 +93,4 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](h
 - Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
 
 # Next steps
-- To remediate non-compliant policies, please proceed with [Policy remediation](https://github.com/Azure/alz-monitor/wiki/Policy-remediation)
+- To remediate non-compliant policies, please proceed with [Policy remediation](./Policy-remediation)
