@@ -1,10 +1,6 @@
-<!-- markdownlint-disable -->
-# Customize Policy Assignment
-<!-- markdownlint-restore -->
+## Introduction
 
-# Introduction
-
-As described in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide), the policies and initiatives in this repo can be deployed in a default configuration, i.e. with default settings and are intended to be used as such. There may be however, scenarios where you would want to tweak the initiative assignment for individual policies to conform with your monitoring requirements, or potentially wish to deploy alerts in a more phased approach to a brownfield environment. This document lists some of the various scenarios as well as how you would go about making such changes to the assignments. 
+As described in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor), the policies and initiatives in this repo can be deployed in a default configuration, i.e. with default settings and are intended to be used as such. There may be however, scenarios where you would want to tweak the initiative assignment for individual policies to conform with your monitoring requirements, or potentially wish to deploy alerts in a more phased approach to a brownfield environment. This document lists some of the various scenarios as well as how you would go about making such changes to the assignments. 
 
 ## Modify initiative assignment
 
@@ -16,6 +12,7 @@ As an example you may want to change alert thresholds for one or more metric ale
 - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
 - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
 - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
+- [parameters-complete-servicehealth.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-servicehealth.json)
 
 ### Applying changes to the parameter files
 
@@ -43,13 +40,6 @@ If we want to change the threshold value for Virtual Network Gateway Express Rou
                 },
                 "ALZMonitorResourceGroupLocation": {
                     "value": "eastus"
-                }
-            }
-        },
-        "parPolicAssignmentParametersAlertProcessing": {
-            "value": {
-                "ALZMonitorActionGroupEmail": {
-                    "value": "action@mail.com"
                 }
             }
         },
@@ -139,3 +129,7 @@ These are the high-level steps that would need to take place:
 > Note that the above approach will not delete the alerts objects in Azure, merely disable them. To delete the alerts you will have to do so manually.
 > Also note that while you can engage the parPolicyEffect to avoid deploying new alerts, you should not do so until you have successfully remediated the above. Otherwise the policy will be disabled, and you will not be able to turn alerts off via policy until that is changed back. 
 
+# Next steps
+- To deploy with GitHub Actions, please proceed with [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
+- To deploy with Azure CLI, please proceed with [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
+- To deploy with Azure PowerShell, please proceed with [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)

@@ -1,0 +1,46 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "parPolicyManagementGroupId": {
+            "value": "alz"
+        },
+        "parPolicyAssignmentParameters": {
+            "value": {
+                "ALZMonitorResourceGroupName": {
+                    "value": "rg-alz-monitor"
+                },
+                "ALZMonitorResourceGroupTags": {
+                    "value": {
+                        "Project": "alz-monitor"
+                    }
+                },
+                "ALZMonitorResourceGroupLocation": {
+                    "value": "eastus"
+                }
+            }
+        },
+        "parPolicyAssignmentParametersServiceHealth": {
+            "value": {
+                "ALZMonitorActionGroupEmail": {
+                    "value": "action@mail.com"
+                },
+                "ResHlthUnhealthyAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthAdvisoryAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthIncidentAlertState": {
+                    "value": "true"
+                },
+                "SvcHlthMaintenanceAlertState": {
+                    "value": "true"
+                },
+                "svcHlthSecAdvisoryAlertState": {
+                    "value": "true"
+                }
+            }
+        }
+    }
+}

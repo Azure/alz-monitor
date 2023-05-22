@@ -60,9 +60,10 @@ module ErgExpressRouteBitsOutAlert '../../arm/Microsoft.Authorization/policyDefi
         description: 'DINE policy to audit/deploy ER Gateway Connection BitsOutPerSecond Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'Networking'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             severity: {
@@ -252,6 +253,9 @@ module ErgExpressRouteBitsOutAlert '../../arm/Microsoft.Authorization/policyDefi
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-GatewayERBitsOutAlert\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for ER Gateway Connection BitsOutPerSecond'
                                             severity: '[parameters(\'severity\')]'

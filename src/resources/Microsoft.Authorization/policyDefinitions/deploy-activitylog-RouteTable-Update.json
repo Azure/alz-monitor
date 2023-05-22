@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.16.2.56959",
-      "templateHash": "7908588329497283930"
+      "version": "0.17.1.54307",
+      "templateHash": "6725484319358165768"
     }
   },
   "parameters": {
@@ -30,7 +30,8 @@
     "parResourceGroupTags": {
       "type": "object",
       "defaultValue": {
-        "environment": "test"
+        "environment": "test",
+        "_deployed_by_alz_monitor": true
       }
     },
     "parAlertState": {
@@ -68,9 +69,10 @@
           },
           "metadata": {
             "value": {
-              "version": "1.0.0",
+              "version": "1.0.1",
               "Category": "ActivityLog",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "_deployed_by_alz_monitor": "True"
             }
           },
           "parameters": {
@@ -248,6 +250,9 @@
                                     "apiVersion": "2020-10-01",
                                     "name": "ActivityUDRUpdate",
                                     "location": "global",
+                                    "tags": {
+                                      "_deployed_by_alz_monitor": true
+                                    },
                                     "properties": {
                                       "description": "Activity Log Route table update",
                                       "enabled": "[[parameters('enabled')]",
@@ -320,8 +325,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.16.2.56959",
-              "templateHash": "4565435729572538973"
+              "version": "0.17.1.54307",
+              "templateHash": "9902724211874229700"
             }
           },
           "parameters": {

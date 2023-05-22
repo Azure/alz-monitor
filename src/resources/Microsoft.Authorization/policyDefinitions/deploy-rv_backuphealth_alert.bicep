@@ -60,9 +60,10 @@ module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
         description: 'DINE policy to audit/deploy Recovery Vault Backup Health Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'Site Recovery'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             severity: {
@@ -252,6 +253,9 @@ module BackupHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         apiVersion: '2018-03-01'
                                         name: '[concat(parameters(\'resourceName\'), \'-BackupHealth\')]'
                                         location: 'global'
+                                        tags: {
+                                            _deployed_by_alz_monitor: true
+                                        }
                                         properties: {
                                             description: 'Metric Alert for Recovery Vault Backup Health Events'
                                             severity: '[parameters(\'severity\')]'

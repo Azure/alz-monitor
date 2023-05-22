@@ -8,6 +8,7 @@ param deploymentRoleDefinitionIds array = [
 ]
 param parResourceGroupTags object = {
     environment: 'test'
+     _deployed_by_alz_monitor: true
 }
 
 param parAlertState string = 'true'
@@ -22,9 +23,10 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
         description: 'DINE policy to Deploy Service Health Advisory Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'ServiceHealth'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             enabled: {
@@ -69,7 +71,6 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                     displayName: 'Effect'
                     description: 'Tag name to disable monitoring  Subscription level alerts. Set to true if monitoring should be disabled'
                 }
-          
                 defaultValue: parMonitorDisable
             }
         }
@@ -199,6 +200,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         name: 'ServiceHealthAdvisoryEvent'
                                                         properties: {
                                                             description: 'Service Health Advisory Alert'
@@ -234,7 +238,8 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                 alertResourceGroupName: {
                                                     value: '[parameters(\'alertResourceGroupName\')]'
                                                 }
-                                            }                                        }
+                                            }                                        
+                                        }
                                     }
                                 ]
                             }

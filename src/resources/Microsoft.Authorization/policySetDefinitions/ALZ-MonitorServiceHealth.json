@@ -1,0 +1,203 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "parTelemetryOptOut": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Set Parameter to true to Opt-out of deployment telemetry"
+      }
+    }
+  },
+  "variables": {
+    "varCuaid": "7e6d4601-dfd7-4996-8ea6-3e1ef93758f1"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/policySetDefinitions",
+      "apiVersion": "2021-06-01",
+      "name": "Alerting-ServiceHealth",
+      "properties": {
+        "metadata": {
+          "version": "1.0.0",
+          "category": "Monitoring",
+          "source": "https://github.com/Azure/ALZ-Monitor/"
+        },
+        "parameters": {
+          "ALZMonitorResourceGroupName": {
+            "type": "String",
+            "defaultValue": "ALZ-Monitoring-RG"
+          },
+          "ALZMonitorResourceGroupTags": {
+            "type": "Object",
+            "defaultValue": {
+              "Environment": "test"
+            }
+          },
+          "ALZMonitorResourceGroupLocation": {
+            "type": "String",
+            "defaultValue": "centralus"
+          },
+          "ResHlthUnhealthyAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthAdvisoryAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthIncidentAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "SvcHlthMaintenanceAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          },
+          "svcHlthSecAdvisoryAlertState": {
+            "type": "string",
+            "defaultValue": "true"
+          }
+          ,
+          "ALZMonitorActionGroupEmail": {
+            "type": "string",
+            "defaultValue": "action@mail.com"
+          },
+          "MonitorDisable": {
+            "type": "string",
+            "defaultValue": "MonitorDisable"
+          }
+        },
+        "policyDefinitions": [
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('ResHlthUnhealthyAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthAdvisoryAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]",
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthIncidentAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+              }
+            }
+          },
+          {
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+              }
+            },
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
+          },
+          {
+            "parameters": {
+              "enabled": {
+                "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
+              },
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+              }
+            },
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
+          }
+           ,
+           {
+             "parameters": {
+              "ALZMonitorResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "ALZMonitorResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "ALZMonitorResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+              },
+              "ALZMonitorActionGroupEmail": {
+                "value": "[[parameters('ALZMonitorActionGroupEmail')]"
+              },
+              "MonitorDisable": {
+                "value": "[[parameters('MonitorDisable')]"
+              }
+             },
+             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AlertProcessing_Rule')]"
+           }
+        ],
+        "policyType": "Custom"
+      }
+    },
+    {
+      "condition": "[not(parameters('parTelemetryOptOut'))]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "[format('pid-{0}-{1}', variables('varCuaid'), uniqueString(deployment().location))]",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {},
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": []
+        }
+      }
+    }
+  ]
+}

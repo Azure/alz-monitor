@@ -19,7 +19,7 @@
 
 ## Can I disable the alerts being deployed for a resource or subscription? 
 
-*Yes, please refer to the disabling monitoring section in the [Deployment Guide](https://github.com/Azure/alz-monitor/wiki/DeploymentGuide)*
+*Yes, please refer to the disabling monitoring section in the [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor#disabling-monitoring)*
 
 ## How much does it cost to run the ALZ Baseline solution?
 
@@ -38,3 +38,7 @@
 *For costings related to your deployment please visit https://azure.microsoft.com/en-us/pricing/details/monitor/ and work with your local Microsoft account team to define a rough order of magnitude (RoM) costings*
 
 *<sup>1</sup> Depending on the region you deploy to their may be a small difference in the associated cost, the costs provided here are based on prices captured as of April 2023*
+
+## Can I access the Visio diagrams displayed in the documentation?
+
+*Yes, the Visio diagrams are available in the [docs\media](../../docs/media) folder*

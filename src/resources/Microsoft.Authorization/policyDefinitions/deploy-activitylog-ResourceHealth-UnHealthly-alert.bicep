@@ -8,6 +8,7 @@ param deploymentRoleDefinitionIds array = [
 ]
 param parResourceGroupTags object = {
     environment: 'test'
+     _deployed_by_alz_monitor: true
 }
 
 param parAlertState string = 'true'
@@ -22,9 +23,10 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
         description: 'DINE policy to Deploy Resource Health Unhealthy Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             Category: 'ServiceHealth'
             source: 'https://github.com/Azure/ALZ-Monitor/'
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             enabled: {
@@ -63,18 +65,14 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                 }
                 defaultValue: parResourceGroupLocation
             }
-
             MonitorDisable: {
                 type: 'String'
                 metadata: {
                     displayName: 'Effect'
                     description: 'Tag name to disable monitoring on subscripton level alerts. Set to true if monitoring should be disabled'
                 }
-          
                 defaultValue: parMonitorDisable
             }
-          
-
         }
         policyRule: {
             if: {
@@ -191,6 +189,9 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                                                         apiVersion: '2020-10-01'
                                                         name: 'ResourceHealthUnhealthyAlert'
                                                         location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
                                                         properties: {
                                                             description: 'Resource Health Unhealthy Alert'
                                                             enabled: '[parameters(\'enabled\')]'
@@ -246,7 +247,8 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
                                                 alertResourceGroupName: {
                                                     value: '[parameters(\'alertResourceGroupName\')]'
                                                 }
-                                            }                                        }
+                                            }
+                                        }
                                     }
                                 ]
                             }
