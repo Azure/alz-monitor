@@ -199,7 +199,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                               actions: [
                                 {
                                   actiongroupIds: [
-                                    '''[resourceId('Microsoft.Insights/actionGroups','AlzActionGrp')]'''
+                                    '''[concat(subscription().Id, '/resourceGroups/', parameters('ALZMonitorResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AlzActionGrp')]'''
                                   ]
                                   actionType: 'AddActionGroups'
                                 }
