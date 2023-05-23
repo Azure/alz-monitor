@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.17.1.54307",
-      "templateHash": "17949851335460665601"
+      "templateHash": "490104898180853230"
     }
   },
   "parameters": {
@@ -245,7 +245,7 @@
                                       "actions": [
                                         {
                                           "actiongroupIds": [
-                                            "[[resourceId('Microsoft.Insights/actionGroups','AlzActionGrp')]"
+                                            "[[concat(subscription().Id, '/resourceGroups/', parameters('ALZMonitorResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AlzActionGrp')]"
                                           ],
                                           "actionType": "AddActionGroups"
                                         }
