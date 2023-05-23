@@ -78,7 +78,7 @@ param parThreshold string = '10'
 
 param parTimeAggregation string = 'Average'
 
-param parMonitorDisable string = 'MonitorDisable' 
+//param parMonitorDisable string = 'MonitorDisable' 
 
 module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
@@ -262,15 +262,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                 ]
                 defaultValue: parPolicyEffect
             }
-            MonitorDisable: {
-                type: 'String'
-                metadata: {
-                    displayName: 'Effect'
-                    description: 'Tag name to disable monitoring resource. Set to true if monitoring should be disabled'
-                }
-          
-                defaultValue: parMonitorDisable
-            }
+        
         }
         policyRule: {
             if: {
