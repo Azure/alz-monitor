@@ -287,9 +287,9 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                 details: {
                     roleDefinitionIds: deploymentRoleDefinitionIds
                     type: 'Microsoft.Insights/scheduledQueryRules'
-                    //existenceScope: 'resourcegroup'
+                    existenceScope: 'resourcegroup'
                     resourceGroupName: '[parameters(\'alertResourceGroupName\')]'
-                    //deploymentScope: 'subscription'
+                    deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
                
@@ -308,13 +308,18 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                         ]
                     }
                     deployment: {
+                        location:policyLocation
                         properties: {
                             mode: 'incremental'
-                            location: '[parameters(\'alertResourceGroupLocation\')]'
-                            template: {
+                               template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
+
+                                       policyLocation: {
+                                        type: 'string'
+                                        defaultValue: policyLocation
+                                    }
 
                                     alertResourceGroupName: {
                                         type: 'string'
