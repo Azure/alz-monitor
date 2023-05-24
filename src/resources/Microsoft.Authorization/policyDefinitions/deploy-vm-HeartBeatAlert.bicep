@@ -368,9 +368,8 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'HeartBeatALert'
+                                        name: 'HeartBeatAlert'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
-                                        location: '[parameters(\'alertResourceGroupLocation\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
                                         ]
