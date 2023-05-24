@@ -488,9 +488,6 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                                     value: '[parameters(\'alertResourceGroupName\')]'
                                                 }
 
-                                                alertResourceGroupTags: {
-                                                    value: '[parameters(\'alertResourceGroupTags\')]'
-                                                }
                                                 alertResourceGroupLocation: {
                                                     value: '[parameters(\'alertResourceGroupLocation\')]'
                                                 }
