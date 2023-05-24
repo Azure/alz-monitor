@@ -385,9 +385,6 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                                     alertResourceGroupName: {
                                                         type: 'string'
                                                     }
-                                                    alertResourceGroupTags:{
-                                                        type:'string'
-                                                    }
                                                     alertResourceGroupLocation:{
                                                         type:'string'
                                                     }
@@ -453,10 +450,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                                                 alertResourceGroupLocation: {
                                                                     value: '[parameters(\'alertResourceGroupName\')]'
                                                                 }
-                                                                alertResourceGroupTags: {
-                                                                    value: '[parameters(\'alertResourceGroupName\')]'
-                                                                }
-                                                               severity: {
+                                                                severity: {
                                                                     value: '[parameters(\'severity\')]'
                                                                 }
                                                                 windowSize: {
