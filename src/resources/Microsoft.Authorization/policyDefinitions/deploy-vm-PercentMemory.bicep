@@ -87,7 +87,7 @@ param parTimeAggregation string = 'Average'
 module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_CPU_Alert'
+        name: 'Deploy_VM_Memory_Alert'
         displayName: '[DINE] Deploy VM Memory Alert'
         description: 'DINE policy to audit/deploy VM Memory Alert'
         location: policyLocation
@@ -399,7 +399,7 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'VMCPUAlert'
+                                        name: 'VMMemoryAlert'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
