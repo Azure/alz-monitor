@@ -68,6 +68,10 @@ param parAlertState string = 'true'
 
 param parThreshold string = '10'
 
+param parEvaluationPeriods string = '1'
+
+param parFailingPeriods string  = '1'
+
 @allowed([
   'Average'
   'Count'
@@ -250,6 +254,24 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                 }
                 defaultValue: parThreshold
             }
+
+            failingPeriods: {
+                type: 'String'
+                metadata:{
+                    disaplayname: 'Failing Periods'
+                    description: 'Number of failing periods before alert is fired'
+                }
+                defaultValue: parFailingPeriods
+            }
+            evaluationPeriods: {
+                type: 'String'
+                metadata:{
+                    disaplayname: 'Evaluation Periods'
+                    description: 'The number of aggregated lookback points.'
+                }
+                defaultValue: parEvaluationPeriods
+            }
+
             effect: {
                 type: 'String'
                 metadata: {
@@ -355,6 +377,15 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                         type:'String'
 
                                     }
+                                    failingPeriods: {
+                                        type:'String'
+
+                                    }
+                                    evaluationPeriods: {
+                                        type:'String'
+
+                                    }
+
                                 }
                                 variables: {}
                                 resources: [
@@ -428,9 +459,9 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                                                             }  
                 
                                                                         ]
-                                                                        failingPariods:{
-                                                                            numberOfEvaluationPeriods: 1
-                                                                             minFailingPeriodsToAlert: 1
+                                                                        failingPeriods:{
+                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluation Periods\')]'
+                                                                            minFailingPeriodsToAlert: '[parameters(\'failingPeriods\')]'
                                                                         }
                                                                     }
                                                                 ]
@@ -473,6 +504,14 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                                                 }
                                                                 threshold: {
                                                                     value: '[parameters(\'threshold\')]'
+                                                                }
+                                                                failingPeriods: {
+                                                                    value: '[parameters(\'failingPeriods\')]'
+                            
+                                                                }
+                                                                evaluationPeriods: {
+                                                                    type:'[parameters(\'evaluationPeriods\')]'
+                            
                                                                 }
                                                          
                                                             }
@@ -519,7 +558,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
                                   }
-                                  autoResolve: {
+                              autoResolve: {
                                     value: '[parameters(\'autoResolve\')]'
                                 }
                                 autoResolveTime: {
