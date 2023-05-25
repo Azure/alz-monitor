@@ -576,6 +576,14 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                                 timeAggregation: {
                                     value: '[parameters(\'timeAggregation\')]'
                                 }
+                                failingPeriods: {
+                                    value: '[parameters(\'failingPeriods\')]'
+
+                                }
+                                evaluationPeriods: {
+                                    type:'[parameters(\'evaluationPeriods\')]'
+
+                                }
 
 
                             }
