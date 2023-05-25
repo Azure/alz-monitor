@@ -41,7 +41,7 @@ param parWindowSize string = 'PT15M'
     'LessThanOrEqual'
 
 ])
-param parOperator string = 'GreaterThan'
+param parOperator string = 'LessThan'
 
 @allowed([
     'PT1M'
@@ -66,7 +66,7 @@ param parautoResolveTime string = '00:10:00'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '90'
+param parThreshold string = '10'
 
 param parEvaluationPeriods string = '1'
 
