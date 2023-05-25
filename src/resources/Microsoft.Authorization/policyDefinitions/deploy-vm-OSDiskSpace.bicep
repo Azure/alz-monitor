@@ -84,12 +84,12 @@ param parTimeAggregation string = 'Average'
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
-module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_Memory_Alert'
-        displayName: '[DINE] Deploy VM Memory Alert'
-        description: 'DINE policy to audit/deploy VM Memory Alert'
+        name: 'Deploy_VM_OSDiskSpace_Alert'
+        displayName: '[DINE] Deploy VM OSDiskSpace Alert'
+        description: 'DINE policy to audit/deploy VM OSDiskSpace Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -309,7 +309,7 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().displayName, \'-VMLowMemoryAlert\')]'
+                                equals: '[concat(subscription().displayName, \'-VMLowOSDiskSpaceAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -399,7 +399,7 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'VMMemoryAlert'
+                                        name: 'VMOSDiskSpaceAlert'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
@@ -425,11 +425,11 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMLowMemoryAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMLowOSDiskSpaceAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMLowMemoryAlert\')]'
-                                                            description: 'Log Alert for Virtual Machine Memory'
+                                                            displayName: '[concat(subscription().displayName, \'-VMLowOSDiskSpaceAlert\')]'
+                                                            description: 'Log Alert for Virtual Machine OSDiskSpace'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
@@ -443,7 +443,7 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"|where Namespace == "Memory" and Name == "AvailableMB"| extend TotalMemory = toreal(todynamic(Tags)["vm.azm.ms/memorySizeMB"]) | extend AvailableMemoryPercentage = (toreal(Val) / TotalMemory) * 100.0| summarize AggregatedValue = avg(AvailableMemoryPercentage) by bin(TimeGenerated, 15m), Computer, _ResourceId'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
@@ -455,6 +455,15 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                                                                                 operator: 'Include'
                                                                                 values: [
                                                                                     '*'
+                                                                                ]
+                                                                            }    
+                                                                            
+                                                                            {
+                                                                                name: 'Disk'
+                                                                                operator: 'Include'
+                                                                                values: [
+                                                                                    'C:'
+                                                                                    '/'
                                                                                 ]
                                                                             }  
                                                                             
