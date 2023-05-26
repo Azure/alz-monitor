@@ -90,8 +90,8 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_dataDiskSpace_Alert'
-        displayName: '[DINE] Deploy VM dataDiskSpace Alert'
-        description: 'DINE policy to audit/deploy VM dataDiskSpace Alert'
+        displayName: '[DINE] Deploy VM Data Disk Space Alert'
+        description: 'DINE policy to audit/deploy VM data Disk Space Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -291,7 +291,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 type: 'String'
                 metadata: {
                         displayName: 'Disks to Exclude from alerts' 
-                        description: ' Comma seperated list of disks we do not want incldued in query to alert on default value is (\'C:\',\'/\'). Please include both Windows and Linux partitions'
+                        description: ' Comma seperated list of disks we do not want included in query to alert on. Default value is (\'C:\',\'/\'). Please include both Windows and Linux partitions'
 
                 }
 
@@ -461,7 +461,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in \'[parameters(\'diskstoExclude\')]\'| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in "[parameters(\'diskstoExclude\')]"| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
