@@ -460,7 +460,7 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
                 
                                                                         ]
                                                                         failingPeriods:{
-                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluation Periods\')]'
+                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluationPeriods\')]'
                                                                             minFailingPeriodsToAlert: '[parameters(\'failingPeriods\')]'
                                                                         }
                                                                     }
