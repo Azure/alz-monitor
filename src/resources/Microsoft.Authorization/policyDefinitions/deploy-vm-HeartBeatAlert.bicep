@@ -460,7 +460,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                 
                                                                         ]
                                                                         failingPeriods:{
-                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluation Periods\')]'
+                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluationPeriods\')]'
                                                                             minFailingPeriodsToAlert: '[parameters(\'failingPeriods\')]'
                                                                         }
                                                                     }
