@@ -487,7 +487,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 
                                                                         ]
                                                                         failingPeriods:{
-                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluation Periods\')]'
+                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluationPeriods\')]'
                                                                             minFailingPeriodsToAlert: '[parameters(\'failingPeriods\')]'
                                                                         }
                                                                     }
