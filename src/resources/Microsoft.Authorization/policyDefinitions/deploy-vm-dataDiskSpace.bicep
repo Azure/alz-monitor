@@ -82,6 +82,8 @@ param parFailingPeriods string  = '1'
 
 param parTimeAggregation string = 'Average'
 
+param parDiskstoExclude string = '(\'C:\',\'/\')'
+
 //param parMonitorDisable string = 'MonitorDisable' 
 
 module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -284,6 +286,18 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 ]
                 defaultValue: parPolicyEffect
             }
+
+            diskstoExclude:{
+                type: 'String'
+                metadata: {
+                        displayName: 'Disks to Exclude from alerts' 
+                        description: ' Comma seperated list of disks we do not want incldued in query to alert on default value is (\'C:\',\'/\'). Please include both Windows and Linux partitions'
+
+                }
+
+          defaultValue: parDiskstoExclude
+
+            }
         
         }
         policyRule: {
@@ -385,6 +399,10 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                         type:'String'
 
                                     }
+                                    diskstoExclude: {
+                                        type:'String'
+
+                                    }
 
                                 }
                                 variables: {}
@@ -443,7 +461,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in ("C:", "/")| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in \'[parameters(\'diskstoExclude\')]\'| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
@@ -522,6 +540,11 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                                     type:'[parameters(\'evaluationPeriods\')]'
                             
                                                                 }
+                                                                diskstoExclude: {
+                                                                    type:'[parameters(\'diskstoExclude\')]'
+
+
+                                                                }
                                                          
                                                             }
                                                         }
@@ -591,6 +614,12 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 }
                                 evaluationPeriods: {
                                     type:'[parameters(\'evaluationPeriods\')]'
+
+                                }
+
+                                diskstoExclude: {
+                                    type:'[parameters(\'diskstoExclude\')]'
+
 
                                 }
 
