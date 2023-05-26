@@ -461,7 +461,7 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
                 
                                                                         ]
                                                                         failingPeriods:{
-                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluation Periods\')]'
+                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluationPeriods\')]'
                                                                             minFailingPeriodsToAlert: '[parameters(\'failingPeriods\')]'
                                                                         }
                                                                     }
