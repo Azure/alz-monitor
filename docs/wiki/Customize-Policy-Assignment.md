@@ -59,6 +59,8 @@ If we want to change the threshold value for Virtual Network Gateway Express Rou
 
 ### Assigning all initiatives with the complete parameter files
 
+>*IMPORTANT:* The below described processes focus _only_ on the respective initiative _assignments_, and _do_ assume that initial policy / initiative _deployments_ have already been done succesful, as detailed in the respective guides for [Azure CLI](./Deploy-with-Azure-CLI.md) and for [Azure PowerShell](./Deploy-with-Azure-PowerShell.md).
+
 After making all the desired changes to the parameter files you can run the following commands to assign the initiatives:
 
 #### Azure CLI

@@ -1,12 +1,13 @@
 ## 1. We recommend configuring the following parameters:
 
-- Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies, initiatives and policy assignments. This is usually the pseudo root management group.
+- Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies and the initiatives; this will also be the ["scope"](https://learn.microsoft.com/azure/governance/policy/concepts/scope) of the respective policy / initiative assignments.
+This is usually the so called "pseudo root management group", e.g. in [ALZ terminology](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups), this would be the so called "Intermediate Root Management Group" (directly beneath the "Tenant Root Group").
 - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
 - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
 - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
 - Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative) to the email address where notifications of the alerts are sent to.
 
-These changes must made in each of the following parameter files:
+These changes must be made in each of the following parameter files:
 
 - [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
 - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
@@ -68,7 +69,8 @@ Run only the commands that correspond to your management group hierarchy.
   LZManagementGroup="The management group id for Landing Zones"
 ```
 
-> When running Azure CLI from PowerShell the variables have to start with a $.
+> *IMPORTANT:* When running Azure CLI from PowerShell the variables have to start with a $.
+> *IMPORTANT:* Above-mentioned "managementGroupId" variable value, as being the so called "pseudo root management group id", should _coincide_ with the value of "parPolicyManagementGroupId", set previously within the parameter files.
 
 ### ALZ unaligned
 > For ease of deployment and maintenance we have kept the same variables. If, for example, you combined Identity, Management and Connectivity into one management group you should configure the variables _identityManagementGroup_, _managementManagementGroup_ and _connectivityManagementGroup_ with the same management group id.
@@ -81,10 +83,11 @@ Run only the commands that correspond to your management group hierarchy.
   LZManagementGroup="The management group id for Landing Zones. The same management group id may be repeated"
 ```
 
-> When running Azure CLI from PowerShell the variables have to start with a $.
+> *IMPORTANT:* When running Azure CLI from PowerShell the variables have to start with a $.
+> *IMPORTANT:* Above-mentioned "managementGroupId" variable value, as being the so called "pseudo root management group id", should _coincide_ with the value of "parPolicyManagementGroupId", set previously within the parameter files.
 
 ### Single management group
-> For ease of deployment and maintenance we have kept the same variables. Configure the variables _$managementGroupID_, _identityManagementGroup_, _managementManagementGroup_, _connectivityManagementGroup_ and _$LZManagementGroup_ with the pseudo root management group id.
+> For ease of deployment and maintenance we have kept the same variables. Configure the variables _managementGroupID_, _identityManagementGroup_, _managementManagementGroup_, _connectivityManagementGroup_ and _LZManagementGroup_ with the pseudo root management group id.
 ```bash
   location="Your Azure location of choice"
   managementGroupId="The pseudo root management group id"
@@ -94,7 +97,8 @@ Run only the commands that correspond to your management group hierarchy.
   LZManagementGroup="The pseudo root management group id"
 ```
 
-> When running Azure CLI from PowerShell the variables have to start with a $.
+> *IMPORTANT:* When running Azure CLI from PowerShell the variables have to start with a $.
+> *IMPORTANT:* Above-mentioned "managementGroupId" variable value, as being the so called "pseudo root management group id", should _coincide_ with the value of "parPolicyManagementGroupId", set previously within the parameter files.
 
 
 ## 4. Deploy the policy definitions, initiatives and policy assignments with default settings
