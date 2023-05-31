@@ -582,7 +582,7 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
 
                                 }
                                 evaluationPeriods: {
-                                    type:'[parameters(\'evaluationPeriods\')]'
+                                    value: '[parameters(\'evaluationPeriods\')]'
 
                                 }
 

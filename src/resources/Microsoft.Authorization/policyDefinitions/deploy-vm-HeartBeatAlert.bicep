@@ -507,7 +507,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                             
                                                                 }
                                                                 evaluationPeriods: {
-                                                                    type:'[parameters(\'evaluationPeriods\')]'
+                                                                    value: '[parameters(\'evaluationPeriods\')]'
                             
                                                                 }
                                                          
@@ -578,7 +578,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
 
                                 }
                                 evaluationPeriods: {
-                                    type:'[parameters(\'evaluationPeriods\')]'
+                                    value: '[parameters(\'evaluationPeriods\')]'
 
                                 }
 
