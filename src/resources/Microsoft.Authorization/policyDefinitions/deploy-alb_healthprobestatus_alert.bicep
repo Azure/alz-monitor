@@ -48,7 +48,7 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '100'
+param parThreshold string = '90'
 
 param parMonitorDisable string = 'MonitorDisable'
 
