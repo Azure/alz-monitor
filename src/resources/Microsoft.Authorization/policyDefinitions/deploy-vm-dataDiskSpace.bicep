@@ -461,7 +461,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in \'[parameters(\'diskstoExclude\')]\'| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in "\'"[parameters(\'diskstoExclude\')]"\'"| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
