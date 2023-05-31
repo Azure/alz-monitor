@@ -80,6 +80,13 @@ param parFailingPeriods string  = '1'
   'Total'
 ])
 
+param  parDisksToInclude array  = [
+    'C:' 
+    '/'
+]
+
+
+
 param parTimeAggregation string = 'Average'
 
 //param parMonitorDisable string = 'MonitorDisable' 
@@ -272,14 +279,14 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                 defaultValue: parEvaluationPeriods
             }
 
-            diskstoinclude:{
+            disksToInclude:{
                 type: 'array'
                 metadata:{
                     displayname:'Disks to be included to be monitored'
                     description: 'Array of disk to be monitored for disk both windows and linux'
                 }
 
-                
+                defaultValue: parDisksToInclude
 
             } 
 
@@ -394,6 +401,10 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                     }
                                     evaluationPeriods: {
                                         type:'String'
+
+                                    }
+                                    disksToInclude: {
+                                        type:'array'
 
                                     }
 
@@ -530,7 +541,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                                     value: '[parameters(\'failingPeriods\')]'
                                                                                }
                                                                 evaluationPeriods: {
-                                                                    type:'[parameters(\'evaluationPeriods\')]'                            
+                                                                    value:'[parameters(\'evaluationPeriods\')]'                            
                                                                 }
                                                          
                                                             }
