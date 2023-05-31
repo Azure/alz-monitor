@@ -68,7 +68,6 @@ param parAlertState string = 'true'
 
 param parThreshold string = '85'
 
-param parEvaluationPeriods string = '1'
 
 param parFailingPeriods string  = '1'
 
@@ -263,14 +262,6 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
                 }
                 defaultValue: parFailingPeriods
             }
-            evaluationPeriods: {
-                type: 'String'
-                metadata:{
-                    disaplayname: 'Evaluation Periods'
-                    description: 'The number of aggregated lookback points.'
-                }
-                defaultValue: parEvaluationPeriods
-            }
 
             effect: {
                 type: 'String'
@@ -381,10 +372,7 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
                                         type:'String'
 
                                     }
-                                    evaluationPeriods: {
-                                        type:'String'
-
-                                    }
+                              
 
                                 }
                                 variables: {}
@@ -460,7 +448,7 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
                 
                                                                         ]
                                                                         failingPeriods:{
-                                                                            numberOfEvaluationPeriods: '[parameters(\'evaluationPeriods\')]'
+                                                                            numberOfEvaluationPeriods: '1'
                                                                             minFailingPeriodsToAlert: '[parameters(\'failingPeriods\')]'
                                                                         }
                                                                     }
@@ -509,10 +497,7 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
                                                                     value: '[parameters(\'failingPeriods\')]'
                             
                                                                 }
-                                                                evaluationPeriods: {
-                                                                    type:'[parameters(\'evaluationPeriods\')]'
-                            
-                                                                }
+                                                    
                                                          
                                                             }
                                                         }
@@ -580,11 +565,7 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
                                     value: '[parameters(\'failingPeriods\')]'
 
                                 }
-                                evaluationPeriods: {
-                                    type:'[parameters(\'evaluationPeriods\')]'
-
-                                }
-
+                         
 
                             }
                         }

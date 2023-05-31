@@ -330,7 +330,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                 contentVersion: '1.0.0.0'
                                 parameters: {
 
-                                       policyLocation: {
+                                   policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
                                     }
@@ -517,11 +517,9 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                                 }
                                                                 failingPeriods: {
                                                                     value: '[parameters(\'failingPeriods\')]'
-                            
-                                                                }
+                                                                               }
                                                                 evaluationPeriods: {
-                                                                    type:'[parameters(\'evaluationPeriods\')]'
-                            
+                                                                    type:'[parameters(\'evaluationPeriods\')]'                            
                                                                 }
                                                          
                                                             }
@@ -588,7 +586,6 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                 }
                                 failingPeriods: {
                                     value: '[parameters(\'failingPeriods\')]'
-
                                 }
                                 evaluationPeriods: {
                                     type:'[parameters(\'evaluationPeriods\')]'

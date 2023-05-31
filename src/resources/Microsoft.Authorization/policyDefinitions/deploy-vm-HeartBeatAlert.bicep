@@ -148,26 +148,22 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
             ]
             defaultvalue: parOperator
         }
-        timeAggregation:{
+
+        timeAggregation: {
             type:'String'
-            metadata: {
-              displayName: 'TimeAggregation'
-          }
-          allowedValues:[
+            metadata: { displayName: 'TimeAggregation' }
+            allowedValues:[
             'Average'
             'Count'
             'Maximum'
             'Minimum'
             'Total'
-
           ]
-
           defaultvalue: parTimeAggregation
-
         }
 
          
-            windowSize: {
+        windowSize: {
                 type: 'String'
                 metadata: {
                     displayName: 'Window Size'
@@ -185,6 +181,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                 ]
                 defaultValue: parWindowSize
             }
+            
             evaluationFrequency: {
                 type: 'String'
                 metadata: {
