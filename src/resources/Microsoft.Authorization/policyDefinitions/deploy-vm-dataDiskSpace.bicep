@@ -537,11 +537,11 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                             
                                                                 }
                                                                 evaluationPeriods: {
-                                                                    type:'[parameters(\'evaluationPeriods\')]'
+                                                                    value:'[parameters(\'evaluationPeriods\')]'
                             
                                                                 }
                                                                 diskstoExclude: {
-                                                                    type:'[parameters(\'diskstoExclude\')]'
+                                                                    value:'[parameters(\'diskstoExclude\')]'
 
 
                                                                 }
@@ -613,12 +613,12 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
 
                                 }
                                 evaluationPeriods: {
-                                    type:'[parameters(\'evaluationPeriods\')]'
+                                    value:'[parameters(\'evaluationPeriods\')]'
 
                                 }
 
                                 diskstoExclude: {
-                                    type:'[parameters(\'diskstoExclude\')]'
+                                    value:'[parameters(\'diskstoExclude\')]'
 
 
                                 }
