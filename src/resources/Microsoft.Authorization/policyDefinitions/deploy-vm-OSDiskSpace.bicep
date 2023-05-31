@@ -610,7 +610,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                     value: '[parameters(\'failingPeriods\')]'
                                 }
                                 evaluationPeriods: {
-                                    type:'[parameters(\'evaluationPeriods\')]'
+                                    value: '[parameters(\'evaluationPeriods\')]'
 
                                 }
 
