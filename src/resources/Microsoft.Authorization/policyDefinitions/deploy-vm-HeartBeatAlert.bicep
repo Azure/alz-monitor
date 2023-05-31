@@ -181,7 +181,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
                 ]
                 defaultValue: parWindowSize
             }
-            
+
             evaluationFrequency: {
                 type: 'String'
                 metadata: {
@@ -263,7 +263,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
             evaluationPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Evaluation Periods'
+                    displayname: 'Evaluation Periods'
                     description: 'The number of aggregated lookback points.'
                 }
                 defaultValue: parEvaluationPeriods

@@ -266,11 +266,22 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
             evaluationPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Evaluation Periods'
+                    displayname: 'Evaluation Periods'
                     description: 'The number of aggregated lookback points.'
                 }
                 defaultValue: parEvaluationPeriods
             }
+
+            diskstoinclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Disks to be included to be monitored'
+                    description: 'Array of disk to be monitored for disk both windows and linux'
+                }
+
+                
+
+            } 
 
             effect: {
                 type: 'String'

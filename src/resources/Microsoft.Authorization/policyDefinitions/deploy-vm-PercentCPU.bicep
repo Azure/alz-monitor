@@ -257,7 +257,7 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
             failingPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Failing Periods'
+                    displayname: 'Failing Periods'
                     description: 'Number of failing periods before alert is fired'
                 }
                 defaultValue: parFailingPeriods

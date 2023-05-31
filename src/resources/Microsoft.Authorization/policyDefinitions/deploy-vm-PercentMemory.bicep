@@ -258,7 +258,7 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
             failingPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Failing Periods'
+                    displayname: 'Failing Periods'
                     description: 'Number of failing periods before alert is fired'
                 }
                 defaultValue: parFailingPeriods
@@ -266,7 +266,7 @@ module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
             evaluationPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Evaluation Periods'
+                    displayname: 'Evaluation Periods'
                     description: 'The number of aggregated lookback points.'
                 }
                 defaultValue: parEvaluationPeriods
