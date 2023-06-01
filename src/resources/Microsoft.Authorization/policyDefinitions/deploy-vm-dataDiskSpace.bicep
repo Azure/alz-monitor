@@ -91,7 +91,9 @@ param parTimeAggregation string = 'Average'
 
 param parDiskstoExclude string = '(\'C:\',\'/\')'
 
-
+param parDisksToInclude array = [
+    '*'
+]
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
@@ -296,6 +298,17 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 defaultValue: parPolicyEffect
             }
 
+            disksToInclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Disks to be included to be monitored'
+                    description: 'Array of disk to be monitored for disk both Windows and Linux'
+                }
+
+                defaultValue: parDisksToInclude
+
+            } 
+
             diskstoExclude:{
                 type: 'String'
                 metadata: {
@@ -410,6 +423,10 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                     }
                                     diskstoExclude: {
                                         type:'String'
+
+                                    }
+                                    disksToInclude: {
+                                        type:'array'
 
                                     }
 
@@ -554,6 +571,10 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
 
 
                                                                 }
+                                                                disksToInclude: {
+                                                                    value:'[parameters(\'disksToInclude\')]'
+
+                                                                }
                                                          
                                                             }
                                                         }
@@ -629,6 +650,10 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 diskstoExclude: {
                                     value:'[parameters(\'diskstoExclude\')]'
 
+
+                                }
+                                disksToInclude: {
+                                    value:'[parameters(\'disksToInclude\')]'
 
                                 }
 
