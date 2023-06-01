@@ -1,6 +1,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+
+ 
+
+
+
+
+
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
@@ -83,6 +90,8 @@ param parFailingPeriods string  = '1'
 param parTimeAggregation string = 'Average'
 
 param parDiskstoExclude string = '(\'C:\',\'/\')'
+
+
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
@@ -461,7 +470,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in  '[parameters('disksToExclude')]'| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in [parameters(/'disksToExclude/')]| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'

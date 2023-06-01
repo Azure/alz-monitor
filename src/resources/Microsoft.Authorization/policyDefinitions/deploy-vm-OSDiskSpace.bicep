@@ -80,14 +80,15 @@ param parFailingPeriods string  = '1'
   'Total'
 ])
 
-param  parDisksToInclude array  = [
-    'C:' 
-    '/'
-]
-
 
 
 param parTimeAggregation string = 'Average'
+
+param parDisksToInclude array = [
+    'C:'
+    '/'  
+]
+
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
@@ -483,10 +484,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                                             {
                                                                                 name: 'Disk'
                                                                                 operator: 'Include'
-                                                                                values: [
-                                                                                    'C:'
-                                                                                    '/'
-                                                                                ]
+                                                                                values: '[parameters(\'disksToInclude\')]'
                                                                             }  
                                                                             
                 
@@ -542,6 +540,9 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                                                }
                                                                 evaluationPeriods: {
                                                                     value:'[parameters(\'evaluationPeriods\')]'                            
+                                                                }
+                                                                disksToInclude: {
+                                                                    value:'[parameters(\'disksToInclude\')]'                            
                                                                 }
                                                          
                                                             }
@@ -613,6 +614,10 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                     value: '[parameters(\'evaluationPeriods\')]'
 
                                 }
+                                disksToInclude: {
+                                    value: '[parameters(\'disksToInclude\')]'
+
+                                }   
 
 
                             }
