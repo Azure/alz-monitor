@@ -290,7 +290,7 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                 defaultValue: parComputersToInclude
 
             } 
-            networkInterfaceToInclude:{
+            networkInterfacesToInclude:{
                 type: 'array'
                 metadata:{
                     displayname:'Network Interface to be included to be monitored'
