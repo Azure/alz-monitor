@@ -497,8 +497,8 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
 
 
                                                                                 name: 'NetworkInterface'
-                                                                                operator: 'Include'                                                                                operator: 'Include'
-                                                                                values: '[parameters(\'networkInterfacesToInclude\')]'                                                                             '*'
+                                                                                operator: 'Include'                                                                                
+                                                                                values: '[parameters(\'networkInterfacesToInclude\')]'                                                                            
                                                                                 
                                                                             }
                 
