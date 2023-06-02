@@ -41,7 +41,7 @@ param parWindowSize string = 'PT15M'
     'LessThanOrEqual'
 
 ])
-param parOperator string = 'LessThan'
+param parOperator string = 'GreaterThan'
 
 @allowed([
     'PT1M'
@@ -66,7 +66,7 @@ param parautoResolveTime string = '00:10:00'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '10'
+param parThreshold string = '10000000'
 
 param parEvaluationPeriods string = '1'
 
@@ -425,10 +425,10 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMLowNetworkInAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMHighNetworkInAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMLowNetworkInAlert\')]'
+                                                            displayName: '[concat(subscription().displayName, \'-VMHighNetworkInAlert\')]'
                                                             description: 'Log Alert for Virtual Machine NetworkIn'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'

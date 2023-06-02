@@ -289,7 +289,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                 type: 'array'
                 metadata:{
                     displayname:'Disks to be included to be monitored'
-                    description: 'Array of disk to be monitored for disk both windows and linux'
+                    description: 'Array of Computer to be monitored'
                 }
 
                 defaultValue: parComputersToInclude

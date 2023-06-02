@@ -41,7 +41,7 @@ param parWindowSize string = 'PT15M'
     'LessThanOrEqual'
 
 ])
-param parOperator string = 'LessThan'
+param parOperator string = 'GreaterThan'
 
 @allowed([
     'PT1M'
@@ -66,7 +66,7 @@ param parautoResolveTime string = '00:10:00'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '10'
+param parThreshold string = '10000000'
 
 param parEvaluationPeriods string = '1'
 
@@ -82,14 +82,23 @@ param parFailingPeriods string  = '1'
 
 param parTimeAggregation string = 'Average'
 
+param parComputersToInclude array = [
+    '*'
+     
+]
+
+param parNetworkInterfacetToInclude array = [
+    '*'
+]
+
 //param parMonitorDisable string = 'MonitorDisable' 
 
-module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_NewoorkIn_Alert'
-        displayName: '[DINE] Deploy VM NewtorkIn Alert'
-        description: 'DINE policy to audit/deploy VM NeworkIn Alert'
+        name: 'Deploy_VM_NetworkOut_Alert'
+        displayName: '[DINE] Deploy VM NetworkOut Alert'
+        description: 'DINE policy to audit/deploy VM NeworkOut Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -271,6 +280,26 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                 }
                 defaultValue: parEvaluationPeriods
             }
+            computersToInclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Disks to be included to be monitored'
+                    description: 'Array of Computer to be monitored'
+                }
+
+                defaultValue: parComputersToInclude
+
+            } 
+            networkInterfaceToInclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Network Interface to be included to be monitored'
+                    description: 'Array of Network Interface to be monitored'
+                }
+
+                defaultValue: parNetworkInterfacetToInclude
+
+            }
 
             effect: {
                 type: 'String'
@@ -385,6 +414,14 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         type:'String'
 
                                     }
+                                    computersToInclude: {
+                                        type:'array'
+
+                                    }
+                                    networkInterfaceToInclude: {
+                                        type:'array'
+
+                                    }
 
                                 }
                                 variables: {}
@@ -399,7 +436,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'VMNetworkInAlert'
+                                        name: 'VMNetworkOutAlert'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
@@ -425,11 +462,11 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMLowNetworkInAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMHighNetworkOutAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMLowNetworkInAlert\')]'
-                                                            description: 'Log Alert for Virtual Machine NetworkIn'
+                                                            displayName: '[concat(subscription().displayName, \'-VMHighNetworOutAlert\')]'
+                                                            description: 'Log Alert for Virtual Machine NetworkOut'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
@@ -443,7 +480,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "Network" and Name == "ReadBytesPerSecond"| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId '
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "Network" and Name == "WriteBytesPerSecond"| extend NetworkInterface=tostring(todynamic(Tags)["vm.azm.ms/networkDeviceId"])|summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, NetworkInterface'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
@@ -453,11 +490,16 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                                             {
                                                                                 name: 'Computer'
                                                                                 operator: 'Include'
-                                                                                values: [
-                                                                                    '*'
-                                                                                ]
+                                                                                values: '[parameters(\'computersToInclude\')]'
                                                                             }  
-                                                                            
+                                                                            {
+
+
+                                                                                name: 'NetworkInterface'
+                                                                                operator: 'Include'
+                                                                                values: '[parameters(\'networkInterfacesToInclude\')]'                                                                             '*'
+                                                                                
+                                                                            }
                 
                                                                         ]
                                                                         failingPeriods:{
@@ -512,6 +554,14 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                                 }
                                                                 evaluationPeriods: {
                                                                     value: '[parameters(\'evaluationPeriods\')]'
+                            
+                                                                }
+                                                                computersToInclude: {
+                                                                    value: '[parameters(\'computersToInclude\')]'
+                            
+                                                                }
+                                                                networkInterfacesToInclude: {
+                                                                    value: '[parameters(\'networkInterfacesToInclude\')]'
                             
                                                                 }
                                                          
@@ -583,6 +633,14 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                 }
                                 evaluationPeriods: {
                                     value: '[parameters(\'evaluationPeriods\')]'
+
+                                }
+                                computersToInclude: {
+                                    value: '[parameters(\'computersToInclude\')]'
+
+                                }
+                                networkInterfacesToInclude: {
+                                    value: '[parameters(\'networkInterfacesToInclude\')]'
 
                                 }
 
