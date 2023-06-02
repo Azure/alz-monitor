@@ -3,12 +3,13 @@ targetScope = 'managementGroup'
 param policyLocation string = 'centralus'
 param parResourceGroupName string = 'AlzMonitoring-rg'
 param parResourceGroupLocation string = 'centralus'
+param parActionGroupEmail string = 'action@mail.com'
 param deploymentRoleDefinitionIds array = [
     '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
 ]
 param parResourceGroupTags object = {
     environment: 'test'
-     _deployed_by_alz_monitor: true
+    _deployed_by_alz_monitor: true
 }
 
 param parAlertState string = 'true'
@@ -64,6 +65,14 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                     description: 'Location of the Resource group the alert is placed in'
                 }
                 defaultValue: parResourceGroupLocation
+            }
+            ALZMonitorActionGroupEmail: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Action Group Email'
+                    description: 'Email address to send alerts to'
+                }
+                defaultValue: parActionGroupEmail
             }
             MonitorDisable: {
                 type: 'String'
@@ -155,6 +164,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                     alertResourceGroupLocation: {
                                         type: 'string'
                                     }
+                                    ALZMonitorActionGroupEmail: {
+                                        type: 'string'
+                                    }
                                     policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
@@ -163,8 +175,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                         type: 'string'
                                     }
                                 }
-                                variables: {
-                                }
+                                variables: {}
                                 resources: [
                                     {
                                         type: 'Microsoft.Resources/resourceGroups'
@@ -193,6 +204,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                     alertResourceGroupName: {
                                                         type: 'string'
                                                     }
+                                                    ALZMonitorActionGroupEmail: {
+                                                        type: 'string'
+                                                    }
                                                 }
                                                 variables: {}
                                                 resources: [
@@ -200,11 +214,21 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
                                                         location: 'global'
+                                                        dependsOn: [
+                                                            '''[concat(subscription().Id, '/resourceGroups/', parameters('alertResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AlzActionGrp')]'''
+                                                        ]
                                                         tags: {
                                                             _deployed_by_alz_monitor: true
                                                         }
                                                         name: 'ServiceHealthAdvisoryEvent'
                                                         properties: {
+                                                            actions: {
+                                                                actionGroups: [
+                                                                    {
+                                                                        actionGroupId: '''[concat(subscription().Id, '/resourceGroups/', parameters('alertResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AlzActionGrp')]'''
+                                                                    }
+                                                                ]
+                                                            }
                                                             description: 'Service Health Advisory Alert'
                                                             enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
@@ -229,6 +253,26 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                             }
                                                         }
                                                     }
+                                                    {
+                                                        type: 'Microsoft.Insights/actionGroups'
+                                                        apiVersion: '2022-04-01'
+                                                        name: 'AlzActionGrp'
+                                                        location: 'global'
+                                                        tags: {
+                                                            _deployed_by_alz_monitor: true
+                                                        }
+                                                        properties: {
+                                                            groupShortName: 'AlzActionGrp'
+                                                            enabled: true
+                                                            emailReceivers: [
+                                                                {
+                                                                    name: 'AlzMail'
+                                                                    emailAddress: '[parameters(\'ALZMonitorActionGroupEmail\')]'
+                                                                    useCommonAlertSchema: true
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
                                                 ]
                                             }
                                             parameters: {
@@ -238,7 +282,10 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                 alertResourceGroupName: {
                                                     value: '[parameters(\'alertResourceGroupName\')]'
                                                 }
-                                            }                                        
+                                                ALZMonitorActionGroupEmail: {
+                                                    value: '[parameters(\'ALZMonitorActionGroupEmail\')]'
+                                                }
+                                            }
                                         }
                                     }
                                 ]
@@ -252,6 +299,9 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                 }
                                 alertResourceGroupTags: {
                                     value: '[parameters(\'alertResourceGroupTags\')]'
+                                }
+                                ALZMonitorActionGroupEmail: {
+                                    value: '[parameters(\'ALZMonitorActionGroupEmail\')]'
                                 }
                                 alertResourceGroupLocation: {
                                     value: '[parameters(\'alertResourceGroupLocation\')]'
