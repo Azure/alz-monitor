@@ -97,8 +97,8 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_NetworkOut_Alert'
-        displayName: '[DINE] Deploy VM NetworkOut Alert'
-        description: 'DINE policy to audit/deploy VM NeworkOut Alert'
+        displayName: '[DINE] Deploy VM Network Out Alert'
+        description: 'DINE policy to audit/deploy VM Network Out Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'

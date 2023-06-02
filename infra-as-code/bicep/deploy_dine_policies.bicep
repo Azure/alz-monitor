@@ -168,6 +168,107 @@ module vm_availablememory_policy '../../src/resources/Microsoft.Authorization/po
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
+// Virtual Machine Log Alerts
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+module vm_availablememorypercent_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-PercentMemory_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_CPUpercent_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-PercentCPU_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_OSDiskwrite_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskwriteLatency_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_OSDiskread_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskreadLatency_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_OSDiskspace_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskSpace_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_NetworkOut_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-NetworkOut_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_NetworkIn_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-NetworkIn_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_HeartBeat_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-HeartBeat_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_dataDiskWriteLatency_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskwriteLatency_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_dataDiskReadLatency_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskreadLatency_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+module vm_dataDiskSpace_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskSpace_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // Virtual Network Alerts
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
