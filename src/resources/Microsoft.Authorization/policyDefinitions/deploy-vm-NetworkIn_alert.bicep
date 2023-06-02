@@ -82,6 +82,16 @@ param parFailingPeriods string  = '1'
 
 param parTimeAggregation string = 'Average'
 
+param parComputersToInclude array = [
+    '*'
+     
+]
+
+param parNetworkInterfacetToInclude array = [
+    '*'
+]
+
+
 //param parMonitorDisable string = 'MonitorDisable' 
 
 module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -271,6 +281,28 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                 }
                 defaultValue: parEvaluationPeriods
             }
+            networkInterfacesToInclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Network Interface to be included to be monitored'
+                    description: 'Array of Network Interface to be monitored'
+                }
+
+                defaultValue: parNetworkInterfacetToInclude
+
+            }
+            computersToInclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Disks to be included to be monitored'
+                    description: 'Array of Computer to be monitored'
+                }
+
+                defaultValue: parComputersToInclude
+
+            } 
+
+
 
             effect: {
                 type: 'String'
@@ -385,6 +417,14 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         type:'String'
 
                                     }
+                                    computersToInclude: {
+                                        type:'array'
+
+                                    }
+                                    networkInterfaceToInclude: {
+                                        type:'array'
+
+                                    }
 
                                 }
                                 variables: {}
@@ -443,7 +483,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "Network" and Name == "ReadBytesPerSecond"| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId '
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "Network" and Name == "ReadBytesPerSecond"| | extend NetworkInterface=tostring(todynamic(Tags)["vm.azm.ms/networkDeviceId"])|summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, NetworkInterface'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
@@ -453,10 +493,17 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                                             {
                                                                                 name: 'Computer'
                                                                                 operator: 'Include'
-                                                                                values: [
-                                                                                    '*'
-                                                                                ]
-                                                                            }  
+                                                                                values: '[parameters(\'computersToInclude\')]'
+                                                                            } 
+
+                                                                            {
+
+
+                                                                                name: 'NetworkInterface'
+                                                                                operator: 'Include'                                                                                
+                                                                                values: '[parameters(\'networkInterfacesToInclude\')]'                                                                            
+                                                                                
+                                                                            }
                                                                             
                 
                                                                         ]
@@ -512,6 +559,14 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                                 }
                                                                 evaluationPeriods: {
                                                                     value: '[parameters(\'evaluationPeriods\')]'
+                            
+                                                                }
+                                                                computersToInclude: {
+                                                                    value: '[parameters(\'computersToInclude\')]'
+                            
+                                                                }
+                                                                networkInterfacesToInclude: {
+                                                                    value: '[parameters(\'networkInterfacesToInclude\')]'
                             
                                                                 }
                                                          
@@ -583,6 +638,14 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                 }
                                 evaluationPeriods: {
                                     value: '[parameters(\'evaluationPeriods\')]'
+
+                                }
+                                computersToInclude: {
+                                    value: '[parameters(\'computersToInclude\')]'
+
+                                }
+                                networkInterfacesToInclude: {
+                                    value: '[parameters(\'networkInterfacesToInclude\')]'
 
                                 }
 
