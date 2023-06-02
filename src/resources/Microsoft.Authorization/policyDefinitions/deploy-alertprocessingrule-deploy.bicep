@@ -98,7 +98,7 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                 field: 'Microsoft.AlertsManagement/actionRules/description'
                 equals: 'Alz Alert Processing Rule for Subscription'
               }
-              
+
             ]
           }
           deployment: {
