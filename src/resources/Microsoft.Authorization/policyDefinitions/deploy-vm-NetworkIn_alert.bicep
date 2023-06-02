@@ -80,30 +80,16 @@ param parFailingPeriods string  = '1'
   'Total'
 ])
 
-
-
 param parTimeAggregation string = 'Average'
-
-param parComputersToInclude array = [
-    '*'
-     
-]
-
-
-param parDisksToInclude array = [
-    'C:'
-    '/'  
-]
-
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
-module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_OSDiskSpace_Alert'
-        displayName: '[DINE] Deploy VM OSDiskSpace Alert'
-        description: 'DINE policy to audit/deploy VM OSDiskSpace Alert'
+        name: 'Deploy_VM_NewoorkIn_Alert'
+        displayName: '[DINE] Deploy VM NewtorkIn Alert'
+        description: 'DINE policy to audit/deploy VM NeworkIn Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -272,7 +258,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
             failingPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Failing Periods'
+                    displayname: 'Failing Periods'
                     description: 'Number of failing periods before alert is fired'
                 }
                 defaultValue: parFailingPeriods
@@ -285,26 +271,6 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                 }
                 defaultValue: parEvaluationPeriods
             }
-            computersToInclude:{
-                type: 'array'
-                metadata:{
-                    displayname:'Disks to be included to be monitored'
-                    description: 'Array of disk to be monitored for disk both windows and linux'
-                }
-
-                defaultValue: parComputersToInclude
-
-            } 
-            disksToInclude:{
-                type: 'array'
-                metadata:{
-                    displayname:'Disks to be included to be monitored'
-                    description: 'Array of disk to be monitored for disk both windows and linux'
-                }
-
-                defaultValue: parDisksToInclude
-
-            } 
 
             effect: {
                 type: 'String'
@@ -343,7 +309,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().displayName, \'-VMLowOSDiskSpaceAlert\')]'
+                                equals: '[concat(subscription().displayName, \'-VMHighNetwrokInAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -364,7 +330,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                 contentVersion: '1.0.0.0'
                                 parameters: {
 
-                                   policyLocation: {
+                                       policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
                                     }
@@ -419,15 +385,6 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                         type:'String'
 
                                     }
-                                    disksToInclude: {
-                                        type:'array'
-
-                                    }
-                                    computersToInclude: {
-                                        type:'array'
-
-                                    }
-
 
                                 }
                                 variables: {}
@@ -442,7 +399,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'VMOSDiskSpaceAlert'
+                                        name: 'VMNetworkInAlert'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
@@ -468,11 +425,11 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMLowOSDiskSpaceAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMLowNetworkInAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMLowOSDiskSpaceAlert\')]'
-                                                            description: 'Log Alert for Virtual Machine OSDiskSpace'
+                                                            displayName: '[concat(subscription().displayName, \'-VMLowNetworkInAlert\')]'
+                                                            description: 'Log Alert for Virtual Machine NetworkIn'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
@@ -486,7 +443,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "Network" and Name == "ReadBytesPerSecond"| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId '
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
@@ -496,13 +453,9 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                                             {
                                                                                 name: 'Computer'
                                                                                 operator: 'Include'
-                                                                                values: '[parameters(\'computersToInclude\')]'
-                                                                            }    
-                                                                            
-                                                                            {
-                                                                                name: 'Disk'
-                                                                                operator: 'Include'
-                                                                                values: '[parameters(\'disksToInclude\')]'
+                                                                                values: [
+                                                                                    '*'
+                                                                                ]
                                                                             }  
                                                                             
                 
@@ -555,15 +508,11 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                                                 }
                                                                 failingPeriods: {
                                                                     value: '[parameters(\'failingPeriods\')]'
-                                                                               }
+                            
+                                                                }
                                                                 evaluationPeriods: {
-                                                                    value:'[parameters(\'evaluationPeriods\')]'                            
-                                                                }
-                                                                disksToInclude: {
-                                                                    value:'[parameters(\'disksToInclude\')]'                            
-                                                                }
-                                                                computersToInclude: {
-                                                                    value:'[parameters(\'computersToInclude\')]'                            
+                                                                    value: '[parameters(\'evaluationPeriods\')]'
+                            
                                                                 }
                                                          
                                                             }
@@ -630,17 +579,10 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
                                 }
                                 failingPeriods: {
                                     value: '[parameters(\'failingPeriods\')]'
+
                                 }
                                 evaluationPeriods: {
                                     value: '[parameters(\'evaluationPeriods\')]'
-
-                                }
-                                disksToInclude: {
-                                    value: '[parameters(\'disksToInclude\')]'
-
-                                }   
-                                computersToInclude: {
-                                    value: '[parameters(\'computersToInclude\')]'
 
                                 }
 

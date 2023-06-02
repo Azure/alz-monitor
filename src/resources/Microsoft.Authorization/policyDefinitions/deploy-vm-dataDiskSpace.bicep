@@ -505,9 +505,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                                             {
                                                                                 name: 'Disk'
                                                                                 operator: 'Include'
-                                                                                values: [
-                                                                                    '*'
-                                                                                ]
+                                                                                values: '[parameters(\'disksToInclude\')]'
                                                                             }  
                                                                             
                 
