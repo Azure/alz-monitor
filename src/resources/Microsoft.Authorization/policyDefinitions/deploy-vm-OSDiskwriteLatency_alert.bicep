@@ -66,7 +66,7 @@ param parautoResolveTime string = '00:10:00'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '10'
+param parThreshold string = '50'
 
 param parEvaluationPeriods string = '1'
 

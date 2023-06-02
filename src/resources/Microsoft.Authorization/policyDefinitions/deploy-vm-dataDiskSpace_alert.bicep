@@ -1,6 +1,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+
+ 
+
+
+
+
+
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
@@ -66,7 +73,7 @@ param parautoResolveTime string = '00:10:00'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '30'
+param parThreshold string = '10'
 
 param parEvaluationPeriods string = '1'
 
@@ -80,30 +87,22 @@ param parFailingPeriods string  = '1'
   'Total'
 ])
 
-
-
 param parTimeAggregation string = 'Average'
 
-param parComputersToInclude array = [
-    '*'
-     
-]
-
+param parDiskstoExclude string = '(\'C:\',\'/\')'
 
 param parDisksToInclude array = [
-    'C:'
-    '/'  
+    '*'
 ]
-
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
-module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_OSDiskreadLatency_Alert'
-        displayName: '[DINE] Deploy VM OSDiskreadLatency Alert'
-        description: 'DINE policy to audit/deploy VM OSDiskreadLatency Alert'
+        name: 'Deploy_VM_dataDiskSpace_Alert'
+        displayName: '[DINE] Deploy VM Data Disk Space Alert'
+        description: 'DINE policy to audit/deploy VM data Disk Space Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -280,31 +279,11 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
             evaluationPeriods: {
                 type: 'String'
                 metadata:{
-                    displayname: 'Evaluation Periods'
+                    disaplayname: 'Evaluation Periods'
                     description: 'The number of aggregated lookback points.'
                 }
                 defaultValue: parEvaluationPeriods
             }
-            computersToInclude:{
-                type: 'array'
-                metadata:{
-                    displayname:'Disks to be included to be monitored'
-                    description: 'Array of Computer to be monitored'
-                }
-
-                defaultValue: parComputersToInclude
-
-            } 
-            disksToInclude:{
-                type: 'array'
-                metadata:{
-                    displayname:'Disks to be included to be monitored'
-                    description: 'Array of disk to be monitored for disk both windows and linux'
-                }
-
-                defaultValue: parDisksToInclude
-
-            } 
 
             effect: {
                 type: 'String'
@@ -318,6 +297,29 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                 ]
                 defaultValue: parPolicyEffect
             }
+
+            disksToInclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Disks to be included to be monitored'
+                    description: 'Array of disk to be monitored for disk both Windows and Linux'
+                }
+
+                defaultValue: parDisksToInclude
+
+            } 
+
+           /* diskstoExclude:{
+                type: 'String'
+                metadata: {
+                        displayName: 'Disks to Exclude from alerts' 
+                        description: ' Comma seperated list of disks we do not want included in query to alert on. Default value is (\'C:\',\'/\'). Please include both Windows and Linux partitions'
+
+                }
+
+          defaultValue: parDiskstoExclude
+
+            }*/
         
         }
         policyRule: {
@@ -343,7 +345,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().displayName, \'-VMLowOSDiskreadLatencyAlert\')]'
+                                equals: '[concat(subscription().displayName, \'-VMLowdataDiskSpaceAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -364,7 +366,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                 contentVersion: '1.0.0.0'
                                 parameters: {
 
-                                   policyLocation: {
+                                       policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
                                     }
@@ -419,15 +421,14 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                         type:'String'
 
                                     }
+                                    diskstoExclude: {
+                                        type:'String'
+
+                                    }
                                     disksToInclude: {
                                         type:'array'
 
                                     }
-                                    computersToInclude: {
-                                        type:'array'
-
-                                    }
-
 
                                 }
                                 variables: {}
@@ -442,7 +443,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'VMOSDiskreadLatencyAlert'
+                                        name: 'VMdataDiskSpaceAlert'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
@@ -468,11 +469,11 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMLowOSDiskreadLatencyAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMLowdataDiskSpaceAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMLowOSDiskreadLatencyAlert\')]'
-                                                            description: 'Log Alert for Virtual Machine OSDiskreadLatency'
+                                                            displayName: '[concat(subscription().displayName, \'-VMLowdataDiskSpaceAlert\')]'
+                                                            description: 'Log Alert for Virtual Machine dataDiskSpace'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
@@ -486,7 +487,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "ReadLatencyMs"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in (\'C:\',\'/\')| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
@@ -496,7 +497,9 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                                                             {
                                                                                 name: 'Computer'
                                                                                 operator: 'Include'
-                                                                                values: '[parameters(\'computersToInclude\')]'
+                                                                                values: [
+                                                                                    '*'
+                                                                                ]
                                                                             }    
                                                                             
                                                                             {
@@ -555,15 +558,20 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                                                 }
                                                                 failingPeriods: {
                                                                     value: '[parameters(\'failingPeriods\')]'
-                                                                               }
+                            
+                                                                }
                                                                 evaluationPeriods: {
-                                                                    value:'[parameters(\'evaluationPeriods\')]'                            
+                                                                    value:'[parameters(\'evaluationPeriods\')]'
+                            
                                                                 }
+                                                               /* diskstoExclude: {
+                                                                    value:'[parameters(\'diskstoExclude\')]'
+
+
+                                                                }*/
                                                                 disksToInclude: {
-                                                                    value:'[parameters(\'disksToInclude\')]'                            
-                                                                }
-                                                                computersToInclude: {
-                                                                    value:'[parameters(\'computersToInclude\')]'                            
+                                                                    value:'[parameters(\'disksToInclude\')]'
+
                                                                 }
                                                          
                                                             }
@@ -630,17 +638,20 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                 }
                                 failingPeriods: {
                                     value: '[parameters(\'failingPeriods\')]'
+
                                 }
                                 evaluationPeriods: {
-                                    value: '[parameters(\'evaluationPeriods\')]'
+                                    value:'[parameters(\'evaluationPeriods\')]'
 
                                 }
-                                disksToInclude: {
-                                    value: '[parameters(\'disksToInclude\')]'
 
-                                }   
-                                computersToInclude: {
-                                    value: '[parameters(\'computersToInclude\')]'
+                                /*diskstoExclude: {
+                                    value:'[parameters(\'diskstoExclude\')]'
+
+
+                                }*/
+                                disksToInclude: {
+                                    value:'[parameters(\'disksToInclude\')]'
 
                                 }
 

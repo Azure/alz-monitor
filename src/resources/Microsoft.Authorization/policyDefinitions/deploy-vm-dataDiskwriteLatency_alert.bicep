@@ -1,13 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-
- 
-
-
-
-
-
 targetScope = 'managementGroup'
 
 param policyLocation string = 'centralus'
@@ -73,7 +66,7 @@ param parautoResolveTime string = '00:10:00'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '10'
+param parThreshold string = '30'
 
 param parEvaluationPeriods string = '1'
 
@@ -87,22 +80,29 @@ param parFailingPeriods string  = '1'
   'Total'
 ])
 
+
+
 param parTimeAggregation string = 'Average'
 
-param parDiskstoExclude string = '(\'C:\',\'/\')'
+param parComputersToInclude array = [
+    '*'
+     
+]
+
 
 param parDisksToInclude array = [
-    '*'
+   '*'
 ]
+
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
-module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VMdataDiskWriteLatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_dataDiskSpace_Alert'
-        displayName: '[DINE] Deploy VM Data Disk Space Alert'
-        description: 'DINE policy to audit/deploy VM data Disk Space Alert'
+        name: 'Deploy_VM_dataDiskWriteLatency_Alert'
+        displayName: '[DINE] Deploy VM dataDiskWriteLatency Alert'
+        description: 'DINE policy to audit/deploy VM dataDiskWriteLatency Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -279,11 +279,31 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
             evaluationPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Evaluation Periods'
+                    displayname: 'Evaluation Periods'
                     description: 'The number of aggregated lookback points.'
                 }
                 defaultValue: parEvaluationPeriods
             }
+            computersToInclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Disks to be included to be monitored'
+                    description: 'Array of Computer to be monitored'
+                }
+
+                defaultValue: parComputersToInclude
+
+            } 
+            disksToInclude:{
+                type: 'array'
+                metadata:{
+                    displayname:'Disks to be included to be monitored'
+                    description: 'Array of disk to be monitored for disk both windows and linux'
+                }
+
+                defaultValue: parDisksToInclude
+
+            } 
 
             effect: {
                 type: 'String'
@@ -297,29 +317,6 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                 ]
                 defaultValue: parPolicyEffect
             }
-
-            disksToInclude:{
-                type: 'array'
-                metadata:{
-                    displayname:'Disks to be included to be monitored'
-                    description: 'Array of disk to be monitored for disk both Windows and Linux'
-                }
-
-                defaultValue: parDisksToInclude
-
-            } 
-
-           /* diskstoExclude:{
-                type: 'String'
-                metadata: {
-                        displayName: 'Disks to Exclude from alerts' 
-                        description: ' Comma seperated list of disks we do not want included in query to alert on. Default value is (\'C:\',\'/\'). Please include both Windows and Linux partitions'
-
-                }
-
-          defaultValue: parDiskstoExclude
-
-            }*/
         
         }
         policyRule: {
@@ -345,7 +342,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().displayName, \'-VMLowdataDiskSpaceAlert\')]'
+                                equals: '[concat(subscription().displayName, \'-VMLowdataDiskWriteLatencyAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -366,7 +363,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 contentVersion: '1.0.0.0'
                                 parameters: {
 
-                                       policyLocation: {
+                                   policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
                                     }
@@ -421,14 +418,15 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                         type:'String'
 
                                     }
-                                    diskstoExclude: {
-                                        type:'String'
-
-                                    }
                                     disksToInclude: {
                                         type:'array'
 
                                     }
+                                    computersToInclude: {
+                                        type:'array'
+
+                                    }
+
 
                                 }
                                 variables: {}
@@ -443,7 +441,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'VMdataDiskSpaceAlert'
+                                        name: 'VMdataDiskWriteLatencyAlert'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
@@ -469,11 +467,11 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMLowdataDiskSpaceAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMHighdataDiskWriteLatencyAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMLowdataDiskSpaceAlert\')]'
-                                                            description: 'Log Alert for Virtual Machine dataDiskSpace'
+                                                            displayName: '[concat(subscription().displayName, \'-VMHighdataDiskWriteLatencyAlert\')]'
+                                                            description: 'Log Alert for Virtual Machine dataDiskWriteLatency'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
@@ -487,7 +485,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "FreeSpacePercentage"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in [parameters(/'disksToExclude/')]| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "WriteLatencyMs"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in (\'C:\',\'/\')| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
@@ -497,9 +495,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                                             {
                                                                                 name: 'Computer'
                                                                                 operator: 'Include'
-                                                                                values: [
-                                                                                    '*'
-                                                                                ]
+                                                                                values: '[parameters(\'computersToInclude\')]'
                                                                             }    
                                                                             
                                                                             {
@@ -558,20 +554,15 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                                 }
                                                                 failingPeriods: {
                                                                     value: '[parameters(\'failingPeriods\')]'
-                            
-                                                                }
+                                                                               }
                                                                 evaluationPeriods: {
-                                                                    value:'[parameters(\'evaluationPeriods\')]'
-                            
-                                                                }
-                                                                diskstoExclude: {
-                                                                    value:'[parameters(\'diskstoExclude\')]'
-
-
+                                                                    value:'[parameters(\'evaluationPeriods\')]'                            
                                                                 }
                                                                 disksToInclude: {
-                                                                    value:'[parameters(\'disksToInclude\')]'
-
+                                                                    value:'[parameters(\'disksToInclude\')]'                            
+                                                                }
+                                                                computersToInclude: {
+                                                                    value:'[parameters(\'computersToInclude\')]'                            
                                                                 }
                                                          
                                                             }
@@ -638,20 +629,17 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 }
                                 failingPeriods: {
                                     value: '[parameters(\'failingPeriods\')]'
-
                                 }
                                 evaluationPeriods: {
-                                    value:'[parameters(\'evaluationPeriods\')]'
-
-                                }
-
-                                diskstoExclude: {
-                                    value:'[parameters(\'diskstoExclude\')]'
-
+                                    value: '[parameters(\'evaluationPeriods\')]'
 
                                 }
                                 disksToInclude: {
-                                    value:'[parameters(\'disksToInclude\')]'
+                                    value: '[parameters(\'disksToInclude\')]'
+
+                                }   
+                                computersToInclude: {
+                                    value: '[parameters(\'computersToInclude\')]'
 
                                 }
 

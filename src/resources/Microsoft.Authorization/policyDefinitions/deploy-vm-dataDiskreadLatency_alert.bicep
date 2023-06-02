@@ -91,19 +91,18 @@ param parComputersToInclude array = [
 
 
 param parDisksToInclude array = [
-    'C:'
-    '/'  
+   '*'
 ]
 
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
-module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_OSDiskreadLatency_Alert'
-        displayName: '[DINE] Deploy VM OSDiskreadLatency Alert'
-        description: 'DINE policy to audit/deploy VM OSDiskreadLatency Alert'
+        name: 'Deploy_VM_dataDiskReadLatency_Alert'
+        displayName: '[DINE] Deploy VM dataDiskReadLatency Alert'
+        description: 'DINE policy to audit/deploy VM dataDiskReadLatency Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
@@ -343,7 +342,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().displayName, \'-VMLowOSDiskreadLatencyAlert\')]'
+                                equals: '[concat(subscription().displayName, \'-VMLowdataDiskReadLatencyAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -442,7 +441,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                     {
                                         type: 'Microsoft.Resources/deployments'
                                         apiVersion: '2019-10-01'
-                                        name: 'VMOSDiskreadLatencyAlert'
+                                        name: 'VMdataDiskReadLatencyAlert'
                                         resourceGroup: '[parameters(\'alertResourceGroupName\')]'
                                         dependsOn: [
                                             '[concat(\'Microsoft.Resources/resourceGroups/\', parameters(\'alertResourceGroupName\'))]'
@@ -468,11 +467,11 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMLowOSDiskreadLatencyAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMLowdataDiskReadLatencyAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMLowOSDiskreadLatencyAlert\')]'
-                                                            description: 'Log Alert for Virtual Machine OSDiskreadLatency'
+                                                            displayName: '[concat(subscription().displayName, \'-VMLowdataDiskReadLatencyAlert\')]'
+                                                            description: 'Log Alert for Virtual Machine dataDiskReadLatency'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
                                                             scopes: [
@@ -486,7 +485,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "ReadLatencyMs"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "LogicalDisk" and Name == "ReadLatencyMs"| extend Disk=tostring(todynamic(Tags)["vm.azm.ms/mountId"])|where Disk !in (\'C:\',\'/\')| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
