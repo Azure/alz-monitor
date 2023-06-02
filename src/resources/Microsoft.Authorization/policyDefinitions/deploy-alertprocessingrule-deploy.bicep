@@ -93,10 +93,12 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
           deploymentScope: 'subscription'
           existenceCondition: {
             allOf: [
+
               {
                 field: 'Microsoft.AlertsManagement/actionRules/description'
                 equals: 'Alz Alert Processing Rule for Subscription'
               }
+              
             ]
           }
           deployment: {
