@@ -102,7 +102,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_OSDiskreadLatency_Alert'
-        displayName: '[DINE] Deploy VM OSDiskreadLatency Alert'
+        displayName: '[DINE] Deploy VM OS Disk Read Latency Alert'
         description: 'DINE policy to audit/deploy VM OSDiskreadLatency Alert'
         location: policyLocation
         metadata: {

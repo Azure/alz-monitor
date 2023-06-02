@@ -101,7 +101,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_dataDiskReadLatency_Alert'
-        displayName: '[DINE] Deploy VM dataDiskReadLatency Alert'
+        displayName: '[DINE] Deploy VM Data Disk Read Latency Alert'
         description: 'DINE policy to audit/deploy VM dataDiskReadLatency Alert'
         location: policyLocation
         metadata: {
@@ -467,10 +467,10 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMLowdataDiskReadLatencyAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMHighdataDiskReadLatencyAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMLowdataDiskReadLatencyAlert\')]'
+                                                            displayName: '[concat(subscription().displayName, \'-VMHighdataDiskReadLatencyAlert\')]'
                                                             description: 'Log Alert for Virtual Machine dataDiskReadLatency'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'

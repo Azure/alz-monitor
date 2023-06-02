@@ -102,7 +102,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_OSDiskSpace_Alert'
-        displayName: '[DINE] Deploy VM OSDiskSpace Alert'
+        displayName: '[DINE] Deploy VM OS Disk Space Alert'
         description: 'DINE policy to audit/deploy VM OSDiskSpace Alert'
         location: policyLocation
         metadata: {

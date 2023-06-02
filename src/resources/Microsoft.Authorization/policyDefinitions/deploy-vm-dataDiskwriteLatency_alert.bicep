@@ -101,7 +101,7 @@ module VMdataDiskWriteLatencyAlert '../../arm/Microsoft.Authorization/policyDefi
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_dataDiskWriteLatency_Alert'
-        displayName: '[DINE] Deploy VM dataDiskWriteLatency Alert'
+        displayName: '[DINE] Deploy VM Data Disk Write Latency Alert'
         description: 'DINE policy to audit/deploy VM dataDiskWriteLatency Alert'
         location: policyLocation
         metadata: {
