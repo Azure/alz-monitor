@@ -84,7 +84,7 @@ param parTimeAggregation string = 'Average'
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
-module VMMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module VMLAMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_Memory_Alert'

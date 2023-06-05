@@ -97,9 +97,9 @@ param parNetworkInterfacetToInclude array = [
 module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_NewoorkIn_Alert'
-        displayName: '[DINE] Deploy VM NewtorkIn Alert'
-        description: 'DINE policy to audit/deploy VM NeworkIn Alert'
+        name: 'Deploy_VM_NetworkIn_Alert'
+        displayName: '[DINE] Deploy VM Network Read Alert'
+        description: 'DINE policy to audit/deploy VM Nework Read Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
