@@ -89,7 +89,7 @@ param parFailingPeriods string  = '1'
 
 param parTimeAggregation string = 'Average'
 
-param parDiskstoExclude string = '(\'C:\',\'/\')'
+
 
 param parDisksToInclude array = [
     '*'
@@ -309,17 +309,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
 
             } 
 
-           /* diskstoExclude:{
-                type: 'String'
-                metadata: {
-                        displayName: 'Disks to Exclude from alerts' 
-                        description: ' Comma seperated list of disks we do not want included in query to alert on. Default value is (\'C:\',\'/\'). Please include both Windows and Linux partitions'
 
-                }
-
-          defaultValue: parDiskstoExclude
-
-            }*/
         
         }
         policyRule: {
@@ -421,10 +411,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                         type:'String'
 
                                     }
-                                    diskstoExclude: {
-                                        type:'String'
 
-                                    }
                                     disksToInclude: {
                                         type:'array'
 
@@ -564,11 +551,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                                     value:'[parameters(\'evaluationPeriods\')]'
                             
                                                                 }
-                                                               /* diskstoExclude: {
-                                                                    value:'[parameters(\'diskstoExclude\')]'
 
-
-                                                                }*/
                                                                 disksToInclude: {
                                                                     value:'[parameters(\'disksToInclude\')]'
 
@@ -645,11 +628,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
 
                                 }
 
-                                /*diskstoExclude: {
-                                    value:'[parameters(\'diskstoExclude\')]'
 
-
-                                }*/
                                 disksToInclude: {
                                     value:'[parameters(\'disksToInclude\')]'
 
