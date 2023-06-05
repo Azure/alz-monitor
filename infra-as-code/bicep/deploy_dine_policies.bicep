@@ -172,6 +172,14 @@ module vm_availablememory_policy '../../src/resources/Microsoft.Authorization/po
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+module vm_availablememorypercent_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-PercentMemory_alert.bicep' = {
+  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  params: {
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   policyLocation: policyLocation
+  }
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
