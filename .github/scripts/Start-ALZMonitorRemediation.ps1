@@ -4,14 +4,18 @@ It first calls the Azure REST API to get the policy assignments in the managemen
 Depending on the result the script will either enumerate the policy set and trigger remediation for each individual policy in the set or trigger remediation for the individual policy.
 
 Examples: 
-
-.\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Alerting-Management
-.\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-management -policyName Deploy_AlertProcessing_Rule
-.\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Alerting-Connectivity
-.\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-connectivity -policyName Deploy_AlertProcessing_Rule
-.\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Alerting-Identity
-.\Start-ALZMonitorRemediation.ps1 -managementGroupName alz-platform-identity -policyName Deploy_AlertProcessing_Rule
-
+  #Modify the following variables to match your environment
+  $managementGroupID = "The pseudo root management group id parenting the identity, management and connectivity management groups"
+  $identityManagementGroup = "The management group id for Identity"
+  $managementManagementGroup = "The management group id for Management"
+  $connectivityManagementGroup = "The management group id for Connectivity"
+  $LZManagementGroup="The management group id for Landing Zones"
+  #Run the following commands to initiate remediation
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $managementManagementGroup -policyName Alerting-Management
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $connectivityManagementGroup -policyName Alerting-Connectivity
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $identityManagementGroup -policyName Alerting-Identity
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $LZManagementGroup -policyName Alerting-LandingZone
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $managementGroupId -policyName Alerting-ServiceHealth
 #>
 
 Param(
@@ -48,7 +52,14 @@ function Get-PolicyType {
         [Parameter(Mandatory = $true)] [string] $managementGroupName,
         [Parameter(Mandatory = $true)] [string] $policyName
     )
+    #Validate that the management group exists through the Azure REST API
+    $uri = "https://management.azure.com/providers/Microsoft.Management/managementGroups/$($managementGroupName)?api-version=2021-04-01"
+    $result = (Invoke-AzRestMethod -Uri $uri -Method GET).Content | ConvertFrom-Json -Depth 100
+    if ($result.error) {
+        throw "Management group $managementGroupName does not exist, please specify a valid management group name"
+    }
     #Get policy assignments at management group scope
+    $assignmentFound = $false
     $uri = "https://management.azure.com/providers/Microsoft.Management/managementGroups/$($managementGroupName)/providers/Microsoft.Authorization/policyAssignments?`$filter=atScope()&api-version=2022-06-01"
     $result = (Invoke-AzRestMethod -Uri $uri -Method GET).Content | ConvertFrom-Json -Depth 100
     #iterate through the policy assignments
@@ -56,12 +67,18 @@ function Get-PolicyType {
         #check if the policy assignment is for the specified policy set definition
         If ($($PSItem.properties.policyDefinitionId) -match "/providers/Microsoft.Authorization/policySetDefinitions/$policyName") {
             # Go to enumerating policy set
+            $assignmentFound = $true
             Enumerate-PolicySet -managementGroupName $managementGroupName -policyAssignmentObject $PSItem
         }
         Elseif ($($PSItem.properties.policyDefinitionId) -match "/providers/Microsoft.Authorization/policyDefinitions/$policyName") {
             # Go to handling individual policy
+            $assignmentFound = $true
             Enumerate-Policy -managementGroupName $managementGroupName -policyAssignmentObject $PSItem
         }
+    }
+    #if no policy assignments were found for the specified policy name, throw an error
+    If(!$assignmentFound) {
+        throw "No policy assignments found for policy $policyName at management group scope $managementGroupName"
     }
 }
 

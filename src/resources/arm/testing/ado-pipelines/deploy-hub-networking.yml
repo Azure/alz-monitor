@@ -1,0 +1,141 @@
+name: "Deploy ALZ in HUB Networking configuration"
+
+trigger: none
+
+variables:
+  - group: csu-alz-monitor
+  - name: Location
+    value: "norwayeast"
+  - name: ManagementGroupPrefix
+    value: hubnw
+  - name: TopLevelManagementGroupDisplayName 
+    value: "Hub Networking management group hierarchy"
+  - name: identityManagementGroup 
+    value: "hubnw-platform-identity"
+  - name: managementManagementGroup 
+    value: "hubnw-platform-management"
+  - name: connectivityManagementGroup 
+    value: "hubnw-platform-connectivity"
+  - name: alzManagementGroup 
+    value: "hubnw-landingzones"
+  - name: mgResourceGroup
+    value: "hubnw-mgmt"
+  - name: connResourceGroup
+    value: "hubnw-connectivity"
+
+jobs:
+  - job: HubNW_deploy
+    displayName: Deploy hub/spoke Networking
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy Management Groups for hubnw
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment tenant create --template-file infra-as-code/bicep/modules/managementGroups/managementGroups.bicep --parameters parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) parTopLevelManagementGroupDisplayName="$(TopLevelManagementGroupDisplayName)" --location $(Location) --name $(ManagementGroupPrefix)
+      
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy Custom Role Definitions
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment mg create --template-file infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep --parameters @infra-as-code/bicep/modules/customRoleDefinitions/parameters/customRoleDefinitions.parameters.all.json parAssignableScopeManagementGroupId=$(ManagementGroupPrefix) --location $(Location) --management-group-id $(ManagementGroupPrefix)
+
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy Custom Policy Definitions
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment mg create --template-file infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep  --parameters @infra-as-code/bicep/modules/policy/definitions/parameters/customPolicyDefinitions.parameters.all.json parTargetManagementGroupId=$(ManagementGroupPrefix) --location $(Location) --management-group-id $(ManagementGroupPrefix)
+      
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy Monitor Policy Definitions
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $(Location) --management-group-id $(ManagementGroupPrefix)
+      
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy Monitor Policy Initiatives
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json --location $(Location) --management-group-id $(ManagementGroupPrefix)
+            az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json --location $(Location) --management-group-id $(ManagementGroupPrefix)
+            az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json --location $(Location) --management-group-id $(ManagementGroupPrefix)
+            az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json --location $(Location) --management-group-id $(ManagementGroupPrefix)
+            az deployment mg create --template-file ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorServiceHealth.json --location $(Location) --management-group-id $(ManagementGroupPrefix)
+      
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy Logging
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az account set --name $(hubMgmtSubscription)
+            az group create --name $(mgResourceGroup) --location $(Location)
+            az deployment group create --resource-group $(mgResourceGroup) --template-file infra-as-code/bicep/modules/logging/logging.bicep --parameters @infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json
+
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy ALZ Policy assignments
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment mg create --template-file infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep --parameters @infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) parLogAnalyticsWorkSpaceAndAutomationAccountLocation=$(Location) parLogAnalyticsWorkspaceResourceId="/subscriptions/$(mgSubscriptionId)/resourceGroups/$(mgResourceGroup)/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics" --location $(Location) --management-group-id "$(ManagementGroupPrefix)-landingzones"
+
+      - task: AzureCLI@2
+        displayName: Az CLI Monitor Policy initiative assignments 
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $(Location) --management-group-id $(identityManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-identity.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $(Location) --management-group-id $(managementManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-management.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $(Location) --management-group-id $(connectivityManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $(Location) --management-group-id $(alzManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep --location $(Location) --management-group-id $(ManagementGroupPrefix) --parameters ./infra-as-code/bicep/parameters-complete-servicehealth.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
+
+      - task: AzureCLI@2
+        displayName: Az CLI Subscription Placement
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment mg create --template-file infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep --parameters  parPlatformManagementMgSubs='["$(hubMgmtSubscriptionId)"]' parPlatformConnectivityMgSubs='["$(hubSubscriptionId)"]' parLandingZonesCorpMgSubs='["$(hubSpokeSubscriptionId)"]' parPlatformIdentityMgSubs='["$(hubIdentitySubscriptionId)"]' parTopLevelManagementGroupPrefix=$(ManagementGroupPrefix) --location $(Location) --management-group-id $(ManagementGroupPrefix)
+
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy Hub Networking
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az account set --name $(hubSubscription)
+            az group create --name $(connResourceGroup) --location $(Location)
+            az deployment group create --resource-group $(connResourceGroup) --template-file infra-as-code/bicep/modules/hubNetworking/hubNetworking.bicep --parameters @infra-as-code/bicep/modules/hubNetworking/parameters/hubNetworking.parameters.all.json parLocation=$(Location)
+
+      - task: AzureCLI@2
+        displayName: Az CLI Deploy Spoke Networking
+        inputs:
+          azureSubscription: 'serviceconnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az deployment mg create --template-file infra-as-code/bicep/orchestration/hubPeeredSpoke/hubPeeredSpoke.bicep --parameters  @infra-as-code/bicep/orchestration/hubPeeredSpoke/parameters/hubPeeredSpoke.parameters.hubnw.json parPeeredVnetSubscriptionId=$(hubSpokeSubscriptionId) parHubVirtualNetworkId="/subscriptions/$(hubSubscriptionId)/resourceGroups/hubnw-connectivity/providers/Microsoft.Network/virtualNetworks/alz-hub-eastus" --location $(Location) --management-group-id $(ManagementGroupPrefix)
