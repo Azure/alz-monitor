@@ -175,7 +175,7 @@ module vm_availablememory_policy '../../src/resources/Microsoft.Authorization/po
 
 
 module vm_CPUpercent_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-PercentCPU_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmcpu-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -183,7 +183,7 @@ module vm_CPUpercent_policy '../../src/resources/Microsoft.Authorization/policyD
 }
 
 module vm_OSDiskwrite_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskwriteLatency_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmosdw-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -191,7 +191,7 @@ module vm_OSDiskwrite_policy '../../src/resources/Microsoft.Authorization/policy
 }
 
 module vm_OSDiskread_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskreadLatency_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmosdr-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -199,7 +199,7 @@ module vm_OSDiskread_policy '../../src/resources/Microsoft.Authorization/policyD
 }
 
 module vm_OSDiskspace_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskSpace_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmaosds-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -207,7 +207,7 @@ module vm_OSDiskspace_policy '../../src/resources/Microsoft.Authorization/policy
 }
 
 module vm_NetworkOut_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-NetworkOut_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmnetout-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -215,7 +215,7 @@ module vm_NetworkOut_policy '../../src/resources/Microsoft.Authorization/policyD
 }
 
 module vm_NetworkIn_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-NetworkIn_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmnetin-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -223,7 +223,7 @@ module vm_NetworkIn_policy '../../src/resources/Microsoft.Authorization/policyDe
 }
 
 module vm_HeartBeat_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-HeartBeat_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmhb-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -233,7 +233,7 @@ module vm_HeartBeat_policy '../../src/resources/Microsoft.Authorization/policyDe
 
 
 module vm_dataDiskWriteLatency_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskwriteLatency_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmddwr-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -241,7 +241,7 @@ module vm_dataDiskWriteLatency_policy '../../src/resources/Microsoft.Authorizati
 }
 
 module vm_dataDiskReadLatency_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskreadLatency_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmddr-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -249,7 +249,7 @@ module vm_dataDiskReadLatency_policy '../../src/resources/Microsoft.Authorizatio
 }
 
 module vm_dataDiskSpace_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskSpace_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmdds-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
@@ -257,7 +257,7 @@ module vm_dataDiskSpace_policy '../../src/resources/Microsoft.Authorization/poli
 }
 
 module vm_availablememorypercent_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-PercentMemory_alert.bicep' = {
-  name: '${uniqueString(deployment().name)}-vmama-policyDefinitions-deploy'
+  name: '${uniqueString(deployment().name)}-vmamap-policyDefinitions-deploy'
   params: {
    deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
