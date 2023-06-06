@@ -8,11 +8,11 @@ As an example you may want to change alert thresholds for one or more metric ale
 
 ### parameter files
 
-- [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
-- [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
-- [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
-- [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
-- [parameters-complete-servicehealth.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-servicehealth.json)
+- [parameters-complete-connectivity.json](/infra-as-code/bicep/parameters-complete-connectivity.json)
+- [parameters-complete-identity.json](/infra-as-code/bicep/parameters-complete-identity.json)
+- [parameters-complete-landingzones.json](/infra-as-code/bicep/parameters-complete-landingzones.json)
+- [parameters-complete-management.json](/infra-as-code/bicep/parameters-complete-management.json)
+- [parameters-complete-servicehealth.json](/infra-as-code/bicep/parameters-complete-servicehealth.json)
 
 ### Applying changes to the parameter files
 
