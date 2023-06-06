@@ -56,7 +56,7 @@ Note that the parameter file shown below has been truncated for brevity, compare
 ## 3. Configure and run the workflow
 First, configure your OpenID Connect as described [here](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-openid-connect).
 
-To deploy through GitHub actions, please refer to the [sample GitHub workflow](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-workflow.yml) and follow the guidance corresponding to your management group hierarchy.
+To deploy through GitHub actions, please refer to the [sample GitHub workflow](/.github/workflows/sample-workflow.yml) and follow the guidance corresponding to your management group hierarchy.
 
 ### ALZ aligned
 
