@@ -9,7 +9,7 @@ This is usually the so called "pseudo root management group", e.g. in [ALZ termi
 
 These changes must be made in each of the following parameter files:
 
-- [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
+- [parameters-complete-connectivity.json](/infra-as-code/bicep/parameters-complete-connectivity.json)
 - [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
 - [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
 - [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
