@@ -60,7 +60,7 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](/
 
 ### ALZ aligned
 
-- Modify the following values in [sample-workflow.yml](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-workflow.yml):
+- Modify the following values in [sample-workflow.yml](/.github/workflows/sample-workflow.yml):
   - Change _Location: "norwayeast"_, to your preferred Azure region
   - Change _ManagementGroupPrefix: "alz"_, to the pseudo root management group id parenting the identity, management and connectivity management groups.
   - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
@@ -74,7 +74,7 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](/
 ### ALZ unaligned
 > For ease of deployment and maintenance we have kept the same variables. If, for example, you combined Identity, Management and Connectivity into one management group you should configure the variables _identityManagementGroup_, _managementManagementGroup_ and _connectivityManagementGroup_ with the same management group.
 
-- Modify the following values in [sample-workflow.yml](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-workflow.yml):
+- Modify the following values in [sample-workflow.yml](/.github/workflows/sample-workflow.yml):
   - Change _Location: "norwayeast"_, to your preferred Azure region
   - Change _ManagementGroupPrefix: "alz"_, to the pseudo root management group parenting the identity, management and connectivity management groups.
   - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for the Identity initiative. The same management group may be repeated.
@@ -88,7 +88,7 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](/
 ### Single management group
 > For ease of deployment and maintenance we have kept the same variables. Configure the variables _ManagementGroupPrefix_, _identityManagementGroup_, _managementManagementGroup_, _connectivityManagementGroup_ and _LZManagementGroup_ with the pseudo root management group.
 
-- Modify the following values in [sample-workflow.yml](https://github.com/Azure/alz-monitor/blob/main/.github/workflows/sample-workflow.yml):
+- Modify the following values in [sample-workflow.yml](/.github/workflows/sample-workflow.yml):
   - Change _Location: "norwayeast"_, to your preferred Azure region
   - Change _ManagementGroupPrefix: "alz"_, to the pseudo root management group.
   - Change _identityManagementGroup: "alz-platform-identity"_, to the pseudo root management group.
