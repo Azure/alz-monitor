@@ -43,7 +43,7 @@ The following are the unique ID's (also known as PIDs) used in each of the files
 
 | File Name                     | PID                                  |
 | ------------------------------- | ------------------------------------ |
-| deploy_dine_policies            | d6b3b08c-5825-4b89-a62b-e3168d3d8fb0 |
+| deploy_dine_policies.bicep            | d6b3b08c-5825-4b89-a62b-e3168d3d8fb0 |
 | assign_initiatives_connectivity.bicep | 2d69aa07-8780-4697-a431-79882cb9f00e |
 | assign_initiatives_identity.bicep | 8d257c20-97bf-4d14-acb3-38dd1436d13a |
 | assign_initiatives_management.bicep | d87415c4-01ef-4667-af89-0b5adc14af1b |
