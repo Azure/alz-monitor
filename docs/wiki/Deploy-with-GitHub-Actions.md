@@ -1,6 +1,6 @@
 ## 1. We recommend configuring the following parameters:
 
-- Change the value of _parPolicyManagementGroupId_ to the management group where you wish to deploy the policies and the initiatives; this will also be the ["scope"](https://learn.microsoft.com/azure/governance/policy/concepts/scope) of the respective policy / initiative assignments.
+- Change the value of _parPolicyPseudoRootMgmtGroup_ to the management group where you wish to deploy the policies and the initiatives; this will also be the ["scope"](https://learn.microsoft.com/azure/governance/policy/concepts/scope) of the respective policy / initiative assignments.
 This is usually the so called "pseudo root management group", e.g. in [ALZ terminology](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups), this would be the so called "Intermediate Root Management Group" (directly beneath the "Tenant Root Group").
 - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules are placed in.
 - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
@@ -24,7 +24,7 @@ Note that the parameter file shown below has been truncated for brevity, compare
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "parPolicyManagementGroupId": {
+        "parPolicyPseudoRootMgmtGroup": {
             "value": "Contoso"
         },
         "parPolicyAssignmentParameters": {
@@ -69,7 +69,7 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](/
   - Change _LZManagementGroup: "alz-landing-zone"_, to the management group for Landing Zones in your ALZ implementation.
 - Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
 
-> *IMPORTANT:* Above-mentioned "ManagementGroupPrefix" variable value, as being the so called "pseudo root management group id", should _coincide_ with the value of "parPolicyManagementGroupId", set previously within the parameter files.
+> *IMPORTANT:* Above-mentioned "ManagementGroupPrefix" variable value, being the so called "pseudo root management group id", should _coincide_ with the value of the "parPolicyPseudoRootMgmtGroup" parameter, as set previously within the parameter files.
 
 ### ALZ unaligned
 > For ease of deployment and maintenance we have kept the same variables. If, for example, you combined Identity, Management and Connectivity into one management group you should configure the variables _identityManagementGroup_, _managementManagementGroup_ and _connectivityManagementGroup_ with the same management group.
@@ -83,7 +83,7 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](/
   - Change _LZManagementGroup: "alz-landing-zone"_, to the management group for Landing Zones. The same management group may be repeated.
 - Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
 
-> *IMPORTANT:* Above-mentioned "ManagementGroupPrefix" variable value, as being the so called "pseudo root management group id", should _coincide_ with the value of "parPolicyManagementGroupId", set previously within the parameter files.
+> *IMPORTANT:* Above-mentioned "ManagementGroupPrefix" variable value, being the so called "pseudo root management group id", should _coincide_ with the value of the "parPolicyPseudoRootMgmtGroup" parameter, as set previously within the parameter files.
 
 ### Single management group
 > For ease of deployment and maintenance we have kept the same variables. Configure the variables _ManagementGroupPrefix_, _identityManagementGroup_, _managementManagementGroup_, _connectivityManagementGroup_ and _LZManagementGroup_ with the pseudo root management group.
@@ -97,7 +97,7 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](/
   - Change _LZManagementGroup: "alz-landing-zone"_, to the pseudo root management group.
 - Go to GitHub actions and run the action *Deploy ALZ Monitor policies*
 
-> *IMPORTANT:* Above-mentioned "ManagementGroupPrefix" variable value, as being the so called "pseudo root management group id", should _coincide_ with the value of "parPolicyManagementGroupId", set previously within the parameter files.
+> *IMPORTANT:* Above-mentioned "ManagementGroupPrefix" variable value, being the so called "pseudo root management group id", should _coincide_ with the value of the "parPolicyPseudoRootMgmtGroup" parameter, as set previously within the parameter files.
 
 # Next steps
 - To remediate non-compliant policies, please proceed with [Policy remediation](./Policy-remediation)

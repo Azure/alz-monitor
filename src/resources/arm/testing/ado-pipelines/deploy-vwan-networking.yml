@@ -105,11 +105,11 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $(Location) --management-group-id $(identityManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-identity.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $(Location) --management-group-id $(managementManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-management.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $(Location) --management-group-id $(connectivityManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $(Location) --management-group-id $(alzManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
-            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep --location $(Location) --management-group-id $(ManagementGroupPrefix) --parameters ./infra-as-code/bicep/parameters-complete-servicehealth.json parPolicyManagementGroupId=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_identity.bicep --location $(Location) --management-group-id $(identityManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-identity.json parPolicyPseudoRootMgmtGroup=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_management.bicep --location $(Location) --management-group-id $(managementManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-management.json parPolicyPseudoRootMgmtGroup=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_connectivity.bicep --location $(Location) --management-group-id $(connectivityManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json parPolicyPseudoRootMgmtGroup=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_landingzones.bicep --location $(Location) --management-group-id $(alzManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json parPolicyPseudoRootMgmtGroup=$(ManagementGroupPrefix)
+            az deployment mg create --template-file ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep --location $(Location) --management-group-id $(ManagementGroupPrefix) --parameters ./infra-as-code/bicep/parameters-complete-servicehealth.json parPolicyPseudoRootMgmtGroup=$(ManagementGroupPrefix)
 
       - task: AzureCLI@2
         displayName: Az CLI Subscription Placement

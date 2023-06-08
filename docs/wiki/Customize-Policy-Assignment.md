@@ -25,7 +25,7 @@ If we want to change the threshold value for Virtual Network Gateway Express Rou
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "parPolicyManagementGroupId": {
+        "parPolicyPseudoRootMgmtGroup": {
             "value": "alz"
         },
         "parPolicyAssignmentParameters": {
