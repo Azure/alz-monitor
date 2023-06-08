@@ -16,7 +16,7 @@ param parPolicyAssignmentParameters  object = {}
 param parPolicyAssignmentParametersLZ  object = {}
 
 // Customer Usage Attribution Id
-var varCuaid = 'd87415c4-01ef-4667-af89-0b5adc14af1b'
+var varCuaid = '7bcfc615-be78-43da-b81d-98959a9465a5'
 
 var varPolicyAssignmentParametersLZ = union(parPolicyAssignmentParameters, parPolicyAssignmentParametersLZ)
 

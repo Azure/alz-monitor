@@ -10,6 +10,8 @@ To disable this tracking, we have included a parameter called `parTelemetryOptOu
 - ./infra-as-code/bicep/assign_initiatives_connectivity.bicep
 - ./infra-as-code/bicep/assign_initiatives_identity.bicep
 - ./infra-as-code/bicep/assign_initiatives_management.bicep
+- ./infra-as-code/bicep/assign_initiatives_landingzones.bicep
+- ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep
 - ./src/resources/Microsoft.Authorization/policySetDefinitions/deploy-connectivity.json
 - ./src/resources/Microsoft.Authorization/policySetDefinitions/deploy-management.json
 - ./src/resources/Microsoft.Authorization/policySetDefinitions/deploy-identity.json
@@ -43,6 +45,10 @@ The following are the unique ID's (also known as PIDs) used in each of the files
 | assign_initiatives_connectivity.bicep | 2d69aa07-8780-4697-a431-79882cb9f00e |
 | assign_initiatives_identity.bicep | 8d257c20-97bf-4d14-acb3-38dd1436d13a |
 | assign_initiatives_management.bicep | d87415c4-01ef-4667-af89-0b5adc14af1b |
-| deploy-connectivity.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
-| deploy-management.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
-| deploy-identity.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
+| assign_initiatives_landingzones.bicep | 7bcfc615-be78-43da-b81d-98959a9465a5 |
+| assign_initiatives_servicehealth.bicep | 860d2afd-b71e-452f-9d3a-e56196cba570 |
+| ALZ-MonitorConnectivity.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
+| ALZ-Monitor-Management.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
+| ALZ-MonitorIdentity.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
+| ALZ-MonitorLandingZone.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
+| ALZ-MonitorServiceHealth.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
