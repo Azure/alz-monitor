@@ -16,7 +16,7 @@
                     }
                 },
                 "ALZMonitorResourceGroupLocation": {
-                    "value": "uksouth"
+                    "value": "eastus"
                 }
             }
         },
