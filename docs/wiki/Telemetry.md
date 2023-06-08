@@ -12,9 +12,11 @@ To disable this tracking, we have included a parameter called `parTelemetryOptOu
 - ./infra-as-code/bicep/assign_initiatives_management.bicep
 - ./infra-as-code/bicep/assign_initiatives_landingzones.bicep
 - ./infra-as-code/bicep/assign_initiatives_servicehealth.bicep
-- ./src/resources/Microsoft.Authorization/policySetDefinitions/deploy-connectivity.json
-- ./src/resources/Microsoft.Authorization/policySetDefinitions/deploy-management.json
-- ./src/resources/Microsoft.Authorization/policySetDefinitions/deploy-identity.json
+- ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json
+- ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json
+- ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json
+- ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorLandingZone.json
+- ./src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorServiceHealth.json
 
 If you are happy with leaving telemetry tracking enabled, no changes are required. 
 
@@ -48,7 +50,7 @@ The following are the unique ID's (also known as PIDs) used in each of the files
 | assign_initiatives_landingzones.bicep | 7bcfc615-be78-43da-b81d-98959a9465a5 |
 | assign_initiatives_servicehealth.bicep | 860d2afd-b71e-452f-9d3a-e56196cba570 |
 | ALZ-MonitorConnectivity.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
-| ALZ-Monitor-Management.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
+| ALZ-MonitorManagement.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
 | ALZ-MonitorIdentity.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
 | ALZ-MonitorLandingZone.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
 | ALZ-MonitorServiceHealth.json | 7e6d4601-dfd7-4996-8ea6-3e1ef93758f1 |
