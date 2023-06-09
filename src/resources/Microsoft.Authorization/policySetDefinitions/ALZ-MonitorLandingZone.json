@@ -20,7 +20,7 @@
       "name": "Alerting-LandingZone",
       "properties": {
         "metadata": {
-          "version": "1.0.1",
+          "version": "1.0.2",
           "category": "Monitoring",
           "source": "https://github.com/Azure/ALZ-Monitor/",
           "_deployed_by_alz_monitor": true
