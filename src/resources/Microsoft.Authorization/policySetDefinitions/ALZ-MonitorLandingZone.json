@@ -517,10 +517,6 @@
               "disabled"
             ]
           },
-          "RVBackupHealthMonitorAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
           "VNETDDOSAttackAlertSeverity": {
             "type": "String",
             "defaultValue": "1",
@@ -846,9 +842,6 @@
             "parameters": {
               "effect": {
                 "value": "[[parameters('RVBackupHealthMonitorPolicyEffect')]"
-              },
-              "enabled": {
-                "value": "[[parameters('RVBackupHealthMonitorAlertState')]"
               }
             }
           },

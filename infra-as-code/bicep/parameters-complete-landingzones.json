@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "parPolicyPseudoRootMgmtGroup": {
-            "value": "alz"
+            "value": "arjencloud"
         },
         "parPolicyAssignmentParameters": {
             "value": {
@@ -186,9 +186,6 @@
                 },
                 "RVBackupHealthMonitorPolicyEffect" : {
                     "value": "modify"
-                },
-                "RVBackupHealthMonitorAlertState" : {
-                    "value": "true"
                 },
                 "VNETDDOSAttackAlertSeverity": {
                     "value": "1"
