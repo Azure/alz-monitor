@@ -8,11 +8,11 @@ As an example you may want to change alert thresholds for one or more metric ale
 
 ### parameter files
 
-- [parameters-complete-connectivity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-connectivity.json)
-- [parameters-complete-identity.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-identity.json)
-- [parameters-complete-landingzones.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-landingzones.json)
-- [parameters-complete-management.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-management.json)
-- [parameters-complete-servicehealth.json](https://github.com/Azure/alz-monitor/infra-as-code/bicep/parameters-complete-servicehealth.json)
+- [parameters-complete-connectivity.json](/infra-as-code/bicep/parameters-complete-connectivity.json)
+- [parameters-complete-identity.json](/infra-as-code/bicep/parameters-complete-identity.json)
+- [parameters-complete-landingzones.json](/infra-as-code/bicep/parameters-complete-landingzones.json)
+- [parameters-complete-management.json](/infra-as-code/bicep/parameters-complete-management.json)
+- [parameters-complete-servicehealth.json](/infra-as-code/bicep/parameters-complete-servicehealth.json)
 
 ### Applying changes to the parameter files
 
@@ -25,7 +25,7 @@ If we want to change the threshold value for Virtual Network Gateway Express Rou
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "parPolicyManagementGroupId": {
+        "parPolicyPseudoRootMgmtGroup": {
             "value": "alz"
         },
         "parPolicyAssignmentParameters": {
@@ -58,6 +58,8 @@ If we want to change the threshold value for Virtual Network Gateway Express Rou
 ```
 
 ### Assigning all initiatives with the complete parameter files
+
+>*IMPORTANT:* The below described processes focus _only_ on the respective initiative _assignments_, and _do_ assume that initial policy / initiative _deployments_ have already been done succesful, as detailed in the respective guides for [Azure CLI](./Deploy-with-Azure-CLI.md) and for [Azure PowerShell](./Deploy-with-Azure-PowerShell.md).
 
 After making all the desired changes to the parameter files you can run the following commands to assign the initiatives:
 

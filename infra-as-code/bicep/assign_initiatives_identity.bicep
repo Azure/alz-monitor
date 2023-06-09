@@ -4,7 +4,7 @@
 targetScope = 'managementGroup'
 
 @description('The management group scope at which the policy definition exists. DEFAULT VALUE = "alz"')
-param parPolicyManagementGroupId string = 'alz'
+param parPolicyPseudoRootMgmtGroup string = 'alz'
 
 @description('Set Parameter to true to Opt-out of deployment telemetry')
 param parTelemetryOptOut bool = false
@@ -23,7 +23,7 @@ var varPolicyAssignmentParametersIdentity = union(parPolicyAssignmentParameters,
 module Deploy_Alerting_Identity '../../infra-as-code/bicep/modules/policy/assignments/policyAssignmentManagementGroup.bicep' = {
   name: '${uniqueString(deployment().name)}-Alerting-Identity'
   params: {
-    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyManagementGroupId}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Identity'
+    parPolicyAssignmentDefinitionId: '/providers/Microsoft.Management/managementGroups/${parPolicyPseudoRootMgmtGroup}/providers/Microsoft.Authorization/policySetDefinitions/Alerting-Identity'
     parPolicyAssignmentDisplayName: 'ALZ Monitoring Alerts for Identity'
     parPolicyAssignmentName: 'ALZ-Monitor_Identity'
     parPolicyAssignmentDescription: 'Initiative to deploy alerts relevant to the ALZ Identity Management group'
