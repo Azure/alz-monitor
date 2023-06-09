@@ -184,23 +184,11 @@
                 "PIPBytesInDDoSThreshold": {
                     "value": "8000000"
                 },
-                "RVBackupHealthAlertSeverity": {
-                    "value": "3"
+                "RVBackupHealthMonitorPolicyEffect" : {
+                    "value": "modify"
                 },
-                "RVBackupHealthWindowSize": {
-                    "value": "P1D"
-                },
-                "RVBackupHealthEvaluationFrequency": {
-                    "value": "PT1H"
-                },
-                "RVBackupHealthPolicyEffect": {
-                    "value": "deployIfNotExists"
-                },
-                "RVBackupHealthAlertState": {
+                "RVBackupHealthMonitorAlertState" : {
                     "value": "true"
-                },
-                "RVBackupHealthThreshold": {
-                    "value": "20"
                 },
                 "VNETDDOSAttackAlertSeverity": {
                     "value": "1"
