@@ -52,6 +52,10 @@ As this is a work in progress, in the future we may investigate and include:
 
 Resource Metric alerts are deployed in the same resource group as the created Azure resource. For example, a resource metric alert for Express Route will be created in the same resource group containing the Express Route Gateway. This is done because these alert types are related to the specific resource id, therefore it makes sense to link the alert to the resource in the same resource group.
 
+#### Log Alerts
+
+Log alerts are scoped at the subscription level. For the policies to remediate and deploy, the corresponding data the alert queries for needs to exist in the Log Analytics table. For the virtual machine log alerts the VM insights solution needs to be enabled on the VMs that are targeted. Only the performance collection of the VM insights solution is required the current alerts to deploy. To [enable VM Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-overview). Using the AMA agent [policy initiatives](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-policy) for deployment is recommended.  
+
 #### Service and Resource Health
 
 [Service health](https://learn.microsoft.com/en-us/azure/service-health/overview) provides a personalized view of the health of the Azure services and regions you're using. Resource health provides information about the health of your individual cloud resources such as a specific virtual machine instance.
@@ -61,7 +65,7 @@ A resource health alert will be created for any resource that goes into an unava
 
 ## ALZ Monitor Alert Processing Rules
 
-[Alert Processing Rules](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-processing-rules) enable the filtering of alerts and assign alerts to the approriate action groups based on filter criteria.
+[Alert Processing Rules](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-processing-rules) enable the filtering of alerts and assign alerts to the appropriate action groups based on filter criteria.
 
 As this is currently a work in progress, for ALZ we will implement a single Action Group per subscription, and deploy a single Alert Processing Rule without filters to action alerts via the Action Group. This may be revised in the future.
 
