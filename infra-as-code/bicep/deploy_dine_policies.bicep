@@ -133,7 +133,7 @@ module pip_vipavailability_policy '../../src/resources/Microsoft.Authorization/p
 module rv_backuphealthmonitor_policy '../../src/resources/Microsoft.Authorization/policyDefinitions/deploy-rv_backuphealth_monitor.bicep' = {
   name: '${uniqueString(deployment().name)}-rvbuhm-policyDefinitions-deploy'
   params: {
-  deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
+   deploymentRoleDefinitionIds: deploymentRoleDefinitionIds
    policyLocation: policyLocation
   }
 }
