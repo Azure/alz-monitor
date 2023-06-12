@@ -57,7 +57,7 @@ The initiatives provided in this repository align with the management group hier
 
 The image below is an example of how a management group hierarchy looks like when you follow Azure Landing Zone guidance. Also illustrated in this image is the default recommended assignments of the initiatives.
 
-![ALZ Management group structure](/media/alz-management-groups.png)
+![ALZ Management group structure](../raw/main/media/alz-management-groups.png)
 
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
 * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
@@ -83,7 +83,7 @@ Suppose Identity/ Management/ Connectivity are combined in one Platform Manageme
 
 The image below is an example of how the assignments could look like when the management group hierarchy isn´t aligned with ALZ.
 
-![Management group structure - unaligned](/media/alz-management-groups-unaligned.png)
+![Management group structure - unaligned](../raw/main/media/alz-management-groups-unaligned.png)
 
 We recommend that you review the [initiative definitions](https://github.com/Azure/alz-monitor/tree/main/src/resources/Microsoft.Authorization/policySetDefinitions) to determine where best to apply the initiatives in your management group hierarchy.
 
@@ -106,7 +106,7 @@ If you implemented a single management group, we recommend to move your producti
 
 The image below is an example of how the assignments look like when you are using a single management group.
 
-![Management group structure - single](/media/alz-management-groups-single.png)
+![Management group structure - single](../raw/main/media/alz-management-groups-single.png)
 
 ## Customizing policy assignments
 

@@ -9,11 +9,11 @@ This is usually the so called "pseudo root management group", e.g. in [ALZ termi
 
 These changes must be made in each of the following parameter files:
 
-- [parameters-complete-connectivity.json](/infra-as-code/bicep/parameters-complete-connectivity.json)
-- [parameters-complete-identity.json](/infra-as-code/bicep/parameters-complete-identity.json)
-- [parameters-complete-landingzones.json](/infra-as-code/bicep/parameters-complete-landingzones.json)
-- [parameters-complete-management.json](/infra-as-code/bicep/parameters-complete-management.json)
-- [parameters-complete-servicehealth.json](/infra-as-code/bicep/parameters-complete-servicehealth.json)
+- [parameters-complete-connectivity.json](../blob/main/infra-as-code/bicep/parameters-complete-connectivity.json)
+- [parameters-complete-identity.json](../blob/main/infra-as-code/bicep/parameters-complete-identity.json)
+- [parameters-complete-landingzones.json](../blob/main/infra-as-code/bicep/parameters-complete-landingzones.json)
+- [parameters-complete-management.json](../blob/main/infra-as-code/bicep/parameters-complete-management.json)
+- [parameters-complete-servicehealth.json](../blob/main/infra-as-code/bicep/parameters-complete-servicehealth.json)
 
 ## 2. Example Parameter file:
 
