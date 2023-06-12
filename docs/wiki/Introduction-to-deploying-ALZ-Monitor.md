@@ -57,7 +57,7 @@ The initiatives provided in this repository align with the management group hier
 
 The image below is an example of how a management group hierarchy looks like when you follow Azure Landing Zone guidance. Also illustrated in this image is the default recommended assignments of the initiatives.
 
-![ALZ Management group structure](/media/alz-management-groups.png)
+![ALZ Management group structure](../blob/main/media/alz-management-groups.png)
 
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
 * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
