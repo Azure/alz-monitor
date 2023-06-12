@@ -7,7 +7,7 @@ This is usually the so called "pseudo root management group", e.g. in [ALZ termi
 - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
 - Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative) to the email address where notifications of the alerts are sent to.
 
-These changes must be made in each of the following parameters files:
+These changes must be made in each of the following parameter files:
 
 - [parameters-complete-connectivity.json](../blob/main/infra-as-code/bicep/parameters-complete-connectivity.json)
 - [parameters-complete-identity.json](../blob/main/infra-as-code/bicep/parameters-complete-identity.json)
