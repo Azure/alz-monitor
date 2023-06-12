@@ -54,7 +54,7 @@ Resource Metric alerts are deployed in the same resource group as the created Az
 
 #### Log Alerts
 
-Log alerts are scoped at the subscription level. For the policies to remediate and deploy, the corresponding data the alert queries for needs to exist in the Log Analytics table. For the virtual machine log alerts the VM insights solution needs to be enabled on the VMs that are targeted. Only the performance collection of the VM insights solution is required the current alerts to deploy. To [enable VM Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-overview). Using the AMA agent [policy initiatives](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-policy) for deployment is recommended.  
+Log alerts are scoped at the subscription level. For the policies to remediate and deploy, the data which the alert queries for needs to exist in the Log Analytics table. For the virtual machine log alerts the VM insights solution needs to be enabled on the VMs that are targeted. Only the performance collection of the VM insights solution is required for the current alerts to deploy. To [enable VM Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-overview). Using the AMA agent [policy initiatives](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-policy) for deployment is recommended.  
 
 #### Service and Resource Health
 
