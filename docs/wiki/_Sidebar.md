@@ -1,7 +1,7 @@
 # Wiki content
 
 * [What's New](./WhatsNew)
-* [Monitoring and Alerting](./MonitoringAndAlerting)
+* [Monitoring and Alerting](./Monitoring-and-Alerting-in-ALZ)
 * [Alert Details](./AlertsDetails)
 * [Azure Policy Initiatives](./PolicyInitiatives)
 * Deploying ALZ Monitor
