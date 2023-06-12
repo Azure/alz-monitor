@@ -87,7 +87,7 @@ Azure Backup now provides new and improved alerting capabilities via Azure Monit
 
 ### Modifications
 
-```json
+```bicep
 {
     effect: '[parameters(\'effect\')]'
     details: {
@@ -97,12 +97,12 @@ Azure Backup now provides new and improved alerting capabilities via Azure Monit
             {
                 operation: 'addOrReplace'
                 field: 'Microsoft.RecoveryServices/vaults/monitoringSettings.classicAlertSettings.alertsForCriticalOperations'
-                value: **'Disabled'**
+                value: 'Disabled'
             }
             {
                 operation: 'addOrReplace'
                 field: 'Microsoft.RecoveryServices/vaults/monitoringSettings.azureMonitorAlertSettings.alertsForAllJobFailures'
-                value: **'Enabled'**
+                value: 'Enabled'
             }
         ]
     }
