@@ -83,7 +83,7 @@ As an example, we could implement a filter on Severity (Critical, Error, Warning
 
 ## Monitoring Backup (Recovery Services Vaults)
 
-Azure Backup now provides new and improved alerting capabilities via Azure Monitor. The following policy: [Backup Monitor Policy](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-rv_backuphealth_monitor.bicep) configures new and existing recovery services vaults through a modify effect, which disables the classics alerts and enables the new built-in alerts. 
+Azure Backup now provides new and improved alerting capabilities via Azure Monitor. The following policy: [Backup Monitor Policy](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-rv_backuphealth_monitor.bicep) configures new and existing recovery services vaults through a modify effect, which disables the classic alerts and enables the new built-in alerts. 
 
 ### Modifications
 
