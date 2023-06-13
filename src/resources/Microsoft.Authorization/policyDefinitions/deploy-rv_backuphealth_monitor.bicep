@@ -26,7 +26,7 @@ module BackupHealthMonitor '../../arm/Microsoft.Authorization/policyDefinitions/
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Site Recovery'
+            category: 'Site Recovery'
             source: 'https://github.com/Azure/ALZ-Monitor/'
             _deployed_by_alz_monitor: 'True'
         }
