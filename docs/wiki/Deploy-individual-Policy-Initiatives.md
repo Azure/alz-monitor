@@ -1,8 +1,18 @@
 ## Introduction
-The following guide describes the steps to implement an individual initiative. In this example we will deploy the Service Health initiative via Azure CLI. The same principles and steps apply to other initiatives and deployment methods. The deployment is similar to deploying all initiatives, and the main difference is in the initial deployment of the Policy Definitions. The high level steps are as follows:
-- You can choose deploy all the Policy Definitions, this is recommended when other initiatives will be implemented in the future.
-- In case you don´t want to deploy all the Policy Definitions, you need to manually deploy the definitions that are part of the Initiative. All initiatives and relevant Policy Definitions are documented here: [Azure Policy Initiatives](./PolicyInitiatives)
-- Deploy all or only the required policies
+The following guide describes the steps to implement an individual initiative. In this example we will deploy the Service Health initiative via Azure CLI. The same principles and steps apply to other initiatives and deployment methods. 
+
+When you deploy one initiative, like Service Health, you will only need the baseline monitoring Policy Definitions required by that Initiative. You can still choose to deploy all baseline monitoring Policy Definitions that are provided in this repository, this is recommended when you want to deploy other baseline monitoring Initiatives in the future. In case you first deploy a subset of the baseline monitoring Policy Definitions, you can easily deploy additional definitions at a later stage.
+
+### High level deployment steps:
+- Deploy baseline monitoring Policy Definitions. You can choose between 2 options:
+    - Deploy all the baseline monitoring Policy Definitions provided in this repository. This is recommended when you want to deploy other baseline monitoring Initiatives in the future.
+    - Deploy only the baseline monitoring Policy Definitions that are required by the Initiative. Consult the documentation [Azure Policy Initiatives](./PolicyInitiatives) to find the required baseline monitoring Policy Definitions for each of the Initiatives. For example, the following baseline monitoring Policy Definitions are required for the Service Health initiative:
+        - [deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep ](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep)
+        - [deploy-activitylog-ServiceHealth-Health.bicep](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep)
+        - [deploy-activitylog-ServiceHealth-Incident.bicep](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep)
+        - [deploy-activitylog-ServiceHealth-Maintenance.bicep](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep)
+        - [deploy-activitylog-ServiceHealth-Security.bicep](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep)
+        - [deploy-alertprocessingrule-deploy.bicep](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-alertprocessingrule-deploy.bicep)
 - Deploy the initiative
 - Assign the initiative
 
@@ -89,23 +99,23 @@ Using either a PowerShell prompt or Azure CLI, if you closed your previous sessi
 > There can be some delay between policies getting created and being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
 > This should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](./Customize-Policy-Assignment), to deploy and enable alerts in a controlled manner.
 
-If you want to deploy all Policy Definitions run the following command:
+If you want to deploy all baseline monitoring Policy Definitions provided in this repository (_this includes Policy Definitions for the other Initiatives_), run the following command:
 
 ```bash
   #Deploy all policy definitions
   az deployment mg create --template-file infra-as-code/bicep/deploy_dine_policies.bicep --location $location --management-group-id $pseudoRootManagementGroup
 ```
 
-If you want to deploy only the Policy Definitions required for the Service Health initiative run the following commands:
+If you want to deploy only the baseline monitoring Policy Definitions required for the Service Health initiative run the following commands:
 
 ```bash
   #Deploy only the required policy definitions for the Service Health initiative
-  az deployment mg create --template-file src/resources\Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep --location $location --management-group-id $pseudoRootManagementGroup
-  az deployment mg create --template-file src/resources\Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep --location $location --management-group-id $pseudoRootManagementGroup
-  az deployment mg create --template-file src/resources\Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep --location $location --management-group-id $pseudoRootManagementGroup
-  az deployment mg create --template-file src/resources\Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep --location $location --management-group-id $pseudoRootManagementGroup
-  az deployment mg create --template-file src/resources\Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep --location $location --management-group-id $pseudoRootManagementGroup
-  az deployment mg create --template-file src/resources\Microsoft.Authorization/policyDefinitions/deploy-alertprocessingrule-deploy.bicep --location $location --management-group-id $pseudoRootManagementGroup
+  az deployment mg create --template-file src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep --location $location --management-group-id $pseudoRootManagementGroup
+  az deployment mg create --template-file src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep --location $location --management-group-id $pseudoRootManagementGroup
+  az deployment mg create --template-file src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep --location $location --management-group-id $pseudoRootManagementGroup
+  az deployment mg create --template-file src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep --location $location --management-group-id $pseudoRootManagementGroup
+  az deployment mg create --template-file src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep --location $location --management-group-id $pseudoRootManagementGroup
+  az deployment mg create --template-file src/resources/Microsoft.Authorization/policyDefinitions/deploy-alertprocessingrule-deploy.bicep --location $location --management-group-id $pseudoRootManagementGroup
 ```
 
 Run the following commands to deploy and to assign the Service Health initiative to the pseudo root management group:
