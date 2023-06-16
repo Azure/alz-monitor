@@ -55,7 +55,7 @@ Note that the parameter file shown below has been truncated for brevity, compare
 ```
 
 ## 3. Configuring variables for deployment
-Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
+Open a PowerShell prompt, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 
 Run only the commands that correspond to your management group hierarchy. 
 
@@ -100,7 +100,7 @@ Run only the commands that correspond to your management group hierarchy.
 ## 4. Deploy the policy definitions, initiatives and policy assignments with default settings
 The following commands apply to all scenarios, whether you are aligned or unaligned with ALZ or don't have management groups. 
 
-Using either a PowerShell prompt or Azure CLI, if you closed your previous session, navigate again to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
+Using a PowerShell prompt, if you closed your previous session, navigate again to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 
 Run only the commands that correspond to your management group hierarchy. 
 

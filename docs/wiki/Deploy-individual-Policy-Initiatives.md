@@ -81,7 +81,7 @@ These changes must be made in the corresponding parameter file, in this case the
 ```
 
 ## 3. Configuring variables for deployment
-Using either a PowerShell prompt or Azure CLI, navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
+Open your preferred command line tool (Windows PowerShell, Cmd, Bash or other Unix shells), and navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 
 Run the following commands. 
 
