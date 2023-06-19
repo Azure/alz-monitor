@@ -114,7 +114,7 @@ Select Starter YAML Pipeline. An example YAML pipeline can be found here. [sampl
 
 Define variables for location, the psuedo Root Management Group, Connectivity Management Group, Identity Management Group, and the Management Group for Management.  
 
-Additionaly define your trigger and pool vmImage type.
+Additionaly define your trigger and pool vmImage type if required.
 
 ```yml
 variables:
