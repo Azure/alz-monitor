@@ -27,7 +27,7 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-     az deployment mg create --template-file '$(System.DefaultWorkingDirectory)/src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json' --location $(location) --management-group-id $(connectivityManagementGroup)
+     az deployment mg create --template-file '$(System.DefaultWorkingDirectory)/src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorConnectivity.json' --location $(location) --management-group-id $(ManagementGroupPrefix)
      az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorIdentity.json' --location $(location) --management-group-id $(identityManagementGroup)
      az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/src/resources/Microsoft.Authorization/policySetDefinitions/ALZ-MonitorManagement.json' --location $(location) --management-group-id $(managementManagementGroup)
          
