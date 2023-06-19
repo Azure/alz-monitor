@@ -21,7 +21,7 @@ steps:
     inlineScript: |
      az deployment mg create --template-file '$(System.DefaultWorkingDirectory)/infra-as-code/bicep/deploy_dine_policies.bicep' --location $(location) --management-group-id $(rootManagementGroup)
 - task: AzureCLI@2
-  displayName: 'Deploy Policies'
+  displayName: 'Deploy Monitor Policy Initiative Definitions'
   inputs:
     azureSubscription: newVSstudio
     scriptType: bash
