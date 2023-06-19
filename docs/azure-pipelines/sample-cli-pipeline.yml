@@ -13,7 +13,7 @@ pool:
 
 steps:
 - task: AzureCLI@2
-  displayName: 'Deploy Definitions'
+  displayName: 'Deploy Monitor Policy Definitions'
   inputs:
     azureSubscription: newVSstudio
     scriptType: bash
