@@ -20,7 +20,7 @@
       "name": "Alerting-LandingZone",
       "properties": {
         "metadata": {
-          "version": "1.0.1",
+          "version": "1.0.2",
           "category": "Monitoring",
           "source": "https://github.com/Azure/ALZ-Monitor/",
           "_deployed_by_alz_monitor": true
@@ -508,57 +508,14 @@
             "type": "string",
             "defaultValue": "8000000"
           },
-          "RVBackupHealthAlertSeverity": {
-            "type": "String",
-            "defaultValue": "3",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "RVBackupHealthWindowSize": {
+          "RVBackupHealthMonitorPolicyEffect": {
             "type": "string",
-            "defaultValue": "P1D",
+            "defaultValue": "modify",
             "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "RVBackupHealthEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT1H",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
-          "RVBackupHealthPolicyEffect": {
-            "type": "string",
-            "defaultValue": "deployIfNotExists",
-            "allowedValues": [
-              "deployIfNotExists",
+              "modify",
+              "audit",
               "disabled"
             ]
-          },
-          "RVBackupHealthAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "RVBackupHealthThreshold": {
-            "type": "string",
-            "defaultValue": "20"
           },
           "VNETDDOSAttackAlertSeverity": {
             "type": "String",
@@ -620,9 +577,6 @@
             "type": "string",
             "defaultValue": "true"
           }
-
-
-
         },
         "policyDefinitions": [
 
@@ -884,25 +838,10 @@
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_RouteTable_Update')]"
           },
           {
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_RecoveryVault_BackupHealth_Alert')]",
+           "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_RecoveryVault_BackupHealthMonitor_Alert')]",
             "parameters": {
-              "severity": {
-                "value": "[[parameters('RVBackupHealthAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('RVBackupHealthWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('RVBackupHealthEvaluationFrequency')]"
-              },
               "effect": {
-                "value": "[[parameters('RVBackupHealthPolicyEffect')]"
-              },
-              "enabled": {
-                "value": "[[parameters('RVBackupHealthAlertState')]"
-              },
-              "threshold": {
-                "value": "[[parameters('RVBackupHealthThreshold')]"
+                "value": "[[parameters('RVBackupHealthMonitorPolicyEffect')]"
               }
             }
           },
@@ -927,7 +866,6 @@
               "threshold": {
                 "value": "[[parameters('VNETDDOSAttackThreshold')]"
               }
-
             }
           }
         ],
