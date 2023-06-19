@@ -40,5 +40,5 @@ steps:
     inlineScript: |
      az deployment mg create --template-file '$(System.DefaultWorkingDirectory)/infra-as-code/bicep/assign_initiatives_connectivity.bicep' --location $(location) --management-group-id $(connectivityManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-connectivity.json
      az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/infra-as-code/bicep/assign_initiatives_identity.bicep' --location $(location) --management-group-id $(identityManagementGroup)
-     az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/infra-as-code/bicep/assign_initiatives_management.bicep' --location $(location) --management-group-id $(managementManagementGroup)
+     az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/infra-as-code/bicep/assign_initiatives_management.bicep' --location $(location) --management-group-id $(managementManagementGroup) --parameters ./infra-as-code/bicep/parameters-complete-management.json
      az deployment mg create --template-file  '$(System.DefaultWorkingDirectory)/infra-as-code/bicep/assign_initiatives_landingzones.bicep --location' --location $(location) --management-group-id $(LZManagementGroup)  --parameters ./infra-as-code/bicep/parameters-complete-landingzones.json
