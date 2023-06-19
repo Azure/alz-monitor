@@ -1,6 +1,6 @@
 variables:
   location: 'westus'
-  rootManagementGroup: 'ALZ'
+  ManagementGroupPrefix: 'ALZ'
   connectivityManagementGroup: 'alz-platform-connectivity'
   identityManagementGroup: 'alz-platform-identity'
   managementManagementGroup: 'alz-platform-management'
