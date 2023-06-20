@@ -40,6 +40,7 @@ _*While it´s recommended to implement the alert policies and initiatives to an 
 - Clone the repo from your own GitHub organization to your developer workstation.
 - Review your current configuration to determine what scenario applies to you. We have guidance that will help deploy these policies and initiatives whether you are aligned with Azure Landing Zones, or use other management group hierarchy, or you may not be using management groups at all. If you know your type of management group hierarchy, you can skip forward to your preferred deployment method:
   - [Automated deployment with GitHub Actions](./Deploy-with-GitHub-Actions) (recommended method)
+  - [Automated deployment with Azure Pipelines](./Deploy-with-Azure-Pipelines) (alternative recommended method)
   - [Manual deployment with Azure CLI ](./Deploy-with-Azure-CLI)
   - [Manual deployment with Azure PowerShell](./Deploy-with-Azure-PowerShell)
 
@@ -61,6 +62,7 @@ The image below is an example of how a management group hierarchy looks like whe
 
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
 * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
+* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
 * [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
 * [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)
 
@@ -89,6 +91,7 @@ We recommend that you review the [initiative definitions](https://github.com/Azu
 
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
 * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
+* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
 * [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
 * [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)
 
@@ -98,6 +101,7 @@ Please refer to our [documentation](https://learn.microsoft.com/en-us/azure/gove
 
 If you implemented the recommended management group design, you can skip forward to your preferred deployment method, following the ALZ aligned guidance.
 * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
+* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
 * [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
 * [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell) 
 
@@ -137,5 +141,6 @@ In some scenarios, it may be necessary to remove everything deployed by the ALZ 
 # Next steps
 - To customize policy assignments, please proceed with [Customize Policy Assignment](./Customize-Policy-Assignment)
 - To deploy with GitHub Actions, please proceed with [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
+- To deploy with Azure DevOps Pipelines, please proceed with [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
 - To deploy with Azure CLI, please proceed with [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
 - To deploy with Azure PowerShell, please proceed with [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)

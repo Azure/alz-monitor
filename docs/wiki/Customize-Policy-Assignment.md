@@ -133,5 +133,6 @@ These are the high-level steps that would need to take place:
 
 # Next steps
 - To deploy with GitHub Actions, please proceed with [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
+- To deploy with Azure DevOps Pipelines, please proceed with [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
 - To deploy with Azure CLI, please proceed with [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
 - To deploy with Azure PowerShell, please proceed with [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)

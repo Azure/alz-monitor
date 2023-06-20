@@ -8,6 +8,7 @@
    * [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor)
    * [Customize Policy Assignment](./Customize-Policy-Assignment)
    * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
+   * [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
    * [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
    * [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)
    * [Policy remediation](./Policy-remediation)
