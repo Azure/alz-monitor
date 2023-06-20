@@ -55,13 +55,13 @@ Note that the parameter file shown below has been truncated for brevity, compare
 ```
 
 ## 3. Configure and run the pipeline
-First configure your Azure DevOps project with a pipeline hosted in Github as described [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/repos/github?view=azure-devops&tabs=yaml#access-to-github-repositories). The pipeline should be configured to use the [sample-pipeline.yml](../blob/main/azure-pipelines/sample-pipeline.yml) file.
+First configure your Azure DevOps project with a pipeline hosted in Github as described [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/repos/github?view=azure-devops&tabs=yaml#access-to-github-repositories). The pipeline should be configured to use the [sample-pipeline.yml](../../azure-pipelines/sample-pipeline.yml) file.
 
 Also in your Azure DevOps project, configure a service connection to your Azure subscription as described [here](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=azure-devops&tabs=yaml). The service connection should target the intermediate root management group for ALZ aligned deployments or the management group where you wish to deploy the policies and the initiatives for ALZ unaligned deployments.
 
 ### ALZ aligned
 
-- Modify the following values in [sample-pipeline.yml](../blob/main/azure-pipelines/sample-pipeline.yml):
+- Modify the following values in [sample-pipeline.yml](../../azure-pipelines/sample-pipeline.yml):
   - Change _Location: "norwayeast"_, to your preferred Azure region
   - Change _ManagementGroupPrefix: "alz"_, to the pseudo root management group id parenting the identity, management and connectivity management groups.
   - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for identity in your ALZ implementation.
@@ -75,7 +75,7 @@ Also in your Azure DevOps project, configure a service connection to your Azure 
 ### ALZ unaligned
 > For ease of deployment and maintenance we have kept the same variables. If, for example, you combined Identity, Management and Connectivity into one management group you should configure the variables _identityManagementGroup_, _managementManagementGroup_ and _connectivityManagementGroup_ with the same management group.
 
-- Modify the following values in [sample-pipeline.yml](../blob/main/azure-pipelines/sample-pipeline.yml):
+- Modify the following values in [sample-pipeline.yml](../../azure-pipelines/sample-pipeline.yml):
   - Change _Location: "norwayeast"_, to your preferred Azure region
   - Change _ManagementGroupPrefix: "alz"_, to the pseudo root management group parenting the identity, management and connectivity management groups.
   - Change _identityManagementGroup: "alz-platform-identity"_, to the management group for the Identity initiative. The same management group may be repeated.
@@ -89,7 +89,7 @@ Also in your Azure DevOps project, configure a service connection to your Azure 
 ### Single management group
 > For ease of deployment and maintenance we have kept the same variables. Configure the variables _ManagementGroupPrefix_, _identityManagementGroup_, _managementManagementGroup_, _connectivityManagementGroup_ and _LZManagementGroup_ with the pseudo root management group.
 
-- Modify the following values in [sample-pipeline.yml](../blob/main/azure-pipelines/sample-pipeline.yml):
+- Modify the following values in [sample-pipeline.yml](../../azure-pipelines/sample-pipeline.yml):
   - Change _Location: "norwayeast"_, to your preferred Azure region
   - Change _ManagementGroupPrefix: "alz"_, to the pseudo root management group.
   - Change _identityManagementGroup: "alz-platform-identity"_, to the pseudo root management group.
