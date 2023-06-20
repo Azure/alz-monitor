@@ -139,5 +139,5 @@ In some scenarios, it may be necessary to remove everything deployed by the ALZ 
 - To deploy with GitHub Actions, please proceed with [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
 - To deploy with Azure CLI, please proceed with [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
 - To deploy with Azure PowerShell, please proceed with [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)
-- To deploy Service Health or another Policy Initiative (individually), please proceed with [Deploy individual Policy Initiatives with Azure CLI](./Deploy-individual-Policy-Initiatives-with-Azure-CLI)
+- To deploy Service Health or another Policy Initiative (individually) with Azure CLI, please proceed with [Deploy individual Policy Initiatives with Azure CLI](./Deploy-individual-Policy-Initiatives-with-Azure-CLI)
 - To deploy Service Health or another Policy Initiative (individually), please proceed with [Deploy individual Policy Initiatives with Azure PowerShell](./Deploy-individual-Policy-Initiatives-with-Azure-PowerShell)
