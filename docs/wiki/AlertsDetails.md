@@ -105,7 +105,7 @@ There isn't any per resource type guidance so what's been provided is some gener
 
 ## VM Insights Log Alerts
 
-Once VM Insights has been onboard into your environment the following alert rules can be deployed.
+Once VM Insights has been enabled in your environment, the following alert rules can be configured for use via this the Baseline Alerts framework.
 
 N/A: Not applicable, not used in the query or used as a parameter.
 
