@@ -85,6 +85,12 @@ When you deploy the IP located in this repo, Microsoft can identify the installa
 
 If you don't wish to send usage data to Microsoft, or need to understand more about its' use details can be found [here](https://github.com/azure/alz-monitor/wiki/Telemetry).
 
+## Feedback
+
+Once you've had an opportunity to deploy the solution we'd love to hear from you! Click [here](https://aka.ms/alz/monitor/feedback) to leave your feedback.
+
+If you have encountered an issue with Azure Baseline Alerts for ALZ, please see our [SUPPORT](https://github.com/Azure/alz-monitor/blob/9777cbaf347138e613a0a24391f9261294d18481/SUPPORT.md#L3) page.
+
 ## Trademarks
 
 This project may contain trademarks or logos for projects, products, or services.
