@@ -55,7 +55,7 @@ Note that the parameter file shown below has been truncated for brevity, compare
 ```
 
 ## 3. Configure and run the pipeline
-First configure your Azure DevOps project with a pipeline hosted in Github as described [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/repos/github?view=azure-devops&tabs=yaml#access-to-github-repositories). The pipeline should be configured to use the [sample-pipeline.yml](../../azure-pipelines/sample-pipeline.yml) file.
+First configure your Azure DevOps project with a pipeline hosted in GitHub as described [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/repos/github?view=azure-devops&tabs=yaml#access-to-github-repositories). The pipeline should be configured to use the [sample-pipeline.yml](../../azure-pipelines/sample-pipeline.yml) file.
 
 Also in your Azure DevOps project, configure a service connection to your Azure subscription as described [here](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=azure-devops&tabs=yaml). The service connection should target the intermediate root management group for ALZ aligned deployments or the management group where you wish to deploy the policies and the initiatives for ALZ unaligned deployments.
 
