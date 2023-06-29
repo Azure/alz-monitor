@@ -36,11 +36,11 @@ ALZ Alerts, Action Groups and Alert Processing Rules are deployed using Azure Po
 
 ## ALZ Monitor Alert Policy Definitions
 
-The following policy definition categories will be enabled as part of ALZ deployments for the hubs and landing zones defined by Enterprise Scale:
+The following policy definition categories will be enabled as part of ALZ deployments for the hubs and landing zones defined by Azure landing zone:
 
-- Resource Metrics; See [here](https://github.com/Azure/alz-monitor/wiki/AlertDetails#metric-alert-settings) for details on which resource metrics are included.
-- Service and Resource Health; See [here](https://github.com/Azure/alz-monitor/wiki/AlertDetails#activity-log-alerts) for details on which alerts are included.
-- Activity Logs; See [here](https://github.com/Azure/alz-monitor/wiki/AlertDetails#activity-log-administrative) for details on which alerts are included.
+- Resource Metrics; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#metric-alert-settings) for details on which resource metrics are included.
+- Service and Resource Health; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#activity-log-alerts) for details on which alerts are included.
+- Activity Logs; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#activity-log-administrative) for details on which alerts are included.
 
 As this is a work in progress, in the future we may investigate and include:
 
