@@ -25,9 +25,9 @@
           "version": "1.0.1",
           "category": "Monitoring",
           "source": "https://github.com/Azure/Enterprise-Scale/",
-          "alzCloudEnvironments": [ 
-             "AzureCloud"
-            ],
+          "alzCloudEnvironments": [
+            "AzureCloud"
+          ],
           "_deployed_by_alz_monitor": true
         },
         "parameters": {
@@ -1848,6 +1848,7 @@
         },
         "policyDefinitions": [
           {
+            "policyDefinitionReferenceId": "ALZ_ERCIRQoSDropBitsinPerSec",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_QosDropBitsInPerSecond_Alert')]",
             "parameters": {
               "severity": {
@@ -1868,6 +1869,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_ERCIRQoSDropBitsoutPerSec",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_QosDropBitsOutPerSecond_Alert')]",
             "parameters": {
               "severity": {
@@ -1888,6 +1890,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VPNGwBGPPeerStatus",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_BGPPeerStatus_Alert')]",
             "parameters": {
               "severity": {
@@ -1911,6 +1914,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwERCpuUtil",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_ExpressRouteCpuUtil_Alert')]",
             "parameters": {
               "severity": {
@@ -1934,6 +1938,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwTunnelBW",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelBandwidth_Alert')]",
             "parameters": {
               "severity": {
@@ -1957,6 +1962,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwTunnelEgress",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgress_Alert')]",
             "parameters": {
               "severity": {
@@ -1980,6 +1986,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwTunnelIngress",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngress_Alert')]",
             "parameters": {
               "severity": {
@@ -2003,6 +2010,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VPNGWBandWidthUtil",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_BandwidthUtil_Alert')]",
             "parameters": {
               "severity": {
@@ -2023,10 +2031,10 @@
               "threshold": {
                 "value": "[[parameters('VPNGWBandWidthUtilThreshold')]"
               }
-
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VPNGWEgress",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Egress_Alert')]",
             "parameters": {
               "severity": {
@@ -2050,6 +2058,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VPNGWTunnelEgressPacketDropCount",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelEgressPacketDropCount_Alert')]",
             "parameters": {
               "severity": {
@@ -2070,6 +2079,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VPNGWTunnelEgressPacketDropMismatch",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelEgressPacketDropMismatch_Alert')]",
             "parameters": {
               "severity": {
@@ -2090,6 +2100,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VPNGWIngress",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_Ingress_Alert')]",
             "parameters": {
               "severity": {
@@ -2116,6 +2127,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VPNGWTunnelIngressPacketDropCount",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelIngressPacketDropCount_Alert')]",
             "parameters": {
               "severity": {
@@ -2136,6 +2148,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VPNGWTunnelIngressPacketDropMismatch",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert')]",
             "parameters": {
               "severity": {
@@ -2156,6 +2169,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_PDNSZCapacityUtil",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_CapacityUtil_Alert')]",
             "parameters": {
               "severity": {
@@ -2179,6 +2193,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_PDNSZQueryVolume",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_QueryVolume_Alert')]",
             "parameters": {
               "severity": {
@@ -2202,6 +2217,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_PDNSZRecordSetCapacity",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PDNSZ_RecordSetCapacity_Alert')]",
             "parameters": {
               "severity": {
@@ -2225,6 +2241,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_PDNSZRegistrationCapacityUtil",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_DNSZ_RegistrationCapacityUtil_Alert')]",
             "parameters": {
               "severity": {
@@ -2248,6 +2265,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_ERGwExpressRouteBitsIn",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsIn_Alert')]",
             "parameters": {
               "severity": {
@@ -2271,6 +2289,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_ERGwExpressRouteBitsOut",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsOut_Alert')]",
             "parameters": {
               "severity": {
@@ -2294,6 +2313,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_ERGwExpressRouteCpuUtil",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteCpuUtil_Alert')]",
             "parameters": {
               "severity": {
@@ -2317,6 +2337,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwTunnelEgressPacketDropCount",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgressPacketDropCount_Alert')]",
             "parameters": {
               "severity": {
@@ -2337,6 +2358,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwTunnelEgressPacketDropMismatch",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelEgressPacketDropMismatch_Alert')]",
             "parameters": {
               "severity": {
@@ -2357,6 +2379,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwExpressRouteBitsPerSecond",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert')]",
             "parameters": {
               "severity": {
@@ -2380,6 +2403,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwTunnelIngressPacketDropMismatchWindowSize",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngressPacketDropMismatch_Alert')]",
             "parameters": {
               "severity": {
@@ -2400,6 +2424,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VnetGwTunnelIngressPacketDropCountWindowSize",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VnetGw_TunnelIngressPacketDropCount_Alert')]",
             "parameters": {
               "severity": {
@@ -2420,6 +2445,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_ERCIRBgpAvailability",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_BgpAvailability_Alert')]",
             "parameters": {
               "severity": {
@@ -2443,6 +2469,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_ERCIRArpAvailability",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERCIR_ArpAvailability_Alert')]",
             "parameters": {
               "severity": {
@@ -2466,6 +2493,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_AFWSNATPortUtilization",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_SNATPortUtilization_Alert')]",
             "parameters": {
               "severity": {
@@ -2489,6 +2517,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_PIPBytesInDDoSEvaluationFrequency",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_BytesInDDoSAttack_Alert')]",
             "parameters": {
               "severity": {
@@ -2512,6 +2541,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_PIPDDoSAttack",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_DDoSAttack_Alert')]",
             "parameters": {
               "severity": {
@@ -2535,6 +2565,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_PIPPacketsInDDoS",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_PacketsInDDoSAttack_Alert')]",
             "parameters": {
               "severity": {
@@ -2558,6 +2589,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_PIPVIPAvailability",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_PublicIp_VIPAvailability_Alert')]",
             "parameters": {
               "severity": {
@@ -2581,6 +2613,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_VNETDDOSAttack",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VNET_DDoSAttack_Alert')]",
             "parameters": {
               "severity": {
@@ -2601,10 +2634,10 @@
               "threshold": {
                 "value": "[[parameters('VNETDDOSAttackThreshold')]"
               }
-
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_FirewallHealth",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AFW_FirewallHealth_Alert')]",
             "parameters": {
               "severity": {
@@ -2628,6 +2661,8 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_activityFWDelete",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete')]",
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityFWDeleteAlertState')]"
@@ -2641,10 +2676,11 @@
               "alertResourceGroupLocation": {
                 "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_Firewall_Delete')]"
+            }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_activityNSGDelete",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]",
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityNSGDeleteAlertState')]"
@@ -2658,10 +2694,11 @@
               "alertResourceGroupLocation": {
                 "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_NSG_Delete')]"
+            }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_activityUDRUpdate",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_RouteTable_Update')]",
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityUDRUpdateAlertState')]"
@@ -2675,10 +2712,11 @@
               "alertResourceGroupLocation": {
                 "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_RouteTable_Update')]"
+            }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_activityVPNGWDelete",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete')]",
             "parameters": {
               "enabled": {
                 "value": "[[parameters('activityVPNGWDeleteAlertState')]"
@@ -2692,8 +2730,7 @@
               "alertResourceGroupLocation": {
                 "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_VPNGateway_Delete')]"
+            }
           }
         ],
         "policyType": "Custom"

@@ -76,6 +76,7 @@
         },
         "policyDefinitions": [
           {
+            "policyDefinitionReferenceId": "ALZ_ResHlthUnhealthy",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ResourceHealth_Unhealthy_Alert')]",
             "parameters": {
               "enabled": {
@@ -93,6 +94,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_SvcHlthAdvisory",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_HealthAdvisory')]",
             "parameters": {
               "enabled": {
@@ -113,6 +115,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_SvcHlthIncident", 
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Incident')]",
             "parameters": {
               "enabled": {
@@ -133,6 +136,8 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_SvcHlthMaintenance",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]",
             "parameters": {
               "enabled": {
                 "value": "[[parameters('SvcHlthMaintenanceAlertState')]"
@@ -149,10 +154,11 @@
               "ALZMonitorActionGroupEmail": {
                 "value": "[[parameters('ALZMonitorActionGroupEmail')]"
               }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_Maintenance')]"
+            }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_svcHlthSecAdvisory",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]",
             "parameters": {
               "enabled": {
                 "value": "[[parameters('svcHlthSecAdvisoryAlertState')]"
@@ -169,10 +175,11 @@
               "ALZMonitorActionGroupEmail": {
                 "value": "[[parameters('ALZMonitorActionGroupEmail')]"
               }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_ServiceHealth_SecurityAdvisory')]"
+            }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_AlertProcessing_Rule",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AlertProcessing_Rule')]",
             "parameters": {
               "ALZMonitorResourceGroupName": {
                 "value": "[[parameters('ALZMonitorResourceGroupName')]"
@@ -189,8 +196,7 @@
               "MonitorDisable": {
                 "value": "[[parameters('MonitorDisable')]"
               }
-            },
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_AlertProcessing_Rule')]"
+            }
           }
         ],
         "policyType": "Custom"

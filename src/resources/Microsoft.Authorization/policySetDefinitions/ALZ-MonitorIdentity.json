@@ -257,6 +257,7 @@
         "policyDefinitions": [
 
           {
+            "policyDefinitionReferenceId": "ALZ_KVRequest",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Requests_Alert')]",
             "parameters": {
               "severity": {
@@ -277,6 +278,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_KvAvailability",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Availability_Alert')]",
             "parameters": {
               "severity": {
@@ -300,6 +302,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_KvLatencyAvailability",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Latency_Alert')]",
             "parameters": {
 
@@ -324,6 +327,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_KVCapacity",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_KeyVault_Capacity_Alert')]",
             "parameters": {
               "severity": {
@@ -347,6 +351,7 @@
             }
           },
           {
+            "policyDefinitionReferenceId": "ALZ_activityKVDelete",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_activitylog_KeyVault_Delete')]",
             "parameters": {
               "enabled": {
