@@ -42,7 +42,14 @@ For details on how policies are grouped into initiatives please refer to [Azure 
 
 In addition to the above of course the alerts need to go somewhere. To that end a generic action group and alert processing rule is deployed to every subscription in scope, also via policy. For more details around this, as well as the reasoning behind this approach please refer to [Monitoring and Alerting in ALZ](../../wiki/Monitoring-and-Alerting-in-ALZ).
 
+## 📣Feedback 📣
+
+Once you've had an opportunity to deploy the solution we'd love to hear from you! Click [here](https://aka.ms/alz/monitor/feedback) to leave your feedback.
+
+If you have encountered an issue with Azure Baseline Alerts for ALZ, please see our [SUPPORT](https://github.com/Azure/alz-monitor/blob/9777cbaf347138e613a0a24391f9261294d18481/SUPPORT.md#L3) page.
+
 ## Deployment Guide
+
 We have a [Deployment Guide](../../wiki/Introduction-to-deploying-ALZ-Monitor) available for guidance on how to consume the contents of this repo.
 
 ## Wiki
@@ -84,12 +91,6 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 When you deploy the IP located in this repo, Microsoft can identify the installation of said IP with the deployed Azure resources. Microsoft can correlate these resources used to support the software. Microsoft collects this information to provide the best experiences with their products and to operate their business. The telemetry is collected through customer usage attribution. The data is collected and governed by [Microsoft's privacy policies](https://www.microsoft.com/trustcenter).
 
 If you don't wish to send usage data to Microsoft, or need to understand more about its' use details can be found [here](https://github.com/azure/alz-monitor/wiki/Telemetry).
-
-## Feedback
-
-Once you've had an opportunity to deploy the solution we'd love to hear from you! Click [here](https://aka.ms/alz/monitor/feedback) to leave your feedback.
-
-If you have encountered an issue with Azure Baseline Alerts for ALZ, please see our [SUPPORT](https://github.com/Azure/alz-monitor/blob/9777cbaf347138e613a0a24391f9261294d18481/SUPPORT.md#L3) page.
 
 ## Trademarks
 
