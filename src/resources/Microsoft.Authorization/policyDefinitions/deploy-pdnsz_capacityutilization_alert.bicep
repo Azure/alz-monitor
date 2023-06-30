@@ -56,13 +56,16 @@ module CapacityUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
     name: '${uniqueString(deployment().name)}-pdnsvnlcu-policyDefinitions'
     params: {
         name: 'Deploy_PDNSZ_CapacityUtil_Alert'
-        displayName: '[DINE] Deploy PDNSZ Capacity Utilization Alert'
-        description: 'DINE policy to audit/deploy Private DNS Zone Capacity Utilization Alert'
+        displayName: 'Deploy PDNSZ Capacity Utilization Alert'
+         description: 'Policy to audit/deploy Private DNS Zone Capacity Utilization Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

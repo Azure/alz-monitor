@@ -56,13 +56,16 @@ module VIPAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions
     name: '${uniqueString(deployment().name)}-pipvipaa-policyDefinitions'
     params: {
         name: 'Deploy_PublicIp_VIPAvailability_Alert'
-        displayName: '[DINE] Deploy PIP VIP Availability Alert'
-        description: 'DINE policy to audit/deploy PIP VIP Availability Alert'
+        displayName: 'Deploy PIP VIP Availability Alert'
+         description: 'Policy to audit/deploy PIP VIP Availability Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

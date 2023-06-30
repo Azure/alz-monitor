@@ -56,13 +56,16 @@ module PacketsInDDOSAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
     name: '${uniqueString(deployment().name)}-pippiddos-policyDefinitions'
     params: {
         name: 'Deploy_PublicIp_PacketsInDDoSAttack_Alert'
-        displayName: '[DINE] Deploy PIP Packets in DDoS Attack Alert'
-        description: 'DINE policy to audit/deploy PIP Packets in DDoS Attack Alert'
+        displayName: 'Deploy PIP Packets in DDoS Attack Alert'
+         description: 'Policy to audit/deploy PIP Packets in DDoS Attack Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

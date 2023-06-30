@@ -56,13 +56,16 @@ module VnetgExpressRouteBitsPerSecondAlert '../../arm/Microsoft.Authorization/po
     name: '${uniqueString(deployment().name)}-vngergbitsa-policyDefinitions'
     params: {
         name: 'Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert'
-        displayName: '[DINE] Deploy VNetG ExpressRoute Bits Per Second Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Express Route Bits Per Second Alert'
+        displayName: 'Deploy VNetG ExpressRoute Bits Per Second Alert'
+         description: 'Policy to audit/deploy Virtual Network Gateway Express Route Bits Per Second Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

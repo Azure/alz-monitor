@@ -56,13 +56,16 @@ module RecordSetCapacityAlert '../../arm/Microsoft.Authorization/policyDefinitio
     name: '${uniqueString(deployment().name)}-pdnsrsc-policyDefinitions'
     params: {
         name: 'Deploy_PDNSZ_RecordSetCapacity_Alert'
-        displayName: '[DINE] Deploy PDNSZ Record Set Capacity Alert'
-        description: 'DINE policy to audit/deploy Private DNS Zone Record Set Capacity Alert'
+        displayName: 'Deploy PDNSZ Record Set Capacity Alert'
+         description: 'Policy to audit/deploy Private DNS Zone Record Set Capacity Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

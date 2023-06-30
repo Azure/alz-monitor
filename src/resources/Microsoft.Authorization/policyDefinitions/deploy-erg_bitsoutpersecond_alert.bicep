@@ -56,13 +56,16 @@ module ErgExpressRouteBitsOutAlert '../../arm/Microsoft.Authorization/policyDefi
     name: '${uniqueString(deployment().name)}-ergergbout-policyDefinitions'
     params: {
         name: 'Deploy_ERGw_ExpressRouteBitsOut_Alert'
-        displayName: '[DINE] Deploy ERG ExpressRoute Bits Out Alert'
-        description: 'DINE policy to audit/deploy ER Gateway Connection BitsOutPerSecond Alert'
+        displayName: 'Deploy ERG ExpressRoute Bits Out Alert'
+         description: 'Policy to audit/deploy ER Gateway Connection BitsOutPerSecond Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

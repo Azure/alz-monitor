@@ -56,13 +56,16 @@ module ArpAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions
     name: '${uniqueString(deployment().name)}-ercirarpav-policyDefinitions'
     params: {
         name: 'Deploy_ERCIR_ArpAvailability_Alert'
-        displayName: '[DINE] Deploy ExpressRoute Circuits Arp Availability Alert'
-        description: 'DINE policy to audit/deploy ExpressRoute Circuits Arp Availability Alert'
+        displayName: 'Deploy ExpressRoute Circuits Arp Availability Alert'
+         description: 'Policy to audit/deploy ExpressRoute Circuits Arp Availability Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

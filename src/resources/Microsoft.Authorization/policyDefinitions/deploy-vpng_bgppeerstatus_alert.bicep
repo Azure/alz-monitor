@@ -56,13 +56,16 @@ module VpngBGPPeerStatusAlert '../../arm/Microsoft.Authorization/policyDefinitio
     name: '${uniqueString(deployment().name)}-vpngbgppsa-policyDefinitions'
     params: {
         name: 'Deploy_VPNGw_BGPPeerStatus_Alert'
-        displayName: '[DINE] Deploy VPNG  BGP Peer Status Alert'
-        description: 'DINE policy to audit/deploy VPN Gateway BGP Peer Status Alert'
+        displayName: 'Deploy VPNG  BGP Peer Status Alert'
+         description: 'Policy to audit/deploy VPN Gateway BGP Peer Status Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

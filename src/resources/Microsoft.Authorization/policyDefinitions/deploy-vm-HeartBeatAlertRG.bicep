@@ -79,13 +79,16 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_HeartBeat_Alert'
-        displayName: '[DINE] Deploy VM HeartBeat Alert'
-        description: 'DINE policy to audit/deploy VM HeartBeat Alert'
+        displayName: 'Deploy VM HeartBeat Alert'
+         description: 'Policy to audit/deploy VM HeartBeat Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Compute'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Compute'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
         }
         parameters: {
             severity: {

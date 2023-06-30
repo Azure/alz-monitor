@@ -56,13 +56,16 @@ module ErgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/pol
     name: '${uniqueString(deployment().name)}-ergergcpuua-policyDefinitions'
     params: {
         name: 'Deploy_ERGw_ExpressRouteCpuUtil_Alert'
-        displayName: '[DINE] Deploy ERG ExpressRoute CPU Utilization Alert'
-        description: 'DINE policy to audit/deploy ER Gateway Express Route CPU Utilization Alert'
+        displayName: 'Deploy ERG ExpressRoute CPU Utilization Alert'
+         description: 'Policy to audit/deploy ER Gateway Express Route CPU Utilization Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

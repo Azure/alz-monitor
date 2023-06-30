@@ -56,13 +56,16 @@ module BgpAvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions
     name: '${uniqueString(deployment().name)}-ercirbgpav-policyDefinitions'
     params: {
         name: 'Deploy_ERCIR_BgpAvailability_Alert'
-        displayName: '[DINE] Deploy ExpressRoute Circuits Bgp Availability Alert'
-        description: 'DINE policy to audit/deploy ExpressRoute Circuits Bgp Availability Alert'
+        displayName: 'Deploy ExpressRoute Circuits Bgp Availability Alert'
+         description: 'Policy to audit/deploy ExpressRoute Circuits Bgp Availability Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

@@ -87,13 +87,16 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_CPU_Alert'
-        displayName: '[DINE] Deploy VM CPU Alert'
-        description: 'DINE policy to audit/deploy VM CPU Alert'
+        displayName: 'Deploy VM CPU Alert'
+         description: 'Policy to audit/deploy VM CPU Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Compute'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Compute'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
         }
         parameters: {
             alertResourceGroupName: {

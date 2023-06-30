@@ -56,13 +56,16 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_AvailableMemory_Alert'
-        displayName: '[DINE] Deploy VM Available Memory Alert'
-        description: 'DINE policy to audit/deploy VM Available Memory Alert'
+        displayName: 'Deploy VM Available Memory Alert'
+         description: 'Policy to audit/deploy VM Available Memory Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Compute'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Compute'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

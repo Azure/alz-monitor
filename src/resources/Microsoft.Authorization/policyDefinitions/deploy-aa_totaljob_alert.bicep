@@ -56,13 +56,16 @@ module TotalJobAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
     name: '${uniqueString(deployment().name)}-aatotaljob-policyDefinitions'
     params: {
         name: 'Deploy_AA_TotalJob_Alert'
-        displayName: '[DINE] Deploy Automation Account TotalJob Alert'
-        description: 'DINE policy to audit/deploy Automation Account TotalJob Alert'
+        displayName: 'Deploy Automation Account TotalJob Alert'
+         description: 'Policy to audit/deploy Automation Account TotalJob Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Automation'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

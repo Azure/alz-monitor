@@ -98,13 +98,16 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_NetworkIn_Alert'
-        displayName: '[DINE] Deploy VM Network Read Alert'
-        description: 'DINE policy to audit/deploy VM Nework Read Alert'
+        displayName: 'Deploy VM Network Read Alert'
+         description: 'Policy to audit/deploy VM Nework Read Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Compute'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Compute'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
         }
         parameters: {
             alertResourceGroupName: {

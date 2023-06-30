@@ -54,13 +54,16 @@ module QosDropBitsOutPerSecondAlert '../../arm/Microsoft.Authorization/policyDef
     name: '${uniqueString(deployment().name)}-erqosdropsout-policyDefinitions'
     params: {
         name: 'Deploy_ERCIR_QosDropBitsOutPerSecond_Alert'
-        displayName: '[DINE] Deploy ExpressRoute Circuits QosDropBitsOutPerSecond Alert'
-        description: 'DINE policy to audit/deploy ExpressRoute Circuits QosDropBitsOutPerSecond Alert'
+        displayName: 'Deploy ExpressRoute Circuits QosDropBitsOutPerSecond Alert'
+         description: 'Policy to audit/deploy ExpressRoute Circuits QosDropBitsOutPerSecond Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

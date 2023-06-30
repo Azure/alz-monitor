@@ -56,13 +56,16 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
     name: '${uniqueString(deployment().name)}-saaa-policyDefinitions'
     params: {
         name: 'Deploy_StorageAccount_Availability_Alert'
-        displayName: '[DINE] Deploy SA Availability Alert'
-        description: 'DINE policy to audit/deploy SA Availability Alert'
+        displayName: 'Deploy SA Availability Alert'
+         description: 'Policy to audit/deploy SA Availability Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Storage'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Storage'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

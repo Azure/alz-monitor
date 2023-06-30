@@ -54,13 +54,16 @@ module VpngTunnelIngressPacketDropMismatchAlert '../../arm/Microsoft.Authorizati
     name: '${uniqueString(deployment().name)}-vpngingresspacketdropmismatch-policyDefinitions'
     params: {
         name: 'Deploy_VPNGw_TunnelIngressPacketDropMismatch_Alert'
-        displayName: '[DINE] Deploy VPNG Ingress Packet Drop Mismatch Alert'
-        description: 'DINE policy to audit/deploy VPN Gateway Ingress Packet Drop Mismatch Alert'
+        displayName: 'Deploy VPNG Ingress Packet Drop Mismatch Alert'
+         description: 'Policy to audit/deploy VPN Gateway Ingress Packet Drop Mismatch Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

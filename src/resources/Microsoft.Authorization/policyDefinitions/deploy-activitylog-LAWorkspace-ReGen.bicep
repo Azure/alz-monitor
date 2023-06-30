@@ -20,13 +20,16 @@ module ActivityLogLAWorkspaceGenKeyAlert '../../arm/Microsoft.Authorization/poli
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
         name: 'Deploy_activitylog_LAWorkspace_KeyRegen'
-        displayName: '[DINE] Deploy Activity Log LA Workspace Regenerate Key Alert'
-        description: 'DINE policy to Deploy Activity Log LA Workspace Regenerate Key Alert'
+        displayName: 'Deploy Activity Log LA Workspace Regenerate Key Alert'
+         description: 'Policy to Deploy Activity Log LA Workspace Regenerate Key Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'ActivityLog'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Monitoring'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

@@ -54,13 +54,16 @@ module VpngTunnelIngressPacketDropCountAlert '../../arm/Microsoft.Authorization/
     name: '${uniqueString(deployment().name)}-vpngingresspacketdropcount-policyDefinitions'
     params: {
         name: 'Deploy_VPNGw_TunnelIngressPacketDropCount_Alert'
-        displayName: '[DINE] Deploy VPNG Ingress Packet Drop Count Alert'
-        description: 'DINE policy to audit/deploy VPN Gateway Ingress Packet Drop Count Alert'
+        displayName: 'Deploy VPNG Ingress Packet Drop Count Alert'
+         description: 'Policy to audit/deploy VPN Gateway Ingress Packet Drop Count Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {
