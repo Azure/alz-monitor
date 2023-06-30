@@ -20,9 +20,14 @@
       "name": "Alerting-Management",
       "properties": {
         "metadata": {
+          "displayName": "Deploy ALZ Management alerts",
+          "description": "This policy set deploys select alert rules for ALZ management resources. Aslo a basic action and alert processing rule is deployed",
           "version": "1.0.1",
           "category": "Monitoring",
-          "source": "https://github.com/Azure/ALZ-Monitor/",
+          "source": "https://github.com/Azure/Enterprise-Scale/",
+          "alzCloudEnvironments": [ 
+             "AzureCloud"
+            ],
           "_deployed_by_alz_monitor": true
         },
         "parameters": {
