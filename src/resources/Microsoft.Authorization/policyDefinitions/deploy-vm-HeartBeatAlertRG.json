@@ -401,7 +401,7 @@
                                         ]
                                       }
                                     ],
-                                    "failingPariods": {
+                                    "failingPeriods": {
                                       "numberOfEvaluationPeriods": 1,
                                       "minFailingPeriodsToAlert": 1
                                     }

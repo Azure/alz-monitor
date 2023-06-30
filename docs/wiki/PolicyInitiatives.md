@@ -93,6 +93,17 @@ This initiative is intended for assignment of policies relevant to a landing zon
 | Deploy_PublicIp_VIPAvailability_Alert | [deploy-pip_vipavailability_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-pip_vipavailability_alert.json)  | deployIfNotExists |
 | Deploy_VNET_DDoSAttack_Alert | [deploy-vnet_ddosattack_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vnet_ddosattack_alert.json)  | deployIfNotExists |
 | Deploy_RecoveryVault_BackupHealthMonitor_Alert | [deploy-rv_backuphealth_monitor.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-rv_backuphealth_monitor.json)  | modify |
+| Deploy_VM_HeartBeat_Alert | [deploy-vm-HeartBeat_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-HeartBeat_alert.json)  | deployIfNotExists |
+| Deploy_VM_NetworkIn_Alert | [deploy-vm-NetworkIn_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-NetworkIn_alert.json)  | deployIfNotExists |
+| Deploy_VM_NetworkOut_Alert | [deploy-vm-NetworkOut_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-NetworkOut_alert.json)  | deployIfNotExists |
+| Deploy_VM_OSDiskreadLatency_Alert | [deploy-vm-OSDiskreadLatency_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskreadLatency_alert.json)  | deployIfNotExists |
+| Deploy_VM_OSDiskwriteLatency_Alert | [deploy-vm-OSDiskwriteLatency_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskwriteLatency_alert.json)  | deployIfNotExists |
+| Deploy_VM_OSDiskSpace_Alert | [deploy-vm-OSDiskSpace_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-OSDiskSpace_alert.json)  | deployIfNotExists |
+| Deploy_VM_CPU_Alert | [deploy-vm-PercentCPU_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-PercentCPU_alert.json)  | deployIfNotExists |
+| Deploy_VM_Memory_Alert | [deploy-vm-PercentMemory_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-PercentMemory_alert.json)  | deployIfNotExists |
+| Deploy_VM_dataDiskSpace_Alert | [deploy-vm-dataDiskSpace_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskSpace_alert.json)  | deployIfNotExists |
+| Deploy_VM_dataDiskReadLatency_Alert | [deploy-vm-dataDiskreadLatency_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskreadLatency_alert.json)  | deployIfNotExists |
+| Deploy_VM_dataDiskWriteLatency_Alert | [deploy-vm-dataDiskwriteLatency_alert.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-vm-dataDiskwriteLatency_alert.json)  | deployIfNotExists |
 
 ## Service Health initiative
 
@@ -106,4 +117,3 @@ This initiative is intended for assignment of policies relevant to service healt
 | Deploy_activitylog_ServiceHealth_Incident | [deploy-activitylog-ServiceHealth-Incident.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.json)  | deployIfNotExists |
 | Deploy_activitylog_ServiceHealth_Maintenance | [deploy-activitylog-ServiceHealth-Maintenance.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.json)  | deployIfNotExists |
 | Deploy_AlertProcessing_Rule | [deploy-alertprocessingrule-deploy.json](https://github.com/Azure/alz-monitor/blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-alertprocessingrule-deploy.json)  | deployIfNotExists |
-

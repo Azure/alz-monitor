@@ -359,7 +359,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                             }  
 
                                                         ]
-                                                        failingPariods:{
+                                                        failingPeriods:{
                                                             numberOfEvaluationPeriods: 1
                                                              minFailingPeriodsToAlert: 1
                                                         }
