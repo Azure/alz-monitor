@@ -41,10 +41,8 @@ The following policy definition categories will be enabled as part of ALZ deploy
 - Resource Metrics; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#metric-alert-settings) for details on which resource metrics are included.
 - Service and Resource Health; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#activity-log-alerts) for details on which alerts are included.
 - Activity Logs; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#activity-log-administrative) for details on which alerts are included.
-
-As this is a work in progress, in the future we may investigate and include:
-
-- Custom log alerts based on Kusto queries against Log Analytics
+- VM Insights Log Alerts; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#vm-insights-log-alerts) for details on which alerts are included.
+- Recovery Vault Alerts; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#recovery-vault-alerts) for details on which alerts are included.
 
 #### Resource Metrics
 
