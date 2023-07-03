@@ -97,57 +97,14 @@
             "type": "string",
             "defaultValue": "20"
           },
-          "RVBackupHealthAlertSeverity": {
-            "type": "String",
-            "defaultValue": "3",
-            "allowedValues": [
-              "0",
-              "1",
-              "2",
-              "3",
-              "4"
-            ]
-          },
-          "RVBackupHealthWindowSize": {
-            "type": "string",
-            "defaultValue": "P1D",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H",
-              "PT6H",
-              "PT12H",
-              "P1D"
-            ]
-          },
-          "RVBackupHealthEvaluationFrequency": {
-            "type": "string",
-            "defaultValue": "PT1H",
-            "allowedValues": [
-              "PT1M",
-              "PT5M",
-              "PT15M",
-              "PT30M",
-              "PT1H"
-            ]
-          },
           "RVBackupHealthPolicyEffect": {
             "type": "string",
-            "defaultValue": "deployIfNotExists",
+            "defaultValue": "modify",
             "allowedValues": [
-              "deployIfNotExists",
+              "modify",
+              "audit",
               "disabled"
             ]
-          },
-          "RVBackupHealthAlertState": {
-            "type": "string",
-            "defaultValue": "true"
-          },
-          "RVBackupHealthThreshold": {
-            "type": "string",
-            "defaultValue": "20"
           },
           "StorageAccountAvailabilityAlertSeverity": {
             "type": "String",
@@ -273,25 +230,10 @@
           },
           {
             "policyDefinitionReferenceId": "ALZ_RVBackupHealth",
-            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_RecoveryVault_BackupHealth_Alert')]",
+            "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_RecoveryVault_BackupHealthMonitor_Alert')]",
             "parameters": {
-              "severity": {
-                "value": "[[parameters('RVBackupHealthAlertSeverity')]"
-              },
-              "windowSize": {
-                "value": "[[parameters('RVBackupHealthWindowSize')]"
-              },
-              "evaluationFrequency": {
-                "value": "[[parameters('RVBackupHealthEvaluationFrequency')]"
-              },
               "effect": {
                 "value": "[[parameters('RVBackupHealthPolicyEffect')]"
-              },
-              "enabled": {
-                "value": "[[parameters('RVBackupHealthAlertState')]"
-              },
-              "threshold": {
-                "value": "[[parameters('RVBackupHealthThreshold')]"
               }
             }
           },
