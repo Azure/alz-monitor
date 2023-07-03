@@ -25,7 +25,7 @@ module ServiceHealthSecurityAlert '../../arm/Microsoft.Authorization/policyDefin
         location: policyLocation
         metadata: {
             version: '1.1.0'
-            category: 'Monitroring'
+            category: 'Monitoring'
             source: 'https://github.com/Azure/Enterprise-Scale/' 
             alzCloudEnvironments: [ 
                'AzureCloud'
