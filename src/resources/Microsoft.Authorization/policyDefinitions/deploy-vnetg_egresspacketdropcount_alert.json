@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "1354005495857300108"
+      "templateHash": "6209419574587881408"
     }
   },
   "parameters": {
@@ -92,10 +92,10 @@
             "value": "Deploy_VnetGw_TunnelEgressPacketDropCount_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VNetG Egress Packet Drop Count Alert"
+            "value": "Deploy VNetG Egress Packet Drop Count Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy Vnet Gateway Egress Packet Drop Count Alert"
+            "value": "Policy to audit/deploy Vnet Gateway Egress Packet Drop Count Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -103,8 +103,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Network",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

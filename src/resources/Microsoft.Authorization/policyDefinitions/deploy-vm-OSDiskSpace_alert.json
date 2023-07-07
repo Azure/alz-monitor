@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "7935337383156400612"
+      "templateHash": "17700957092328120282"
     }
   },
   "parameters": {
@@ -156,10 +156,10 @@
             "value": "Deploy_VM_OSDiskSpace_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VM OS Disk Space Alert"
+            "value": "Deploy VM OS Disk Space Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VM OSDiskSpace Alert"
+            "value": "Policy to audit/deploy VM OSDiskSpace Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -167,8 +167,11 @@
           "metadata": {
             "value": {
               "version": "1.0.0",
-              "Category": "Compute",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "category": "Compute",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ]
             }
           },
           "parameters": {

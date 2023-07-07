@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "12141543710223715197"
+      "templateHash": "16337137189320378886"
     }
   },
   "parameters": {
@@ -139,10 +139,10 @@
             "value": "Deploy_VM_CPU_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VM CPU Alert"
+            "value": "Deploy VM CPU Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VM CPU Alert"
+            "value": "Policy to audit/deploy VM CPU Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -150,8 +150,11 @@
           "metadata": {
             "value": {
               "version": "1.0.0",
-              "Category": "Compute",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "category": "Compute",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ]
             }
           },
           "parameters": {

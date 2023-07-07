@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "14923385052952862470"
+      "templateHash": "6883439045796674858"
     }
   },
   "parameters": {
@@ -63,10 +63,10 @@
             "value": "Deploy_activitylog_ServiceHealth_Maintenance"
           },
           "displayName": {
-            "value": "[DINE] Deploy Service Health Maintenance Alert"
+            "value": "Deploy Service Health Maintenance Alert"
           },
           "description": {
-            "value": "DINE policy to Deploy Service Health Maintenance Alert"
+            "value": "Policy to Deploy Service Health Maintenance Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -74,8 +74,11 @@
           "metadata": {
             "value": {
               "version": "1.1.0",
-              "Category": "ServiceHealth",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Monitoring",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

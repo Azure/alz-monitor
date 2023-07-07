@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "3752725591591996590"
+      "templateHash": "15267159029513091568"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_VnetGw_ExpressRouteBitsPerSecond_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VNetG ExpressRoute Bits Per Second Alert"
+            "value": "Deploy VNetG ExpressRoute Bits Per Second Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy Virtual Network Gateway Express Route Bits Per Second Alert"
+            "value": "Policy to audit/deploy Virtual Network Gateway Express Route Bits Per Second Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Network",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

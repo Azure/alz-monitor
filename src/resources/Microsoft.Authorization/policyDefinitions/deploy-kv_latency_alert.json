@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "10537895535619620183"
+      "templateHash": "11091972873672210659"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_KeyVault_Latency_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy KeyVault Latency Alert"
+            "value": "Deploy KeyVault Latency Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy KeyVault Latency Alert"
+            "value": "Policy to audit/deploy KeyVault Latency Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Key Vault",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Key Vault",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

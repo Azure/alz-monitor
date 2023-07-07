@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "12771264887664020431"
+      "templateHash": "16567608975537833346"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_PublicIp_PacketsInDDoSAttack_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy PIP Packets in DDoS Attack Alert"
+            "value": "Deploy PIP Packets in DDoS Attack Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy PIP Packets in DDoS Attack Alert"
+            "value": "Policy to audit/deploy PIP Packets in DDoS Attack Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Network",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },
