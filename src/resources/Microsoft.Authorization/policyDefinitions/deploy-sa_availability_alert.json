@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "15917042919613111234"
+      "templateHash": "12127479696510949243"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_StorageAccount_Availability_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy SA Availability Alert"
+            "value": "Deploy SA Availability Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy SA Availability Alert"
+            "value": "Policy to audit/deploy SA Availability Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Storage",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Storage",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

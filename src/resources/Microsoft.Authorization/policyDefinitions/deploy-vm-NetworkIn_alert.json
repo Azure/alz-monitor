@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "7172994298274618614"
+      "templateHash": "1326376935729573273"
     }
   },
   "parameters": {
@@ -155,10 +155,10 @@
             "value": "Deploy_VM_NetworkIn_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VM Network Read Alert"
+            "value": "Deploy VM Network Read Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VM Nework Read Alert"
+            "value": "Policy to audit/deploy VM Nework Read Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -166,8 +166,11 @@
           "metadata": {
             "value": {
               "version": "1.0.0",
-              "Category": "Compute",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "category": "Compute",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ]
             }
           },
           "parameters": {

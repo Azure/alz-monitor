@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "5534685381430040589"
+      "templateHash": "16342328880925321625"
     }
   },
   "parameters": {
@@ -143,10 +143,10 @@
             "value": "Deploy_VM_HeartBeat_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VM HeartBeat Alert"
+            "value": "Deploy VM HeartBeat Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VM HeartBeat Alert"
+            "value": "Policy to audit/deploy VM HeartBeat Alert for all VMs in the subscription"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -154,8 +154,11 @@
           "metadata": {
             "value": {
               "version": "1.0.0",
-              "Category": "Compute",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "category": "Compute",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ]
             }
           },
           "parameters": {

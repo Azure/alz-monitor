@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "17553517153453977468"
+      "templateHash": "1605909313855208461"
     }
   },
   "parameters": {
@@ -49,10 +49,10 @@
             "value": "Deploy_RecoveryVault_BackupHealthMonitor_Alert"
           },
           "displayName": {
-            "value": "[Modify] Deploy RV Backup Health Monitoring Alerts"
+            "value": "Deploy RV Backup Health Monitoring Alerts"
           },
           "description": {
-            "value": "Modify policy to audit/update Recovery Vault Backup Health Alerting to Azure monitor alerts"
+            "value": "Policy to audit/update Recovery Vault Backup Health Alerting to Azure monitor alerts"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -61,7 +61,10 @@
             "value": {
               "version": "1.0.0",
               "category": "Site Recovery",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

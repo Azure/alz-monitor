@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "8842860062771844317"
+      "templateHash": "3797372558986694082"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_PDNSZ_CapacityUtil_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy PDNSZ Capacity Utilization Alert"
+            "value": "Deploy PDNSZ Capacity Utilization Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy Private DNS Zone Capacity Utilization Alert"
+            "value": "Policy to audit/deploy Private DNS Zone Capacity Utilization Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Network",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

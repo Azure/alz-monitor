@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "13483516898255167838"
+      "templateHash": "13130507035808878065"
     }
   },
   "parameters": {
@@ -155,10 +155,10 @@
             "value": "Deploy_VM_dataDiskReadLatency_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VM Data Disk Read Latency Alert"
+            "value": "Deploy VM Data Disk Read Latency Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VM dataDiskReadLatency Alert"
+            "value": "Policy to audit/deploy VM dataDiskReadLatency Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -166,8 +166,11 @@
           "metadata": {
             "value": {
               "version": "1.0.0",
-              "Category": "Compute",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "category": "Compute",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ]
             }
           },
           "parameters": {

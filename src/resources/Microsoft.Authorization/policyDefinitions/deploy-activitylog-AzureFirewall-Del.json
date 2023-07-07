@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "13015734610960104634"
+      "templateHash": "11488062483870583344"
     }
   },
   "parameters": {
@@ -59,10 +59,10 @@
             "value": "Deploy_activitylog_Firewall_Delete"
           },
           "displayName": {
-            "value": "[DINE] Deploy Activity Log Azure FireWall Delete Alert"
+            "value": "Deploy Activity Log Azure FireWall Delete Alert"
           },
           "description": {
-            "value": "DINE policy to Deploy Activity Log Azure Firewall Delete Alert"
+            "value": "Policy to Deploy Activity Log Azure Firewall Delete Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -70,8 +70,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "ActivityLog",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Network",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

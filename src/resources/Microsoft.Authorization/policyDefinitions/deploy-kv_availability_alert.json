@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "15705320624834049430"
+      "templateHash": "6841664363586918485"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_KeyVault_Availability_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy KeyVault Availability Alert"
+            "value": "Deploy KeyVault Availability Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy KeyVault Availability Alert"
+            "value": "Policy to audit/deploy KeyVault Availability Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Key Vault",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Key Vault",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

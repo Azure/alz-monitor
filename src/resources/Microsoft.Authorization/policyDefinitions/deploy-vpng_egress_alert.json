@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "13020497596852273781"
+      "templateHash": "8275850919251760091"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_VPNGw_Egress_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VPNG Egress Alert"
+            "value": "Deploy VPNG Egress Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VPN Gateway Egress Alert"
+            "value": "Policy to audit/deploy VPN Gateway Egress Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Network",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

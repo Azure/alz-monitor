@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "9113389710213874982"
+      "templateHash": "15750527108575097887"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_VnetGw_TunnelBandwidth_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VNetG Tunnel Bandwidth Alert"
+            "value": "Deploy VNetG Tunnel Bandwidth Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy Virtual Network Gateway Tunnel Bandwidth Alert"
+            "value": "Policy to audit/deploy Virtual Network Gateway Tunnel Bandwidth Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Network",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

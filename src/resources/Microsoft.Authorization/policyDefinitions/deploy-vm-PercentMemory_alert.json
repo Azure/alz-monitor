@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "5186162708937463257"
+      "templateHash": "12143457885854465624"
     }
   },
   "parameters": {
@@ -143,10 +143,10 @@
             "value": "Deploy_VM_Memory_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VM Memory Alert"
+            "value": "Deploy VM Memory Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VM Memory Alert"
+            "value": "Policy to audit/deploy VM Memory Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -154,8 +154,11 @@
           "metadata": {
             "value": {
               "version": "1.0.0",
-              "Category": "Compute",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "category": "Compute",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ]
             }
           },
           "parameters": {

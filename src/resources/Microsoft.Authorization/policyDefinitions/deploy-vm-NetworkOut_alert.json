@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "12870504941924926407"
+      "templateHash": "5976337806276189108"
     }
   },
   "parameters": {
@@ -155,10 +155,10 @@
             "value": "Deploy_VM_NetworkOut_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VM Network Write Alert"
+            "value": "Deploy VM Network Write Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VM Network Out Alert"
+            "value": "Policy to audit/deploy VM Network Out Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -166,8 +166,11 @@
           "metadata": {
             "value": {
               "version": "1.0.0",
-              "Category": "Compute",
-              "source": "https://github.com/Azure/ALZ-Monitor/"
+              "category": "Compute",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ]
             }
           },
           "parameters": {

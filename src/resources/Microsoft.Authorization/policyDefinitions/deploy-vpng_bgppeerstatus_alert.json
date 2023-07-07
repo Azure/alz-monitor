@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "13986025773137764049"
+      "templateHash": "1683508049019411966"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_VPNGw_BGPPeerStatus_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy VPNG  BGP Peer Status Alert"
+            "value": "Deploy VPNG  BGP Peer Status Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy VPN Gateway BGP Peer Status Alert"
+            "value": "Policy to audit/deploy VPN Gateway BGP Peer Status Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Network",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "10930207263383103614"
+      "templateHash": "7939561613238414176"
     }
   },
   "parameters": {
@@ -96,10 +96,10 @@
             "value": "Deploy_AA_TotalJob_Alert"
           },
           "displayName": {
-            "value": "[DINE] Deploy Automation Account TotalJob Alert"
+            "value": "Deploy Automation Account TotalJob Alert"
           },
           "description": {
-            "value": "DINE policy to audit/deploy Automation Account TotalJob Alert"
+            "value": "Policy to audit/deploy Automation Account TotalJob Alert"
           },
           "location": {
             "value": "[parameters('policyLocation')]"
@@ -107,8 +107,11 @@
           "metadata": {
             "value": {
               "version": "1.0.1",
-              "Category": "Networking",
-              "source": "https://github.com/Azure/ALZ-Monitor/",
+              "category": "Automation",
+              "source": "https://github.com/Azure/Enterprise-Scale/",
+              "alzCloudEnvironments": [
+                "AzureCloud"
+              ],
               "_deployed_by_alz_monitor": "True"
             }
           },
