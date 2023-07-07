@@ -56,13 +56,16 @@ module DDosAttackAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
     name: '${uniqueString(deployment().name)}-vnetddosaa-policyDefinitions'
     params: {
         name: 'Deploy_VNET_DDoSAttack_Alert'
-        displayName: '[DINE] Deploy VNet DDoS Attack Alert'
-        description: 'DINE policy to audit/deploy Virtual Network DDoS Attack Alert'
+        displayName: 'Deploy VNet DDoS Attack Alert'
+         description: 'Policy to audit/deploy Virtual Network DDoS Attack Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

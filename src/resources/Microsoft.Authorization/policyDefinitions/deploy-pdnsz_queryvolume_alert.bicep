@@ -56,13 +56,16 @@ module QueryVolumeAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
     name: '${uniqueString(deployment().name)}-pdnszqv-policyDefinitions'
     params: {
         name: 'Deploy_PDNSZ_QueryVolume_Alert'
-        displayName: '[DINE] Deploy PDNSZ Query Volume Alert'
-        description: 'DINE policy to audit/deploy Private DNS Zone Query Volume Alert'
+        displayName: 'Deploy PDNSZ Query Volume Alert'
+         description: 'Policy to audit/deploy Private DNS Zone Query Volume Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

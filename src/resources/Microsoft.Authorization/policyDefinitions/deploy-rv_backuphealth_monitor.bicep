@@ -21,13 +21,16 @@ module BackupHealthMonitor '../../arm/Microsoft.Authorization/policyDefinitions/
     name: '${uniqueString(deployment().name)}-rvbuhm-policyDefinitions'
     params: {
         name: 'Deploy_RecoveryVault_BackupHealthMonitor_Alert'
-        displayName: '[Modify] Deploy RV Backup Health Monitoring Alerts'
-        description: 'Modify policy to audit/update Recovery Vault Backup Health Alerting to Azure monitor alerts'
+        displayName: 'Deploy RV Backup Health Monitoring Alerts'
+        description: 'Policy to audit/update Recovery Vault Backup Health Alerting to Azure monitor alerts'
         location: policyLocation
         metadata: {
             version: '1.0.0'
             category: 'Site Recovery'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

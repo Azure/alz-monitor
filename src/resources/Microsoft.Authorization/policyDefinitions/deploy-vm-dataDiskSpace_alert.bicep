@@ -101,13 +101,16 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_dataDiskSpace_Alert'
-        displayName: '[DINE] Deploy VM Data Disk Space Alert'
-        description: 'DINE policy to audit/deploy VM data Disk Space Alert'
+        displayName: 'Deploy VM Data Disk Space Alert'
+         description: 'Policy to audit/deploy VM data Disk Space Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Compute'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Compute'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
         }
         parameters: {
             alertResourceGroupName: {

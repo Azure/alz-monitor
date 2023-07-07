@@ -56,13 +56,16 @@ module LatencyAlert '../../arm/Microsoft.Authorization/policyDefinitions/managem
     name: '${uniqueString(deployment().name)}-kvla-policyDefinitions'
     params: {
         name: 'Deploy_KeyVault_Latency_Alert'
-        displayName: '[DINE] Deploy KeyVault Latency Alert'
-        description: 'DINE policy to audit/deploy KeyVault Latency Alert'
+        displayName: 'Deploy KeyVault Latency Alert'
+         description: 'Policy to audit/deploy KeyVault Latency Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Key Vault'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Key Vault'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

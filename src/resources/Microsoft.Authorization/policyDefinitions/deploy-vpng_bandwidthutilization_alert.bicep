@@ -56,13 +56,16 @@ module VpngBandwidthAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
     name: '${uniqueString(deployment().name)}-vpngbua-policyDefinitions'
     params: {
         name: 'Deploy_VPNGw_BandwidthUtil_Alert'
-        displayName: '[DINE] Deploy VPNG Bandwidth Utilization Alert'
-        description: 'DINE policy to audit/deploy VPN Gateway Bandwidth Utilization Alert'
+        displayName: 'Deploy VPNG Bandwidth Utilization Alert'
+         description: 'Policy to audit/deploy VPN Gateway Bandwidth Utilization Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

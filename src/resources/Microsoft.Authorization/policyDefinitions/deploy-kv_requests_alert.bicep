@@ -54,13 +54,16 @@ module RequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
     name: '${uniqueString(deployment().name)}-kvra-policyDefinitions'
     params: {
         name: 'Deploy_KeyVault_Requests_Alert'
-        displayName: '[DINE] Deploy KeyVault Requests Alert'
-        description: 'DINE policy to audit/deploy KeyVault Requests Alert'
+        displayName: 'Deploy KeyVault Requests Alert'
+         description: 'Policy to audit/deploy KeyVault Requests Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Key Vault'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Key Vault'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

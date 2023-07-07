@@ -56,13 +56,16 @@ module ErgExpressRouteBitsInAlert '../../arm/Microsoft.Authorization/policyDefin
     name: '${uniqueString(deployment().name)}-ergergbin-policyDefinitions'
     params: {
         name: 'Deploy_ERGw_ExpressRouteBitsIn_Alert'
-        displayName: '[DINE] Deploy ERG ExpressRoute Bits In Alert'
-        description: 'DINE policy to audit/deploy ER Gateway Connection BitsInPerSecond Alert'
+        displayName: 'Deploy ERG ExpressRoute Bits In Alert'
+         description: 'Policy to audit/deploy ER Gateway Connection BitsInPerSecond Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

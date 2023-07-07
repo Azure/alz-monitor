@@ -19,13 +19,16 @@ module ResourceHealthUnhealthyAlert '../../arm/Microsoft.Authorization/policyDef
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
         name: 'Deploy_activitylog_ResourceHealth_Unhealthy_Alert'
-        displayName: '[DINE] Deploy Resource Health Unhealthy Alert'
-        description: 'DINE policy to Deploy Resource Health Unhealthy Alert'
+        displayName: 'Deploy Resource Health Unhealthy Alert'
+         description: 'Policy to Deploy Resource Health Unhealthy Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'ServiceHealth'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Monitoring'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

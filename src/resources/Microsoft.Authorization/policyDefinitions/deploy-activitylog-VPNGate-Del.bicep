@@ -18,13 +18,16 @@ module ActivityLogVPNGatewayDeleteAlert '../../arm/Microsoft.Authorization/polic
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
         name: 'Deploy_activitylog_VPNGateway_Delete'
-        displayName: '[DINE] Deploy Activity Log VPN Gateway Delete Alert'
-        description: 'DINE policy to Deploy Activity Log VPN Gateway Delete Alert'
+        displayName: 'Deploy Activity Log VPN Gateway Delete Alert'
+         description: 'Policy to Deploy Activity Log VPN Gateway Delete Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'ActivityLog'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

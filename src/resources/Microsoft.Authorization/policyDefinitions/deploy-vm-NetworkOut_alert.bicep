@@ -97,13 +97,16 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
         name: 'Deploy_VM_NetworkOut_Alert'
-        displayName: '[DINE] Deploy VM Network Write Alert'
-        description: 'DINE policy to audit/deploy VM Network Out Alert'
+        displayName: 'Deploy VM Network Write Alert'
+         description: 'Policy to audit/deploy VM Network Out Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Compute'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Compute'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
         }
         parameters: {
             alertResourceGroupName: {

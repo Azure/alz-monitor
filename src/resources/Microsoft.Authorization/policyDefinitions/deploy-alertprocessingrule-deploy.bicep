@@ -17,13 +17,16 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
   name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
   params: {
     name: 'Deploy_AlertProcessing_Rule'
-    displayName: '[DINE] Deploy Alert Processing Rule'
-    description: 'DINE policy to Deploy Deploy Alert Processing Rule with Action Group'
+    displayName: 'Deploy Alert Processing Rule'
+     description: 'Policy to Deploy Deploy Alert Processing Rule with Action Group'
     location: policyLocation
     metadata: {
       version: '1.0.1'
-      Category: 'Action Groups'
-      source: 'https://github.com/Azure/ALZ-Monitor/'
+      category: 'Monitoring'
+      source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
       _deployed_by_alz_monitor: 'True'
     }
     parameters: {

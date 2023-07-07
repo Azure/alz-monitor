@@ -20,13 +20,16 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
     name: '${uniqueString(deployment().name)}-shi-policyDefinitions'
     params: {
         name: 'Deploy_activitylog_ServiceHealth_Incident'
-        displayName: '[DINE] Deploy Service Health Incident Alert'
-        description: 'DINE policy to Deploy Service Health Incident Alert'
+        displayName: 'Deploy Service Health Incident Alert'
+         description: 'Policy to Deploy Service Health Incident Alert'
         location: policyLocation
         metadata: {
             version: '1.1.0'
-            Category: 'ServiceHealth'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Monitoring'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

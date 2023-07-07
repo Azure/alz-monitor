@@ -57,13 +57,16 @@ module VnetgEgressAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
     name: '${uniqueString(deployment().name)}-vnetgteba-policyDefinitions'
     params: {
         name: 'Deploy_VnetGw_TunnelEgress_Alert'
-        displayName: '[DINE] Deploy VNetG Tunnel Egress Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Tunnel Egress Alert'
+        displayName: 'Deploy VNetG Tunnel Egress Alert'
+         description: 'Policy to audit/deploy Virtual Network Gateway Tunnel Egress Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

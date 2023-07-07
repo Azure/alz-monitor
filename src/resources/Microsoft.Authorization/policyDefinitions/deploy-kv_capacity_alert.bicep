@@ -56,13 +56,16 @@ module CapacityAlert '../../arm/Microsoft.Authorization/policyDefinitions/manage
     name: '${uniqueString(deployment().name)}-kvca-policyDefinitions'
     params: {
         name: 'Deploy_KeyVault_Capacity_Alert'
-        displayName: '[DINE] Deploy KeyVault Capacity Alert'
-        description: 'DINE policy to audit/deploy KeyVault Capacity Alert'
+        displayName: 'Deploy KeyVault Capacity Alert'
+         description: 'Policy to audit/deploy KeyVault Capacity Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Key Vault'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Key Vault'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

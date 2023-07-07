@@ -56,13 +56,16 @@ module VnetgExpressRouteCPUUtilizationAlert '../../arm/Microsoft.Authorization/p
     name: '${uniqueString(deployment().name)}-vngergcpuua-policyDefinitions'
     params: {
         name: 'Deploy_VnetGw_ExpressRouteCpuUtil_Alert'
-        displayName: '[DINE] Deploy VNetG ExpressRoute CPU Utilization Alert'
-        description: 'DINE policy to audit/deploy Virtual Network Gateway Express Route CPU Utilization Alert'
+        displayName: 'Deploy VNetG ExpressRoute CPU Utilization Alert'
+         description: 'Policy to audit/deploy Virtual Network Gateway Express Route CPU Utilization Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

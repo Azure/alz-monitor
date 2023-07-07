@@ -78,14 +78,17 @@ param parMonitorDisable string = 'MonitorDisable'
 module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-vmama-policyDefinitions'
     params: {
-        name: 'Deploy_VM_HeartBeat_Alert'
-        displayName: '[DINE] Deploy VM HeartBeat Alert'
-        description: 'DINE policy to audit/deploy VM HeartBeat Alert'
+        name: 'Deploy_VM_HeartBeat_Alert_RG'
+        displayName: 'Deploy VM HeartBeat Alert'
+         description: 'Policy to audit/deploy VM HeartBeat Alert for VMs in the resource group'
         location: policyLocation
         metadata: {
             version: '1.0.0'
-            Category: 'Compute'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Compute'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
         }
         parameters: {
             severity: {

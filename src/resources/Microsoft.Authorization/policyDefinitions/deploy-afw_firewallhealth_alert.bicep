@@ -56,13 +56,16 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
     name: '${uniqueString(deployment().name)}-afwfirewallhealth-policyDefinitions'
     params: {
         name: 'Deploy_AFW_FirewallHealth_Alert'
-        displayName: '[DINE] Deploy AFW FirewallHealth Alert'
-        description: 'DINE policy to audit/deploy Azure Firewall FirewallHealth Alert'
+        displayName: 'Deploy AFW FirewallHealth Alert'
+         description: 'Policy to audit/deploy Azure Firewall FirewallHealth Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

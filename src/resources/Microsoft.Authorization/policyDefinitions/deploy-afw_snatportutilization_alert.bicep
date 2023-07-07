@@ -56,13 +56,16 @@ module SNATPortUtilizationAlert '../../arm/Microsoft.Authorization/policyDefinit
     name: '${uniqueString(deployment().name)}-afwsnatportutilization-policyDefinitions'
     params: {
         name: 'Deploy_AFW_SNATPortUtilization_Alert'
-        displayName: '[DINE] Deploy AFW SNATPortUtilization Alert'
-        description: 'DINE policy to audit/deploy Azure Firewall SNATPortUtilization Alert'
+        displayName: 'Deploy AFW SNATPortUtilization Alert'
+         description: 'Policy to audit/deploy Azure Firewall SNATPortUtilization Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Networking'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Network'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {

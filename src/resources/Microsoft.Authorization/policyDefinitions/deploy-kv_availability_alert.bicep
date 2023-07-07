@@ -56,13 +56,16 @@ module AvailabilityAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
     name: '${uniqueString(deployment().name)}-kva-policyDefinitions'
     params: {
         name: 'Deploy_KeyVault_Availability_Alert'
-        displayName: '[DINE] Deploy KeyVault Availability Alert'
-        description: 'DINE policy to audit/deploy KeyVault Availability Alert'
+        displayName: 'Deploy KeyVault Availability Alert'
+         description: 'Policy to audit/deploy KeyVault Availability Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
-            Category: 'Key Vault'
-            source: 'https://github.com/Azure/ALZ-Monitor/'
+            category: 'Key Vault'
+            source: 'https://github.com/Azure/Enterprise-Scale/' 
+            alzCloudEnvironments: [ 
+               'AzureCloud'
+              ]
             _deployed_by_alz_monitor: 'True'
         }
         parameters: {
