@@ -41,7 +41,7 @@ param parWindowSize string = 'PT15M'
     'LessThanOrEqual'
 
 ])
-param parOperator string = 'LessThan'
+param parOperator string = 'GreaterThan'
 
 @allowed([
     'PT1M'
