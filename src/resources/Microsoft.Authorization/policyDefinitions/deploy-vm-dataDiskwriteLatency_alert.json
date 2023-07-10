@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "16342623791016902781"
+      "templateHash": "16911521596624100871"
     }
   },
   "parameters": {
@@ -59,7 +59,7 @@
     },
     "parOperator": {
       "type": "string",
-      "defaultValue": "LessThan",
+      "defaultValue": "GreaterThan",
       "allowedValues": [
         "Equals",
         "GreaterThan",
