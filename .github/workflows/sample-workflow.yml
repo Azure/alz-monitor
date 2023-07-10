@@ -1,7 +1,6 @@
 
 name: Deploy ALZ Monitor policies
 
-# only trigger on pull request closed events
 on:
   workflow_dispatch: {}
 
