@@ -257,7 +257,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                             _deployed_by_alz_monitor: true
                                         }
                                         properties: {
-                                            description: 'Metric Alert for ALB Used SNAT Ports'
+                                            description: 'Metric Alert for Global Backend Availability'
                                             severity: '[parameters(\'severity\')]'
                                             enabled: '[parameters(\'enabled\')]'
                                             scopes: [
