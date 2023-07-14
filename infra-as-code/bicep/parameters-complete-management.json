@@ -40,23 +40,8 @@
                 "AATotalJobAlertThreshold": {
                     "value": "20"
                 },
-                "RVBackupHealthAlertSeverity": {
-                    "value": "3"
-                },
-                "RVBackupHealthWindowSize": {
-                    "value": "P1D"
-                },
-                "RVBackupHealthEvaluationFrequency": {
-                    "value": "PT1H"
-                },
                 "RVBackupHealthPolicyEffect": {
-                    "value": "deployIfNotExists"
-                },
-                "RVBackupHealthAlertState": {
-                    "value": "true"
-                },
-                "RVBackupHealthThreshold": {
-                    "value": "20"
+                    "value": "modify"
                 },
                 "StorageAccountAvailabilityAlertSeverity": {
                     "value": "1"
