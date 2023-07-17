@@ -176,6 +176,12 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                         equals: 'Microsoft.Network/loadBalancers'
                     }
                     {
+                        field: 'sku.tier'
+                        equals: 'Global'
+
+
+                    }
+                    {
                         field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
                         notEquals: 'true'
                     }
