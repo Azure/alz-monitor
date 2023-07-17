@@ -97,7 +97,7 @@
             "type": "string",
             "defaultValue": "20"
           },
-          "RVBackupHealthPolicyEffect": {
+          "RVBackupHealthMonitorPolicyEffect": {
             "type": "string",
             "defaultValue": "modify",
             "allowedValues": [
@@ -229,11 +229,11 @@
             }
           },
           {
-            "policyDefinitionReferenceId": "ALZ_RVBackupHealth",
+            "policyDefinitionReferenceId": "ALZ_RVBackupHealthMonitor",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_RecoveryVault_BackupHealthMonitor_Alert')]",
             "parameters": {
               "effect": {
-                "value": "[[parameters('RVBackupHealthPolicyEffect')]"
+                "value": "[[parameters('RVBackupHealthMonitorPolicyEffect')]"
               }
             }
           },
