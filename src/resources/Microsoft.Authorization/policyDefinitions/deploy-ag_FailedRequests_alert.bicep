@@ -122,7 +122,7 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 ]
                 defaultValue: parEvaluationFrequency
             }
-            alertSensivitity : {
+            alertSensitivity : {
                 type: 'String'
                 metadata: {
                     displayName: 'Alert Sensitivity'
