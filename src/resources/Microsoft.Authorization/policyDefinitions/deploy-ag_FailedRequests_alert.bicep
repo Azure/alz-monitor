@@ -268,9 +268,7 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
-                                    alertSensivitity: {
-                                        type: 'String'
-                                    }
+                                
                                     minfailingperiodsToAlert: {
                                         type: 'Integer'
                                     }
@@ -280,7 +278,7 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     autoMitigate: {
                                         type: 'String'
                                     }
-                                    alertSensitiviy: {
+                                    alertSensitivity: {
                                         type: 'String'
                                     }
                                     enabled: {
