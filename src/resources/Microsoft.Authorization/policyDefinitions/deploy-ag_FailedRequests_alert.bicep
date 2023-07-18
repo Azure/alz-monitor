@@ -280,6 +280,9 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     autoMitigate: {
                                         type: 'String'
                                     }
+                                    alertSensitiviy: {
+                                        type: 'String'
+                                    }
                                     enabled: {
                                         type: 'String'
                                     }
