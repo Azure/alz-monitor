@@ -47,8 +47,12 @@ param parPolicyEffect string = 'deployIfNotExists'
 param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
-
-param parAlertSensitivity string = 'Medium '
+@allowed([
+    'Low'
+    'Medium'
+    'High'
+])
+param parAlertSensitivity string = 'Medium'
 
 param parminfailingPeriodsToAlert int = 1
 
