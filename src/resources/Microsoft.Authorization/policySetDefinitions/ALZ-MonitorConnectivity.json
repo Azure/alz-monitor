@@ -19,10 +19,10 @@
       "apiVersion": "2021-06-01",
       "name": "Alerting-Connectivity",
       "properties": {
+        "displayName": "Deploy ALZ Connectivity alerts",
+        "description": "This policy set deploys select alert rules for ALZ connectivity resources. Aslo a basic action and alert processing rule is deployed",
         "metadata": {
-          "displayName": "Deploy ALZ Connectivity alerts",
-          "description": "This policy set deploys select alert rules for ALZ connectivity resources. Aslo a basic action and alert processing rule is deployed",
-          "version": "1.0.1",
+          "version": "1.0.2",
           "category": "Monitoring",
           "source": "https://github.com/Azure/Enterprise-Scale/",
           "alzCloudEnvironments": [
