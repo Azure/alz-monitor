@@ -109,12 +109,12 @@ If you want to deploy only the baseline monitoring Policy Definitions required f
 
 ```powershell
   #Deploy only the required policy definitions for the Service Health initiative
-  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep
-  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep
-  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep 
-  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep
-  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep
-  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-alertprocessingrule-deploy.bicep
+  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep
+  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep
+  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep 
+  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Maintenance.bicep
+  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Security.bicep
+  New-AzManagementGroupDeployment -ManagementGroupId $pseudoRootManagementGroup -Location $location -TemplateFile ./src/resources/Microsoft.Authorization/policyDefinitions/deploy-alertprocessingrule-deploy.bicep
 ```
 
 Run the following commands to deploy and to assign the Service Health initiative to the pseudo root management group:
