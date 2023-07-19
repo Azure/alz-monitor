@@ -133,7 +133,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 defaultValue: parAlertSensitivity
             }
             minfailingPeriodsToAlert: {
-                type: 'Int'
+                type: 'Integer'
                 metadata: {
                     displayName: 'Min Failing Periods'
                     description: 'Min Failing Periods for the alert'
@@ -141,7 +141,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 defaultValue:  parminfailingPeriodsToAlert
             }
             numberOfEvaluationPeriods: {
-                type: 'Int'
+                type: 'Integer'
                 metadata: {
                     displayName: 'Number of Evaluation Periods'
                     description: 'Number of Evaluation Periods for the alert'
@@ -268,7 +268,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                         type: 'String'
                                     }
                                     minfailingperiodsToAlert: {
-                                        type: 'Int'
+                                        type: 'Integer'
                                     }
                                     numberOfEvaluationPeriods: {
                                         type: 'String'
