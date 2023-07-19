@@ -118,7 +118,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 ]
                 defaultValue: parEvaluationFrequency
             }
-            alertSensivitity : {
+            alertSensitivity : {
                 type: 'String'
                 metadata: {
                     displayName: 'Alert Sensitivity'
@@ -264,7 +264,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
-                                    alertSensivitity: {
+                                    alertSensitivity: {
                                         type: 'String'
                                     }
                                     minfailingperiodsToAlert: {
