@@ -48,7 +48,7 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
-param parAlertSensitivity string = 'Medium '
+param parAlertSensitivity string = 'Medium'
 
 param parminfailingPeriodsToAlert int = 1
 
