@@ -313,7 +313,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                                             numberOfEvaluationPeriods: '[parameters(\'numberOfEvaluationPeriods\')]'
                                                         }
                                                        
-                                                        timeAggregation: 'Average'
+                                                        timeAggregation: 'Total'
                                                         dimensions: [
                                                             {
                                                               name: 'HttpStatusGroup'
