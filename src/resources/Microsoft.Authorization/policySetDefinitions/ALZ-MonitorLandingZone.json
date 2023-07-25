@@ -880,20 +880,6 @@
               "*"
             ]
           },
-          "VMInsightsAlertResourceGroupName": {
-            "type": "string",
-            "defaultValue": "AlzMonitoring-rg"
-          },
-          "VMInsightsAlertResourceGroupLocation": {
-            "type": "string",
-            "defaultValue": "centralus"
-          },
-          "VMInsightsAlertResourceGroupTags": {
-            "type": "object",
-            "defaultValue": {
-              "environment": "test"
-            }
-          },
           "VMOSDiskReadLatencyAlertSeverity": {
             "type": "String",
             "defaultValue": "2",
@@ -2005,6 +1991,15 @@
             "policyDefinitionReferenceId": "ALZ_VMHeartBeatRG",
             "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_VM_HeartBeat_Alert')]",
             "parameters": {
+              "alertResourceGroupName": {
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
+              },
+              "alertResourceGroupTags": {
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+              },
+              "alertResourceGroupLocation": {
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+              },
               "severity": {
                 "value": "[[parameters('VMHeartBeatRGAlertSeverity')]"
               },
@@ -2090,13 +2085,13 @@
                 "value": "[[parameters('VMNetworkInNetworkInterfaceToInclude')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2150,13 +2145,13 @@
                 "value": "[[parameters('VMNetworkOutNetworkInterfaceToInclude')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2210,13 +2205,13 @@
                 "value": "[[parameters('VMOSDiskReadLatencyDisksToInclude')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2270,13 +2265,13 @@
                 "value": "[[parameters('VMOSDiskWriteLatencyDisksToInclude')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2330,13 +2325,13 @@
                 "value": "[[parameters('VMOSDiskSpaceDisksToInclude')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2378,13 +2373,13 @@
                 "value": "[[parameters('VMPercentCPUTimeAggregation')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2426,13 +2421,13 @@
                 "value": "[[parameters('VMPercentMemoryTimeAggregation')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2483,13 +2478,13 @@
                 "value": "[[parameters('VMDataDiskSpaceDisksToInclude')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2543,13 +2538,13 @@
                 "value": "[[parameters('VMDataDiskReadLatencyDisksToInclude')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           },
@@ -2603,13 +2598,13 @@
                 "value": "[[parameters('VMDataDiskWriteLatencyDisksToInclude')]"
               },
               "alertResourceGroupName": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupName')]"
+                "value": "[[parameters('ALZMonitorResourceGroupName')]"
               },
               "alertResourceGroupTags": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupTags')]"
+                "value": "[[parameters('ALZMonitorResourceGroupTags')]"
               },
               "alertResourceGroupLocation": {
-                "value": "[[parameters('VMInsightsAlertResourceGroupLocation')]"
+                "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
               }
             }
           }
