@@ -60,6 +60,12 @@ The image below is an example of how a management group hierarchy looks like whe
 
 ![ALZ Management group structure](../raw/main/media/alz-management-groups.png)
 
+The diagram below shows the flow using the orange dash-lines of the policy initiatives and their associated policy definitions. Notice how the Service Health Initiative is assigned at the pseudo root of the management group structure in this case the contoso management group. This initiative contains the policy that deploys the alert processing rules and action group to each subscription.
+
+The other monitoring intitiatives are each assigned at specific platform landing zone management groups and workload landing zones. The flows for these are in blue dash-lines.
+
+<img src=" " width="50%">
+
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
 * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
 * [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
