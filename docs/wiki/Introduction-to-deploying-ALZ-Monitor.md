@@ -66,6 +66,8 @@ The other monitoring intitiatives are each assigned at specific platform landing
 
 <img src="../../media/amba-policy-initiative-flow.png" width="85%" alt="Azure Monitor Baseline Alerts policy initiative flows">
 
+If you'd like to use this Visio diagram, click [here](../../media/AMBA-Diagramsv2.vsdx) to download the Visio file.
+
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
 * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
 * [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
