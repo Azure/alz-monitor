@@ -106,7 +106,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
          description: 'Policy to audit/deploy VM OSDiskSpace Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             category: 'Compute'
             source: 'https://github.com/Azure/Enterprise-Scale/' 
             alzCloudEnvironments: [ 

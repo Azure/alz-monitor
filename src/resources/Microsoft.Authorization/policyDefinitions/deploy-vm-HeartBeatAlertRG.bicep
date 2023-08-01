@@ -83,7 +83,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
          description: 'Policy to audit/deploy VM HeartBeat Alert for VMs in the resource group'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             category: 'Compute'
             source: 'https://github.com/Azure/Enterprise-Scale/' 
             alzCloudEnvironments: [ 

@@ -102,7 +102,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
          description: 'Policy to audit/deploy VM Nework Read Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             category: 'Compute'
             source: 'https://github.com/Azure/Enterprise-Scale/' 
             alzCloudEnvironments: [ 

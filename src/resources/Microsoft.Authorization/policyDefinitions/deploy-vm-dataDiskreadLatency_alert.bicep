@@ -105,7 +105,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
          description: 'Policy to audit/deploy VM dataDiskReadLatency Alert'
         location: policyLocation
         metadata: {
-            version: '1.0.0'
+            version: '1.0.1'
             category: 'Compute'
             source: 'https://github.com/Azure/Enterprise-Scale/' 
             alzCloudEnvironments: [ 
