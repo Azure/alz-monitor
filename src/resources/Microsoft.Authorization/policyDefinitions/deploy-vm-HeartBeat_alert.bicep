@@ -98,6 +98,7 @@ module HeartBeatAlert '../../arm/Microsoft.Authorization/policyDefinitions/manag
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             alertResourceGroupName: {

@@ -107,6 +107,7 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             alertResourceGroupName: {

@@ -112,6 +112,7 @@ module VMOSDiskwriteLatencyAlert '../../arm/Microsoft.Authorization/policyDefini
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             alertResourceGroupName: {

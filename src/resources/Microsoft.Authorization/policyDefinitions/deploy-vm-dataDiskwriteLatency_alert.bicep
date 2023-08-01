@@ -111,6 +111,7 @@ module VMdataDiskWriteLatencyAlert '../../arm/Microsoft.Authorization/policyDefi
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             alertResourceGroupName: {
