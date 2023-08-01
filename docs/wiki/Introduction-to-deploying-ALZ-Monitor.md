@@ -62,11 +62,11 @@ The image below is an example of how a management group hierarchy looks like whe
 
 The diagram below shows the flow using the orange dash-lines of the policy initiatives and their associated policy definitions. Notice how the Service Health Initiative is assigned at the pseudo root of the management group structure in this case the Contoso management group. This initiative contains the policy that deploys the alert processing rules and action group to each subscription.
 
-The other monitoring intitiatives are each assigned at specific platform landing zone management groups and workload landing zones. The flows for these are in blue dash-lines.
+The other monitoring initiatives are each assigned at specific platform landing zone management groups and workload landing zones. The flows for these are in blue dash-lines.
 
-<img src="../../raw/main/media/amba-policy-initiative-flow.png" width="85%" alt="Azure Monitor Baseline Alerts policy initiative flows">
+<img src="../raw/main/media/amba-policy-initiative-flow.png" width="85%" alt="Azure Monitor Baseline Alerts policy initiative flows">
 
-Click [here](../../media/AMBA-Diagramsv2.vsdx) if you'd like to use this Visio diagram.
+Click [here](../raw/main/media/AMBA-Diagramsv2.vsdx) if you'd like to download this Visio diagram.
 
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
 * [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
