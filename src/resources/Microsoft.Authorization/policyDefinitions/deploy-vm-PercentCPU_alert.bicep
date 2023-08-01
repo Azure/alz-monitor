@@ -97,6 +97,7 @@ module VMCPUAlert '../../arm/Microsoft.Authorization/policyDefinitions/managemen
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             alertResourceGroupName: {

@@ -108,6 +108,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             alertResourceGroupName: {

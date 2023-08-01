@@ -112,6 +112,7 @@ module VMOSDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions/m
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             alertResourceGroupName: {

@@ -98,6 +98,7 @@ module VMLAMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/mana
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             alertResourceGroupName: {

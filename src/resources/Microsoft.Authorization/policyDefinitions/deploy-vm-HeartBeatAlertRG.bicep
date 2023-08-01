@@ -89,6 +89,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
             alzCloudEnvironments: [ 
                'AzureCloud'
               ]
+            _deployed_by_alz_monitor: 'True'
         }
         parameters: {
             severity: {
