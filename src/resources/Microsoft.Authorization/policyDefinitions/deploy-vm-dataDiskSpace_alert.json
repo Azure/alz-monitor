@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.19.5.34762",
-      "templateHash": "1872070395556717272"
+      "templateHash": "10400969194764707652"
     }
   },
   "parameters": {
@@ -159,7 +159,7 @@
           },
           "metadata": {
             "value": {
-              "version": "1.0.0",
+              "version": "1.0.1",
               "category": "Compute",
               "source": "https://github.com/Azure/Enterprise-Scale/",
               "alzCloudEnvironments": [
