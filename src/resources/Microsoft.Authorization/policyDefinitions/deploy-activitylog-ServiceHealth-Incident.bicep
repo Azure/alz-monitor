@@ -24,7 +24,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
          description: 'Policy to Deploy Service Health Incident Alert'
         location: policyLocation
         metadata: {
-            version: '1.1.0'
+            version: '1.1.1'
             category: 'Monitoring'
             source: 'https://github.com/Azure/Enterprise-Scale/' 
             alzCloudEnvironments: [ 
