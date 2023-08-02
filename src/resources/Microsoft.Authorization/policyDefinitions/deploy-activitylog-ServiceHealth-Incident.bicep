@@ -217,7 +217,7 @@ module ServiceHealthIncidentAlert '../../arm/Microsoft.Authorization/policyDefin
                                                     {
                                                         type: 'microsoft.insights/activityLogAlerts'
                                                         apiVersion: '2020-10-01'
-                                                        name: 'ServieHealthIncident'
+                                                        name: 'ServiceHealthIncident'
                                                         location: 'global'
                                                         dependsOn: [
                                                             '''[concat(subscription().Id, '/resourceGroups/', parameters('alertResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AlzActionGrp')]'''
