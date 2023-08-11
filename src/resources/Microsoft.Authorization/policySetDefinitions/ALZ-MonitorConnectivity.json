@@ -33,17 +33,29 @@
         "parameters": {
           "ALZMonitorResourceGroupName": {
             "type": "String",
-            "defaultValue": "ALZ-Monitoring-RG"
+            "defaultValue": "ALZ-Monitoring-RG",
+            "metadata": {
+              "displayName": "ALZ Monitor Resource Group Name",
+              "description": "Name of the resource group where the ALZ Monitor resources will be deployed"
+            }
           },
           "ALZMonitorResourceGroupTags": {
             "type": "Object",
             "defaultValue": {
               "_deployed_by_alz_monitor": true
+            },
+            "metadata": {
+              "displayName": "ALZ Monitor Resource Group Tags",
+              "description": "Tags to be applied to the resource group where the ALZ Monitor resources will be deployed"
             }
           },
           "ALZMonitorResourceGroupLocation": {
             "type": "String",
-            "defaultValue": "centralus"
+            "defaultValue": "centralus",
+            "metadata": {
+              "displayName": "ALZ Monitor Resource Group Location",
+              "description": "Location of the resource group where the ALZ Monitor resources will be deployed"
+            }
           },
           "ERCIRQoSDropBitsinPerSecAlertSeverity": {
             "type": "String",
@@ -54,7 +66,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits in Per Sec Alert Severity",
+              "description": "Severity of the alert"
+            }
           },
           "ERCIRQoSDropBitsinPerSecWindowSize": {
             "type": "string",
@@ -68,7 +84,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits in Per Sec Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "ERCIRQoSDropBitsinPerSecEvaluationFrequency": {
             "type": "string",
@@ -79,7 +99,11 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits in Per Sec Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "ERCIRQoSDropBitsinPerSecPolicyEffect": {
             "type": "string",
@@ -87,11 +111,19 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits in Per Sec Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
           },
           "ERCIRQoSDropBitsinPerSecAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits in Per Sec Alert State",
+              "description": "Alert state for the alert"
+            }
           },
           "ERCIRQoSDropBitsoutPerSecAlertSeverity": {
             "type": "String",
@@ -102,7 +134,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits out Per Sec Alert Severity",
+              "description": "Severity of the alert"
+            }
           },
           "ERCIRQoSDropBitsoutPerSecWindowSize": {
             "type": "string",
@@ -116,7 +152,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits out Per Sec Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "ERCIRQoSDropBitsoutPerSecEvaluationFrequency": {
             "type": "string",
@@ -127,7 +167,11 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits out Per Sec Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "ERCIRQoSDropBitsoutPerSecPolicyEffect": {
             "type": "string",
@@ -135,11 +179,19 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits out Per Sec Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
           },
           "ERCIRQoSDropBitsoutPerSecAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "ERC IRQoS Drop Bits out Per Sec Alert State",
+              "description": "Alert state for the alert"
+            }
           },
           "VPNGwBGPPeerStatusAlertSeverity": {
             "type": "String",
@@ -150,7 +202,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VPN Gw BGP Peer Status Alert Severity",
+              "description": "Severity of the alert"
+            }
           },
           "VPNGwBGPPeerStatusWindowSize": {
             "type": "string",
@@ -164,7 +220,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VPN Gw BGP Peer Status Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "VPNGwBGPPeerStatusEvaluationFrequency": {
             "type": "string",
@@ -175,7 +235,11 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VPN Gw BGP Peer Status Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "VPNGwBGPPeerStatusPolicyEffect": {
             "type": "string",
@@ -183,15 +247,27 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VPN Gw BGP Peer Status Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
           },
           "VPNGwBGPPeerStatusAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VPN Gw BGP Peer Status Alert State",
+              "description": "Alert state for the alert"
+            }
           },
           "VPNGwBGPPeerStatusThreshold": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "VPN Gw BGP Peer Status Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VnetGwERCpuUtilAlertSeverity": {
             "type": "String",
@@ -202,7 +278,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw ER Cpu Util Alert Severity",
+              "description": "Severity of the alert"
+            }
           },
           "VnetGwERCpuUtilWindowSize": {
             "type": "string",
@@ -216,7 +296,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw ER Cpu Util Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "VnetGwERCpuUtilEvaluationFrequency": {
             "type": "string",
@@ -227,7 +311,11 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw ER Cpu Util Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "VnetGwERCpuUtilPolicyEffect": {
             "type": "string",
@@ -235,15 +323,27 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw ER Cpu Util Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
           },
           "VnetGwERCpuUtilAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "Vnet Gw ER Cpu Util Alert State",
+              "description": "Alert state for the alert"
+            }
           },
           "VnetGwERCpuUtilThreshold": {
             "type": "string",
-            "defaultValue": "80"
+            "defaultValue": "80",
+            "metadata": {
+              "displayName": "Vnet Gw ER Cpu Util Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VnetGwTunnelBWAlertSeverity": {
             "type": "String",
@@ -254,7 +354,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel BW Alert Severity",
+              "description": "Severity of the alert"
+            }
           },
           "VnetGwTunnelBWWindowSize": {
             "type": "string",
@@ -268,7 +372,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel BW Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "VnetGwTunnelBWEvaluationFrequency": {
             "type": "string",
@@ -279,7 +387,11 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel BW Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "VnetGwTunnelBWPolicyEffect": {
             "type": "string",
@@ -287,15 +399,27 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel BW Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
           },
           "VnetGwTunnelBWAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel BW Alert State",
+              "description": "Alert state for the alert"
+            }
           },
           "VnetGwTunnelBWThreshold": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel BW Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VnetGwTunnelEgressAlertSeverity": {
             "type": "String",
@@ -306,7 +430,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Egress Alert Severity",
+              "description": "Severity of the alert"
+            }
           },
           "VnetGwTunnelEgressWindowSize": {
             "type": "string",
@@ -320,7 +448,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Egress Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "VnetGwTunnelEgressEvaluationFrequency": {
             "type": "string",
@@ -331,7 +463,11 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Egress Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "VnetGwTunnelEgressPolicyEffect": {
             "type": "string",
@@ -339,15 +475,27 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Egress Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
           },
           "VnetGwTunnelEgressAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Egress Alert State",
+              "description": "Alert state for the alert"
+            }
           },
           "VnetGwTunnelEgressThreshold": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Egress Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VnetGwTunnelIngressAlertSeverity": {
             "type": "String",
@@ -358,7 +506,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Ingress Alert Severity",
+              "description": "Severity of the alert"
+            }
           },
           "VnetGwTunnelIngressWindowSize": {
             "type": "string",
@@ -372,7 +524,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Ingress Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "VnetGwTunnelIngressEvaluationFrequency": {
             "type": "string",
@@ -383,7 +539,11 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Ingress Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "VnetGwTunnelIngressPolicyEffect": {
             "type": "string",
@@ -391,15 +551,27 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Ingress Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
           },
           "VnetGwTunnelIngressAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Ingress Alert State",
+              "description": "Alert state for the alert"
+            }
           },
           "VnetGwTunnelIngressThreshold": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "Vnet Gw Tunnel Ingress Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VPNGWBandWidthUtilAlertSeverity": {
             "type": "String",
@@ -410,7 +582,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VPN GW Band Width Util Alert Severity",
+              "description": "Severity of the alert"
+            }
           },
           "VPNGWBandWidthUtilWindowSize": {
             "type": "string",
@@ -424,7 +600,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VPN GW Band Width Util Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "VPNGWBandWidthUtilEvaluationFrequency": {
             "type": "string",
@@ -435,7 +615,11 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VPN GW Band Width Util Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "VPNGWBandWidthUtilPolicyEffect": {
             "type": "string",
@@ -443,15 +627,27 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VPN GW Band Width Util Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
           },
           "VPNGWBandWidthUtilAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VPN GW Band Width Util Alert State",
+              "description": "Alert state for the alert"
+            }
           },
           "VPNGWBandWidthUtilThreshold": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "VPN GW Band Width Util Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VPNGWEgressAlertSeverity": {
             "type": "String",
