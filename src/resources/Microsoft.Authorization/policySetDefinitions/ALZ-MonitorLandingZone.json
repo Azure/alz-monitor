@@ -2252,7 +2252,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "VMDataDiskReadLatencyEvaluationFrequency": {
             "type": "string",
@@ -2263,19 +2267,35 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "VMDataDiskReadLatencyAutoMitigate": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Auto Mitigate",
+              "description": "Auto Mitigate for the alert"
+            }
           },
           "VMDataDiskReadLatencyAutoResolve": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Auto Resolve",
+              "description": "Auto Resolve for the alert"
+            }
           },
           "VMDataDiskReadLatencyAutoResolveTime": {
             "type": "string",
-            "defaultValue": "00:10:00"
+            "defaultValue": "00:10:00",
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Auto Resolve Time",
+              "description": "Auto Resolve Time for the alert"
+            }
           },
           "VMDataDiskReadLatencyPolicyEffect": {
             "type": "string",
@@ -2283,15 +2303,27 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist"
+            }
           },
           "VMDataDiskReadLatencyAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Alert State",
+              "description": "Alert state for the alert, true will enable the alert, false will disable the alert"
+            }
           },
           "VMDataDiskReadLatencyThreshold": {
             "type": "string",
-            "defaultValue": "30"
+            "defaultValue": "30",
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VMDataDiskReadLatencyOperator": {
             "type": "string",
@@ -2302,7 +2334,11 @@
               "GreaterThanOrEqual",
               "LessThan",
               "LessThanOrEqual"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Operator",
+              "description": "Operator for the alert"
+            }
           },
           "VMDataDiskReadLatencyTimeAggregation": {
             "type": "string",
@@ -2313,27 +2349,47 @@
               "Maximum",
               "Minimum",
               "Total"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Time Aggregation",
+              "description": "Time Aggregation for the alert"
+            }
           },
           "VMDataDiskReadLatencyEvaluationPeriods": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Evaluation Periods",
+              "description": "Evaluation Periods for the alert"
+            }
           },
           "VMDataDiskReadLatencyFailingPeriods": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Failing Periods",
+              "description": "Failing Periods for the alert"
+            }
           },
           "VMDataDiskReadLatencyComputersToInclude": {
             "type": "array",
             "defaultValue": [
               "*"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Computers To Include",
+              "description": "Computers To Include for the alert"
+            }
           },
           "VMDataDiskReadLatencyDisksToInclude": {
             "type": "array",
             "defaultValue": [
               "*"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Disks To Include",
+              "description": "Disks To Include for the alert"
+            }
           },
           "VMDataDiskWriteLatencyAlertSeverity": {
             "type": "String",
@@ -2344,7 +2400,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Alert Severity",
+              "description": "Severity of the alert for VM Data Disk Write Latency"
+            }
           },
           "VMDataDiskWriteLatencyWindowSize": {
             "type": "string",
@@ -2358,7 +2418,11 @@
               "PT6H",
               "PT12H",
               "P1D"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Window Size",
+              "description": "Window size for the alert"
+            }
           },
           "VMDataDiskWriteLatencyEvaluationFrequency": {
             "type": "string",
@@ -2369,19 +2433,35 @@
               "PT15M",
               "PT30M",
               "PT1H"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
           },
           "VMDataDiskWriteLatencyAutoMitigate": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Auto Mitigate",
+              "description": "Auto Mitigate for the alert"
+            }
           },
           "VMDataDiskWriteLatencyAutoResolve": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Auto Resolve",
+              "description": "Auto Resolve for the alert"
+            }
           },
           "VMDataDiskWriteLatencyAutoResolveTime": {
             "type": "string",
-            "defaultValue": "00:10:00"
+            "defaultValue": "00:10:00",
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Auto Resolve Time",
+              "description": "Auto Resolve Time for the alert"
+            }
           },
           "VMDataDiskWriteLatencyPolicyEffect": {
             "type": "string",
@@ -2389,15 +2469,27 @@
             "allowedValues": [
               "deployIfNotExists",
               "disabled"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist"
+            }
           },
           "VMDataDiskWriteLatencyAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Alert State",
+              "description": "Alert state for the alert, true will enable the alert, false will disable the alert"
+            }
           },
           "VMDataDiskWriteLatencyThreshold": {
             "type": "string",
-            "defaultValue": "30"
+            "defaultValue": "30",
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VMDataDiskWriteLatencyOperator": {
             "type": "string",
@@ -2408,7 +2500,11 @@
               "GreaterThanOrEqual",
               "LessThan",
               "LessThanOrEqual"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Operator",
+              "description": "Operator for the alert"
+            }
           },
           "VMDataDiskWriteLatencyTimeAggregation": {
             "type": "string",
@@ -2419,27 +2515,47 @@
               "Maximum",
               "Minimum",
               "Total"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Time Aggregation",
+              "description": "Time Aggregation for the alert"
+            }
           },
           "VMDataDiskWriteLatencyEvaluationPeriods": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Evaluation Periods",
+              "description": "Evaluation Periods for the alert"
+            }
           },
           "VMDataDiskWriteLatencyFailingPeriods": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Failing Periods",
+              "description": "Failing Periods for the alert"
+            }
           },
           "VMDataDiskWriteLatencyComputersToInclude": {
             "type": "array",
             "defaultValue": [
               "*"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Computers To Include",
+              "description": "Computers To Include for the alert"
+            }
           },
           "VMDataDiskWriteLatencyDisksToInclude": {
             "type": "array",
             "defaultValue": [
               "*"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Write Latency Disks To Include",
+              "description": "Disks To Include for the alert"
+            }
           }
         },
         "policyDefinitions": [
