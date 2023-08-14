@@ -2155,11 +2155,19 @@
           },
           "VMDataDiskSpaceAlertState": {
             "type": "string",
-            "defaultValue": "true"
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "VM Data Disk Space Alert State",
+              "description": "Alert state for the alert, true will enable the alert, false will disable the alert"
+            }
           },
           "VMDataDiskSpaceThreshold": {
             "type": "string",
-            "defaultValue": "10"
+            "defaultValue": "10",
+            "metadata": {
+              "displayName": "VM Data Disk Space Threshold",
+              "description": "Threshold for the alert"
+            }
           },
           "VMDataDiskSpaceOperator": {
             "type": "string",
@@ -2170,7 +2178,11 @@
               "GreaterThanOrEqual",
               "LessThan",
               "LessThanOrEqual"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Space Operator",
+              "description": "Operator for the alert"
+            }
           },
           "VMDataDiskSpaceTimeAggregation": {
             "type": "string",
@@ -2181,21 +2193,37 @@
               "Maximum",
               "Minimum",
               "Total"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Space Time Aggregation",
+              "description": "Time Aggregation for the alert"
+            }
           },
           "VMDataDiskSpaceEvaluationPeriods": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "VM Data Disk Space Evaluation Periods",
+              "description": "Evaluation Periods for the alert"
+            }
           },
           "VMDataDiskSpaceFailingPeriods": {
             "type": "string",
-            "defaultValue": "1"
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "VM Data Disk Space Failing Periods",
+              "description": "Failing Periods for the alert"
+            }
           },
           "VMDataDiskSpaceDisksToInclude": {
             "type": "array",
             "defaultValue": [
               "*"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Space Disks To Include",
+              "description": "Disks To Include for the alert"
+            }
           },
           "VMDataDiskReadLatencyAlertSeverity": {
             "type": "String",
@@ -2206,7 +2234,11 @@
               "2",
               "3",
               "4"
-            ]
+            ],
+            "metadata": {
+              "displayName": "VM Data Disk Read Latency Alert Severity",
+              "description": "Severity of the alert for VM Data Disk Read Latency"
+            }
           },
           "VMDataDiskReadLatencyWindowSize": {
             "type": "string",
