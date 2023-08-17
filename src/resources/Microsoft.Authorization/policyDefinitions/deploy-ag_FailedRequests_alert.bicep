@@ -47,16 +47,6 @@ param parPolicyEffect string = 'deployIfNotExists'
 param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
-@allowed([
-    'Low'
-    'Medium'
-    'High'
-])
-param parAlertSensitivity string = 'Medium'
-
-param parminfailingPeriodsToAlert int = 1
-
-param parnumberOfEvaluationPeriods int = 1
 
 param parMonitorDisable string = 'MonitorDisable'
 
@@ -122,36 +112,9 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 ]
                 defaultValue: parEvaluationFrequency
             }
-            alertSensitivity : {
-                type: 'String'
-                metadata: {
-                    displayName: 'Alert Sensitivity'
-                    description: 'Alert Sensitivity for the alert'
-                }
-                allowedValues: [
-                    'Low'
-                    'Medium'
-                    'High'
-                    
-                ]
-                defaultValue: parAlertSensitivity
-            }
-            minfailingPeriodsToAlert: {
-                type: 'Integer'
-                metadata: {
-                    displayName: 'Min Failing Periods'
-                    description: 'Min Failing Periods for the alert'
-                }
-                defaultValue:  parminfailingPeriodsToAlert
-            }
-            numberOfEvaluationPeriods: {
-                type: 'Integer'
-                metadata: {
-                    displayName: 'Number of Evaluation Periods'
-                    description: 'Number of Evaluation Periods for the alert'
-                }
-                defaultValue: parnumberOfEvaluationPeriods
-            }
+   
+           
+ 
             autoMitigate: {
                 type: 'String'
                 metadata: {
@@ -230,7 +193,7 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/loadBalancers/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/applicationgateways/\', field(\'fullName\'))]'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/enabled'
@@ -269,16 +232,7 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                         type: 'String'
                                     }
                                 
-                                    minfailingperiodsToAlert: {
-                                        type: 'Integer'
-                                    }
-                                    numberOfEvaluationPeriods: {
-                                        type: 'String'
-                                    }
                                     autoMitigate: {
-                                        type: 'String'
-                                    }
-                                    alertSensitivity: {
                                         type: 'String'
                                     }
                                     enabled: {
@@ -312,17 +266,17 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                                         metricNamespace: 'Microsoft.Network/applicationgateways'
                                                         metricName: 'FailedRequests'
                                                         operator: 'GreaterThan'
-                                                        alertSensitivity: '[parameters(\'alertSensitivity\')]'
+                                                        alertSensitivity: 'Medium'
                                                         failingPeriods: {
-                                                            minFailingPeriodsToAlert: '[parameters(\'minFailingPeriodsToAlert\')]'
-                                                            numberOfEvaluationPeriods: '[parameters(\'numberOfEvaluationPeriods\')]'
+                                                            minFailingPeriodsToAlert: 2
+                                                            numberOfEvaluationPeriods: 2
                                                         }
                                                        
-                                                        timeAggregation: 'Average'
+                                                        timeAggregation: 'Total'
                                                         criterionType: 'DynamicThresholdCriterion'
                                                     }
                                                 ]
-                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                                'odata.type': 'Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria'
                                             }
                                             autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
@@ -338,15 +292,7 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
-                                                alertSensitivity: {
-                                                    value: '[parameters(\'alertSensitivity\')]'
-                                                }
-                                                minfailingperiodsToAlert: {
-                                                    value: '[parameters(\'minfailingperiodsToAlert\')]'
-                                                }
-                                                numberOfEvaluationPeriods: {
-                                                    value: '[parameters(\'numberOfEvaluationPeriods\')]'
-                                                }
+                                
                                                 enabled: {
                                                     value: '[parameters(\'enabled\')]'
                                                 }
@@ -375,182 +321,6 @@ module FailedRequestsAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
                                 }
-                                alertSensitivity: {
-                                    value: '[parameters(\'alertSensitivity\')]'
-                                }
-                                minfailingperiodsToAlert: {
-                                    value: '[parameters(\'minfailingperiodsToAlert\')]'
-                                }
-                                numberOfEvaluationPeriods: {
-                                    value: '[parameters(\'numberOfEvaluationPeriods\')]'
-                                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                 enabled: {
                                     value: '[parameters(\'enabled\')]'

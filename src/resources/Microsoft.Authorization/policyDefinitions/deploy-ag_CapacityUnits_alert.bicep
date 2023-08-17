@@ -48,16 +48,16 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '80'
+param parThreshold string = '75'
 
 param parMonitorDisable string = 'MonitorDisable'
 
 module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-AGCPUUtilization-policyDefinitions'
+    name: '${uniqueString(deployment().name)}-AGCapacityUnits-policyDefinitions'
     params: {
-        name: 'Deploy_AG_CPUUtilization_Alert'
-        displayName: '[DINE] Deploy AG CPU Utilization Alert'
-        description: 'DINE policy to audit/deploy Azure Application Gateway CPU Utilization Alert'
+        name: 'Deploy_AG_CapacityUnits_Alert'
+        displayName: '[DINE] Deploy AG Capacity Units Alert'
+        description: 'DINE policy to audit/deploy Azure Application Gateway CapacityUnits Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
@@ -177,7 +177,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                     }
                     {
                         field: 'Microsoft.Network/applicationgateways/sku.name'
-                        notIn : [
+                        In : [
                             'Standard_v2'
                             'WAF_v2'
                         ]
@@ -201,7 +201,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'CpuUtilization'
+                                equals: 'CapacityUnits'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
@@ -258,13 +258,13 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-agCpuUtilization\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-agCapacityUnits\')]'
                                         location: 'global'
                                         tags: {
                                             _deployed_by_alz_monitor: true
                                         }
                                         properties: {
-                                            description: 'Metric Alert for App Gateway CPU Utilization'
+                                            description: 'Metric Alert for App Gateway Capacity Units'
                                             severity: '[parameters(\'severity\')]'
                                             enabled: '[parameters(\'enabled\')]'
                                             scopes: [
@@ -275,9 +275,9 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'CpuUtilization'
+                                                        name: 'CapacityUnits'
                                                         metricNamespace: 'Microsoft.Network/applicationgateways'
-                                                        metricName: 'CpuUtilization'
+                                                        metricName: 'CapacityUnits'
                                                         operator: 'GreaterThan'
                                                         threshold: '[parameters(\'threshold\')]'
                                                         timeAggregation: 'Average'

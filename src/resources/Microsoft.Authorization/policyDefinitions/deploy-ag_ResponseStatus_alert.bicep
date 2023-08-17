@@ -39,6 +39,14 @@ param parWindowSize string = 'PT5M'
 param parEvaluationFrequency string = 'PT1M'
 
 @allowed([
+    'Low'
+    'Medium'
+    'High'
+])
+
+param parAlertSensitivity string = 'Medium'
+
+@allowed([
     'deployIfNotExists'
     'disabled'
 ])
@@ -48,11 +56,7 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
-param parAlertSensitivity string = 'Medium'
 
-param parminfailingPeriodsToAlert int = 1
-
-param parnumberOfEvaluationPeriods int = 1
 
 param parMonitorDisable string = 'MonitorDisable'
 
@@ -118,7 +122,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 ]
                 defaultValue: parEvaluationFrequency
             }
-            alertSensitivity : {
+            alertSensitivity: {
                 type: 'String'
                 metadata: {
                     displayName: 'Alert Sensitivity'
@@ -128,26 +132,10 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                     'Low'
                     'Medium'
                     'High'
-                    
-                ]
+                       ]
                 defaultValue: parAlertSensitivity
             }
-            minfailingPeriodsToAlert: {
-                type: 'Integer'
-                metadata: {
-                    displayName: 'Min Failing Periods'
-                    description: 'Min Failing Periods for the alert'
-                }
-                defaultValue:  parminfailingPeriodsToAlert
-            }
-            numberOfEvaluationPeriods: {
-                type: 'Integer'
-                metadata: {
-                    displayName: 'Number of Evaluation Periods'
-                    description: 'Number of Evaluation Periods for the alert'
-                }
-                defaultValue: parnumberOfEvaluationPeriods
-            }
+
             autoMitigate: {
                 type: 'String'
                 metadata: {
@@ -226,7 +214,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/loadBalancers/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/applicationgateways/\', field(\'fullName\'))]'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/enabled'
@@ -267,12 +255,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     alertSensitivity: {
                                         type: 'String'
                                     }
-                                    minfailingperiodsToAlert: {
-                                        type: 'Integer'
-                                    }
-                                    numberOfEvaluationPeriods: {
-                                        type: 'String'
-                                    }
+                               
                                     autoMitigate: {
                                         type: 'String'
                                     }
@@ -309,8 +292,8 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                                         operator: 'GreaterThan'
                                                         alertSensitivity: '[parameters(\'alertSensitivity\')]'
                                                         failingPeriods: {
-                                                            minFailingPeriodsToAlert: '[parameters(\'minFailingPeriodsToAlert\')]'
-                                                            numberOfEvaluationPeriods: '[parameters(\'numberOfEvaluationPeriods\')]'
+                                                            minFailingPeriodsToAlert: 2
+                                                            numberOfEvaluationPeriods: 2
                                                         }
                                                        
                                                         timeAggregation: 'Total'
@@ -340,18 +323,13 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
                                                 }
-                                                autoMitigate: {
-                                                    value: '[parameters(\'autoMitigate\')]'
-                                                }
                                                 alertSensitivity: {
                                                     value: '[parameters(\'alertSensitivity\')]'
                                                 }
-                                                minfailingperiodsToAlert: {
-                                                    value: '[parameters(\'minfailingperiodsToAlert\')]'
+                                                autoMitigate: {
+                                                    value: '[parameters(\'autoMitigate\')]'
                                                 }
-                                                numberOfEvaluationPeriods: {
-                                                    value: '[parameters(\'numberOfEvaluationPeriods\')]'
-                                                }
+                                          
                                                 enabled: {
                                                     value: '[parameters(\'enabled\')]'
                                                 }
@@ -377,186 +355,12 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
                                 }
-                                autoMitigate: {
-                                    value: '[parameters(\'autoMitigate\')]'
-                                }
                                 alertSensitivity: {
                                     value: '[parameters(\'alertSensitivity\')]'
                                 }
-                                minfailingperiodsToAlert: {
-                                    value: '[parameters(\'minfailingperiodsToAlert\')]'
+                                autoMitigate: {
+                                    value: '[parameters(\'autoMitigate\')]'
                                 }
-                                numberOfEvaluationPeriods: {
-                                    value: '[parameters(\'numberOfEvaluationPeriods\')]'
-                                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 enabled: {
                                     value: '[parameters(\'enabled\')]'
                                 }
