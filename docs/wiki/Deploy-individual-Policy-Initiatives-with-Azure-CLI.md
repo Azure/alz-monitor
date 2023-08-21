@@ -6,7 +6,7 @@ When you deploy one initiative, like Service Health, you will only need the base
 ### High level deployment steps:
 - Deploy baseline monitoring Policy Definitions. You can choose between 2 options:
     - Deploy all the baseline monitoring Policy Definitions provided in this repository. This is recommended when you want to deploy other baseline monitoring Initiatives in the future.
-    - Deploy only the baseline monitoring Policy Definitions that are required by the Initiative. Consult the documentation [Azure Policy Initiatives](./PolicyInitiatives) to find the required baseline monitoring Policy Definitions for each of the Initiatives. For example, the following baseline monitoring Policy Definitions are required for the Service Health initiative:
+    - Deploy only the baseline monitoring Policy Definitions that are required by the Initiative. Consult the documentation [Azure Policy Initiatives](./PolicyInitiatives.md) to find the required baseline monitoring Policy Definitions for each of the Initiatives. For example, the following baseline monitoring Policy Definitions are required for the Service Health initiative:
         - [deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep ](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ResourceHealth-UnHealthly-alert.bicep)
         - [deploy-activitylog-ServiceHealth-Health.bicep](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Health.bicep)
         - [deploy-activitylog-ServiceHealth-Incident.bicep](../blob/main/src/resources/Microsoft.Authorization/policyDefinitions/deploy-activitylog-ServiceHealth-Incident.bicep)
@@ -97,7 +97,7 @@ Run the following commands.
 Using either a PowerShell prompt or Azure CLI, if you closed your previous session, navigate again to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and initiatives.
 
 > There can be some delay between policies getting created and being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
-> This should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](./Customize-Policy-Assignment), to deploy and enable alerts in a controlled manner.
+> This should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](./Customize-Policy-Assignment.md), to deploy and enable alerts in a controlled manner.
 
 If you want to deploy all baseline monitoring Policy Definitions provided in this repository (_this includes Policy Definitions for the other Initiatives_), run the following command:
 
@@ -129,4 +129,4 @@ Run the following commands to deploy and to assign the Service Health initiative
 ```
 
 # Next steps
-- To remediate non-compliant policies, please proceed with [Policy remediation](./Policy-remediation)
+- To remediate non-compliant policies, please proceed with [Policy remediation](./Policy-remediation.md)

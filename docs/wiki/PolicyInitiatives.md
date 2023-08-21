@@ -2,11 +2,11 @@
 
 ## Overview
 
-This document details the ALZ-Monitor Azure policy initiatives leveraged for deploying the ALZ-Monitor baselines. For references on individual alerts/policies please refer to [Alert Details](https://github.com/Azure/alz-monitor/wiki/AlertsDetails).
+This document details the ALZ-Monitor Azure policy initiatives leveraged for deploying the ALZ-Monitor baselines. For references on individual alerts/policies please refer to [Alert Details](https://github.com/Azure/alz-monitor/docs/wiki/AlertsDetails.md).
 
 ## Connectivity initiative
 
-This initiative is intended for assignment of policies relevant to networking components in ALZ. With the guidance provided in  [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor), this will assign to the alz-platform-connectivity management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
+This initiative is intended for assignment of policies relevant to networking components in ALZ. With the guidance provided in  [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor.md), this will assign to the alz-platform-connectivity management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
 
 | **Policy Name** | **Path to policy json file** | **Policy default effect** |
 |----------|----------|----------|
@@ -51,7 +51,7 @@ This initiative is intended for assignment of policies relevant to networking co
 
 ## Management initiative
 
-This initiative is intended for assignment of policies relevant to management components in ALZ. With the guidance provided in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor), this will assign to the alz-platform-management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table. 
+This initiative is intended for assignment of policies relevant to management components in ALZ. With the guidance provided in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor.md), this will assign to the alz-platform-management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table. 
 
 | **Policy Name** | **Path to policy json file** | **Policy default effect** |
 |----------|----------|----------|
@@ -63,7 +63,7 @@ This initiative is intended for assignment of policies relevant to management co
 
 ## Identity initiative
 
-This initiative is intended for assignment of policies relevant to identity components in ALZ. With the guidance provided in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor), this will assign to the alz-platform-identity management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table. 
+This initiative is intended for assignment of policies relevant to identity components in ALZ. With the guidance provided in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor.md), this will assign to the alz-platform-identity management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table. 
 
 | **Policy Name** | **Path to policy json file** | **Policy default effect** |
 |----------|----------|----------|
@@ -75,7 +75,7 @@ This initiative is intended for assignment of policies relevant to identity comp
 
 ## Landing Zone initiative
 
-This initiative is intended for assignment of policies relevant to a landing zone in the ALZ structure. With the guidance provided in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor) this will be assigned to the Landing Zones management group in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
+This initiative is intended for assignment of policies relevant to a landing zone in the ALZ structure. With the guidance provided in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor.md) this will be assigned to the Landing Zones management group in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
 
 | **Policy Name** | **Path to policy json file** | **Policy default effect** |
 |----------|----------|----------|
@@ -107,7 +107,7 @@ This initiative is intended for assignment of policies relevant to a landing zon
 
 ## Service Health initiative
 
-This initiative is intended for assignment of policies relevant to service health alerts in ALZ. With the guidance provided in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor), this will assign to the alz intermediate root management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
+This initiative is intended for assignment of policies relevant to service health alerts in ALZ. With the guidance provided in [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor.md), this will assign to the alz intermediate root management group structure in the ALZ reference architecture. For details on which policies are included in the initiative as well as what the default enablement state of the policy is, please refer to the below table.
 
 | **Policy Name** | **Path to policy json file** | **Policy default effect** |
 |----------|----------|----------|

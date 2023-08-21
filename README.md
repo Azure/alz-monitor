@@ -36,11 +36,11 @@ Monitoring baselines for the above components are proposed to be deployed levera
 
 In addition to the component specific alerts mentioned above the repo also contains policies for deploying service health alerts by subscription. 
 
-Alerts are based on Microsoft public guidance where available, and on practical application experience where public guidance is not available. For more details on which alerts are included please refer to [Alert Details](https://github.com/Azure/alz-monitor/wiki/AlertsDetails). 
+Alerts are based on Microsoft public guidance where available, and on practical application experience where public guidance is not available. For more details on which alerts are included please refer to [Alert Details](https://github.com/Azure/alz-monitor/docs/wiki/AlertsDetails.md). 
 
-For details on how policies are grouped into initiatives please refer to [Azure Policy Initiatives](https://github.com/Azure/alz-monitor/wiki/AzurePolicyInitiatives)
+For details on how policies are grouped into initiatives please refer to [Azure Policy Initiatives](https://github.com/Azure/alz-monitor/docs/wiki/AzurePolicyInitiatives.md)
 
-In addition to the above of course the alerts need to go somewhere. To that end a generic action group and alert processing rule is deployed to every subscription in scope, also via policy. For more details around this, as well as the reasoning behind this approach please refer to [Monitoring and Alerting in ALZ](../../wiki/Monitoring-and-Alerting-in-ALZ).
+In addition to the above of course the alerts need to go somewhere. To that end a generic action group and alert processing rule is deployed to every subscription in scope, also via policy. For more details around this, as well as the reasoning behind this approach please refer to [Monitoring and Alerting in ALZ](../../wiki/Monitoring-and-Alerting-in-ALZ.md).
 
 ## 📣Feedback 📣
 
@@ -50,19 +50,19 @@ If you have encountered an issue with Azure Baseline Alerts for ALZ, please see 
 
 ## Deployment Guide
 
-We have a [Deployment Guide](../../wiki/Introduction-to-deploying-ALZ-Monitor) available for guidance on how to consume the contents of this repo.
+We have a [Deployment Guide](../../wiki/Introduction-to-deploying-ALZ-Monitor.md) available for guidance on how to consume the contents of this repo.
 
 ## Wiki
 
-Please see the content in the [wiki](https://github.com/Azure/alz-monitor/wiki) for more detailed information about the repo and various other pieces of documentation.
+Please see the content in the [wiki](https://github.com/Azure/alz-monitor/docs/wiki) for more detailed information about the repo and various other pieces of documentation.
 
 ## Known Issues
 
-Please see the [Known Issues](https://github.com/Azure/alz-monitor/wiki/KnownIssues) in the wiki.
+Please see the [Known Issues](https://github.com/Azure/alz-monitor/docs/wiki/KnownIssues.md) in the wiki.
 
 ## Frequently Asked Questions
 
-Please see the [Frequently Asked Questions](https://github.com/Azure/alz-monitor/wiki/FAQ) in the wiki.
+Please see the [Frequently Asked Questions](https://github.com/Azure/alz-monitor/docs/wiki/FAQ.md) in the wiki.
 
 ## Dependencies
 
@@ -84,13 +84,13 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-> Details on contributing to this repo can be found [here in the wiki](https://github.com/azure/alz-monitor/wiki/Contributing)
+> Details on contributing to this repo can be found [here in the wiki](https://github.com/azure/alz-monitor/docs/wiki/Contributing.md)
 
 ## Telemetry
 
 When you deploy the IP located in this repo, Microsoft can identify the installation of said IP with the deployed Azure resources. Microsoft can correlate these resources used to support the software. Microsoft collects this information to provide the best experiences with their products and to operate their business. The telemetry is collected through customer usage attribution. The data is collected and governed by [Microsoft's privacy policies](https://www.microsoft.com/trustcenter).
 
-If you don't wish to send usage data to Microsoft, or need to understand more about its' use details can be found [here](https://github.com/azure/alz-monitor/wiki/Telemetry).
+If you don't wish to send usage data to Microsoft, or need to understand more about its' use details can be found [here](https://github.com/azure/alz-monitor/docs/wiki/Telemetry.md).
 
 ## Trademarks
 

@@ -11,7 +11,7 @@
 
 ## Why are the availability alert thresholds lower than 100% in this solution when the product group documention recommends 100%?
 
-*Setting a threshold of 100% can, on occasion, cause erroneous alerts that generate un-necessary noise. Lowering the threshold slightly below 100% addresses this issue while still providing an alert for a service's availability. If the default threshold isn't aggressive enough we encourage you to adjust it upwards and/or provide us feedback by filing an issue in our GitHub repo, guidance can be found on our [Support page](../../SUPPORT.md##support).*
+*Setting a threshold of 100% can, on occasion, cause erroneous alerts that generate un-necessary noise. Lowering the threshold slightly below 100% addresses this issue while still providing an alert for a service's availability. If the default threshold isn't aggressive enough we encourage you to adjust it upwards and/or provide us feedback by filing an issue in our GitHub repo, guidance can be found on our [Support page](../../SUPPORT.md#support).*
 
 ## Do I need to use these metrics or can they be replaced with ones more suited to my environment?
 
@@ -19,7 +19,7 @@
 
 ## Can I disable the alerts being deployed for a resource or subscription? 
 
-*Yes, please refer to the disabling monitoring section in the [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor#disabling-monitoring)*
+*Yes, please refer to the disabling monitoring section in the [Introduction to deploying ALZ-Monitor](./Introduction-to-deploying-ALZ-Monitor.md#disabling-monitoring)*
 
 ## How much does it cost to run the ALZ Baseline solution?
 

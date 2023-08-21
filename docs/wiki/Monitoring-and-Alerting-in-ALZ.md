@@ -38,11 +38,11 @@ ALZ Alerts, Action Groups and Alert Processing Rules are deployed using Azure Po
 
 The following policy definition categories will be enabled as part of ALZ deployments for the hubs and landing zones defined by Azure landing zone:
 
-- Resource Metrics; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#metric-alert-settings) for details on which resource metrics are included.
-- Service and Resource Health; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#activity-log-alerts) for details on which alerts are included.
-- Activity Logs; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#activity-log-administrative) for details on which alerts are included.
-- VM Insights Log Alerts; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#vm-insights-log-alerts) for details on which alerts are included.
-- Recovery Vault Alerts; See [here](https://github.com/Azure/alz-monitor/wiki/AlertsDetails#recovery-vault-alerts) for details on which alerts are included.
+- Resource Metrics; See [here](https://github.com/Azure/alz-monitor/docs/wiki/AlertsDetails.md#metric-alert-settings) for details on which resource metrics are included.
+- Service and Resource Health; See [here](https://github.com/Azure/alz-monitor/docs/wiki/AlertsDetails.md#activity-log-alerts) for details on which alerts are included.
+- Activity Logs; See [here](https://github.com/Azure/alz-monitor/docs/wiki/AlertsDetails.md#activity-log-administrative) for details on which alerts are included.
+- VM Insights Log Alerts; See [here](https://github.com/Azure/alz-monitor/docs/wiki/AlertsDetails.md#vm-insights-log-alerts) for details on which alerts are included.
+- Recovery Vault Alerts; See [here](https://github.com/Azure/alz-monitor/docs/wiki/AlertsDetails.md#recovery-vault-alerts) for details on which alerts are included.
 
 #### Resource Metrics
 

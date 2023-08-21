@@ -2,7 +2,7 @@
 
 This guide describes how to get started with implementing alert policies and initiatives in your environment for testing and validation. In the guide it is assumed that you will be using GitHub actions or manual deployment to implement policies, initiatives and policy assignments in your environment. 
 
-> Note that this is a preview solution intended to solicitate feedback for further development which should be tested in a safe environment before deploying to production to protect against possible failures/unnecessary cost. 
+> Note that this is a preview solution intended to solicit feedback for further development which should be tested in a safe environment before deploying to production to protect against possible failures/unnecessary cost. 
 > Also note that this private repo is shared with different select Microsoft customers and partners, as such you should never upload or otherwise divulge sensitive information to this repo. If there is any concern, please contact your Microsoft counterparts for detailed advice.
 
 The repo at present contains code and details for the following:
@@ -39,10 +39,10 @@ _*While it´s recommended to implement the alert policies and initiatives to an 
 - Fork this repo to your own GitHub organization, you should not create a direct clone of the repo. Pull requests based off direct clones of the repo will not be allowed.
 - Clone the repo from your own GitHub organization to your developer workstation.
 - Review your current configuration to determine what scenario applies to you. We have guidance that will help deploy these policies and initiatives whether you are aligned with Azure Landing Zones, or use other management group hierarchy, or you may not be using management groups at all. If you know your type of management group hierarchy, you can skip forward to your preferred deployment method:
-  - [Automated deployment with GitHub Actions](./Deploy-with-GitHub-Actions) (recommended method)
-  - [Automated deployment with Azure Pipelines](./Deploy-with-Azure-Pipelines) (alternative recommended method)
-  - [Manual deployment with Azure CLI ](./Deploy-with-Azure-CLI)
-  - [Manual deployment with Azure PowerShell](./Deploy-with-Azure-PowerShell)
+  - [Automated deployment with GitHub Actions](./Deploy-with-GitHub-Actions.md) (recommended method)
+  - [Automated deployment with Azure Pipelines](./Deploy-with-Azure-Pipelines.md) (alternative recommended method)
+  - [Manual deployment with Azure CLI ](./Deploy-with-Azure-CLI.md)
+  - [Manual deployment with Azure PowerShell](./Deploy-with-Azure-PowerShell.md)
 
 ### Determining your management group hierarchy
 
@@ -69,10 +69,10 @@ The other monitoring initiatives are each assigned at specific platform landing 
 Click [here](../raw/main/media/AMBA-Diagramsv2.vsdx) if you'd like to download this Visio diagram.
 
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
-* [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
-* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
-* [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
-* [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)
+* [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions.md)
+* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines.md)
+* [Deploy with Azure CLI](./Deploy-with-Azure-CLI.md)
+* [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell.md)
 
 It´s important to understand why we assign initiatives to certain management groups. In the previous example, the assignment mapping was done this way because the associated resources within a subscription below a management group have a specific purpose. For example, below the Connectivity management group you will find a subscription that contains the networking components like Firewalls, Virtual WAN, Hub Networks, etc. Consequently, this is where we assign the connectivity initiative to get relevant alerting on those services. It wouldn't make sense to assign the connectivity initiative to other management groups when there are no relevant networking services deployed.
 
@@ -98,20 +98,20 @@ The image below is an example of how the assignments could look like when the ma
 We recommend that you review the [initiative definitions](https://github.com/Azure/alz-monitor/tree/main/src/resources/Microsoft.Authorization/policySetDefinitions) to determine where best to apply the initiatives in your management group hierarchy.
 
 If you have this management group hierarchy, you can skip forward to your preferred deployment method:
-* [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
-* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
-* [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
-* [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)
+* [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions.md)
+* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines.md)
+* [Deploy with Azure CLI](./Deploy-with-Azure-CLI.md)
+* [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell.md)
 
 If management groups were never configured in your environment, there are some additional steps that need to be implemented. To be able to deploy the policies and initiatives through the guidance and code we provide you need to create at least one management group, and by doing so the tenant root management group is created automatically. We strongly recommend following the [Azure Landing Zones guidance](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups) on management group design. 
 
 Please refer to our [documentation](https://learn.microsoft.com/en-us/azure/governance/management-groups/create-management-group-portal ) on how to create management groups. 
 
 If you implemented the recommended management group design, you can skip forward to your preferred deployment method, following the ALZ aligned guidance.
-* [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
-* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
-* [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
-* [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell) 
+* [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions.md)
+* [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines.md)
+* [Deploy with Azure CLI](./Deploy-with-Azure-CLI.md)
+* [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell.md) 
 
 If you implemented a single management group, we recommend to move your production subscriptions into that management group, consult the steps in the [documentation](https://learn.microsoft.com/en-us/azure/governance/management-groups/manage#add-an-existing-subscription-to-a-management-group-in-the-portal) for guidance to add the subscriptions.
 > To prevent unnecessary alerts, we recommend keeping development, sandbox, and other non-production subscriptions either in a different management group or below the tenant root group.
@@ -122,7 +122,7 @@ The image below is an example of how the assignments look like when you are usin
 
 ## Customizing policy assignments
 
-As mentioned previously the above guidance will deploy policies, alerts and action groups with default settings. For details on how to customize policy and in particular initiative assignments please refer to [Customize Policy Assignment](./Customize-Policy-Assignment)
+As mentioned previously the above guidance will deploy policies, alerts and action groups with default settings. For details on how to customize policy and in particular initiative assignments please refer to [Customize Policy Assignment](./Customize-Policy-Assignment.md)
 
 ## Customizing the `ALZ-Monitor` policies
 
@@ -144,13 +144,13 @@ If you wish to disable monitoring for a resource or for alerts targeted at subsc
 
 ## Cleaning up an ALZ Monitor Deployment
 
-In some scenarios, it may be necessary to remove everything deployed by the ALZ Monitor solution. If you want to clean up all resources deployed, please refer to the instructions on running the [Cleaning up an ALZ Monitor Deployment](./Cleaning-up-an-ALZ-Monitor-Deployment).
+In some scenarios, it may be necessary to remove everything deployed by the ALZ Monitor solution. If you want to clean up all resources deployed, please refer to the instructions on running the [Cleaning up an ALZ Monitor Deployment](./Cleaning-up-an-ALZ-Monitor-Deployment.md).
 
 # Next steps
-- To customize policy assignments, please proceed with [Customize Policy Assignment](./Customize-Policy-Assignment)
-- To deploy with GitHub Actions, please proceed with [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions)
-- To deploy with Azure DevOps Pipelines, please proceed with [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines)
-- To deploy with Azure CLI, please proceed with [Deploy with Azure CLI](./Deploy-with-Azure-CLI)
-- To deploy with Azure PowerShell, please proceed with [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell)
-- To deploy Service Health or another Policy Initiative (individually) with Azure CLI, please proceed with [Deploy individual Policy Initiatives with Azure CLI](./Deploy-individual-Policy-Initiatives-with-Azure-CLI)
-- To deploy Service Health or another Policy Initiative (individually) with PowerShell, please proceed with [Deploy individual Policy Initiatives with Azure PowerShell](./Deploy-individual-Policy-Initiatives-with-Azure-PowerShell)
+- To customize policy assignments, please proceed with [Customize Policy Assignment](./Customize-Policy-Assignment.md)
+- To deploy with GitHub Actions, please proceed with [Deploy with GitHub Actions](./Deploy-with-GitHub-Actions.md)
+- To deploy with Azure DevOps Pipelines, please proceed with [Deploy with Azure Pipelines](./Deploy-with-Azure-Pipelines.md)
+- To deploy with Azure CLI, please proceed with [Deploy with Azure CLI](./Deploy-with-Azure-CLI.md)
+- To deploy with Azure PowerShell, please proceed with [Deploy with Azure PowerShell](./Deploy-with-Azure-PowerShell.md)
+- To deploy Service Health or another Policy Initiative (individually) with Azure CLI, please proceed with [Deploy individual Policy Initiatives with Azure CLI](./Deploy-individual-Policy-Initiatives-with-Azure-CLI.md)
+- To deploy Service Health or another Policy Initiative (individually) with PowerShell, please proceed with [Deploy individual Policy Initiatives with Azure PowerShell](./Deploy-individual-Policy-Initiatives-with-Azure-PowerShell.md)

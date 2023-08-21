@@ -109,7 +109,7 @@ Using your preferred command line tool (Windows PowerShell, Cmd, Bash or other U
 Run only the commands that correspond to your management group hierarchy. 
 
 > There can be some delay between policies getting created and being available to be included in initiatives, as well as some delay for initiatives to be created and being able to be assigned, so allow for some delay between these different deployment actions.
-> This should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](./Customize-Policy-Assignment), to deploy and enable alerts in a controlled manner.
+> This should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](./Customize-Policy-Assignment.md), to deploy and enable alerts in a controlled manner.
 
 ```bash
   #Deploy policy definitions
@@ -131,4 +131,4 @@ Run only the commands that correspond to your management group hierarchy.
 ```
 
 # Next steps
-- To remediate non-compliant policies, please proceed with [Policy remediation](./Policy-remediation)
+- To remediate non-compliant policies, please proceed with [Policy remediation](./Policy-Remediation.md)

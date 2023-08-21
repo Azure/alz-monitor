@@ -100,4 +100,4 @@ To deploy through GitHub actions, please refer to the [sample GitHub workflow](.
 > *IMPORTANT:* Above-mentioned "ManagementGroupPrefix" variable value, being the so called "pseudo root management group id", should _coincide_ with the value of the "parPolicyPseudoRootMgmtGroup" parameter, as set previously within the parameter files.
 
 # Next steps
-- To remediate non-compliant policies, please proceed with [Policy remediation](./Policy-remediation)
+- To remediate non-compliant policies, please proceed with [Policy remediation](./Policy-Remediation.md)
