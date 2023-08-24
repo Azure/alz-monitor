@@ -39,6 +39,14 @@ param parWindowSize string = 'PT5M'
 param parEvaluationFrequency string = 'PT1M'
 
 @allowed([
+    'Low'
+    'Medium'
+    'High'
+])
+
+param parAlertSensitivity string = 'Medium'
+
+@allowed([
     'deployIfNotExists'
     'disabled'
 ])
@@ -48,16 +56,16 @@ param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '90'
+
 
 param parMonitorDisable string = 'MonitorDisable'
 
-module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-albHealthProbeStatus-policyDefinitions'
+module ApplicationGatewayTotalTime '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-AGApplicationGatewayTotalTime-policyDefinitions'
     params: {
-        name: 'Deploy_ALB_HealthProbeStatus_Alert'
-        displayName: '[DINE] Deploy ALB Health Probe Status Alert'
-        description: 'DINE policy to audit/deploy Azure Load Balancer Health Probe Status Alert'
+        name: 'Deploy_AG_ApplicationGatewayTotalTime_Alert'
+        displayName: '[DINE] Deploy AG ApplicationGatewayTotalTime Alert'
+        description: 'DINE policy to audit/deploy Azure Application Gateway ApplicationGatewayTotalTime Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
@@ -114,6 +122,20 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 ]
                 defaultValue: parEvaluationFrequency
             }
+            alertSensitivity: {
+                type: 'String'
+                metadata: {
+                    displayName: 'Alert Sensitivity'
+                    description: 'Alert Sensitivity for the alert'
+                }
+                allowedValues: [
+                    'Low'
+                    'Medium'
+                    'High'
+                       ]
+                defaultValue: parAlertSensitivity
+            }
+
             autoMitigate: {
                 type: 'String'
                 metadata: {
@@ -138,14 +160,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 ]
                 defaultValue: parAlertState
             }
-            threshold: {
-                type: 'String'
-                metadata: {
-                    displayName: 'Threshold'
-                    description: 'Threshold for the alert'
-                }
-                defaultValue: parThreshold
-            }
+
             effect: {
                 type: 'String'
                 metadata: {
@@ -173,19 +188,16 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Network/loadBalancers'
+                        equals: 'Microsoft.Network/applicationgateways'
                     }
                     {
-                        field: 'Microsoft.Network/loadBalancers/sku.name'
-                        in: [
-                            'Standard'
-                            'Gateway'
+                        field: 'Microsoft.Network/applicationgateways/sku.name'
+                        In : [
+                            'Standard_v2'
+                            'WAF_v2'
                         ]
                     }
-                    {
-                        field: 'Microsoft.Network/loadBalancers/sku.tier'
-                        equals: 'Regional'
-                    }
+           
                     {
                         field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
                         notEquals: 'true'
@@ -201,15 +213,15 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.Network/loadBalancers'
+                                equals: 'Microsoft.Network/applicationgateways'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'DipAvailability'
+                                equals: 'ApplicationGatewayTotalTime'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/loadBalancers/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/applicationgateways/\', field(\'fullName\'))]'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/enabled'
@@ -247,28 +259,30 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     evaluationFrequency: {
                                         type: 'String'
                                     }
+                                    alertSensitivity: {
+                                        type: 'String'
+                                    }
+                               
                                     autoMitigate: {
                                         type: 'String'
                                     }
                                     enabled: {
                                         type: 'String'
                                     }
-                                    threshold: {
-                                        type: 'String'
-                                    }
+                      
                                 }
                                 variables: {}
                                 resources: [
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-ALBHealthProbeStatus\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-agApplicationGatewayTotalTime\')]'
                                         location: 'global'
                                         tags: {
                                             _deployed_by_alz_monitor: true
                                         }
                                         properties: {
-                                            description: 'Metric Alert for ALB Health Probe Status'
+                                            description: 'Metric Alert for App Gateway ApplicationGatewayTotalTime'
                                             severity: '[parameters(\'severity\')]'
                                             enabled: '[parameters(\'enabled\')]'
                                             scopes: [
@@ -279,16 +293,21 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'DipAvailability'
-                                                        metricNamespace: 'Microsoft.Network/loadBalancers'
-                                                        metricName: 'DipAvailability'
-                                                        operator: 'LessThan'
-                                                        threshold: '[parameters(\'threshold\')]'
-                                                        timeAggregation: 'Average'
-                                                        criterionType: 'StaticThresholdCriterion'
+                                                        name: 'ApplicationGatewayTotalTime'
+                                                        metricNamespace: 'Microsoft.Network/applicationgateways'
+                                                        metricName: 'ApplicationGatewayTotalTime'
+                                                        operator: 'GreaterThan'
+                                                        alertSensitivity: '[parameters(\'alertSensitivity\')]'
+                                                        failingPeriods: {
+                                                            minFailingPeriodsToAlert: 2
+                                                            numberOfEvaluationPeriods: 2
+                                                        }
+                                                       
+                                                        timeAggregation: 'Total'                                                    
+                                                        criterionType: 'DynamicThresholdCriterion'
                                                     }
                                                 ]
-                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                                'odata.type': 'Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria'
                                             }
                                             autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {
@@ -301,15 +320,17 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                                 evaluationFrequency: {
                                                     value: '[parameters(\'evaluationFrequency\')]'
                                                 }
+                                                alertSensitivity: {
+                                                    value: '[parameters(\'alertSensitivity\')]'
+                                                }
                                                 autoMitigate: {
                                                     value: '[parameters(\'autoMitigate\')]'
                                                 }
+                                          
                                                 enabled: {
                                                     value: '[parameters(\'enabled\')]'
                                                 }
-                                                threshold: {
-                                                    value: '[parameters(\'threshold\')]'
-                                                }
+                                           
                                             }
                                         }
                                     }
@@ -331,15 +352,16 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                 evaluationFrequency: {
                                     value: '[parameters(\'evaluationFrequency\')]'
                                 }
+                                alertSensitivity: {
+                                    value: '[parameters(\'alertSensitivity\')]'
+                                }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
                                 }
                                 enabled: {
                                     value: '[parameters(\'enabled\')]'
                                 }
-                                threshold: {
-                                    value: '[parameters(\'threshold\')]'
-                                }
+                           
                             }
                         }
                     }

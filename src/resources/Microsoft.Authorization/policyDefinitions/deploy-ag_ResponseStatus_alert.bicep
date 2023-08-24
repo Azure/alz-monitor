@@ -60,7 +60,7 @@ param parAlertState string = 'true'
 
 param parMonitorDisable string = 'MonitorDisable'
 
-module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+module AGResponseStatusAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
     name: '${uniqueString(deployment().name)}-AGResponseStatus-policyDefinitions'
     params: {
         name: 'Deploy_AG_ResponseStatus_Alert'
@@ -310,7 +310,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                                         criterionType: 'DynamicThresholdCriterion'
                                                     }
                                                 ]
-                                                'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+                                                'odata.type': 'Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria'
                                             }
                                             autoMitigate: '[parameters(\'autoMitigate\')]'
                                             parameters: {

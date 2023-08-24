@@ -52,8 +52,8 @@ param parThreshold string = '1'
 
 param parMonitorDisable string = 'MonitorDisable' 
 
-module ErgExpressRouteBitsInAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-erpergbin-policyDefinitions'
+module ErpExpressRouteBitsInAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-erpbin-policyDefinitions'
     params: {
         name: 'Deploy_ERP_ExpressRouteBitsIn_Alert'
         displayName: '[DINE] Deploy ER Direct ExpressRoute Bits In Alert'
@@ -196,7 +196,7 @@ module ErgExpressRouteBitsInAlert '../../arm/Microsoft.Authorization/policyDefin
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'ERDirectConnectionBitsInPerSecond'
+                                equals: 'PortBitsInPerSecond'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
@@ -270,9 +270,9 @@ module ErgExpressRouteBitsInAlert '../../arm/Microsoft.Authorization/policyDefin
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'ERDirectConnectionBitsInPerSecond'
+                                                        name: 'PortBitsInPerSecond'
                                                         metricNamespace: 'Microsoft.Network/expressRoutePorts'
-                                                        metricName: 'ERDirectConnectionBitsInPerSecond'
+                                                        metricName: 'PortBitsInPerSecond'
                                                         operator: 'LessThan'
                                                         threshold: '[parameters(\'threshold\')]'
                                                         timeAggregation: 'Average'

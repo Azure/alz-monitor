@@ -15,7 +15,7 @@ param deploymentRoleDefinitionIds array = [
     '3'
     '4'
 ])
-param parAlertSeverity string = '2'
+param parAlertSeverity string = '1'
 
 @allowed([
     'PT1M'
@@ -36,28 +36,28 @@ param parWindowSize string = 'PT5M'
     'PT30M'
     'PT1H'
 ])
-param parEvaluationFrequency string = 'PT1M'
+param parEvaluationFrequency string = 'PT5M'
 
 @allowed([
     'deployIfNotExists'
     'disabled'
 ])
-param parPolicyEffect string = 'deployIfNotExists'
+param parPolicyEffect string = 'disabled'
 
 param parAutoMitigate string = 'true'
 
 param parAlertState string = 'true'
 
-param parThreshold string = '90'
+param parThreshold string = '-10'
 
-param parMonitorDisable string = 'MonitorDisable'
+param parMonitorDisable string = 'MonitorDisable' 
 
-module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
-    name: '${uniqueString(deployment().name)}-albHealthProbeStatus-policyDefinitions'
+module ErpExpressRouteRxLightLevelLowAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
+    name: '${uniqueString(deployment().name)}-erprrxlhl-policyDefinitions'
     params: {
-        name: 'Deploy_ALB_HealthProbeStatus_Alert'
-        displayName: '[DINE] Deploy ALB Health Probe Status Alert'
-        description: 'DINE policy to audit/deploy Azure Load Balancer Health Probe Status Alert'
+        name: 'Deploy_ERP_ExpressRoutRxLightLevellow_Alert'
+        displayName: '[DINE] Deploy ER Direct ExpressRoute RxLightLevel Low Alert'
+        description: 'DINE policy to audit/deploy ER Direct RxLightLevel Low Alert'
         location: policyLocation
         metadata: {
             version: '1.0.1'
@@ -167,24 +167,15 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
           
                 defaultValue: parMonitorDisable
             }
+
+
         }
         policyRule: {
             if: {
                 allOf: [
                     {
                         field: 'type'
-                        equals: 'Microsoft.Network/loadBalancers'
-                    }
-                    {
-                        field: 'Microsoft.Network/loadBalancers/sku.name'
-                        in: [
-                            'Standard'
-                            'Gateway'
-                        ]
-                    }
-                    {
-                        field: 'Microsoft.Network/loadBalancers/sku.tier'
-                        equals: 'Regional'
+                        equals: 'Microsoft.Network/expressRoutePorts'
                     }
                     {
                         field: '[concat(\'tags[\', parameters(\'MonitorDisable\'), \']\')]'
@@ -201,15 +192,19 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                         allOf: [
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricNamespace'
-                                equals: 'Microsoft.Network/loadBalancers'
+                                equals: 'Microsoft.Network/expressRoutePorts'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].metricName'
-                                equals: 'DipAvailability'
+                                equals: 'RxLightLevel'
+                            }
+                            {
+                                field: 'Microsoft.Insights/metricAlerts/criteria.Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria.allOf[*].StaticThresholdCriterion.operator'
+                                equals: 'LessThan'
                             }
                             {
                                 field: 'Microsoft.Insights/metricalerts/scopes[*]'
-                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/loadBalancers/\', field(\'fullName\'))]'
+                                equals: '[concat(subscription().id, \'/resourceGroups/\', resourceGroup().name, \'/providers/Microsoft.Network/expressRoutePorts/\', field(\'fullName\'))]'
                             }
                             {
                                 field: 'Microsoft.Insights/metricAlerts/enabled'
@@ -262,13 +257,13 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                     {
                                         type: 'Microsoft.Insights/metricAlerts'
                                         apiVersion: '2018-03-01'
-                                        name: '[concat(parameters(\'resourceName\'), \'-ALBHealthProbeStatus\')]'
+                                        name: '[concat(parameters(\'resourceName\'), \'-DirectERRxLightLevelLowAlert\')]'
                                         location: 'global'
                                         tags: {
                                             _deployed_by_alz_monitor: true
                                         }
                                         properties: {
-                                            description: 'Metric Alert for ALB Health Probe Status'
+                                            description: 'Metric Alert for ER Direct Connection RxLightLevelLow'
                                             severity: '[parameters(\'severity\')]'
                                             enabled: '[parameters(\'enabled\')]'
                                             scopes: [
@@ -279,9 +274,9 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                                             criteria: {
                                                 allOf: [
                                                     {
-                                                        name: 'DipAvailability'
-                                                        metricNamespace: 'Microsoft.Network/loadBalancers'
-                                                        metricName: 'DipAvailability'
+                                                        name: 'RxLightLevel'
+                                                        metricNamespace: 'Microsoft.Network/expressRoutePorts'
+                                                        metricName: 'RxLightLevel'
                                                         operator: 'LessThan'
                                                         threshold: '[parameters(\'threshold\')]'
                                                         timeAggregation: 'Average'

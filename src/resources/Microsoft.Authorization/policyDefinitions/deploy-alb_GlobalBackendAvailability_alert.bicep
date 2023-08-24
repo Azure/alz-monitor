@@ -176,7 +176,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                         equals: 'Microsoft.Network/loadBalancers'
                     }
                     {
-                        field: 'sku.tier'
+                        field: 'Microsoft.Network/loadBalancers/sku.tier'
                         equals: 'Global'
 
 

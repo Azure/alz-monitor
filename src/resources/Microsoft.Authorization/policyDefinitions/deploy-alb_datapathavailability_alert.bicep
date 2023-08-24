@@ -176,7 +176,7 @@ module FirewallHealthAlert '../../arm/Microsoft.Authorization/policyDefinitions/
                         equals: 'Microsoft.Network/loadBalancers'
                     }
                     {
-                        field: 'sku.name'
+                        field: 'Microsoft.Network/loadBalancers/sku.name'
                         in : [
                             'Standard'
                             'Gateway'
