@@ -275,7 +275,7 @@ module VMdataDiskWriteLatencyAlert '../../arm/Microsoft.Authorization/policyDefi
             failingPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Failing Periods'
+                    displayName: 'Failing Periods'
                     description: 'Number of failing periods before alert is fired'
                 }
                 defaultValue: parFailingPeriods
@@ -471,10 +471,10 @@ module VMdataDiskWriteLatencyAlert '../../arm/Microsoft.Authorization/policyDefi
                                                     {
                                                         type: 'Microsoft.Insights/scheduledQueryRules'
                                                         apiVersion: '2022-08-01-preview'
-                                                        name: '[concat(subscription().displayName, \'-VMHighdataDiskWriteLatencyAlert\')]'
+                                                        name: '[concat(subscription().displayName, \'-VMLowdataDiskWriteLatencyAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMHighdataDiskWriteLatencyAlert\')]'
+                                                            displayName: '[concat(subscription().displayName, \'-VMLowdataDiskWriteLatencyAlert\')]'
                                                             description: 'Log Alert for Virtual Machine dataDiskWriteLatency'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
