@@ -275,7 +275,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
             failingPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Failing Periods'
+                    displayName: 'Failing Periods'
                     description: 'Number of failing periods before alert is fired'
                 }
                 defaultValue: parFailingPeriods
@@ -283,7 +283,7 @@ module VMdataDiskSpaceAlert '../../arm/Microsoft.Authorization/policyDefinitions
             evaluationPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Evaluation Periods'
+                    displayName: 'Evaluation Periods'
                     description: 'The number of aggregated lookback points.'
                 }
                 defaultValue: parEvaluationPeriods
