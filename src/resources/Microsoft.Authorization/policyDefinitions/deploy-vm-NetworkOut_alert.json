@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.20.4.51522",
-      "templateHash": "12072352232458864347"
+      "version": "0.21.1.54444",
+      "templateHash": "16288455236174535978"
     }
   },
   "parameters": {
@@ -511,7 +511,7 @@
                                     "name": "[[concat(subscription().displayName, '-VMHighNetworkOutAlert')]",
                                     "location": "[[parameters('alertResourceGroupLocation')]",
                                     "properties": {
-                                      "displayName": "[[concat(subscription().displayName, '-VMHighNetworOutAlert')]",
+                                      "displayName": "[[concat(subscription().displayName, '-VMHighNetworkOutAlert')]",
                                       "description": "Log Alert for Virtual Machine NetworkOut",
                                       "severity": "[[parameters('severity')]",
                                       "enabled": "[[parameters('enabled')]",
@@ -685,8 +685,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.20.4.51522",
-              "templateHash": "5571108664737448614"
+              "version": "0.21.1.54444",
+              "templateHash": "1917808593565105724"
             }
           },
           "parameters": {
