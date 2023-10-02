@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "14066861156831514600"
+      "version": "0.20.4.51522",
+      "templateHash": "971890048275872132"
     }
   },
   "parameters": {
@@ -329,7 +329,7 @@
               "failingPeriods": {
                 "type": "String",
                 "metadata": {
-                  "disaplayname": "Failing Periods",
+                  "displayName": "Failing Periods",
                   "description": "Number of failing periods before alert is fired"
                 },
                 "defaultValue": "[parameters('parFailingPeriods')]"
@@ -508,10 +508,10 @@
                                   {
                                     "type": "Microsoft.Insights/scheduledQueryRules",
                                     "apiVersion": "2022-08-01-preview",
-                                    "name": "[[concat(subscription().displayName, '-VMHighdataDiskReadLatencyAlert')]",
+                                    "name": "[[concat(subscription().displayName, '-VMLowdataDiskReadLatencyAlert')]",
                                     "location": "[[parameters('alertResourceGroupLocation')]",
                                     "properties": {
-                                      "displayName": "[[concat(subscription().displayName, '-VMHighdataDiskReadLatencyAlert')]",
+                                      "displayName": "[[concat(subscription().displayName, '-VMLowdataDiskReadLatencyAlert')]",
                                       "description": "Log Alert for Virtual Machine dataDiskReadLatency",
                                       "severity": "[[parameters('severity')]",
                                       "enabled": "[[parameters('enabled')]",
@@ -685,8 +685,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.19.5.34762",
-              "templateHash": "15420579663502908010"
+              "version": "0.20.4.51522",
+              "templateHash": "5571108664737448614"
             }
           },
           "parameters": {

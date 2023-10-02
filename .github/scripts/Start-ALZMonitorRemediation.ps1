@@ -5,17 +5,17 @@ Depending on the result the script will either enumerate the policy set and trig
 
 Examples: 
   #Modify the following variables to match your environment
-  $managementGroupID = "The pseudo root management group id parenting the identity, management and connectivity management groups"
+  $pseudoRootManagementGroup  = "The pseudo root management group id parenting the identity, management and connectivity management groups"
   $identityManagementGroup = "The management group id for Identity"
   $managementManagementGroup = "The management group id for Management"
   $connectivityManagementGroup = "The management group id for Connectivity"
   $LZManagementGroup="The management group id for Landing Zones"
   #Run the following commands to initiate remediation
-  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $managementManagementGroup -policyName Alerting-Management
-  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $connectivityManagementGroup -policyName Alerting-Connectivity
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $pseudoRootManagementGroup -policyName Alerting-ServiceHealth
   .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $identityManagementGroup -policyName Alerting-Identity
-  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $LZManagementGroup -policyName Alerting-LandingZone
-  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $managementGroupId -policyName Alerting-ServiceHealth
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $connectivityManagementGroup -policyName Alerting-Connectivity
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $managementManagementGroup -policyName Alerting-Management
+  .github\scripts\Start-ALZMonitorRemediation.ps1 -managementGroupName $LZManagementGroup -policyName Alerting-LandingZone  
 #>
 
 Param(

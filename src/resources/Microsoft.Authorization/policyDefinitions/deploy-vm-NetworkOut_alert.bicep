@@ -87,7 +87,7 @@ param parComputersToInclude array = [
      
 ]
 
-param parNetworkInterfacetToInclude array = [
+param parNetworkInterfacesToInclude array = [
     '*'
 ]
 
@@ -287,7 +287,7 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
             computersToInclude:{
                 type: 'array'
                 metadata:{
-                    displayname:'Disks to be included to be monitored'
+                    displayname:'Computers to be included to be monitored'
                     description: 'Array of Computer to be monitored'
                 }
 
@@ -301,7 +301,7 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                     description: 'Array of Network Interface to be monitored'
                 }
 
-                defaultValue: parNetworkInterfacetToInclude
+                defaultValue: parNetworkInterfacesToInclude
 
             }
 
@@ -342,7 +342,7 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().displayName, \'-VMHighNetwrokInAlert\')]'
+                                equals: '[concat(subscription().displayName, \'-VMHighNetworkOutAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -422,7 +422,7 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         type:'array'
 
                                     }
-                                    networkInterfaceToInclude: {
+                                    networkInterfacesToInclude: {
                                         type:'array'
 
                                     }
@@ -469,7 +469,7 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                                         name: '[concat(subscription().displayName, \'-VMHighNetworkOutAlert\')]'
                                                         location: '[parameters(\'alertResourceGroupLocation\')]'
                                                         properties: {
-                                                            displayName: '[concat(subscription().displayName, \'-VMHighNetworOutAlert\')]'
+                                                            displayName: '[concat(subscription().displayName, \'-VMHighNetworkOutAlert\')]'
                                                             description: 'Log Alert for Virtual Machine NetworkOut'
                                                             severity: '[parameters(\'severity\')]'
                                                             enabled: '[parameters(\'enabled\')]'
