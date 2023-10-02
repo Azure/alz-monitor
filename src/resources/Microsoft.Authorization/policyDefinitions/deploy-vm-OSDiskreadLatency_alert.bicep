@@ -276,7 +276,7 @@ module VMOSDiskreadLatencyAlert '../../arm/Microsoft.Authorization/policyDefinit
             failingPeriods: {
                 type: 'String'
                 metadata:{
-                    disaplayname: 'Failing Periods'
+                    displayName: 'Failing Periods'
                     description: 'Number of failing periods before alert is fired'
                 }
                 defaultValue: parFailingPeriods

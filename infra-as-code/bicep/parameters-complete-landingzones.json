@@ -210,6 +210,495 @@
                 },
                 "activityUDRUpdateAlertState": {
                     "value": "true"
+                },
+                "VMHeartBeatRGAlertSeverity": {
+                    "value": "1"
+                },
+                "VMHeartBeatRGWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMHeartBeatRGEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMHeartBeatRGAutoMitigate": {
+                    "value": "true"
+                },
+                "VMHeartBeatRGAutoResolve": {
+                    "value": "true"
+                },
+                "VMHeartBeatRGAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMHeartBeatRGPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMHeartBeatRGAlertState": {
+                    "value": "true"
+                },
+                "VMHeartBeatRGThreshold": {
+                    "value": "10"
+                },
+                "VMHeartBeatRGOperator": {
+                    "value": "GreaterThan"
+                },
+                "VMHeartBeatRGTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMNetworkInAlertSeverity": {
+                    "value": "2"
+                },
+                "VMNetworkInWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMNetworkInEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMNetworkInAutoMitigate": {
+                    "value": "true"
+                },
+                "VMNetworkInAutoResolve": {
+                    "value": "true"
+                },
+                "VMNetworkInAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMNetworkInPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMNetworkInAlertState": {
+                    "value": "true"
+                },
+                "VMNetworkInThreshold": {
+                    "value": "10000000"
+                },
+                "VMNetworkInOperator": {
+                    "value": "GreaterThan"
+                },
+                "VMNetworkInTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMNetworkInEvaluationPeriods": {
+                    "value": "1"
+                },
+                "VMNetworkInFailingPeriods": {
+                    "value": "1"
+                },
+                "VMNetworkInComputersToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMNetworkInNetworkInterfaceToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMNetworkOutAlertSeverity": {
+                    "value": "2"
+                },
+                "VMNetworkOutWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMNetworkOutEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMNetworkOutAutoMitigate": {
+                    "value": "true"
+                },
+                "VMNetworkOutAutoResolve": {
+                    "value": "true"
+                },
+                "VMNetworkOutAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMNetworkOutPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMNetworkOutAlertState": {
+                    "value": "true"
+                },
+                "VMNetworkOutThreshold": {
+                    "value": "10000000"
+                },
+                "VMNetworkOutOperator": {
+                    "value": "GreaterThan"
+                },
+                "VMNetworkOutTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMNetworkOutEvaluationPeriods": {
+                    "value": "1"
+                },
+                "VMNetworkOutFailingPeriods": {
+                    "value": "1"
+                },
+                "VMNetworkOutComputersToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMNetworkOutNetworkInterfaceToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMOSDiskReadLatencyAlertSeverity": {
+                    "value": "2"
+                },
+                "VMOSDiskReadLatencyWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMOSDiskReadLatencyEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMOSDiskReadLatencyAutoMitigate": {
+                    "value": "true"
+                },
+                "VMOSDiskReadLatencyAutoResolve": {
+                    "value": "true"
+                },
+                "VMOSDiskReadLatencyAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMOSDiskReadLatencyPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMOSDiskReadLatencyAlertState": {
+                    "value": "true"
+                },
+                "VMOSDiskReadLatencyThreshold": {
+                    "value": "30"
+                },
+                "VMOSDiskReadLatencyOperator": {
+                    "value": "LessThan"
+                },
+                "VMOSDiskReadLatencyTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMOSDiskReadLatencyEvaluationPeriods": {
+                    "value": "1"
+                },
+                "VMOSDiskReadLatencyFailingPeriods": {
+                    "value": "1"
+                },
+                "VMOSDiskReadLatencyComputersToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMOSDiskReadLatencyDisksToInclude": {
+                    "value": [
+                        "C:",
+                        "/"
+                    ]
+                },
+                "VMOSDiskWriteLatencyAlertSeverity": {
+                    "value": "2"
+                },
+                "VMOSDiskWriteLatencyWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMOSDiskWriteLatencyEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMOSDiskWriteLatencyAutoMitigate": {
+                    "value": "true"
+                },
+                "VMOSDiskWriteLatencyAutoResolve": {
+                    "value": "true"
+                },
+                "VMOSDiskWriteLatencyAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMOSDiskWriteLatencyPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMOSDiskWriteLatencyAlertState": {
+                    "value": "true"
+                },
+                "VMOSDiskWriteLatencyThreshold": {
+                    "value": "50"
+                },
+                "VMOSDiskWriteLatencyOperator": {
+                    "value": "LessThan"
+                },
+                "VMOSDiskWriteLatencyTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMOSDiskWriteLatencyEvaluationPeriods": {
+                    "value": "1"
+                },
+                "VMOSDiskWriteLatencyFailingPeriods": {
+                    "value": "1"
+                },
+                "VMOSDiskWriteLatencyComputersToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMOSDiskWriteLatencyDisksToInclude": {
+                    "value": [
+                        "C:",
+                        "/"
+                    ]
+                },
+                "VMOSDiskSpaceAlertSeverity": {
+                    "value": "2"
+                },
+                "VMOSDiskSpaceWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMOSDiskSpaceEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMOSDiskSpaceAutoMitigate": {
+                    "value": "true"
+                },
+                "VMOSDiskSpaceAutoResolve": {
+                    "value": "true"
+                },
+                "VMOSDiskSpaceAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMOSDiskSpacePolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMOSDiskSpaceAlertState": {
+                    "value": "true"
+                },
+                "VMOSDiskSpaceThreshold": {
+                    "value": "10"
+                },
+                "VMOSDiskSpaceOperator": {
+                    "value": "LessThan"
+                },
+                "VMOSDiskSpaceTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMOSDiskSpaceEvaluationPeriods": {
+                    "value": "1"
+                },
+                "VMOSDiskSpaceFailingPeriods": {
+                    "value": "1"
+                },
+                "VMOSDiskSpaceComputersToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMOSDiskSpaceDisksToInclude": {
+                    "value": [
+                        "C:",
+                        "/"
+                    ]
+                },
+                "VMPercentCPUAlertSeverity": {
+                    "value": "2"
+                },
+                "VMPercentCPUWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMPercentCPUEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMPercentCPUAutoMitigate": {
+                    "value": "true"
+                },
+                "VMPercentCPUAutoResolve": {
+                    "value": "true"
+                },
+                "VMPercentCPUAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMPercentCPUPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMPercentCPUAlertState": {
+                    "value": "true"
+                },
+                "VMPercentCPUThreshold": {
+                    "value": "85"
+                },
+                "VMPercentCPUOperator": {
+                    "value": "GreaterThan"
+                },
+                "VMPercentCPUTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMPercentMemoryAlertSeverity": {
+                    "value": "2"
+                },
+                "VMPercentMemoryWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMPercentMemoryEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMPercentMemoryAutoMitigate": {
+                    "value": "true"
+                },
+                "VMPercentMemoryAutoResolve": {
+                    "value": "true"
+                },
+                "VMPercentMemoryAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMPercentMemoryPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMPercentMemoryAlertState": {
+                    "value": "true"
+                },
+                "VMPercentMemoryThreshold": {
+                    "value": "10"
+                },
+                "VMPercentMemoryOperator": {
+                    "value": "LessThan"
+                },
+                "VMPercentMemoryTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMDataDiskSpaceAlertSeverity": {
+                    "value": "2"
+                },
+                "VMDataDiskSpaceWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMDataDiskSpaceEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMDataDiskSpaceAutoMitigate": {
+                    "value": "true"
+                },
+                "VMDataDiskSpaceAutoResolve": {
+                    "value": "true"
+                },
+                "VMDataDiskSpaceAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMDataDiskSpacePolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMDataDiskSpaceAlertState": {
+                    "value": "true"
+                },
+                "VMDataDiskSpaceThreshold": {
+                    "value": "10"
+                },
+                "VMDataDiskSpaceOperator": {
+                    "value": "LessThan"
+                },
+                "VMDataDiskSpaceTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMDataDiskSpaceEvaluationPeriods": {
+                    "value": "1"
+                },
+                "VMDataDiskSpaceFailingPeriods": {
+                    "value": "1"
+                },
+                "VMDataDiskSpaceDisksToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMDataDiskReadLatencyAlertSeverity": {
+                    "value": "2"
+                },
+                "VMDataDiskReadLatencyWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMDataDiskReadLatencyEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMDataDiskReadLatencyAutoMitigate": {
+                    "value": "true"
+                },
+                "VMDataDiskReadLatencyAutoResolve": {
+                    "value": "true"
+                },
+                "VMDataDiskReadLatencyAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMDataDiskReadLatencyPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMDataDiskReadLatencyAlertState": {
+                    "value": "true"
+                },
+                "VMDataDiskReadLatencyThreshold": {
+                    "value": "30"
+                },
+                "VMDataDiskReadLatencyOperator": {
+                    "value": "LessThan"
+                },
+                "VMDataDiskReadLatencyTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMDataDiskReadLatencyEvaluationPeriods": {
+                    "value": "1"
+                },
+                "VMDataDiskReadLatencyFailingPeriods": {
+                    "value": "1"
+                },
+                "VMDataDiskReadLatencyComputersToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMDataDiskReadLatencyDisksToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMDataDiskWriteLatencyAlertSeverity": {
+                    "value": "2"
+                },
+                "VMDataDiskWriteLatencyWindowSize": {
+                    "value": "PT15M"
+                },
+                "VMDataDiskWriteLatencyEvaluationFrequency": {
+                    "value": "PT5M"
+                },
+                "VMDataDiskWriteLatencyAutoMitigate": {
+                    "value": "true"
+                },
+                "VMDataDiskWriteLatencyAutoResolve": {
+                    "value": "true"
+                },
+                "VMDataDiskWriteLatencyAutoResolveTime": {
+                    "value": "00:10:00"
+                },
+                "VMDataDiskWriteLatencyPolicyEffect": {
+                    "value": "deployIfNotExists"
+                },
+                "VMDataDiskWriteLatencyAlertState": {
+                    "value": "true"
+                },
+                "VMDataDiskWriteLatencyThreshold": {
+                    "value": "30"
+                },
+                "VMDataDiskWriteLatencyOperator": {
+                    "value": "LessThan"
+                },
+                "VMDataDiskWriteLatencyTimeAggregation": {
+                    "value": "Average"
+                },
+                "VMDataDiskWriteLatencyEvaluationPeriods": {
+                    "value": "1"
+                },
+                "VMDataDiskWriteLatencyFailingPeriods": {
+                    "value": "1"
+                },
+                "VMDataDiskWriteLatencyComputersToInclude": {
+                    "value": [
+                        "*"
+                    ]
+                },
+                "VMDataDiskWriteLatencyDisksToInclude": {
+                    "value": [
+                        "*"
+                    ]
                 }
             }
         }

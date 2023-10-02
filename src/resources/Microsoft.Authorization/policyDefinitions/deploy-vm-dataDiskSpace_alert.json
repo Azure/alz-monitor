@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "10400969194764707652"
+      "version": "0.20.4.51522",
+      "templateHash": "1712647283769208990"
     }
   },
   "parameters": {
@@ -323,7 +323,7 @@
               "failingPeriods": {
                 "type": "String",
                 "metadata": {
-                  "disaplayname": "Failing Periods",
+                  "displayName": "Failing Periods",
                   "description": "Number of failing periods before alert is fired"
                 },
                 "defaultValue": "[parameters('parFailingPeriods')]"
@@ -331,7 +331,7 @@
               "evaluationPeriods": {
                 "type": "String",
                 "metadata": {
-                  "disaplayname": "Evaluation Periods",
+                  "displayName": "Evaluation Periods",
                   "description": "The number of aggregated lookback points."
                 },
                 "defaultValue": "[parameters('parEvaluationPeriods')]"
@@ -664,8 +664,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.19.5.34762",
-              "templateHash": "15420579663502908010"
+              "version": "0.20.4.51522",
+              "templateHash": "5571108664737448614"
             }
           },
           "parameters": {

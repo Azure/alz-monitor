@@ -87,7 +87,7 @@ param parComputersToInclude array = [
      
 ]
 
-param parNetworkInterfacetToInclude array = [
+param parNetworkInterfacesToInclude array = [
     '*'
 ]
 
@@ -292,7 +292,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                     description: 'Array of Network Interface to be monitored'
                 }
 
-                defaultValue: parNetworkInterfacetToInclude
+                defaultValue: parNetworkInterfacesToInclude
 
             }
             computersToInclude:{
@@ -345,7 +345,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
-                                equals: '[concat(subscription().displayName, \'-VMHighNetwrokInAlert\')]'
+                                equals: '[concat(subscription().displayName, \'-VMHighNetworkInAlert\')]'
                             }
                             {
                                 field: 'Microsoft.Insights/scheduledqueryrules/scopes[*]'
@@ -425,7 +425,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         type:'array'
 
                                     }
-                                    networkInterfaceToInclude: {
+                                    networkInterfacesToInclude: {
                                         type:'array'
 
                                     }
@@ -487,7 +487,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                                             criteria: {
                                                                 allOf: [
                                                                     {
-                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "Network" and Name == "ReadBytesPerSecond"| | extend NetworkInterface=tostring(todynamic(Tags)["vm.azm.ms/networkDeviceId"])|summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, NetworkInterface'
+                                                                        query: 'InsightsMetrics| where Origin == "vm.azm.ms"| where Namespace == "Network" and Name == "ReadBytesPerSecond"| extend NetworkInterface=tostring(todynamic(Tags)["vm.azm.ms/networkDeviceId"])|summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, NetworkInterface'
                                                                         metricMeasureColumn: 'AggregatedValue'
                                                                         threshold: '[parameters(\'threshold\')]'
                                                                         operator: '[parameters(\'operator\')]'
