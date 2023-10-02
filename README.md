@@ -1,8 +1,8 @@
 # Alerts for Azure Landing Zone Has Moved!
 
-![We've moved!](media/alzmon-wevemoved.png)
-
 >**_Note:_** This Repo is no longer actively maintained, please visit [AMBA Azure landing zone pattern](https://aka.ms/amba/alz) for the latest version hosted in a new GitHub repo. We're in the process of moving Azure Monitor Baseline Alerts (AMBA) to a new home (repo) as part of a wider investment in AMBA across the entire Azure Monitor / Observability area where you will see in the future a broader set of alerts across a wider range of Azure services that you can access from one central location. As part of this move we need to freeze the code located here to allow us to work from the new location.
+>
+>For guidance on moving from the preview version to GA please review [Moving from preview to GA]([https://aka.ms/amba/alz](https://azure.github.io/azure-monitor-baseline-alerts/patterns/alz/Moving-from-preview-to-GA/)
 >
 >The biggest difference between both repositories is that the policy defintitions, initiatives and assignments have been converted to deployment template (JSON) to make integrating and sustaining the alerts more easily into solutions (ex: application landing zones or Azure Landing Zones) more easily by referencing the policies in AMBA directly. It also enables AMBA to be deployed more easily through solution accelerators via the Azure Portal, or via Bicep or Terraform.
 >
