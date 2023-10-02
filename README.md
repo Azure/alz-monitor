@@ -6,7 +6,7 @@
 >
 >The biggest difference between both repositories is that the policy defintitions, initiatives and assignments have been converted to deployment template (JSON) to make integrating and sustaining the alerts more easily into solutions (ex: application landing zones or Azure Landing Zones) more easily by referencing the policies in AMBA directly. It also enables AMBA to be deployed more easily through solution accelerators via the Azure Portal, or via Bicep or Terraform.
 >
->Solutions/Scenarios will leverage the alert rules under Services to define a specific monitoring profile/plan. For example ALZ-Monitor is a pattern/scenario within the AMBA which simply means we've moved our documentation, updated references/links to point to the updated content in the AMBA site and reference the policies in JSON format.
+>Patterns/Scenarios will leverage the alert rules under Services to define a specific monitoring profile/plan. For example ALZ-Monitor is a pattern/scenario within the AMBA which simply means we've moved our documentation, updated references/links to point to the updated content in the AMBA site and reference the policies in JSON format.
 >
 >Checkout the revised [deployment steps](https://azure.github.io/azure-monitor-baseline-alerts/patterns/alz/deploy/Introduction-to-deploying-the-ALZ-Pattern/) have also been simplified a bit and most of the documentation remains the same with the exception being that Alert Details has changed and no longer lists all the alert but don't worry, there's a better way to see the alert details and save a copy of what the defaults are in AMBA.
 >
