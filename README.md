@@ -1,10 +1,9 @@
 # Alerts for Azure Landing Zone
 
-## Archiving
 >**_Note:_** This Repo is no longer actively maintained, please visit https://aka.ms/amba/alz for the latest version hosted in a new repo.
 We're in the process of moving Azure Monitor Baseline Alerts (AMBA) to a new home (repo) as part of a wider investment in AMBA across the entire Azure Monitor / Observability area where you will see in the future a broader set of alerts across a wider range of Azure services that you can access from one central location. As part of this move we need to freeze the code located here to allow us to work from the new location. 
 > Some considerations:
-> - Please fork / star the new repo https://aka.ms/amba and work from this fork moving forward
+> - Please fork / star the new repo https://aka.ms/amba and work from there moving forward
 > - You will no longer be able to submit issues here as we archive this repo
 > - We plan to link existing open issues to a new issue in the new repo
 > - We have updated and simplified how to deploy the AMBA for ALZ pattern and no longer use bicep. Updated guidance can be found here https://aka.ms/amba/alz/deploy 
